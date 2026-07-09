@@ -29,3 +29,7 @@ scratch/
 *.zip
 *.tar.gz
 *.tmp
+
+# Audit Reports
+audit_report.md
+tritoneye_audit_report.md
