@@ -1,0 +1,31 @@
+# Credentials & Secrets
+.env
+
+# Environment & Dependencies
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Caches & IDEs
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.idea/
+.vscode/
+
+# Large Data & Mission Archives
+data/
+missions/
+reports/
+models/*.pt
+models/*.onnx
+
+# Temporary & Scratch Files
+scratch/
+*.zip
+*.tar.gz
+*.tmp

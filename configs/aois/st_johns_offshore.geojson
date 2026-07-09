@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "St. John's Offshore Area"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-52.6, 47.3],
+            [-51.5, 47.3],
+            [-51.5, 47.8],
+            [-52.6, 47.8],
+            [-52.6, 47.3]
+          ]
+        ]
+      }
+    }
+  ]
+}

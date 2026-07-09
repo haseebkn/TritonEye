@@ -1,0 +1,48 @@
+# TritonEye YOLOv8 SAR Vessel Detector Configuration
+
+model:
+  name: "yolov8m_sar_vessel"
+  type: "yolov8"
+  version: "1.0.0"
+  classes:
+    0: "cargo"
+    1: "tanker"
+    2: "fishing"
+    3: "military"
+    4: "unknown"
+
+# Imagery processing settings
+sensor:
+  platform: "Sentinel-1"
+  product_type: "GRD"
+  polarizations: ["VV", "VH"] # Dual-polarization backscatter channels
+
+# Large-scale GeoTIFF chunking / tiling settings
+tiling:
+  tile_size: 640        # 640x640 pixel window size
+  overlap: 128          # 128 pixel overlap between adjacent windows (20%)
+  step_size: 512        # tile_size - overlap
+  use_windowed_read: false
+
+# Inference post-processing and stitching
+inference:
+  conf_threshold: 0.35  # Confidence threshold to filter weak detections
+  iou_threshold: 0.45   # IoU threshold for Non-Maximum Suppression (NMS) during stitching
+  crs: "EPSG:4326"       # Alignment Coordinate Reference System (WGS-84)
+
+# Baseline hyperparameters for autoresearch training runs
+training:
+  optimizer: "AdamW"
+  lr0: 0.001
+  batch_size: 16
+  epochs: 30
+  imgsz: 640
+  mixed_precision: true
+  device: "cuda"
+
+# Compute environment for training (Spot optimized)
+compute:
+  target: "aws"
+  instance_type: "g4dn.xlarge"
+  use_spot: true
+  max_spot_price: 0.52   # Target budget limit in USD/hr
