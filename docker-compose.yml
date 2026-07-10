@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Base service containing common volume mounts and environment variables
+  tritoneye-base:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tritoneye:latest
+    volumes:
+      - ./data:/app/data
+      - ./missions:/app/missions
+      - ./reports:/app/reports
+      - ./models:/app/models
+      - .env:/app/.env
+    environment:
+      - PYTHONPATH=/app
+
+  # Ingestion Agent service
+  ingest:
+    extends: tritoneye-base
+    command: python agents/ingest/ingest_agent.py
+
+  # Inference Agent service
+  inference:
+    extends: tritoneye-base
+    command: python agents/inference/inference_agent.py
+
+  # Correlation Agent service
+  correlation:
+    extends: tritoneye-base
+    command: python agents/correlation/correlation_agent.py
+
+  # Report Agent service
+  report:
+    extends: tritoneye-base
+    command: python agents/report/report_agent.py
+
+  # Run the full pipeline in one command using Unix piping
+  pipeline:
+    extends: tritoneye-base
+    entrypoint: /bin/sh
+    command: -c "python agents/ingest/ingest_agent.py | python agents/inference/inference_agent.py | python agents/correlation/correlation_agent.py | python agents/report/report_agent.py"
