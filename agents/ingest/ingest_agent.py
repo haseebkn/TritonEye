@@ -516,16 +516,26 @@ def main() -> None:
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     output_dir = os.path.join(base_dir, "data", "raw")
 
-    # Scan output_dir for available real AIS datasets (ais-YYYY-MM-DD)
-    target_dates = []
-    if os.path.exists(output_dir):
-        for name in sorted(os.listdir(output_dir)):
-            if name.startswith("ais-") and os.path.isdir(os.path.join(output_dir, name)):
-                parts = name.split("-")
-                if len(parts) == 4 and len(parts[1]) == 4 and len(parts[2]) == 2 and len(parts[3]) == 2:
-                    target_dates.append(f"{parts[1]}-{parts[2]}-{parts[3]}")
+    # Check for TARGET_DATE override via env var
+    target_date_override = os.getenv("TARGET_DATE")
+    if target_date_override:
+        target_dates = [target_date_override]
+    else:
+        target_dates = []
+        if os.path.exists(output_dir):
+            for name in sorted(os.listdir(output_dir)):
+                if name.startswith("ais-") and os.path.isdir(os.path.join(output_dir, name)):
+                    parts = name.split("-")
+                    if len(parts) == 4 and len(parts[1]) == 4 and len(parts[2]) == 2 and len(parts[3]) == 2:
+                        target_dates.append(f"{parts[1]}-{parts[2]}-{parts[3]}")
 
-    if target_dates:
+    # Check for AOI override via env var
+    aoi_override = os.getenv("AOI_NAME")
+    if aoi_override:
+        if not aoi_override.endswith(".geojson"):
+            aoi_override += ".geojson"
+        aoi_path = os.path.join(base_dir, "configs", "aois", aoi_override)
+    elif target_dates:
         aoi_path = os.path.join(
             base_dir, "configs", "aois", "boston_offshore.geojson"
         )

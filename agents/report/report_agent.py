@@ -9,7 +9,7 @@ import argparse
 import json
 import os
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 # Standard python libraries (no third-party dependencies required)
 
@@ -54,9 +54,13 @@ def read_geojson_file(path: str) -> Dict[str, Any]:
 def build_html_report(
     payload: Dict[str, Any],
     detections: Dict[str, Any],
-    dark_vessels: Dict[str, Any]
+    dark_vessels: Dict[str, Any],
+    ais_data: List[Dict[str, Any]] = None
 ) -> str:
     """Constructs the self-contained interactive Leaflet HTML dashboard string."""
+    if ais_data is None:
+        ais_data = []
+
     mission_id = payload.get("mission_id", "mission_default")
     acq_time = payload.get("acquisition_time", "N/A")
     bbox = payload.get("spatial_bounds", {}).get("bbox", [-52.6, 47.3, -51.5, 47.8])
@@ -64,11 +68,13 @@ def build_html_report(
     det_count = len(detections.get("features", []))
     dark_count = len(dark_vessels.get("features", []))
     active_count = max(0, det_count - dark_count)
+    ais_count = len(ais_data)
 
     # Escape quotes and serialize data for injection into script tag
     detections_json = json.dumps(detections)
     dark_vessels_json = json.dumps(dark_vessels)
     bbox_json = json.dumps(bbox)
+    ais_data_json = json.dumps(ais_data)
 
     # Construct sidebar list rows dynamically in python to facilitate styling
     vessel_rows = []
@@ -202,8 +208,8 @@ def build_html_report(
 
         .stats-grid {{
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
             margin: 20px 0;
         }}
 
@@ -211,12 +217,12 @@ def build_html_report(
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            padding: 12px 6px;
+            padding: 12px 4px;
             text-align: center;
         }}
 
         .stat-val {{
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #f8fafc;
         }}
@@ -224,6 +230,7 @@ def build_html_report(
         .stat-val.detections {{ color: #38bdf8; }}
         .stat-val.active {{ color: #4ade80; }}
         .stat-val.dark {{ color: #f87171; }}
+        .stat-val.ais {{ color: #a78bfa; }}
 
         .stat-lbl {{
             font-size: 10px;
@@ -355,6 +362,10 @@ def build_html_report(
                 <div class="stat-val dark">{dark_count}</div>
                 <div class="stat-lbl">Dark</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-val ais">{ais_count}</div>
+                <div class="stat-lbl">AIS</div>
+            </div>
         </div>
 
         <div class="alert-section-title">Dark Vessel Alerts</div>
@@ -370,6 +381,7 @@ def build_html_report(
         const bbox = {bbox_json};
         const detections = {detections_json};
         const darkVessels = {dark_vessels_json};
+        const aisData = {ais_data_json};
 
         // 2. Initialize Leaflet Map centered on St. John's AOI bounds
         const map = L.map('map', {{
@@ -463,6 +475,29 @@ def build_html_report(
             }}
         }}).addTo(map);
 
+        // 5.5 Plot Active AIS Signals (Green/Emerald Circle Markers)
+        if (typeof aisData !== 'undefined' && aisData && aisData.length > 0) {{
+            aisData.forEach(function(vessel) {{
+                L.circleMarker([vessel.lat, vessel.lon], {{
+                    radius: 5,
+                    color: '#059669', // Emerald green outline
+                    fillColor: '#10b981', // Emerald green fill
+                    fillOpacity: 0.75,
+                    weight: 1.5
+                }}).bindPopup(`
+                    <div class="popup-title" style="color: #10b981; font-weight: 700;">
+                        Active AIS Signal
+                    </div>
+                    <div class="popup-body">
+                        MMSI: <b>${{vessel.mmsi}}</b><br/>
+                        SOG: <b>${{vessel.speed_knots ? vessel.speed_knots.toFixed(1) : '0.0'}} kn</b><br/>
+                        COG: <b>${{vessel.course_deg ? vessel.course_deg.toFixed(1) : '0.0'}}&deg;</b><br/>
+                        Time: <b>${{vessel.timestamp}}</b>
+                    </div>
+                `).addTo(map);
+            }});
+        }}
+
         // 6. Callback interface from the sidebar click events
         function panToTarget(targetId, lat, lon) {{
             map.setView([lat, lon], 12);
@@ -499,8 +534,31 @@ def main() -> None:
     detections = read_geojson_file(detections_geojson_path)
     dark_vessels = read_geojson_file(dark_vessels_geojson_path)
 
+    # Load and parse AIS telemetry CSV if present
+    ais_telemetry_path = payload.get("ais_telemetry")
+    ais_data = []
+    if ais_telemetry_path and os.path.exists(ais_telemetry_path):
+        import csv
+        try:
+            with open(ais_telemetry_path, "r", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    try:
+                        ais_data.append({
+                            "mmsi": row.get("mmsi", ""),
+                            "lat": float(row.get("lat", 0.0)),
+                            "lon": float(row.get("lon", 0.0)),
+                            "timestamp": row.get("timestamp", ""),
+                            "speed_knots": float(row.get("speed_knots", 0.0)) if row.get("speed_knots") else 0.0,
+                            "course_deg": float(row.get("course_deg", 0.0)) if row.get("course_deg") else 0.0
+                        })
+                    except Exception:
+                        pass
+        except Exception as e:
+            print(f"Warning: Failed to parse AIS telemetry file: {e}", file=sys.stderr)
+
     # 4. Generate report HTML string
-    report_html = build_html_report(payload, detections, dark_vessels)
+    report_html = build_html_report(payload, detections, dark_vessels, ais_data)
 
     # 5. Save HTML output
     report_dir = os.path.join(base_dir, "reports", mission_id)

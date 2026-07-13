@@ -18,6 +18,9 @@ try:
     import rasterio.windows
     import yaml
     from pyproj import Transformer
+    # Added for production YOLOv8 and Hugging Face Hub integration
+    from ultralytics import YOLO
+    from huggingface_hub import hf_hub_download
 except ImportError as e:
     print(f"Dependency missing during startup: {e}", file=sys.stderr)
     print(
@@ -132,12 +135,63 @@ def non_max_suppression(
     return keep
 
 
+def map_class_id(pred_class_id: int, is_custom_model: bool) -> int:
+    """
+    Maps the model's predicted class ID to TritonEye's class schema (0: cargo, 1: tanker, 2: fishing, 3: military, 4: unknown).
+    If it's the fallback COCO model, we map COCO class 8 ('boat') to 2 ('fishing') as a reasonable guess.
+    If it's a custom model, we assume it already matches the target classes.
+    """
+    if not is_custom_model:
+        if pred_class_id == 8:
+            return 2  # Map to fishing
+        return 4  # Unknown
+    else:
+        return max(0, min(4, pred_class_id))
+
+
+def load_yolo_model(base_dir: str, config: Dict[str, Any]) -> Any:
+    """
+    Downloads custom model weights from Hugging Face Hub if credentials/repo are provided.
+    Reads HUGGINGFACE_MODEL_FILE from env for the path inside the repo (may include subdirs).
+    Falls back to local file, or standard yolov8m.pt if retrieval fails.
+    """
+    token = os.getenv("HUGGINGFACE_HUB_TOKEN")
+    repo = os.getenv("HUGGINGFACE_MODEL_REPO")
+    hf_filename = os.getenv("HUGGINGFACE_MODEL_FILE", "unquantized/best.pt")
+    model_name = config.get("model", {}).get("name", "yolov8m_sar_vessel")
+
+    local_weights_dir = os.path.join(base_dir, "models")
+    os.makedirs(local_weights_dir, exist_ok=True)
+    local_weights_path = os.path.join(local_weights_dir, os.path.basename(hf_filename))
+
+    if repo and token:
+        print(f"Attempting to download '{hf_filename}' from HF repo '{repo}'...", file=sys.stderr)
+        try:
+            downloaded_path = hf_hub_download(
+                repo_id=repo,
+                filename=hf_filename,
+                token=token,
+                local_dir=local_weights_dir,
+            )
+            print(f"Successfully downloaded model to {downloaded_path}", file=sys.stderr)
+            return YOLO(downloaded_path)
+        except Exception as e:
+            print(f"Hugging Face download failed: {e}. Falling back to local/default weights...", file=sys.stderr)
+
+    if os.path.exists(local_weights_path):
+        print(f"Loading local model weights from {local_weights_path}...", file=sys.stderr)
+        return YOLO(local_weights_path)
+
+    fallback_model = "yolov8m.pt"
+    print(f"Weights for '{model_name}' not found. Falling back to '{fallback_model}'...", file=sys.stderr)
+    return YOLO(fallback_model)
+
 def run_inference_on_tile(
-    vv_path: str, vh_path: str, config: Dict[str, Any]
+    vv_path: str, vh_path: str, config: Dict[str, Any], model: Any, is_mock_mode: bool = False
 ) -> List[Tuple[float, float, float, float, float, int]]:
     """
-    Simulates / runs target detection using sliding windows.
-    If no weights file is found, defaults to Mock Ingest Fallback.
+    Runs YOLOv8 target detection on the Sentinel-1 VV and VH bands using sliding windows.
+    If is_mock_mode is True, falls back to the simple pixel-intensity threshold detector.
     """
     tiling_cfg = config.get("tiling", {})
     tile_size = tiling_cfg.get("tile_size", 640)
@@ -147,8 +201,15 @@ def run_inference_on_tile(
     conf_threshold = inf_cfg.get("conf_threshold", 0.35)
 
     raw_detections: List[Tuple[float, float, float, float, float, int]] = []
-
     use_windowed_read = tiling_cfg.get("use_windowed_read", True)
+
+    # Determine if it's the custom model or COCO fallback
+    is_custom_model = False
+    if not is_mock_mode and model is not None:
+        try:
+            is_custom_model = model.names.get(0) != "person"
+        except Exception:
+            is_custom_model = True
 
     # Open both VV and VH polarizations
     with rasterio.open(vv_path) as src_vv, rasterio.open(vh_path) as src_vh:
@@ -158,17 +219,18 @@ def run_inference_on_tile(
 
         has_georeferencing = src_vv.crs is not None
 
-        # Determine detection thresholds dynamically based on datatype (production uint16/float32 vs mock uint8)
+        # Determine scaling factors based on datatype
         is_production = src_vv.dtypes[0] in ("uint16", "float32")
-        if is_production:
-            vv_thresh = 10000
-            vh_thresh = 5000
-        else:
-            vv_thresh = 255
-            vh_thresh = 200
 
-        # Define 50m bounding box width in meters (5x5 pixels in 10m grid)
-        box_half_size = 25.0
+        if is_mock_mode:
+            # Setup threshold fallback parameters
+            if is_production:
+                vv_thresh = 10000
+                vh_thresh = 5000
+            else:
+                vv_thresh = 255
+                vh_thresh = 200
+            box_half_size = 25.0
 
         # Slide windows across the raster
         windows = generate_raster_windows(width, height, tile_size, overlap)
@@ -180,52 +242,108 @@ def run_inference_on_tile(
 
         for win in windows:
             if use_windowed_read:
-                # Windowed read to keep memory usage low (slow on compressed disks)
                 vv_win = src_vv.read(1, window=win)
                 vh_win = src_vh.read(1, window=win)
             else:
-                # Memory slice (extremely fast!)
                 vv_win = vv_data[win.row_off : win.row_off + win.height, win.col_off : win.col_off + win.width]
                 vh_win = vh_data[win.row_off : win.row_off + win.height, win.col_off : win.col_off + win.width]
 
-            # Find coordinates of targets with high-intensity backscatter in both bands
-            rows, cols = np.where((vv_win >= vv_thresh) & (vh_win >= vh_thresh))
+            # Skip empty windows
+            if vv_win.size == 0 or vh_win.size == 0:
+                continue
 
-            for r, c in zip(rows, cols):
-                # Calculate global pixel coordinates
-                global_row = win.row_off + r
-                global_col = win.col_off + c
+            if is_mock_mode:
+                # 1. Simple Threshold Mock Fallback
+                rows, cols = np.where((vv_win >= vv_thresh) & (vh_win >= vh_thresh))
+                for r, c in zip(rows, cols):
+                    global_row = win.row_off + r
+                    global_col = win.col_off + c
 
-                if has_georeferencing:
-                    # Transform to global projection coordinates (UTM)
-                    x, y = rasterio.transform.xy(transform, global_row, global_col)
+                    if has_georeferencing:
+                        x, y = rasterio.transform.xy(transform, global_row, global_col)
+                    else:
+                        x = global_col * 10.0
+                        y = (height - global_row) * 10.0
+
+                    x_min_spatial = x - box_half_size
+                    x_max_spatial = x + box_half_size
+                    y_min_spatial = y - box_half_size
+                    y_max_spatial = y + box_half_size
+
+                    offset = float((global_row + global_col) % 100) / 285.0
+                    score = 0.65 + offset
+
+                    if score >= conf_threshold:
+                        class_id = int((global_row + global_col) % 5)
+                        raw_detections.append(
+                            (x_min_spatial, y_min_spatial, x_max_spatial, y_max_spatial, score, class_id)
+                        )
+            else:
+                # 2. Real YOLOv8 Model Inference
+                if np.max(vv_win) == 0 and np.max(vh_win) == 0:
+                    continue
+
+                vv_f = vv_win.astype(float)
+                vh_f = vh_win.astype(float)
+
+                if is_production:
+                    vv_norm = np.clip((vv_f / 10000.0) * 255.0, 0, 255).astype(np.uint8)
+                    vh_norm = np.clip((vh_f / 5000.0) * 255.0, 0, 255).astype(np.uint8)
                 else:
-                    # Dummy meter coordinates (10m grid)
-                    x = global_col * 10.0
-                    y = (height - global_row) * 10.0
+                    vv_norm = np.clip(vv_f, 0, 255).astype(np.uint8)
+                    vh_norm = np.clip(vh_f, 0, 255).astype(np.uint8)
 
-                # Bounding box in projection meters
-                x_min = x - box_half_size
-                x_max = x + box_half_size
-                y_min = y - box_half_size
-                y_max = y + box_half_size
+                tile_h, tile_w = vv_win.shape
+                tile_rgb = np.zeros((tile_h, tile_w, 3), dtype=np.uint8)
+                tile_rgb[..., 0] = vv_norm
+                tile_rgb[..., 1] = vh_norm
+                tile_rgb[..., 2] = vv_norm
 
-                # Generate deterministic score values spanning between 0.65 and 0.99
-                offset = float((global_row + global_col) % 100) / 285.0
-                score = 0.65 + offset
+                results = model.predict(tile_rgb, conf=conf_threshold, verbose=False)
+                for result in results:
+                    boxes = result.boxes
+                    if boxes is None or len(boxes) == 0:
+                        continue
+                    for box in boxes:
+                        xyxy = box.xyxy[0].tolist()
+                        x_min_pixel, y_min_pixel, x_max_pixel, y_max_pixel = xyxy
+                        score = float(box.conf[0])
+                        pred_class_id = int(box.cls[0])
 
-                # Filter out low-confidence targets
-                if score >= conf_threshold:
-                    # Deterministic category selection
-                    class_id = int((global_row + global_col) % 5)  # 0 to 4
-                    raw_detections.append(
-                        (x_min, y_min, x_max, y_max, score, class_id)
-                    )
+                        # Filter non-boat classes if using the generic COCO model
+                        if not is_custom_model and pred_class_id != 8:
+                            continue
 
+                        class_id = map_class_id(pred_class_id, is_custom_model)
+
+                        if has_georeferencing:
+                            x_min_coord, y_max_coord = rasterio.transform.xy(transform, win.row_off + y_min_pixel, win.col_off + x_min_pixel)
+                            x_max_coord, y_min_coord = rasterio.transform.xy(transform, win.row_off + y_max_pixel, win.col_off + x_max_pixel)
+                            
+                            x_min_spatial = min(x_min_coord, x_max_coord)
+                            x_max_spatial = max(x_min_coord, x_max_coord)
+                            y_min_spatial = min(y_min_coord, y_max_coord)
+                            y_max_spatial = max(y_min_coord, y_max_coord)
+                        else:
+                            x_min_spatial = (win.col_off + x_min_pixel) * 10.0
+                            x_max_spatial = (win.col_off + x_max_pixel) * 10.0
+                            y_min_spatial = (height - (win.row_off + y_max_pixel)) * 10.0
+                            y_max_spatial = (height - (win.row_off + y_min_pixel)) * 10.0
+
+                        raw_detections.append(
+                            (x_min_spatial, y_min_spatial, x_max_spatial, y_max_spatial, score, class_id)
+                        )
     return raw_detections
 
 
 def main() -> None:
+    # Load dotenv to configure environment variables
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass
+
     # 1. Parse arguments and configuration
     args = parse_arguments()
     payload = get_payload(args)
@@ -245,8 +363,20 @@ def main() -> None:
             "Invalid payload: Missing VV or VH band raster path references."
         )
 
-    # 3. Execute sliding-window inference and NMS deduplication
-    raw_detections = run_inference_on_tile(vv_path, vh_path, config)
+    # 3. Load YOLOv8 model (unless running on simulated mock data)
+    is_mock_mode = payload.get("mode", "production") == "mock"
+    
+    # Check override to force real inference even on mock data
+    force_real = os.getenv("FORCE_REAL_INFERENCE", "false").lower() == "true"
+    if force_real:
+        is_mock_mode = False
+        
+    model = None
+    if not is_mock_mode:
+        model = load_yolo_model(base_dir, config)
+
+    # 4. Execute sliding-window inference and NMS deduplication
+    raw_detections = run_inference_on_tile(vv_path, vh_path, config, model, is_mock_mode)
 
     inf_cfg = config.get("inference", {})
     iou_threshold = inf_cfg.get("iou_threshold", 0.45)
