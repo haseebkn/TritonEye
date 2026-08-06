@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Eastern Newfoundland (Bonavista to St. John's)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-53.5, 47.3],
+            [-52.0, 47.3],
+            [-52.0, 48.8],
+            [-53.5, 48.8],
+            [-53.5, 47.3]
+          ]
+        ]
+      }
+    }
+  ]
+}

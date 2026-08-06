@@ -28,8 +28,9 @@ DVC data versioning and MLflow model tracking.
 |  Sentinel-1 SAR GRD   |----> |  PyTorch YOLOv8 for SAR      |
 |  (single/dual-pol)    |      |  (dual-polarization inputs)  |
 |                       |      |  Windowed rasterio tiling    |
-|  AIS feed             |----> |  Non-Maximum Suppression     |
-|  (aisstream.io API)   |      |  ONNX Runtime Inference Core |
+|  AIS telemetry feed   |----> |  Non-Maximum Suppression     |
+|  (USCG / Marine-      |      |  PyTorch / Ultralytics Core |
+|   Cadastre CSVs)      |      |                             |
 +-----------+-----------+      +------------+----------------+
             |                               |
             v                               v
@@ -42,7 +43,7 @@ DVC data versioning and MLflow model tracking.
 |  shapely   - vessel footprint geometry buffering           |
 |                                                            |
 |  Dark vessel rule: detection in image with no AIS          |
-|  transponder signal within 2 nm / 30-min window           |
+|  transponder signal within 2,000 m / 5-min window          |
 +---------------------------+--------------------------------+
                             |
                             v
@@ -52,7 +53,7 @@ DVC data versioning and MLflow model tracking.
 |  DVC             - data versioning of large GeoTIFFs to S3 |
 |  MLflow          - experiment tracking, model registry     |
 |  Docker          - containerised agents and inference      |
-|  AWS (ECR/S3/RDS/EC2 Spot) - spot-optimized cloud running  |
+|  AWS Cloud       - S3 storage and Spot-optimized compute   |
 |  GitHub Actions  - CI/CD, model promotion gates           |
 +-----------+------------------------------------------------+
             |
@@ -77,14 +78,14 @@ DVC data versioning and MLflow model tracking.
 - Product Type: Level-1 Ground Range Detected (GRD) in Interferometric Wide (IW) mode.
 - Polarization: Dual-polarization (VV+VH) or single-polarization (HH or VV) backscatter data.
 - Resolution: ~10 m spatial resolution.
-- Access: Programmatic Copernicus DataSpace ecosystem APIs and `sentinelsat`.
+- Access: Programmatic Copernicus DataSpace ecosystem REST/OData APIs (OAuth2 Keycloak authentication).
 - Pre-processing: Apply orbit file, GRD border noise removal, thermal noise removal, calibration to beta0 or sigma0, speckle filtering, and terrain correction.
 - Dataset Versioning: Managed by DVC (Data Version Control) to version massive raw/processed GeoTIFF datasets to an AWS S3 remote.
 
-**AIS Stream**
-- Source: Live aisstream.io WebSocket API + historical CSV snapshots.
-- Fields: MMSI, name, vessel type, position, SOG, COG, heading, and timestamp.
-- Storage: PostgreSQL with PostGIS extension.
+**AIS Telemetry Stream**
+- Source: Historical AIS CSV telemetry archives (US Coast Guard / MarineCadastre.gov) + deterministic synthetic mock generator fallback. (Target production live extension: `aisstream.io` WebSocket API).
+- Fields: MMSI, position (Latitude/Longitude), Speed Over Ground (SOG), Course Over Ground (COG), and timestamp.
+- Storage: Local filtered CSV archives (`data/raw/ais_*.csv`) and Pandas / GeoPandas dataframes.
 
 **Ingestion Agent (`IngestAgent`)**
 - Programmatically queries Copernicus DataSpace for SAR tiles intersecting configured AOIs.
@@ -98,7 +99,7 @@ DVC data versioning and MLflow model tracking.
 **Model Architecture**
 - Core Model: YOLOv8 customized for SAR target detection (dual-polarization VV/VH backscatter input channels).
 - Pre-processing: Large Sentinel-1 GRD GeoTIFF files are split into overlapping chunks (e.g., 640×640 pixels) using `rasterio` windowed reading.
-- Inference Core: Accelerates execution with ONNX Runtime.
+- Inference Core: Executes PyTorch YOLOv8 models directly via Ultralytics API with HuggingFace Hub weight fetching.
 - Stitching & Post-processing: Combines overlapping tile predictions and applies Non-Maximum Suppression (NMS) to output clean, non-redundant vessel target bounding boxes.
 - Output: GeoJSON containing bounding boxes with properties: class, confidence, coordinates, and classification.
 
@@ -110,8 +111,8 @@ DVC data versioning and MLflow model tracking.
 - Coordinates of the SAR detections (often in UTM zone projections) are reprojected and aligned to coordinate reference systems (CRS) matching the AIS track vector points (WGS-84 / EPSG:4326) using `geopandas` and `pyproj`.
 
 **Correlation & Scoring**
-- Reprojected vessel footprints are buffered by 2 nautical miles using `shapely` to account for timing offsets and drift.
-- Spatial intersection joins are executed between the buffered vessel polygons and time-matched AIS points.
+- Reprojected vessel footprints are buffered by 2,000 metres (1 nautical mile) in metric CRS (`EPSG:32622`) using `shapely` to account for timing offsets and drift.
+- Spatial intersection joins are executed between the buffered vessel polygons and time-matched AIS points ($\pm 5$-minute window).
 - Detections with no correlating AIS signal are identified as dark vessels.
 
 ---
