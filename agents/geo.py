@@ -115,8 +115,8 @@ class Georeferencer:
 
     def xy(
         self,
-        rows: Union[float, Sequence[float]],
-        cols: Union[float, Sequence[float]],
+        rows: Union[float, Sequence[float], FloatArray],
+        cols: Union[float, Sequence[float], FloatArray],
     ) -> Tuple[FloatArray, FloatArray]:
         """
         Maps pixel (row, col) positions to (longitude, latitude) arrays.

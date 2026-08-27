@@ -172,8 +172,12 @@ def interpolate_lut_grid(
     partway through a scene.
 
     Interpolation runs in float32 — a calibration LUT holds ~3 significant
-    figures and the result feeds a log, so the extra precision buys nothing and
-    doubles the footprint.
+    figures, so the extra precision buys nothing here and doubles the footprint.
+
+    That reasoning does NOT extend to the dB conversion in `to_sigma0_db`.
+    float32 through the log costs ~1.5e-6 dB, which exceeds this module's own
+    accuracy test; the claim that "the result feeds a log so precision does not
+    matter" was measured and found false. See the note at that call site.
     """
     r = np.clip(rows, lut_lines[0], lut_lines[-1])
     c = np.clip(cols, lut_pixels[0], lut_pixels[-1])
@@ -261,9 +265,19 @@ class Calibrator:
             self.lut_lines, self.lut_pixels, self.lut_values, rows, cols
         )
 
+        # The LUT interpolation runs in float32 -- that is where the memory
+        # went, and a calibration LUT carries ~3 significant figures anyway.
+        # The dB conversion does NOT: log10 in float32 costs ~1.5e-6 dB, which
+        # exceeded this module's own accuracy test and passed locally only on a
+        # numpy version that happened to round favourably. Promoting to float64
+        # for the ratio and the log keeps one full-size array rather than the
+        # dozen-plus the original pointwise path allocated, so the memory win
+        # survives while the output stays exact.
         valid = (a > 0) & (dn > 0)
-        sigma0 = np.divide(dn * dn, a * a, out=np.zeros_like(dn), where=valid)
+        dn64 = dn.astype("float64")
+        a64 = a.astype("float64")
+        sigma0 = np.divide(dn64 * dn64, a64 * a64, out=np.zeros_like(dn64), where=valid)
         np.maximum(sigma0, _MIN_SIGMA0, out=sigma0)
         db = np.log10(sigma0, out=sigma0)
         np.multiply(db, 10.0, out=db)
-        return np.asarray(np.where(dn > 0, db, NODATA_DB), dtype="float64")
+        return np.asarray(np.where(dn64 > 0, db, NODATA_DB), dtype="float64")
