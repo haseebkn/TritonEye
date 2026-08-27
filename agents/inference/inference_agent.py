@@ -431,8 +431,10 @@ def run_xview3_inference(
     )
     overlap = int(config.get("tiling", {}).get("xview3_overlap", 128))
 
-    detector = XView3Detector(
-        weights, **({"threshold": float(threshold)} if threshold is not None else {})
+    detector = (
+        XView3Detector(weights, threshold=float(threshold))
+        if threshold is not None
+        else XView3Detector(weights)
     )
     print(
         f"xView3 ensemble on {detector.device}, threshold {detector.threshold}",

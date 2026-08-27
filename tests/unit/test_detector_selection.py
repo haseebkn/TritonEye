@@ -2,6 +2,8 @@ import os
 import sys
 from typing import Any, Dict
 
+import pytest
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from agents.inference.inference_agent import UNKNOWN_CLASS_ID, select_detector
@@ -51,22 +53,20 @@ def test_shipped_config_defaults_to_the_fast_backend() -> None:
     assert conf["inference"]["detector"] == "yolov8"
 
 
-def test_xview3_threshold_env_override(monkeypatch):
+def test_xview3_threshold_env_override(monkeypatch: pytest.MonkeyPatch) -> None:
     """
     A sweep must be able to vary the operating point without editing tracked
     config, mirroring how TRITONEYE_DETECTOR overrides the backend.
     """
     import os
 
-    cfg = {"inference": {"xview3_threshold": 0.15}}
+    configured: float = 0.15
+
+    def resolve() -> float:
+        return float(os.getenv("TRITONEYE_XVIEW3_THRESHOLD") or configured)
+
     monkeypatch.setenv("TRITONEYE_XVIEW3_THRESHOLD", "0.05")
-    resolved = os.getenv("TRITONEYE_XVIEW3_THRESHOLD") or cfg["inference"].get(
-        "xview3_threshold"
-    )
-    assert float(resolved) == 0.05
+    assert resolve() == 0.05
 
     monkeypatch.delenv("TRITONEYE_XVIEW3_THRESHOLD")
-    resolved = os.getenv("TRITONEYE_XVIEW3_THRESHOLD") or cfg["inference"].get(
-        "xview3_threshold"
-    )
-    assert float(resolved) == 0.15
+    assert resolve() == 0.15

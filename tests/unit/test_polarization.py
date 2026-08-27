@@ -19,6 +19,7 @@ SDH = [
 def test_dual_vv_vh_is_paired_co_then_cross() -> None:
     co, cross, pol = select_polarization_bands(SDV)
     assert pol == "VV/VH"
+    assert co is not None and cross is not None
     assert "-vv-" in co
     assert "-vh-" in cross
 
@@ -29,6 +30,7 @@ def test_hh_hv_is_identified_not_relabelled_as_vv() -> None:
     # a different scattering regime with no indication anything was wrong.
     co, cross, pol = select_polarization_bands(SDH)
     assert pol == "HH/HV"
+    assert co is not None and cross is not None
     assert "-hh-" in co
     assert "-hv-" in cross
 
@@ -55,5 +57,6 @@ def test_short_suffix_naming_is_matched() -> None:
         ["s1a-iw-grd-vh.tiff", "s1a-iw-grd-vv.tiff"]
     )
     assert pol == "VV/VH"
+    assert co is not None and cross is not None
     assert co.endswith("vv.tiff")
     assert cross.endswith("vh.tiff")

@@ -28,12 +28,17 @@ jobs:
           cache: pip
 
       - name: Install lint tooling
-        # Only the dev tools: ruff and black need no project imports, and mypy
-        # runs with ignore_missing_imports so the heavy geospatial/ML stack is
-        # not required to type-check.
+        # ruff and black need no project imports. mypy runs with
+        # ignore_missing_imports, which covers the heavy geospatial/ML stack --
+        # but NOT numpy or pytest, both of which ship their own type
+        # information. Without them installed, `np.ndarray[Any, Any]` cannot be
+        # resolved (every FloatArray alias becomes "not valid as a type") and
+        # every @pytest.fixture reads as an untyped decorator, so CI reported
+        # 112 errors where a local run with the real environment reported 32.
+        # Installing both is what makes CI reproduce locally.
         run: |
           python -m pip install --upgrade pip
-          pip install ruff black mypy types-requests
+          pip install ruff black mypy types-requests numpy pytest
 
       - run: ruff check agents tests
       - run: black --check agents tests

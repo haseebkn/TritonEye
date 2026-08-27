@@ -1,5 +1,6 @@
 import os
 import sys
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -78,12 +79,14 @@ def test_tile_count_is_tractable_for_a_full_scene() -> None:
 # -------------------------------------------------------------- availability
 
 
-def test_missing_weights_raise_clearly(tmp_path) -> None:
+def test_missing_weights_raise_clearly(tmp_path: Path) -> None:
     with pytest.raises(XView3Unavailable):
         XView3Detector(str(tmp_path / "absent.jit"))
 
 
-def test_resolve_weights_returns_none_when_absent(monkeypatch) -> None:
+def test_resolve_weights_returns_none_when_absent(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.delenv("XVIEW3_WEIGHTS", raising=False)
     got = resolve_weights(str(REPO_ROOT))
     # Present only if the 1.3 GB artifact has been downloaded; either answer is
@@ -91,7 +94,9 @@ def test_resolve_weights_returns_none_when_absent(monkeypatch) -> None:
     assert got is None or os.path.exists(got)
 
 
-def test_resolve_weights_env_override_must_exist(monkeypatch, tmp_path) -> None:
+def test_resolve_weights_env_override_must_exist(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     monkeypatch.setenv("XVIEW3_WEIGHTS", str(tmp_path / "nope.jit"))
     assert resolve_weights(str(REPO_ROOT)) is None
     real = tmp_path / "yes.jit"
@@ -111,7 +116,9 @@ def loaded_detector() -> XView3Detector:
     The traced ensemble is 1.3 GB; loading it per test dominated the whole
     suite's runtime.
     """
-    return XView3Detector(resolve_weights(REPO_ROOT))
+    weights = resolve_weights(REPO_ROOT)
+    assert weights is not None  # guarded by the skipif above
+    return XView3Detector(weights)
 
 
 @pytest.mark.slow

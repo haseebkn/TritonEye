@@ -2,7 +2,8 @@ import json
 import os
 import sys
 import tempfile
-from typing import Iterator
+from pathlib import Path
+from typing import Iterator, List, Optional, Tuple
 
 import pytest
 
@@ -101,7 +102,9 @@ def test_correlation_isolates_dark_vessel(temp_files: tuple[str, str]) -> None:
     assert dark_vessels_gdf.iloc[0]["target_id"] == "TRITON-002"
 
 
-def _write_detections(path, entries):
+def _write_detections(
+    path: Path, entries: List[Tuple[float, float, Optional[str]]]
+) -> None:
     """entries: list of (lon, lat, surface_or_None)."""
     feats = []
     for i, (lon, lat, surface) in enumerate(entries):
@@ -128,12 +131,12 @@ def _write_detections(path, entries):
         json.dump({"type": "FeatureCollection", "features": feats}, f)
 
 
-def _write_empty_ais(path):
+def _write_empty_ais(path: Path) -> None:
     with open(path, "w", encoding="utf-8") as f:
         f.write("mmsi,lat,lon,timestamp,speed_knots,course_deg\n")
 
 
-def test_land_detections_do_not_become_dark_vessels(tmp_path):
+def test_land_detections_do_not_become_dark_vessels(tmp_path: Path) -> None:
     """
     A land return has no AIS transmitter and would otherwise satisfy the
     dark-vessel definition perfectly. Only water may raise an alert.
@@ -156,7 +159,7 @@ def test_land_detections_do_not_become_dark_vessels(tmp_path):
     assert dark.iloc[0]["surface"] == "water"
 
 
-def test_detections_without_surface_property_still_correlate(tmp_path):
+def test_detections_without_surface_property_still_correlate(tmp_path: Path) -> None:
     """
     Missions predating the land mask carry no `surface` field. They must keep
     correlating exactly as before rather than being silently dropped.
@@ -170,7 +173,7 @@ def test_detections_without_surface_property_still_correlate(tmp_path):
     assert len(dark) == 2
 
 
-def test_all_land_scene_yields_no_alerts(tmp_path):
+def test_all_land_scene_yields_no_alerts(tmp_path: Path) -> None:
     """An entirely land-classified scene must return empty, not crash."""
     det = tmp_path / "detections.geojson"
     ais = tmp_path / "ais.csv"

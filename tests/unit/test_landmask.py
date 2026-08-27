@@ -10,6 +10,7 @@ maths representative of production use.
 import math
 import os
 import sys
+from typing import Sequence
 
 import numpy as np
 import pytest
@@ -35,7 +36,9 @@ ISLAND_LON, ISLAND_LAT = -52.75, 48.05
 ISLAND_HALF_DEG = 0.2
 
 
-def build_mask(bounds=BOUNDS, half_deg=ISLAND_HALF_DEG) -> LandMask:
+def build_mask(
+    bounds: Sequence[float] = BOUNDS, half_deg: float = ISLAND_HALF_DEG
+) -> LandMask:
     """A LandMask holding one square island, projected to the local AEQD CRS."""
     import geopandas as gpd
     from shapely.geometry import box

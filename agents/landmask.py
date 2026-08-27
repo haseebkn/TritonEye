@@ -196,7 +196,6 @@ class LandMask:
         licence: str,
         shapefile: Optional[str] = None,
     ) -> None:
-        from shapely import STRtree
         from shapely.ops import unary_union
 
         self.source = source
@@ -205,15 +204,32 @@ class LandMask:
         self.crs = crs
         self._geoms = list(land_geoms)
         # A prepared union answers contains() far faster than iterating parts,
-        # and the boundary is what distance-to-shore is measured against.
+        # and the boundary is what distance-to-shore is measured against. Both
+        # are None for an all-ocean footprint; `classify` returns before
+        # touching them, and `_require_land` makes that guarantee explicit to
+        # a reader and to the type checker rather than leaving it implied.
         self._union = unary_union(self._geoms) if self._geoms else None
-        self._tree = STRtree(self._geoms) if self._geoms else None
         self._boundary = self._union.boundary if self._union is not None else None
 
     @property
     def is_empty(self) -> bool:
         """True when no land intersects the footprint - an all-ocean scene."""
         return self._union is None
+
+    def _require_land(self) -> Tuple[Any, Any]:
+        """
+        Returns (union, boundary), asserting land is present.
+
+        Callers must check `is_empty` first. This turns an invariant that was
+        previously only implied by control flow into one the reader and the
+        type checker can both see.
+        """
+        if self._union is None or self._boundary is None:
+            raise LandMaskUnavailable(
+                "No coastline in this footprint; check `is_empty` before "
+                "measuring distance to shore."
+            )
+        return self._union, self._boundary
 
     @classmethod
     def for_footprint(
@@ -295,8 +311,9 @@ class LandMask:
         )
 
         # shapely 2.x vectorises both of these over arrays; do not loop.
-        inland = self._union.contains(pts)
-        dist = self._boundary.distance(pts)
+        union, boundary = self._require_land()
+        inland = union.contains(pts)
+        dist = boundary.distance(pts)
 
         signed = np.where(inland, -dist, dist).astype("float64")
         surfaces = [

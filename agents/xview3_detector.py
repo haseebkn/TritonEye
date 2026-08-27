@@ -49,7 +49,7 @@ WHAT THIS MODEL DOES NOT DO, both of which are easy to misread from its outputs:
 
 import os
 import sys
-from typing import Any, Dict, Iterator, List, Optional, Tuple
+from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple
 
 import numpy as np
 
@@ -145,14 +145,15 @@ def _disable_jit_fusion(torch: Any) -> None:
     is best-effort hardening, not a guarantee. Missing one of them is not worth
     aborting a run over.
     """
-    for apply in (
+    toggles: Tuple[Callable[[], Any], ...] = (
         lambda: torch._C._jit_set_texpr_fuser_enabled(False),
         lambda: torch._C._jit_set_nvfuser_enabled(False),
         lambda: torch._C._jit_override_can_fuse_on_gpu(False),
         lambda: torch._C._jit_override_can_fuse_on_cpu(False),
         lambda: torch._C._jit_set_profiling_executor(False),
         lambda: torch._C._jit_set_profiling_mode(False),
-    ):
+    )
+    for apply in toggles:
         try:
             apply()
         except Exception:
@@ -180,7 +181,6 @@ class XView3Detector:
         if not os.path.exists(weights_path):
             raise XView3Unavailable(f"Weights not found at {weights_path}")
 
-        self._torch = torch
         self.device = device if torch.cuda.is_available() or device == "cpu" else "cpu"
         self.threshold = threshold
 
@@ -193,7 +193,14 @@ class XView3Detector:
         # class of mid-run failure, which matters more for a ~30 min job.
         _disable_jit_fusion(torch)
 
-        self.model = torch.jit.load(weights_path, map_location=self.device).eval()
+        # Explicitly Any: torch ships partial stubs, so `jit.load` is an
+        # untyped call where torch IS installed and resolves to Any where it is
+        # NOT (CI type-checks without the ML stack). A `type: ignore` would be
+        # correct in one environment and flagged unused in the other; widening
+        # the attribute is correct in both.
+        self._torch: Any = torch
+        model = self._torch.jit.load(weights_path, map_location=self.device)
+        self.model = model.eval()
 
     def _forward(self, tile_vh_vv: FloatArray) -> Dict[str, Any]:
         torch = self._torch
@@ -355,8 +362,8 @@ def dedupe_detections(
 
     ordered = sorted(detections, key=lambda d: -d["score"])
     kept: List[Dict[str, Any]] = []
-    cols = np.empty(0)
-    rows = np.empty(0)
+    cols: FloatArray = np.empty(0, dtype="float64")
+    rows: FloatArray = np.empty(0, dtype="float64")
 
     for det in ordered:
         if (
@@ -366,6 +373,6 @@ def dedupe_detections(
         ):
             continue
         kept.append(det)
-        cols = np.append(cols, det["col"])
-        rows = np.append(rows, det["row"])
+        cols = np.asarray(np.append(cols, det["col"]), dtype="float64")
+        rows = np.asarray(np.append(rows, det["row"]), dtype="float64")
     return kept
