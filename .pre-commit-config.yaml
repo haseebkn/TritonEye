@@ -1,0 +1,46 @@
+# Local gates matching .github/workflows/ci.yml, so failures surface before a
+# push rather than after.
+#
+#   pip install pre-commit && pre-commit install
+#   pre-commit run --all-files      # one-off sweep
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: detect-private-key
+      # The AIS archives and SAFE products are large; block anything that would
+      # bloat history. Model weights are gitignored, but this catches the case
+      # where an ignore rule regresses.
+      - id: check-added-large-files
+        args: [--maxkb=2048]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^(agents|tests)/
+
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        files: ^(agents|tests)/
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.14.1
+    hooks:
+      - id: mypy
+        files: ^(agents|tests)/
+        additional_dependencies: [types-requests]
+        # mypy runs with ignore_missing_imports (see pyproject.toml), so the
+        # geospatial and ML stack does not need installing in the hook env.
+        pass_filenames: false
+        args: [agents, tests]

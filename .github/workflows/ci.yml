@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Nothing in CI should reach a tracking backend or the network for
+  # credentials; the pipeline is designed to degrade cleanly without them.
+  TRITONEYE_TRACKING: "off"
+
+jobs:
+  lint:
+    name: Lint and types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install lint tooling
+        # Only the dev tools: ruff and black need no project imports, and mypy
+        # runs with ignore_missing_imports so the heavy geospatial/ML stack is
+        # not required to type-check.
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff black mypy types-requests
+
+      - run: ruff check agents tests
+      - run: black --check agents tests
+      - run: mypy agents tests
+
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install runtime dependencies
+        # CPU-only torch keeps the install to a fraction of the CUDA wheel; no
+        # test needs a GPU.
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Run tests
+        # Tests needing real Sentinel-1 products skip themselves when data/ is
+        # absent, which it always is in CI — the archive is gitignored. The
+        # `slow` marker covers tests that load the 1.3 GB xView3 ensemble; that
+        # artifact is never present in CI, so they would skip anyway, but
+        # deselecting them keeps the intent explicit.
+        run: pytest tests/ -q -m "not slow"
+
+  docker:
+    name: Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t tritoneye:ci .
+
+      - name: Run the image's own test suite
+        # Guards the regression where the Dockerfile's CMD referenced tests/
+        # without ever copying it into the image.
+        run: docker run --rm tritoneye:ci
+
+      - name: Validate compose file
+        run: docker compose config --quiet
+
+      - name: Assert `up` starts only long-running services
+        # Every agent is a one-shot stage behind a profile; a bare `up` must not
+        # launch them all to block on empty stdin.
+        run: |
+          services=$(docker compose config --services | sort | tr '\n' ' ')
+          echo "default services: $services"
+          test "$services" = "ais-recorder " || {
+            echo "::error::'docker compose up' would start unexpected services"
+            exit 1
+          }

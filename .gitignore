@@ -21,14 +21,24 @@ __pycache__/
 data/
 missions/
 reports/
-models/*.pt
-models/*.onnx
+# Model weights, anywhere in the tree. The previous `models/*.pt` matched only
+# direct children, so nested weights (models/unquantized/best.pt) and anything
+# downloaded to the repo root (yolov8m.pt) were staged by `git add -A`.
+*.pt
+*.onnx
+*.pth
+*.jit
+models/
 
 # Temporary & Scratch Files
 scratch/
 *.zip
 *.tar.gz
 *.tmp
+
+# MLflow experiment tracking store (local file backend)
+mlruns/
+mlflow.db
 
 # Audit Reports
 audit_report.md

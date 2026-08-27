@@ -21,12 +21,19 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy configuration and agent modules
+# Copy configuration, agent modules and tests. tests/ is required by the default
+# CMD below; without it the image's own smoke test fails on a missing path.
 COPY configs/ /app/configs/
 COPY agents/ /app/agents/
+COPY tests/ /app/tests/
+COPY pyproject.toml /app/
 
-# Create mount points for data, models, reports, and mission run logs
-RUN mkdir -p /app/data /app/models /app/reports /app/missions
+# Create mount points for data, models, reports, mission outputs and the MLflow
+# tracking store. Each is bind-mounted by docker-compose so results survive the
+# container.
+RUN mkdir -p /app/data /app/models /app/reports /app/missions /app/mlruns
 
-# Default command: run unit tests to verify the installation
-CMD ["pytest", "tests/"]
+# Default command: run unit tests to verify the installation. The georeferencing
+# tests that need real Sentinel-1 products skip cleanly when data/ is empty, so
+# this passes on a bare image.
+CMD ["pytest", "tests/", "-q"]
