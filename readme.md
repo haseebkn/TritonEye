@@ -1,204 +1,389 @@
 # TritonEye
-> **Autonomous Geospatial Target Correlation and Dark Vessel Detection Pipeline**  
-> A production-grade Maritime Domain Awareness (MDA) application
+
+> Sentinel-1 SAR + AIS dark-vessel detection pipeline for the North Atlantic.
+
+**Status: research prototype.** The pipeline runs end to end on real Copernicus
+data and its geolocation is verified against AIS. **The detection model is not
+fit for purpose** — measured recall is 4% on vessels ≥50 m. See
+[EVALUATION.md](EVALUATION.md) for the measurements and the diagnostic work
+behind that number.
+
+This README documents what is built. A [Not implemented](#not-implemented)
+section lists what is not.
 
 ---
 
-## Overview
+## What it does
 
-TritonEye is an end-to-end autonomous pipeline for detecting and tracking maritime
-vessels — including "dark" vessels that disable their AIS transponders — using
-Sentinel-1 Synthetic Aperture Radar (SAR) imagery fused with live AIS data streams.
+Downloads a Sentinel-1 Level-1 GRD scene from the Copernicus Data Space, runs a
+YOLOv8 detector over it in overlapping tiles, georeferences the surviving
+detections, and flags those with no matching AIS transponder signal as candidate
+dark vessels. Outputs GeoJSON plus an interactive HTML brief, and records
+parameters, operational metrics and artifacts to MLflow.
 
-By utilizing SAR imagery (GRD products), TritonEye operates under all-weather and
-nighttime conditions, overcoming the limitations of traditional optical satellite
-imagery. The system is designed to simulate a production MDA environment: data is
-ingested continuously, processed through a deep-learning computer-vision core,
-correlated across geospatial layers, and reported through an automated MLOps pipeline with
-DVC data versioning and MLflow model tracking.
+| Component | Status |
+|---|---|
+| Copernicus CDSE ingest (OAuth2, OData, download) | **Working** |
+| GCP/TPS georeferencing of radar-geometry products | **Working** — verified to 41 m against AIS |
+| Windowed tiling + NMS | **Working** |
+| YOLOv8 inference (Ultralytics + HF Hub weights) | **Working**, but see [EVALUATION.md](EVALUATION.md) |
+| xView3 ensemble backend (opt-in) | **Working** — 59% recall @ ≥50 m vs 4% |
+| Radiometric calibration to σ⁰ dB | **Working** (`agents/calibration.py`) |
+| AIS ingest — MarineCadastre archive | **Working** (US waters only) |
+| AIS ingest — live `aisstream.io` recorder | **Working** (global, forward-recording only) |
+| Dark-vessel correlation | **Working** |
+| HTML mission report | **Working** |
+| MLflow tracking + model registry | **Working** |
+| Evaluation vs AIS ground truth | **Working** |
+| Detector accuracy (default `yolov8`) | **Inadequate** — 4% recall @ ≥50 m |
+| Land masking | **Working** — 72.8% of the 2026-08-17 detections rejected as land ([§5a.8](EVALUATION.md)) |
+| Precision / false positives | **Unmeasured** — land is masked, but clutter and icebergs are not; see [EVALUATION.md](EVALUATION.md) §5a.5 |
+| Ship / iceberg discrimination | **Not implemented** — every detected iceberg becomes a dark-vessel alert ([§8.1](EVALUATION.md)) |
 
 ---
 
 ## Architecture
 
 ```
-+-----------------------+      +-----------------------------+
-|  DATA INGESTION LAYER |      |  GEOSPATIAL CV CORE         |
-|                       |      |                             |
-|  Sentinel-1 SAR GRD   |----> |  PyTorch YOLOv8 for SAR      |
-|  (single/dual-pol)    |      |  (dual-polarization inputs)  |
-|                       |      |  Windowed rasterio tiling    |
-|  AIS telemetry feed   |----> |  Non-Maximum Suppression     |
-|  (USCG / Marine-      |      |  PyTorch / Ultralytics Core |
-|   Cadastre CSVs)      |      |                             |
-+-----------+-----------+      +------------+----------------+
-            |                               |
-            v                               v
-+-----------+-------------------------------+----------------+
-|  TARGET CORRELATION ENGINE                                 |
-|                                                            |
-|  rasterio  - coordinate transformation and projection      |
-|  geopandas - Coordinate Reference System (CRS) alignment   |
-|              and spatial joins on AIS vector points        |
-|  shapely   - vessel footprint geometry buffering           |
-|                                                            |
-|  Dark vessel rule: detection in image with no AIS          |
-|  transponder signal within 2,000 m / 5-min window          |
-+---------------------------+--------------------------------+
-                            |
-                            v
-+--------------------------++--------------------------------+
-|  PRODUCTION MLOPS PIPELINE                                 |
-|                                                            |
-|  DVC             - data versioning of large GeoTIFFs to S3 |
-|  MLflow          - experiment tracking, model registry     |
-|  Docker          - containerised agents and inference      |
-|  AWS Cloud       - S3 storage and Spot-optimized compute   |
-|  GitHub Actions  - CI/CD, model promotion gates           |
-+-----------+------------------------------------------------+
-            |
-            v
-+---------------------+
-|  MISSION REPORT     |
-|                     |
-|  lavish-axi HTML    |
-|  Leaflet map embed  |
-|  Dark vessel table  |
-|  MLflow links       |
-+---------------------+
+  Copernicus Data Space                MarineCadastre archive
+  (OAuth2 / OData / download)          aisstream.io live feed
+            |                                    |
+            v                                    v
+  +---------------------------------------------------------+
+  |  ingest_agent            data/raw/*.SAFE, ais_*.csv      |
+  |    - queries + downloads Sentinel-1 IW GRD               |
+  |    - measures scene footprint from GCPs                  |
+  |    - selects AIS for the imaged swath, records coverage  |
+  +---------------------------------+-------------------------+
+                                    v
+  +---------------------------------------------------------+
+  |  inference_agent         missions/<id>/detections.geojson|
+  |    - 640x640 overlapping tiles, rasterio windowed read   |
+  |    - YOLOv8 via Ultralytics, weights from HF Hub         |
+  |    - NMS in pixel space                                  |
+  |    - georeference surviving boxes (geo.py: TPS or affine)|
+  +---------------------------------+-------------------------+
+                                    v
+  +---------------------------------------------------------+
+  |  correlation_agent      missions/<id>/dark_vessels.geojson|
+  |    - AIS -> points, +/-5 min window                      |
+  |    - buffer 2 km in a UTM zone derived from the data     |
+  |    - spatial join; unmatched detections = dark candidates|
+  +---------------------------------+-------------------------+
+                                    v
+  +----------------------------+  +--------------------------+
+  |  report_agent              |  |  evaluate_agent          |
+  |  reports/<id>/report.html  |  |  recall vs AIS truth     |
+  |  Leaflet map + sidebar     |  |  stratified by vessel len|
+  +----------------------------+  +--------------------------+
+                     \\                    /
+                      v                  v
+              MLflow: params, metrics, artifacts,
+                      model registry (mlflow.db)
+```
+
+Agents are standalone scripts chained by a JSON payload on stdout/stdin.
+
+---
+
+## Pipeline stages
+
+### 1 — Ingest (`agents/ingest/ingest_agent.py`)
+
+**Sentinel-1**
+- Level-1 GRD, IW mode, dual-pol VV/VH, ~10 m ground spacing.
+- Copernicus Data Space Ecosystem: OAuth2 (Keycloak password grant) → OData
+  catalogue query filtered by collection, product type, AOI intersection and
+  date → download with manual redirect resolution to preserve the auth header.
+- Local cache check before re-downloading.
+- **Radiometric calibration to σ⁰ (dB)** is implemented in
+  `agents/calibration.py`, using the `sigmaNought` LUT from each product's own
+  `annotation/calibration/*.xml`. It is required by — and currently used only
+  by — the `xview3` backend. Orbit file application, thermal/border noise
+  removal, speckle filtering and terrain correction remain *not* implemented.
+
+**AIS**, tried in order per acquisition:
+1. **MarineCadastre** daily archive (US Coast Guard). Chunked filtering to the
+   ±5 min window and the scene footprint. **US waters only** — measured: zero
+   records east of −67.4°W, so it has no coverage for Newfoundland.
+2. **Recorded `aisstream.io` archive** (`data/raw/ais_stream/`), built by
+   `agents/ais_recorder.py`. Global, but aisstream.io is a live feed with no
+   historical API, so this only covers time from whenever the recorder was
+   running. It cannot backfill imagery acquired earlier.
+3. **Nothing.** A production run with no real coverage gets an *empty* — not
+   fabricated — AIS file, and `spatial_bounds.ais_coverage` is set to `"none"`.
+   The report shows a red **NO COVERAGE** badge, so an all-dark result is
+   auditable as a telemetry gap rather than an intelligence finding.
+
+Synthetic mock data (`MOCK_INGEST=true`) is used only for offline testing and is
+never a silent fallback in production mode.
+
+### 2 — Inference (`agents/inference/inference_agent.py`)
+
+Two backends, selected by `inference.detector` in `configs/model.yaml` or the
+`TRITONEYE_DETECTOR` env var.
+
+**`yolov8`** (default) — Ultralytics YOLOv8, weights from Hugging Face Hub with
+fallback to a local file then stock `yolov8m.pt`. Overlapping 640×640 tiles via
+`rasterio` windowed reads, rendered as 3-channel `(VV, VH, VV)` uint8. ~47 s per
+scene. **Measured recall on vessels ≥50 m: 4%.**
+
+**`xview3`** (opt-in) — the xView3-SAR challenge-winning ensemble (MIT licence),
+a CircleNet encoder-decoder producing stride-2 dense predictions. **Measured
+recall on the same vessels: 59%** — a 14.75× improvement, and it recovers the
+20–100 m band the YOLO path has never detected anything in. Costs ~28 min per
+scene and requires:
+
+- `models/xview3/traced_ensemble.jit` (1.3 GB, gitignored) — see
+  [the release page](https://github.com/BloodAxe/xView3-The-First-Place-Solution/releases)
+- radiometric calibration (`agents/calibration.py`), because it consumes σ⁰ in
+  dB rather than raw digital numbers
+
+It cannot run on mock data, which carries no calibration LUT; requesting it
+there falls back to the mock detector with a warning. Detections are reported
+as class `unknown` rather than a fabricated vessel type.
+
+Both backends return whole-raster pixel boxes, so detection and NMS run in
+**pixel space** and georeferencing is applied once, to the surviving boxes.
+
+```bash
+TRITONEYE_DETECTOR=xview3 python agents/inference/inference_agent.py --payload-file p1.json
+```
+
+### 3 — Georeferencing (`agents/geo.py`)
+
+The part worth reading. Level-1 GRD measurement rasters are stored in **radar
+geometry**: no CRS, no affine geotransform, only a grid of ~210 ground control
+points in WGS-84.
+
+- GCP products are georeferenced by **thin plate spline** interpolation, which
+  reproduces every control point exactly. A first-order affine fit to the same
+  points (`rasterio.transform.from_gcps`) is off by a mean of ~700 m on a full
+  IW scene and is not used.
+- Terrain-corrected and synthetic mock products carry a real CRS and affine
+  transform; those take an affine path and are reprojected via `pyproj`.
+- A raster with neither is **rejected**, not assigned an assumed projection — a
+  detection at invented coordinates is worse than no detection.
+- Each box is carried through as its four corners, since an axis-aligned box in
+  pixel space is a rotated quadrilateral on the ground.
+
+### 4 — Land masking (`agents/landmask.py`)
+
+- Detections are classified **water / coastal / land** against open coastline
+  data (OSM land polygons, ODbL; GSHHG, public domain, as a fallback).
+- Runs on detection centroids in geographic space, **not on the raster** —
+  point-in-polygon over a few hundred points takes ~0.6 s, where rasterising a
+  coastline to a 25000×16000 scene grid would cost hundreds of MB.
+- Distances are metric via an **azimuthal equidistant projection centred on the
+  scene**; a fixed UTM zone is wrong for footprints spanning a zone boundary,
+  which the Newfoundland scenes do.
+- Detections are **annotated, never deleted**. Only `water` reaches the
+  correlator; the rejection tally goes to the mission payload and the report
+  header, because what was thrown away is itself the evidence.
+- On the 2026-08-17 Newfoundland scene this rejected **72.8% of 298 detections
+  as land**, reaching 35.4 km inland. See EVALUATION.md §5a.8.
+
+Fetch the coastline once before first use (~900 MB, gitignored):
+
+```bash
+python -m agents.landmask --fetch --source osm
+```
+
+Disable with `landmask.enabled: false` in `configs/model.yaml`, which reproduces
+the previous unmasked behaviour exactly.
+
+### 5 — Correlation (`agents/correlation/correlation_agent.py`)
+
+- AIS records → points, filtered to ±5 min of acquisition.
+- Both layers projected to a UTM zone **derived from the detections**, so the
+  buffer distance is always metric over the data.
+- AIS points buffered by 2 km (~1 nmi); detections with no intersecting buffer
+  are dark-vessel candidates.
+- Only water-classified detections are eligible: a rock outcrop has no AIS
+  transmitter and would otherwise satisfy the dark-vessel definition perfectly.
+
+### 6 — Report & evaluation
+
+- `report_agent` renders a self-contained Leaflet brief with detections, dark
+  vessels, AIS positions, and the AIS coverage badge.
+- `evaluate_agent` scores the mission against AIS-derived ground truth. Every
+  AIS-broadcasting vessel inside the swath was definitely there, so the fraction
+  detected is a conservative **lower bound on recall** needing no hand labels.
+  Stratified by vessel length. Missions without real AIS are marked **unscored**
+  rather than 0%, so a coverage gap can never look like a detector regression.
+
+---
+
+## Experiment tracking
+
+One MLflow run per mission, spanning all five stages. Ingest opens the run and
+its id travels downstream in the payload (`mlflow_run_id`).
+
+- **Params**: model repo/file/classes, conf & IoU thresholds, tile size and
+  overlap, correlation radius, AOI, georeferencing method, AIS coverage, product id.
+- **Metrics**: detections, raw detections, NMS suppressions, dark vessels, dark
+  ratio, AIS records, tiles processed, inference seconds, plus the full
+  `eval.*` block.
+- **Artifacts**: both GeoJSONs, the HTML report, the detector weights.
+- **Registry**: each mission registers a version of `tritoneye-sar-detector`
+  tagged with repo, class map and threshold, so a change in results is traceable
+  to a change in model.
+
+Backend defaults to a repo-local SQLite database — no server needed, and unlike
+a file store it supports the registry. Set `MLFLOW_TRACKING_URI` for a shared
+server, or `TRITONEYE_TRACKING=off` to disable. Tracking failures never break
+the pipeline.
+
+```bash
+mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
 ---
 
-## Pipeline Stages
+## Quick start
 
-### Stage 1 — Data Ingestion Layer
+```bash
+pip install -r requirements.txt
+cp .env.example .env          # then fill in credentials
 
-**Satellite: Sentinel-1 Synthetic Aperture Radar (SAR)**
-- Product Type: Level-1 Ground Range Detected (GRD) in Interferometric Wide (IW) mode.
-- Polarization: Dual-polarization (VV+VH) or single-polarization (HH or VV) backscatter data.
-- Resolution: ~10 m spatial resolution.
-- Access: Programmatic Copernicus DataSpace ecosystem REST/OData APIs (OAuth2 Keycloak authentication).
-- Pre-processing: Apply orbit file, GRD border noise removal, thermal noise removal, calibration to beta0 or sigma0, speckle filtering, and terrain correction.
-- Dataset Versioning: Managed by DVC (Data Version Control) to version massive raw/processed GeoTIFF datasets to an AWS S3 remote.
+# offline, no credentials needed
+MOCK_INGEST=true python agents/ingest/ingest_agent.py > p1.json
 
-**AIS Telemetry Stream**
-- Source: Historical AIS CSV telemetry archives (US Coast Guard / MarineCadastre.gov) + deterministic synthetic mock generator fallback. (Target production live extension: `aisstream.io` WebSocket API).
-- Fields: MMSI, position (Latitude/Longitude), Speed Over Ground (SOG), Course Over Ground (COG), and timestamp.
-- Storage: Local filtered CSV archives (`data/raw/ais_*.csv`) and Pandas / GeoPandas dataframes.
+# real acquisition
+export TARGET_DATE=2025-01-08 AOI_NAME=boston_offshore
+python agents/ingest/ingest_agent.py            > p1.json
+python agents/inference/inference_agent.py    --payload-file p1.json > p2.json
+python agents/correlation/correlation_agent.py --payload-file p2.json > p3.json
+python agents/report/report_agent.py          --payload-file p3.json > p4.json
+python agents/evaluate/evaluate_agent.py      --payload-file p4.json > p5.json
 
-**Ingestion Agent (`IngestAgent`)**
-- Programmatically queries Copernicus DataSpace for SAR tiles intersecting configured AOIs.
-- Downloads files directly and versions them with DVC (`dvc add`).
-- Fetches matching AIS logs and creates task records in `tasks-axi`.
+pytest tests/                                  # 43 tests
+```
+
+Docker:
+
+```bash
+docker compose run --rm pipeline        # all five stages, pipefail-guarded
+docker compose run --rm ingest          # a single stage
+docker compose up ais-recorder          # the one long-running service
+docker compose run --rm tests           # unit tests inside the image
+```
+
+Every agent is a one-shot stage, so they sit behind a compose profile: a bare
+`docker compose up` starts only `ais-recorder` rather than launching all of
+them to block on empty stdin.
+
+### Checks
+
+```bash
+ruff check agents tests      # lint          (0 findings)
+black --check agents tests   # formatting
+mypy agents tests            # strict types  (0 findings)
+pytest tests/ -q -m "not slow"   # 72 tests, ~10 s
+pytest tests/ -q                 # + 2 that load the 1.3 GB xView3 ensemble
+```
+
+CI (`.github/workflows/ci.yml`) runs all four on every push and PR, plus builds
+the Docker image and runs its test suite inside the container. `pre-commit
+install` wires the same gates to run locally before a commit.
+
+### Environment
+
+| Variable | Purpose |
+|---|---|
+| `COPERNICUS_USER` / `COPERNICUS_PASS` | CDSE credentials |
+| `HUGGINGFACE_HUB_TOKEN` / `_MODEL_REPO` / `_MODEL_FILE` | detector weights |
+| `AISSTREAM_API_KEY` | live AIS recorder (free, GitHub sign-in) |
+| `TARGET_DATE`, `AOI_NAME` | which acquisition to process |
+| `MOCK_INGEST` | offline synthetic mode |
+| `MLFLOW_TRACKING_URI`, `TRITONEYE_TRACKING` | tracking backend / disable |
+
+Note: with `TARGET_DATE` unset, ingest iterates the `ais-YYYY-MM-DD`
+directories present in `data/raw/` rather than fetching the newest scene. Set
+`TARGET_DATE` explicitly to process a specific acquisition.
 
 ---
 
-### Stage 2 — Geospatial Computer Vision Core
-
-**Model Architecture**
-- Core Model: YOLOv8 customized for SAR target detection (dual-polarization VV/VH backscatter input channels).
-- Pre-processing: Large Sentinel-1 GRD GeoTIFF files are split into overlapping chunks (e.g., 640×640 pixels) using `rasterio` windowed reading.
-- Inference Core: Executes PyTorch YOLOv8 models directly via Ultralytics API with HuggingFace Hub weight fetching.
-- Stitching & Post-processing: Combines overlapping tile predictions and applies Non-Maximum Suppression (NMS) to output clean, non-redundant vessel target bounding boxes.
-- Output: GeoJSON containing bounding boxes with properties: class, confidence, coordinates, and classification.
-
----
-
-### Stage 3 — Target Correlation Engine
-
-**Geospatial CRS Alignment**
-- Coordinates of the SAR detections (often in UTM zone projections) are reprojected and aligned to coordinate reference systems (CRS) matching the AIS track vector points (WGS-84 / EPSG:4326) using `geopandas` and `pyproj`.
-
-**Correlation & Scoring**
-- Reprojected vessel footprints are buffered by 2,000 metres (1 nautical mile) in metric CRS (`EPSG:32622`) using `shapely` to account for timing offsets and drift.
-- Spatial intersection joins are executed between the buffered vessel polygons and time-matched AIS points ($\pm 5$-minute window).
-- Detections with no correlating AIS signal are identified as dark vessels.
-
----
-
-### Stage 4 — Production MLOps Pipeline
-
-**Data Version Control (DVC)**
-- DVC versions the massive raw/processed GeoTIFF datasets to an AWS S3 remote, working in tandem with Git. Git tracks the `.dvc` pointer files, while large binary data lives securely on S3.
-
-**MLflow**
-- Centralized tracking server log parameters: hyperparameters, dataset DVC hash, model metrics (mAP@0.5), inference latency, and hardware metrics.
-- Model Registry holds candidate versions; promotion is automated via GitHub Actions pipelines.
-
-**Docker & AWS Cloud Infrastructure**
-- Microservices: Containers for `ingest`, `inference`, `correlation`, and `report` services built from `python:3.12-slim` bases.
-- Compute Optimization: Nightly pipelines run sequentially on single-region configurations (defaulting to the North Atlantic).
-- Autoresearch Loop: Leverages AWS Spot Instances to scale up compute dynamically for training runs and spin down immediately after registration.
-
----
-
-## Directory Structure
+## Layout
 
 ```
-TritonEye/
-|-- agents.md                   # Agent blueprint and repository roles
-|-- readme.md                   # This architecture overview
-|-- pyproject.toml              # Project dependency and tool configuration
-|-- requirements.txt            # Python environment locked requirements
-|-- data.dvc                    # DVC dataset tracker (pointer to S3 bucket)
-|-- agents/                     # Agent source modules
-|   |-- ingest/
-|   |-- inference/
-|   |-- correlation/
-|   |-- report/
-|   `-- skills/                 # Custom anthropics/skills extensions
-|-- configs/
-|   |-- aois/                   # Area-of-interest GeoJSON polygons
-|   |-- model.yaml              # Model hyperparameters & tiling configs
-|   `-- gnhf.yaml               # Overnight mission schedule config
-|-- data/
-|   |-- raw/                    # Downloaded Sentinel-1 SAR tiles (DVC tracked)
-|   `-- processed/              # Calibrated and terrain-corrected tiles (DVC tracked)
-|-- missions/                   # Per-mission geojson outputs (S3 synced)
-|-- models/                     # Local model weight cache (gitignored)
-|-- reports/                    # lavish-axi HTML reports
-|-- tests/
-|   |-- unit/
-|   `-- integration/
-|-- Dockerfile.ingest
-|-- Dockerfile.inference
-|-- Dockerfile.correlation
-|-- Dockerfile.report
-|-- docker-compose.yml
-|-- pyproject.toml
-`-- .pre-commit-config.yaml     # no-mistakes hooks
+agents/
+  geo.py                  georeferencing: TPS over GCPs, or affine
+  tracking.py             MLflow run spanning all stages
+  ais_recorder.py         aisstream.io live recorder -> daily CSVs
+  ingest/  inference/  correlation/  report/  evaluate/
+configs/
+  aois/*.geojson          areas of interest
+  model.yaml              tiling + inference thresholds
+tests/unit/               43 tests
+data/raw/                 SAFE products, AIS archives (gitignored)
+missions/<id>/            detections.geojson, dark_vessels.geojson
+reports/<id>/report.html
+mlflow.db                 tracking store (gitignored)
+EVALUATION.md             measured performance
 ```
 
 ---
 
-## Key Dependencies
+## Dependencies
 
-| Library | Version | Purpose |
-|---------|---------|---------|
-| `torch` | 2.3+ | Deep learning training and backscatter processing |
-| `ultralytics` | 8.x | YOLOv8 object detection model API |
-| `rasterio` | 1.3+ | Geospatial windowed raster tiling and processing |
-| `geopandas` | 0.14+ | Spatial dataframes, projection (CRS) alignment, and joins |
-| `shapely` | 2.x | Geometric buffering and polygon operations |
-| `sentinelsat` | 1.3+ | Copernicus API integration |
-| `dvc[s3]` | 3.x | Large data versioning to AWS S3 storage |
-| `mlflow` | 2.x | Experiment tracking and model registry integration |
-| `psycopg2-binary` | 2.9+ | PostgreSQL/PostGIS database adapter |
-| `fastapi` | 0.110+ | Internal microservice coordination |
-| `boto3` | 1.34+ | AWS SDK for Python |
+| Library | Purpose |
+|---|---|
+| `ultralytics` | YOLOv8 detector |
+| `rasterio` | windowed raster IO, GCP transforms |
+| `geopandas` / `shapely` / `pyproj` / `rtree` | spatial joins, buffering, CRS |
+| `pandas` / `numpy` | AIS filtering, array work |
+| `requests` | Copernicus OData + OAuth2 |
+| `huggingface-hub` | weight fetching |
+| `websockets` | aisstream.io live feed |
+| `mlflow` | experiment tracking + model registry |
+| `python-dotenv` | configuration |
 
 ---
 
-## Reference Repositories
+## Not implemented
 
-| Repository | Role in TritonEye |
-|-----------|------------------|
-| [kunchenguid/firstmate](https://github.com/kunchenguid/firstmate) | Multi-agent orchestration (Captain) |
-| [kunchenguid/tasks-axi](https://github.com/kunchenguid/tasks-axi) | Task & backlog management |
-| [kunchenguid/lavish-axi](https://github.com/kunchenguid/lavish-axi) | HTML mission report rendering |
-| [kunchenguid/no-mistakes](https://github.com/kunchenguid/no-mistakes) | Git safety & CI guardrails |
-| [kunchenguid/treehouse](https://github.com/kunchenguid/treehouse) | Git worktree management |
-| [kunchenguid/gnhf](https://github.com/kunchenguid/gnhf) | Overnight autonomous scheduling |
-| [anthropics/skills](https://github.com/anthropics/skills) | Claude agent skill library |
-| [karpathy/autoresearch](https://github.com/karpathy/autoresearch) | Automated ML experiment loop |
+Listed explicitly because earlier versions of this README claimed them.
+
+**SAR preprocessing** — radiometric calibration to σ⁰ **is** implemented
+(`agents/calibration.py`) and is used by the `xview3` backend. Still missing:
+orbit file application, border and thermal noise removal, speckle filtering, and
+terrain correction. The default `yolov8` backend still consumes raw digital
+numbers.
+
+**Ship / iceberg discrimination** — the AOI is Iceberg Alley. An iceberg is a
+bright compact target against a dark sea, which is the signature the detector
+looks for, and it carries no AIS transmitter — so it satisfies this pipeline's
+definition of a dark vessel exactly. Every detected iceberg becomes a confident
+false alert **by construction**, and no threshold can fix it. See
+[EVALUATION.md](EVALUATION.md) §8.1. Dark-vessel output over Newfoundland should
+be read as *AIS-uncorrelated targets*, not as vessels.
+
+**Precision** — land is now masked, but sea clutter, wind streaks, and ice are
+not. The surviving water detections are an upper bound on marine targets, not a
+vessel count.
+
+**Vessel classification** — `configs/model.yaml` declares five classes but the
+deployed model has one (`ship`), which the code maps to `cargo`. Class labels in
+the output are not meaningful.
+
+**DVC data versioning**, **automated retraining / staged model promotion**,
+**cloud or Spot compute**, **RF signal fusion**, **scheduling** — none of
+these exist. No `.dvc`, no scheduler. Every pipeline run to date has been
+launched by hand.
+
+**Multi-scene batching** — the OData query uses `$top: 1`, so only the newest
+matching scene per query is processed even when many intersect the AOI.
+
+## Known limitations
+
+- **Detector recall is 4%** at the deployed threshold on vessels ≥50 m; nothing
+  below 100 m has ever been detected. See [EVALUATION.md](EVALUATION.md).
+- **Newfoundland AOIs cannot be validated retroactively** — MarineCadastre has
+  no Canadian coverage and the aisstream.io recorder only captures forward in
+  time.
+- **The AIS recorder subscribes to the AOI box**, which is smaller than the
+  swath ingest requests AIS for; widen it to cover intersecting scenes.
+- **Report requires network** — Leaflet, fonts and basemap tiles load from CDNs.
+- Revisit is 1–4.5 days depending on AOI; CDSE publication latency is ~2.3 h
+  median. Near-real-time is feasible, live is not.
