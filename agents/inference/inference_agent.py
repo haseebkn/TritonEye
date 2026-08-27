@@ -9,7 +9,12 @@ import argparse
 import json
 import os
 import sys
-from typing import Any, Dict, List, Tuple
+import time
+from typing import Any, Dict, List, Optional, Sequence, Tuple
+
+# Agents are executed as standalone scripts, so the workspace root has to be on
+# the path before the shared modules under agents/ can be imported.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 # Third-party imports (handled gracefully if missing during bootstrap checks)
 try:
@@ -17,10 +22,14 @@ try:
     import rasterio
     import rasterio.windows
     import yaml
-    from pyproj import Transformer
-    # Added for production YOLOv8 and Hugging Face Hub integration
-    from ultralytics import YOLO
     from huggingface_hub import hf_hub_download
+
+    # Added for production YOLOv8 and Hugging Face Hub integration
+    # ultralytics does not declare an explicit __all__ re-export for YOLO
+    from ultralytics import YOLO  # type: ignore[attr-defined]
+
+    from agents.geo import Georeferencer
+    from agents.tracking import RunTracker
 except ImportError as e:
     print(f"Dependency missing during startup: {e}", file=sys.stderr)
     print(
@@ -28,6 +37,12 @@ except ImportError as e:
         file=sys.stderr,
     )
     # We will let the script fail gracefully on execution rather than crash on import
+
+
+# TritonEye class schema index for an unclassified target. The xView3
+# ensemble detects vessels without typing them, so it reports this rather
+# than inventing a class.
+UNKNOWN_CLASS_ID = 4
 
 
 def load_yaml_config(config_path: str) -> Dict[str, Any]:
@@ -89,8 +104,8 @@ def non_max_suppression(
     iou_threshold: float,
 ) -> List[Tuple[float, float, float, float, float, int]]:
     """
-    Applies Non-Maximum Suppression (NMS) to eliminate duplicate bounding boxes.
-    Boxes coordinate schema: (x_min, y_min, x_max, y_max, score, class_id)
+    Applies Non-Maximum Suppression to eliminate duplicate bounding boxes.
+    Box schema: (x_min, y_min, x_max, y_max, score, class_id).
     Coordinates are in UTM projection spatial values.
     """
     if not boxes:
@@ -137,9 +152,14 @@ def non_max_suppression(
 
 def map_class_id(pred_class_id: int, is_custom_model: bool) -> int:
     """
-    Maps the model's predicted class ID to TritonEye's class schema (0: cargo, 1: tanker, 2: fishing, 3: military, 4: unknown).
-    If it's the fallback COCO model, we map COCO class 8 ('boat') to 2 ('fishing') as a reasonable guess.
-    If it's a custom model, we assume it already matches the target classes.
+    Maps the model's predicted class ID to TritonEye's class schema
+    (0: cargo, 1: tanker, 2: fishing, 3: military, 4: unknown).
+
+    NOTE: the deployed detector has a single class ('ship'), so this clamps
+    every real detection to 0/'cargo'. The class labels in the output are
+    therefore not meaningful — see readme 'Not implemented'.
+
+    For the fallback COCO model, class 8 ('boat') maps to 2 ('fishing').
     """
     if not is_custom_model:
         if pred_class_id == 8:
@@ -149,11 +169,15 @@ def map_class_id(pred_class_id: int, is_custom_model: bool) -> int:
         return max(0, min(4, pred_class_id))
 
 
-def load_yolo_model(base_dir: str, config: Dict[str, Any]) -> Any:
+def load_yolo_model(base_dir: str, config: Dict[str, Any]) -> Tuple[Any, str]:
     """
-    Downloads custom model weights from Hugging Face Hub if credentials/repo are provided.
-    Reads HUGGINGFACE_MODEL_FILE from env for the path inside the repo (may include subdirs).
+    Downloads custom model weights from Hugging Face Hub when a repo and token
+    are configured. HUGGINGFACE_MODEL_FILE gives the path inside the repo and
+    may include subdirectories.
     Falls back to local file, or standard yolov8m.pt if retrieval fails.
+
+    Returns (model, weights_path) so callers can record exactly which weights
+    produced a mission's detections.
     """
     token = os.getenv("HUGGINGFACE_HUB_TOKEN")
     repo = os.getenv("HUGGINGFACE_MODEL_REPO")
@@ -165,7 +189,10 @@ def load_yolo_model(base_dir: str, config: Dict[str, Any]) -> Any:
     local_weights_path = os.path.join(local_weights_dir, os.path.basename(hf_filename))
 
     if repo and token:
-        print(f"Attempting to download '{hf_filename}' from HF repo '{repo}'...", file=sys.stderr)
+        print(
+            f"Attempting to download '{hf_filename}' from HF repo '{repo}'...",
+            file=sys.stderr,
+        )
         try:
             downloaded_path = hf_hub_download(
                 repo_id=repo,
@@ -173,25 +200,47 @@ def load_yolo_model(base_dir: str, config: Dict[str, Any]) -> Any:
                 token=token,
                 local_dir=local_weights_dir,
             )
-            print(f"Successfully downloaded model to {downloaded_path}", file=sys.stderr)
-            return YOLO(downloaded_path)
+            print(
+                f"Successfully downloaded model to {downloaded_path}", file=sys.stderr
+            )
+            return YOLO(downloaded_path), downloaded_path
         except Exception as e:
-            print(f"Hugging Face download failed: {e}. Falling back to local/default weights...", file=sys.stderr)
+            print(
+                f"Hugging Face download failed: {e}. "
+                "Falling back to local/default weights...",
+                file=sys.stderr,
+            )
 
     if os.path.exists(local_weights_path):
-        print(f"Loading local model weights from {local_weights_path}...", file=sys.stderr)
-        return YOLO(local_weights_path)
+        print(
+            f"Loading local model weights from {local_weights_path}...", file=sys.stderr
+        )
+        return YOLO(local_weights_path), local_weights_path
 
     fallback_model = "yolov8m.pt"
-    print(f"Weights for '{model_name}' not found. Falling back to '{fallback_model}'...", file=sys.stderr)
-    return YOLO(fallback_model)
+    print(
+        f"Weights for '{model_name}' not found. Falling back to '{fallback_model}'...",
+        file=sys.stderr,
+    )
+    return YOLO(fallback_model), fallback_model
+
 
 def run_inference_on_tile(
-    vv_path: str, vh_path: str, config: Dict[str, Any], model: Any, is_mock_mode: bool = False
+    vv_path: str,
+    vh_path: str,
+    config: Dict[str, Any],
+    model: Any,
+    is_mock_mode: bool = False,
 ) -> List[Tuple[float, float, float, float, float, int]]:
     """
-    Runs YOLOv8 target detection on the Sentinel-1 VV and VH bands using sliding windows.
-    If is_mock_mode is True, falls back to the simple pixel-intensity threshold detector.
+    Runs YOLOv8 target detection over the VV and VH bands in sliding windows.
+    With is_mock_mode, falls back to a pixel-intensity threshold detector.
+
+    Boxes are returned in whole-raster pixel coordinates
+    (col_min, row_min, col_max, row_max, score, class_id). Detection and NMS both
+    stay in pixel space; georeferencing happens once, on the surviving boxes, in
+    main(). Pixel spacing is uniform across the raster, so IoU is unaffected by
+    the choice, and it keeps the expensive coordinate transform off the hot path.
     """
     tiling_cfg = config.get("tiling", {})
     tile_size = tiling_cfg.get("tile_size", 640)
@@ -215,9 +264,6 @@ def run_inference_on_tile(
     with rasterio.open(vv_path) as src_vv, rasterio.open(vh_path) as src_vh:
         width = src_vv.width
         height = src_vv.height
-        transform = src_vv.transform
-
-        has_georeferencing = src_vv.crs is not None
 
         # Determine scaling factors based on datatype
         is_production = src_vv.dtypes[0] in ("uint16", "float32")
@@ -230,7 +276,9 @@ def run_inference_on_tile(
             else:
                 vv_thresh = 255
                 vh_thresh = 200
-            box_half_size = 25.0
+            # Half a vessel footprint, in pixels. At Sentinel-1 GRD IW's 10 m
+            # ground spacing this is the 25 m half-extent used previously.
+            box_half_size_px = 2.5
 
         # Slide windows across the raster
         windows = generate_raster_windows(width, height, tile_size, overlap)
@@ -245,8 +293,14 @@ def run_inference_on_tile(
                 vv_win = src_vv.read(1, window=win)
                 vh_win = src_vh.read(1, window=win)
             else:
-                vv_win = vv_data[win.row_off : win.row_off + win.height, win.col_off : win.col_off + win.width]
-                vh_win = vh_data[win.row_off : win.row_off + win.height, win.col_off : win.col_off + win.width]
+                vv_win = vv_data[
+                    win.row_off : win.row_off + win.height,
+                    win.col_off : win.col_off + win.width,
+                ]
+                vh_win = vh_data[
+                    win.row_off : win.row_off + win.height,
+                    win.col_off : win.col_off + win.width,
+                ]
 
             # Skip empty windows
             if vv_win.size == 0 or vh_win.size == 0:
@@ -256,27 +310,23 @@ def run_inference_on_tile(
                 # 1. Simple Threshold Mock Fallback
                 rows, cols = np.where((vv_win >= vv_thresh) & (vh_win >= vh_thresh))
                 for r, c in zip(rows, cols):
-                    global_row = win.row_off + r
-                    global_col = win.col_off + c
+                    global_row = float(win.row_off + r)
+                    global_col = float(win.col_off + c)
 
-                    if has_georeferencing:
-                        x, y = rasterio.transform.xy(transform, global_row, global_col)
-                    else:
-                        x = global_col * 10.0
-                        y = (height - global_row) * 10.0
-
-                    x_min_spatial = x - box_half_size
-                    x_max_spatial = x + box_half_size
-                    y_min_spatial = y - box_half_size
-                    y_max_spatial = y + box_half_size
-
-                    offset = float((global_row + global_col) % 100) / 285.0
+                    offset = float((int(global_row) + int(global_col)) % 100) / 285.0
                     score = 0.65 + offset
 
                     if score >= conf_threshold:
-                        class_id = int((global_row + global_col) % 5)
+                        class_id = int((int(global_row) + int(global_col)) % 5)
                         raw_detections.append(
-                            (x_min_spatial, y_min_spatial, x_max_spatial, y_max_spatial, score, class_id)
+                            (
+                                global_col - box_half_size_px,
+                                global_row - box_half_size_px,
+                                global_col + box_half_size_px,
+                                global_row + box_half_size_px,
+                                score,
+                                class_id,
+                            )
                         )
             else:
                 # 2. Real YOLOv8 Model Inference
@@ -316,30 +366,174 @@ def run_inference_on_tile(
 
                         class_id = map_class_id(pred_class_id, is_custom_model)
 
-                        if has_georeferencing:
-                            x_min_coord, y_max_coord = rasterio.transform.xy(transform, win.row_off + y_min_pixel, win.col_off + x_min_pixel)
-                            x_max_coord, y_min_coord = rasterio.transform.xy(transform, win.row_off + y_max_pixel, win.col_off + x_max_pixel)
-                            
-                            x_min_spatial = min(x_min_coord, x_max_coord)
-                            x_max_spatial = max(x_min_coord, x_max_coord)
-                            y_min_spatial = min(y_min_coord, y_max_coord)
-                            y_max_spatial = max(y_min_coord, y_max_coord)
-                        else:
-                            x_min_spatial = (win.col_off + x_min_pixel) * 10.0
-                            x_max_spatial = (win.col_off + x_max_pixel) * 10.0
-                            y_min_spatial = (height - (win.row_off + y_max_pixel)) * 10.0
-                            y_max_spatial = (height - (win.row_off + y_min_pixel)) * 10.0
-
+                        # Tile-local pixels to whole-raster pixels
                         raw_detections.append(
-                            (x_min_spatial, y_min_spatial, x_max_spatial, y_max_spatial, score, class_id)
+                            (
+                                win.col_off + x_min_pixel,
+                                win.row_off + y_min_pixel,
+                                win.col_off + x_max_pixel,
+                                win.row_off + y_max_pixel,
+                                score,
+                                class_id,
+                            )
                         )
     return raw_detections
+
+
+def select_detector(config: Dict[str, Any]) -> str:
+    """
+    Chooses the detection backend: "yolov8" (default) or "xview3".
+
+    Env var TRITONEYE_DETECTOR overrides configs/model.yaml, so a scene can be
+    re-run against the other backend without editing config.
+    """
+    configured = str(config.get("inference", {}).get("detector", "yolov8")).lower()
+    return os.getenv("TRITONEYE_DETECTOR", configured).lower()
+
+
+def run_xview3_inference(
+    vv_path: str, vh_path: str, base_dir: str, config: Dict[str, Any]
+) -> Tuple[List[Tuple[float, float, float, float, float, int]], int, str]:
+    """
+    Runs the xView3 challenge-winning ensemble over a whole product.
+
+    Returns boxes in the same whole-raster pixel schema as the YOLO path, so
+    georeferencing and GeoJSON assembly downstream are unchanged. The ensemble
+    predicts points rather than extents, so each detection becomes a nominal
+    square; the class is reported as "unknown" because this model does not
+    classify vessel type, unlike the incumbent which silently labels everything
+    cargo.
+
+    This backend needs calibrated sigma-nought and ~28 min per scene, which is
+    why it is opt-in. See EVALUATION.md section 5a.
+    """
+    from agents.xview3_detector import (
+        NOMINAL_HALF_EXTENT_PX,
+        XView3Detector,
+        XView3Unavailable,
+        dedupe_detections,
+        resolve_weights,
+        tile_origins,
+    )
+
+    weights = resolve_weights(base_dir)
+    if not weights:
+        raise XView3Unavailable(
+            "xView3 detector selected but weights were not found. Download "
+            "traced_ensemble.jit into models/xview3/ or set XVIEW3_WEIGHTS."
+        )
+
+    inf_cfg = config.get("inference", {})
+    # Env override mirrors TRITONEYE_DETECTOR, so an operating-point sweep can
+    # vary the threshold across runs without mutating tracked config.
+    threshold = os.getenv("TRITONEYE_XVIEW3_THRESHOLD") or inf_cfg.get(
+        "xview3_threshold"
+    )
+    overlap = int(config.get("tiling", {}).get("xview3_overlap", 128))
+
+    detector = XView3Detector(
+        weights, **({"threshold": float(threshold)} if threshold is not None else {})
+    )
+    print(
+        f"xView3 ensemble on {detector.device}, threshold {detector.threshold}",
+        file=sys.stderr,
+    )
+
+    raw = list(detector.detect_scene(vv_path, vh_path, overlap=overlap, progress=False))
+    kept = dedupe_detections(raw)
+    print(
+        f"xView3: {len(raw)} raw detections, {len(kept)} after cross-tile dedup",
+        file=sys.stderr,
+    )
+
+    half = NOMINAL_HALF_EXTENT_PX
+    boxes = [
+        (
+            d["col"] - half,
+            d["row"] - half,
+            d["col"] + half,
+            d["row"] + half,
+            d["score"],
+            UNKNOWN_CLASS_ID,
+        )
+        for d in kept
+    ]
+
+    with rasterio.open(vv_path) as src:
+        tiles = len(tile_origins(src.width, src.height, overlap))
+    return boxes, tiles, weights
+
+
+def classify_surfaces(
+    lons: List[float],
+    lats: List[float],
+    scene_bounds: Optional[Sequence[float]],
+    base_dir: str,
+    config: Dict[str, Any],
+) -> Tuple[Optional[List[str]], Any, Dict[str, Any]]:
+    """
+    Labels detection centroids water / coastal / land against a coastline.
+
+    Returns (surfaces, distance_to_shore_m, metadata). `surfaces` is None when
+    masking is disabled or unavailable, which leaves feature properties exactly
+    as they were before this existed -- so `landmask.enabled: false` reproduces
+    the previous output rather than emitting empty fields.
+
+    A missing coastline download is a WARNING, not a failure. The alternative is
+    aborting a 90-minute inference run at the final step over a reference file
+    that can be fetched in a minute; the mission still yields detections, and
+    the payload records that they were not masked.
+    """
+    from agents import landmask as lm
+
+    cfg = config.get("landmask", {}) or {}
+    if not cfg.get("enabled", False):
+        return None, None, {"enabled": False}
+    if not scene_bounds:
+        print(
+            "WARNING: no scene footprint; skipping land mask.",
+            file=sys.stderr,
+        )
+        return None, None, {"enabled": True, "status": "no_footprint"}
+
+    source = cfg.get("source", "osm")
+    cache_dir = lm.resolve_cache_dir(base_dir, cfg.get("cache_dir"))
+    buffer_m = float(cfg.get("coastal_buffer_m", lm.DEFAULT_COASTAL_BUFFER_M))
+
+    try:
+        mask = lm.LandMask.for_footprint(
+            scene_bounds, source=source, cache_dir=cache_dir
+        )
+        surfaces, dist = mask.classify(lons, lats, coastal_buffer_m=buffer_m)
+    except lm.LandMaskUnavailable as e:
+        print(
+            f"WARNING: land mask unavailable, detections unmasked: {e}", file=sys.stderr
+        )
+        return None, None, {"enabled": True, "status": "unavailable", "error": str(e)}
+
+    counts = lm.summarize(surfaces)
+    print(
+        f"Land mask ({source}): {counts['water']} water, "
+        f"{counts['coastal']} coastal, {counts['land']} land-rejected "
+        f"of {len(surfaces)}",
+        file=sys.stderr,
+    )
+    meta = {
+        "enabled": True,
+        "status": "ok",
+        "source": source,
+        "licence": mask.licence,
+        "coastal_buffer_m": buffer_m,
+        "counts": counts,
+    }
+    return surfaces, dist, meta
 
 
 def main() -> None:
     # Load dotenv to configure environment variables
     try:
         from dotenv import load_dotenv
+
         load_dotenv()
     except ImportError:
         pass
@@ -365,94 +559,144 @@ def main() -> None:
 
     # 3. Load YOLOv8 model (unless running on simulated mock data)
     is_mock_mode = payload.get("mode", "production") == "mock"
-    
+
     # Check override to force real inference even on mock data
     force_real = os.getenv("FORCE_REAL_INFERENCE", "false").lower() == "true"
     if force_real:
         is_mock_mode = False
-        
-    model = None
-    if not is_mock_mode:
-        model = load_yolo_model(base_dir, config)
-
-    # 4. Execute sliding-window inference and NMS deduplication
-    raw_detections = run_inference_on_tile(vv_path, vh_path, config, model, is_mock_mode)
 
     inf_cfg = config.get("inference", {})
     iou_threshold = inf_cfg.get("iou_threshold", 0.45)
+    conf_threshold = inf_cfg.get("conf_threshold", 0.35)
+    tiling_cfg = config.get("tiling", {})
+    tile_size = tiling_cfg.get("tile_size", 640)
+    overlap = tiling_cfg.get("overlap", 128)
 
-    final_detections = non_max_suppression(raw_detections, iou_threshold)
+    # The xView3 backend is opt-in: it is far more accurate but needs ~28 min
+    # per scene against ~47 s, and cannot run on mock data because it requires
+    # a calibration LUT that synthetic products do not carry.
+    detector = select_detector(config)
+    use_xview3 = detector == "xview3" and not is_mock_mode
 
-    # 4. Reproject UTM/pixel coordinates back to standard WGS84 GeoJSON
-    has_georeferencing = False
+    model = None
+    resolved_weights = ""
+
+    if use_xview3:
+        inference_started = time.monotonic()
+        final_detections, tiles_processed, resolved_weights = run_xview3_inference(
+            vv_path, vh_path, base_dir, config
+        )
+        inference_seconds = time.monotonic() - inference_started
+        # Detections are already deduplicated across tiles by the detector.
+        raw_detections = final_detections
+    else:
+        if detector == "xview3" and is_mock_mode:
+            print(
+                "xView3 requested but mock data has no calibration LUT; "
+                "falling back to the mock detector.",
+                file=sys.stderr,
+            )
+            detector = "yolov8"
+        if not is_mock_mode:
+            model, resolved_weights = load_yolo_model(base_dir, config)
+
+        # 4. Execute sliding-window inference and NMS deduplication
+        inference_started = time.monotonic()
+        raw_detections = run_inference_on_tile(
+            vv_path, vh_path, config, model, is_mock_mode
+        )
+        inference_seconds = time.monotonic() - inference_started
+
+        with rasterio.open(vv_path) as _src:
+            tiles_processed = len(
+                generate_raster_windows(_src.width, _src.height, tile_size, overlap)
+            )
+
+        final_detections = non_max_suppression(raw_detections, iou_threshold)
+
+    # 5. Georeference the surviving boxes into WGS84 GeoJSON.
+    #    Sentinel-1 GRD rasters carry GCPs rather than a CRS; Georeferencer picks
+    #    the right strategy and raises if the raster carries neither.
     with rasterio.open(vv_path) as src_vv:
-        if src_vv.crs is not None:
-            has_georeferencing = True
-        width = src_vv.width
-        height = src_vv.height
+        with Georeferencer.from_dataset(src_vv) as geo:
+            print(f"Georeferencing detections via '{geo.method}'...", file=sys.stderr)
+            scene_bounds = geo.footprint_bounds()
 
-    spatial_bounds = payload.get("spatial_bounds", {})
-    projection_crs = spatial_bounds.get("projection", "EPSG:32622")
-    rev_transformer = Transformer.from_crs(projection_crs, "EPSG:4326", always_xy=True)
+            # Map all four corners of every box in a single vectorised call. An
+            # axis-aligned box in pixel space is a rotated quadrilateral on the
+            # ground, so the corners are carried through individually rather
+            # than reduced to a lon/lat min-max rectangle.
+            corner_rows: List[float] = []
+            corner_cols: List[float] = []
+            for col_min, row_min, col_max, row_max, _, _ in final_detections:
+                corner_rows.extend([row_min, row_min, row_max, row_max])
+                corner_cols.extend([col_min, col_max, col_max, col_min])
 
-    class_map = config.get("model", {}).get("classes", {
-        0: "cargo",
-        1: "tanker",
-        2: "fishing",
-        3: "military",
-        4: "unknown",
-    })
+            lons, lats = (
+                geo.xy(corner_rows, corner_cols)
+                if corner_rows
+                else (np.empty(0), np.empty(0))
+            )
+
+    class_map = config.get("model", {}).get(
+        "classes",
+        {
+            0: "cargo",
+            1: "tanker",
+            2: "fishing",
+            3: "military",
+            4: "unknown",
+        },
+    )
+
+    # Classify each detection against the coastline before features are built,
+    # so `surface` is available as a property. This runs on detection centroids
+    # rather than the raster: point-in-polygon over a few hundred points costs
+    # milliseconds, where rasterising a coastline to a 25000x16000 scene grid
+    # would cost hundreds of MB. See agents/landmask.py.
+    centroid_lons = [
+        float(np.mean([lons[idx * 4 + k] for k in range(4)]))
+        for idx in range(len(final_detections))
+    ]
+    centroid_lats = [
+        float(np.mean([lats[idx * 4 + k] for k in range(4)]))
+        for idx in range(len(final_detections))
+    ]
+    surfaces, shore_dist, landmask_meta = classify_surfaces(
+        centroid_lons, centroid_lats, scene_bounds, base_dir, config
+    )
 
     features = []
-    for idx, (x_min, y_min, x_max, y_max, score, class_id) in enumerate(
-        final_detections
-    ):
-        if has_georeferencing:
-            # Reproject corners back to degrees lat/lon
-            lon_min, lat_min = rev_transformer.transform(x_min, y_min)
-            lon_max, lat_max = rev_transformer.transform(x_max, y_max)
-        else:
-            # Linear interpolation mapping to WGS84 using spatial_bounds bbox
-            bbox = spatial_bounds.get("bbox", [-52.678045, 47.053959, -51.333290, 47.941981])
-            
-            col_min = x_min / 10.0
-            col_max = x_max / 10.0
-            row_min = height - y_max / 10.0
-            row_max = height - y_min / 10.0
-            
-            lon_min = bbox[0] + (col_min / width) * (bbox[2] - bbox[0])
-            lon_max = bbox[0] + (col_max / width) * (bbox[2] - bbox[0])
-            lat_min = bbox[3] - (row_max / height) * (bbox[3] - bbox[1])
-            lat_max = bbox[3] - (row_min / height) * (bbox[3] - bbox[1])
+    for idx, (_, _, _, _, score, class_id) in enumerate(final_detections):
+        base = idx * 4
+        ring = [[float(lons[base + k]), float(lats[base + k])] for k in range(4)]
+        ring.append(ring[0])  # GeoJSON rings must close
 
-        # Bounding box polygon footprint
-        coordinates = [
-            [
-                [lon_min, lat_min],
-                [lon_max, lat_min],
-                [lon_max, lat_max],
-                [lon_min, lat_max],
-                [lon_min, lat_min],
-            ]
-        ]
+        properties = {
+            "target_id": f"TRITON-{idx:03d}",
+            "class_id": class_id,
+            "class_name": class_map.get(class_id, "unknown"),
+            "confidence": round(score, 3),
+        }
+        if surfaces is not None:
+            properties["surface"] = surfaces[idx]
+            d = float(shore_dist[idx])
+            properties["distance_to_shore_m"] = (
+                None if not np.isfinite(d) else round(d, 1)
+            )
 
         features.append(
             {
                 "type": "Feature",
                 "id": idx,
-                "geometry": {"type": "Polygon", "coordinates": coordinates},
-                "properties": {
-                    "target_id": f"TRITON-{idx:03d}",
-                    "class_id": class_id,
-                    "class_name": class_map.get(class_id, "unknown"),
-                    "confidence": round(score, 3),
-                },
+                "geometry": {"type": "Polygon", "coordinates": [ring]},
+                "properties": properties,
             }
         )
 
     geojson = {"type": "FeatureCollection", "features": features}
 
-    # 5. Save the resulting GeoJSON
+    # 6. Save the resulting GeoJSON
     mission_dir = os.path.join(base_dir, "missions", mission_id)
     os.makedirs(mission_dir, exist_ok=True)
 
@@ -460,8 +704,64 @@ def main() -> None:
     with open(geojson_path, "w", encoding="utf-8") as f:
         json.dump(geojson, f, indent=2)
 
-    # 6. Update payload and print to stdout
+    # 7. Update payload and print to stdout. The scene footprint measured off the
+    #    raster itself supersedes whatever bounds the AOI search produced.
     payload["detections_geojson"] = geojson_path
+    spatial_bounds = payload.setdefault("spatial_bounds", {})
+    spatial_bounds["georeferencing"] = geo.method
+    spatial_bounds["crs"] = "EPSG:4326"
+    spatial_bounds["scene_bbox"] = scene_bounds
+    payload["detector"] = detector
+    # Which coastline produced the mask, under what licence, and how many
+    # detections it rejected. The rejection tally is evidence in its own right,
+    # so it belongs in the mission record rather than only in stderr.
+    payload["landmask"] = landmask_meta
+
+    # Record what produced these detections. The detector is the variable most
+    # likely to change between missions, so its identity and thresholds are the
+    # ones worth pinning to the run.
+    tracker = RunTracker.resume(payload.get("mlflow_run_id"))
+    try:
+        tracker.set_tags({"stage": "inference", "detector": detector})
+        tracker.log_params(
+            {
+                "detector": detector,
+                "model_repo": os.getenv("HUGGINGFACE_MODEL_REPO"),
+                "model_file": os.getenv(
+                    "HUGGINGFACE_MODEL_FILE", "unquantized/best.pt"
+                ),
+                "model_classes": getattr(model, "names", None) if model else "mock",
+                "conf_threshold": conf_threshold,
+                "iou_threshold": iou_threshold,
+                "tile_size": tile_size,
+                "tile_overlap": overlap,
+                "mock_mode": is_mock_mode,
+                "georeferencing": geo.method,
+            }
+        )
+        tracker.log_metrics(
+            {
+                "raw_detections": len(raw_detections),
+                "detections": len(final_detections),
+                "nms_suppressed": len(raw_detections) - len(final_detections),
+                "inference_seconds": round(inference_seconds, 2),
+                "tiles_processed": tiles_processed,
+            }
+        )
+        tracker.log_artifact(geojson_path, "detections")
+        if not is_mock_mode:
+            tracker.register_detector(
+                resolved_weights,
+                name="tritoneye-sar-detector",
+                metadata={
+                    "repo": os.getenv("HUGGINGFACE_MODEL_REPO", "unknown"),
+                    "classes": getattr(model, "names", {}),
+                    "conf_threshold": conf_threshold,
+                },
+            )
+    finally:
+        tracker.end()
+
     print(json.dumps(payload, indent=2))
 
 

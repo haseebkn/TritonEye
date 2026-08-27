@@ -1,9 +1,10 @@
-import sys
-import os
 import json
+import os
+import sys
 import tempfile
+from typing import Iterator
+
 import pytest
-import geopandas as gpd
 
 # Align python path to workspace root
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -12,7 +13,7 @@ from agents.correlation.correlation_agent import correlate_targets
 
 
 @pytest.fixture
-def temp_files_temporal() -> tuple[str, str]:
+def temp_files_temporal() -> Iterator[tuple[str, str]]:
     # Detections GeoJSON (Target 1 at center_lon/center_lat)
     detections = {
         "type": "FeatureCollection",
@@ -22,21 +23,23 @@ def temp_files_temporal() -> tuple[str, str]:
                 "id": 0,
                 "geometry": {
                     "type": "Polygon",
-                    "coordinates": [[
-                        [-52.0001, 47.5001],
-                        [-51.9999, 47.5001],
-                        [-51.9999, 47.5003],
-                        [-52.0001, 47.5003],
-                        [-52.0001, 47.5001]
-                    ]]
+                    "coordinates": [
+                        [
+                            [-52.0001, 47.5001],
+                            [-51.9999, 47.5001],
+                            [-51.9999, 47.5003],
+                            [-52.0001, 47.5003],
+                            [-52.0001, 47.5001],
+                        ]
+                    ],
                 },
                 "properties": {
                     "target_id": "TRITON-001",
                     "class_name": "cargo",
-                    "confidence": 0.95
-                }
+                    "confidence": 0.95,
+                },
             }
-        ]
+        ],
     }
 
     # AIS track contains coordinate matches but only at out-of-bounds timestamps:
@@ -60,7 +63,9 @@ def temp_files_temporal() -> tuple[str, str]:
     os.remove(path_ais)
 
 
-def test_correlation_filters_out_of_time_telemetry(temp_files_temporal: tuple[str, str]) -> None:
+def test_correlation_filters_out_of_time_telemetry(
+    temp_files_temporal: tuple[str, str],
+) -> None:
     path_det, path_ais = temp_files_temporal
 
     # Execute correlation agent logic
@@ -71,6 +76,7 @@ def test_correlation_filters_out_of_time_telemetry(temp_files_temporal: tuple[st
         path_det, path_ais, acquisition_time="2026-07-08 05:00:00"
     )
 
-    # Detections should be isolated as dark vessel since the temporal filter drops the telemetry
+    # Detections become dark vessels because the temporal filter drops the
+    # out-of-window telemetry.
     assert len(dark_vessels_gdf) == 1
     assert dark_vessels_gdf.iloc[0]["target_id"] == "TRITON-001"

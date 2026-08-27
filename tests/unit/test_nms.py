@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 
 # Align python path to workspace root
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -24,7 +24,8 @@ def test_nms_no_overlap() -> None:
 def test_nms_overlap_suppression() -> None:
     # Two highly overlapping boxes of class 0
     # box 1: 0, 0 to 50, 50
-    # box 2: 10, 10 to 60, 60 (intersection 40x40 = 1600, union 2500+2500-1600 = 3400, IOU = 1600/3400 = 0.47)
+    # box 2: 10,10 to 60,60. intersection 40x40 = 1600,
+    # union 2500+2500-1600 = 3400, IoU = 1600/3400 = 0.47
     boxes = [
         (0.0, 0.0, 50.0, 50.0, 0.7, 0),
         (10.0, 10.0, 60.0, 60.0, 0.95, 0),  # Higher score
