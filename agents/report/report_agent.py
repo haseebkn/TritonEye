@@ -9,7 +9,15 @@ import argparse
 import json
 import os
 import sys
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+
+# Agents run as standalone scripts; put the workspace root on the path first.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
+try:
+    from agents.tracking import RunTracker
+except ImportError as e:  # pragma: no cover
+    print(f"Dependency missing during startup: {e}", file=sys.stderr)
 
 # Standard python libraries (no third-party dependencies required)
 
@@ -55,7 +63,7 @@ def build_html_report(
     payload: Dict[str, Any],
     detections: Dict[str, Any],
     dark_vessels: Dict[str, Any],
-    ais_data: List[Dict[str, Any]] = None
+    ais_data: Optional[List[Dict[str, Any]]] = None,
 ) -> str:
     """Constructs the self-contained interactive Leaflet HTML dashboard string."""
     if ais_data is None:
@@ -63,7 +71,75 @@ def build_html_report(
 
     mission_id = payload.get("mission_id", "mission_default")
     acq_time = payload.get("acquisition_time", "N/A")
-    bbox = payload.get("spatial_bounds", {}).get("bbox", [-52.6, 47.3, -51.5, 47.8])
+    spatial_bounds = payload.get("spatial_bounds", {})
+    bbox = spatial_bounds.get("bbox", [-52.6, 47.3, -51.5, 47.8])
+
+    # "none" means no real AIS source (MarineCadastre or the recorded
+    # aisstream.io archive) had coverage for this acquisition, so every
+    # detection was reported dark by default rather than by confirmed absence
+    # of AIS. That distinction is easy to lose once it's just a number on the
+    # map, so it is surfaced explicitly rather than folded into the dark count.
+    ais_coverage = spatial_bounds.get("ais_coverage", "n/a")
+
+    # The tracking run id travels in the payload; without it there is no run to
+    # link to, so the row is omitted rather than pointing somewhere dead.
+    run_id = payload.get("mlflow_run_id", "")
+    if run_id:
+        tracking_row = (
+            '<div class="meta-item"><span>MLflow Run</span>'
+            f'<b><a href="http://localhost:5000/#/experiments/1/runs/{run_id}" '
+            'target="_blank" style="color:#38bdf8;text-decoration:none;">'
+            f"{run_id[:12]} &#8599;</a></b></div>"
+        )
+    else:
+        tracking_row = (
+            '<div class="meta-item"><span>MLflow Run</span>'
+            '<b style="color:#94a3b8">not tracked</b></div>'
+        )
+    # The land-mask rejection tally. A count of surviving targets alone hides
+    # the thing worth showing -- that a false-alarm mode was found and how much
+    # of the raw output it accounted for -- so the breakdown is rendered rather
+    # than only the survivors.
+    landmask = payload.get("landmask") or {}
+    counts = landmask.get("counts") or {}
+    if landmask.get("status") == "ok" and counts:
+        total = sum(counts.values())
+        landmask_row = (
+            '<div class="meta-item"><span>Land Mask</span>'
+            f'<b style="color:#4ade80">{landmask.get("source", "?")}</b></div>'
+            f'<div class="surface-breakdown">{total} raw &rarr; '
+            f'<b>{counts.get("water", 0)} water</b> &middot; '
+            f'{counts.get("coastal", 0)} coastal &middot; '
+            f'{counts.get("land", 0)} land-rejected</div>'
+        )
+    elif landmask.get("status") in ("unavailable", "no_footprint"):
+        landmask_row = (
+            '<div class="meta-item"><span>Land Mask</span>'
+            '<b style="color:#f87171">UNMASKED</b></div>'
+            '<div class="surface-breakdown">Coastline unavailable; land returns '
+            "may be present in this alert list.</div>"
+        )
+    else:
+        landmask_row = (
+            '<div class="meta-item"><span>Land Mask</span>'
+            '<b style="color:#94a3b8">disabled</b></div>'
+        )
+
+    landmask_attribution = ""
+    if landmask.get("status") == "ok":
+        _attrib = {
+            "osm": " &middot; Coastline &copy; OpenStreetMap contributors (ODbL)",
+            "gshhg": " &middot; Coastline: GSHHG (public domain)",
+        }
+        landmask_attribution = _attrib.get(landmask.get("source", ""), "")
+
+    coverage_label = {
+        "marinecadastre": ("MarineCadastre", "#4ade80"),
+        "aisstream": ("aisstream.io", "#4ade80"),
+        "mock": ("Synthetic", "#94a3b8"),
+        "none": ("NO COVERAGE", "#f87171"),
+        "n/a": ("N/A", "#94a3b8"),
+    }.get(ais_coverage, (ais_coverage, "#94a3b8"))
 
     det_count = len(detections.get("features", []))
     dark_count = len(dark_vessels.get("features", []))
@@ -97,22 +173,20 @@ def build_html_report(
 
         row_html = (
             f'<div class="vessel-item" '
-            f'onclick="panToTarget(\'{tid}\', {c_lat}, {c_lon})">'
+            f"onclick=\"panToTarget('{tid}', {c_lat}, {c_lon})\">"
             f'  <div class="vessel-id">{tid}</div>'
             f'  <div class="vessel-details">'
-            f'    <span>Type: <b>{cls_name.upper()}</b></span>'
-            f'    <span>Conf: <b>{conf:.2f}</b></span>'
-            f'  </div>'
-            f'</div>'
+            f"    <span>Type: <b>{cls_name.upper()}</b></span>"
+            f"    <span>Conf: <b>{conf:.2f}</b></span>"
+            f"  </div>"
+            f"</div>"
         )
         vessel_rows.append(row_html)
 
     if vessel_rows:
         vessels_list_html = "\n".join(vessel_rows)
     else:
-        vessels_list_html = (
-            '<div class="no-alerts">No Dark Vessels Isolated</div>'
-        )
+        vessels_list_html = '<div class="no-alerts">No Dark Vessels Isolated</div>'
 
     html_template = f"""<!DOCTYPE html>
 <html lang="en">
@@ -231,6 +305,11 @@ def build_html_report(
         .stat-val.active {{ color: #4ade80; }}
         .stat-val.dark {{ color: #f87171; }}
         .stat-val.ais {{ color: #a78bfa; }}
+        .surface-breakdown {{
+            font-size: 11px; color: #94a3b8; margin: -4px 0 12px 0;
+            line-height: 1.5; letter-spacing: 0.02em;
+        }}
+        .surface-breakdown b {{ color: #cbd5e1; font-weight: 600; }}
 
         .stat-lbl {{
             font-size: 10px;
@@ -344,10 +423,10 @@ def build_html_report(
 
         <div class="meta-item"><span>Mission ID</span><b>{mission_id}</b></div>
         <div class="meta-item"><span>Acquisition</span><b>{acq_time}</b></div>
-        <div class="meta-item"><span>MLflow Run</span><b><a
-            href="http://localhost:5000/#/experiments/0/runs/{mission_id}"
-            target="_blank" style="color: #38bdf8; text-decoration: none;"
-            >View Experiment ↗</a></b></div>
+        <div class="meta-item"><span>AIS Source</span>
+            <b style="color:{coverage_label[1]}">{coverage_label[0]}</b></div>
+        {landmask_row}
+        {tracking_row}
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -402,7 +481,8 @@ def build_html_report(
 
         L.tileLayer(base_url, {{
             maxZoom: 13,
-            attribution: 'Basemap &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS'
+            attribution: 'Basemap &copy; Esri &mdash; '
+                       + 'Sources: GEBCO, NOAA, CHS{landmask_attribution}'
         }}).addTo(map);
 
         L.tileLayer(ref_url, {{
@@ -475,6 +555,10 @@ def build_html_report(
             }}
         }}).addTo(map);
 
+        // One-decimal formatter for AIS kinematics, tolerating null/absent
+        // fields in the source CSV.
+        const fmt = (v) => (v || v === 0) ? Number(v).toFixed(1) : '0.0';
+
         // 5.5 Plot Active AIS Signals (Green/Emerald Circle Markers)
         if (typeof aisData !== 'undefined' && aisData && aisData.length > 0) {{
             aisData.forEach(function(vessel) {{
@@ -490,8 +574,8 @@ def build_html_report(
                     </div>
                     <div class="popup-body">
                         MMSI: <b>${{vessel.mmsi}}</b><br/>
-                        SOG: <b>${{vessel.speed_knots ? vessel.speed_knots.toFixed(1) : '0.0'}} kn</b><br/>
-                        COG: <b>${{vessel.course_deg ? vessel.course_deg.toFixed(1) : '0.0'}}&deg;</b><br/>
+                        SOG: <b>${{fmt(vessel.speed_knots)}} kn</b><br/>
+                        COG: <b>${{fmt(vessel.course_deg)}}&deg;</b><br/>
                         Time: <b>${{vessel.timestamp}}</b>
                     </div>
                 `).addTo(map);
@@ -539,19 +623,30 @@ def main() -> None:
     ais_data = []
     if ais_telemetry_path and os.path.exists(ais_telemetry_path):
         import csv
+
         try:
             with open(ais_telemetry_path, "r", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     try:
-                        ais_data.append({
-                            "mmsi": row.get("mmsi", ""),
-                            "lat": float(row.get("lat", 0.0)),
-                            "lon": float(row.get("lon", 0.0)),
-                            "timestamp": row.get("timestamp", ""),
-                            "speed_knots": float(row.get("speed_knots", 0.0)) if row.get("speed_knots") else 0.0,
-                            "course_deg": float(row.get("course_deg", 0.0)) if row.get("course_deg") else 0.0
-                        })
+                        ais_data.append(
+                            {
+                                "mmsi": row.get("mmsi", ""),
+                                "lat": float(row.get("lat", 0.0)),
+                                "lon": float(row.get("lon", 0.0)),
+                                "timestamp": row.get("timestamp", ""),
+                                "speed_knots": (
+                                    float(row.get("speed_knots", 0.0))
+                                    if row.get("speed_knots")
+                                    else 0.0
+                                ),
+                                "course_deg": (
+                                    float(row.get("course_deg", 0.0))
+                                    if row.get("course_deg")
+                                    else 0.0
+                                ),
+                            }
+                        )
                     except Exception:
                         pass
         except Exception as e:
@@ -570,6 +665,15 @@ def main() -> None:
 
     # 6. Update payload and print to stdout
     payload["report_html"] = report_path
+
+    tracker = RunTracker.resume(payload.get("mlflow_run_id"))
+    try:
+        tracker.set_tags({"stage": "report"})
+        tracker.log_metrics({"ais_points_plotted": len(ais_data)})
+        tracker.log_artifact(report_path, "report")
+    finally:
+        tracker.end()
+
     print(json.dumps(payload, indent=2))
 
 

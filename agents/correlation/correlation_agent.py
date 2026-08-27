@@ -11,11 +11,16 @@ import os
 import sys
 from typing import Any, Dict
 
+# Agents run as standalone scripts; put the workspace root on the path first.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
 # Third-party imports (handled gracefully if missing during bootstrap checks)
 try:
     import geopandas as gpd
     import pandas as pd
     import shapely.geometry
+
+    from agents.tracking import RunTracker
 except ImportError as e:
     print(f"Dependency missing during startup: {e}", file=sys.stderr)
     print(
@@ -23,6 +28,12 @@ except ImportError as e:
         file=sys.stderr,
     )
     # We will let the script fail gracefully on execution rather than crash on import
+
+
+# Radius around an AIS position within which a detection counts as correlated,
+# in metres. Roughly 1 nautical mile, absorbing transponder timing offset and
+# vessel drift across the +/-5 minute matching window.
+CORRELATION_RADIUS_M = 2000.0
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -58,15 +69,50 @@ def correlate_targets(
     detections_path: str,
     ais_path: str,
     acquisition_time: str = "",
-    metric_crs: str = "EPSG:32622"
+    metric_crs: str = "",
 ) -> gpd.GeoDataFrame:
     """
-    Loads detections and AIS records, projects them to metric CRS,
-    buffers AIS points by 2000m, and filters for detections with NO active AIS.
+    Loads detections and AIS records, projects them to a metric CRS, buffers AIS
+    points by CORRELATION_RADIUS_M, and filters for detections with NO active AIS.
     Enforces a ±5-minute temporal window on AIS records if acquisition_time is provided.
+
+    When metric_crs is empty the appropriate UTM zone is derived from the
+    detections themselves. The buffer is a distance in metres, so it is only
+    meaningful in a projected CRS covering the data — a zone inherited from
+    elsewhere in the payload would silently distort it.
     """
     # 1. Load detections GeoJSON
     detections_gdf = gpd.read_file(detections_path)
+
+    if detections_gdf.empty:
+        if detections_gdf.crs:
+            return detections_gdf.to_crs("EPSG:4326")
+        return detections_gdf
+
+    # Only water-classified detections can be dark vessels. Land and coastal
+    # detections stay in detections.geojson -- they are annotated, not deleted,
+    # so the rejection remains auditable -- but they must not raise an alert:
+    # a rock outcrop has no AIS transmitter and would otherwise satisfy the
+    # dark-vessel definition perfectly. Detections predating the land mask have
+    # no `surface` property at all, and are treated as water so that older
+    # missions keep correlating exactly as before.
+    if "surface" in detections_gdf.columns:
+        before = len(detections_gdf)
+        detections_gdf = detections_gdf[
+            detections_gdf["surface"].isna() | (detections_gdf["surface"] == "water")
+        ].copy()
+        excluded = before - len(detections_gdf)
+        if excluded:
+            print(
+                f"Land mask: {excluded} of {before} detections excluded from "
+                f"dark-vessel candidacy (not classified as water).",
+                file=sys.stderr,
+            )
+        if detections_gdf.empty:
+            return detections_gdf.to_crs("EPSG:4326")
+
+    if not metric_crs:
+        metric_crs = detections_gdf.estimate_utm_crs()
 
     # 2. Load and parse AIS telemetry CSV
     ais_df = pd.read_csv(ais_path)
@@ -79,10 +125,7 @@ def correlate_targets(
         ais_df = ais_df[time_diff <= pd.Timedelta(minutes=5)].copy()
 
     # Convert lat/lon fields to shapely Points
-    geometry = [
-        shapely.geometry.Point(xy)
-        for xy in zip(ais_df["lon"], ais_df["lat"])
-    ]
+    geometry = [shapely.geometry.Point(xy) for xy in zip(ais_df["lon"], ais_df["lat"])]
 
     # Cast to GeoDataFrame setting WGS84 CRS
     ais_gdf = gpd.GeoDataFrame(ais_df, crs="EPSG:4326", geometry=geometry)
@@ -91,18 +134,15 @@ def correlate_targets(
     detections_projected = detections_gdf.to_crs(metric_crs)
     ais_projected = ais_gdf.to_crs(metric_crs)
 
-    # 4. Apply 2000 meter buffer (approx 1 nautical mile) to the AIS point shapes
+    # 4. Apply the correlation buffer to the AIS point shapes
     if not ais_projected.empty:
-        ais_projected["geometry"] = ais_projected.geometry.buffer(2000.0)
+        ais_projected["geometry"] = ais_projected.geometry.buffer(CORRELATION_RADIUS_M)
 
     # 5. Spatial Join - Correlate detections with active AIS footprints
     # detections_projected is left df, ais_projected is right df
     if not ais_projected.empty:
         joined_gdf = gpd.sjoin(
-            detections_projected,
-            ais_projected,
-            how="left",
-            predicate="intersects"
+            detections_projected, ais_projected, how="left", predicate="intersects"
         )
     else:
         # If no AIS points are in range, all detections are dark vessels
@@ -147,12 +187,11 @@ def main() -> None:
             "or ais_telemetry path references."
         )
 
-    # 3. Perform correlation and isolate Dark Vessels
-    spatial_bounds = payload.get("spatial_bounds", {})
-    metric_crs = spatial_bounds.get("projection", "EPSG:32622")
-    
+    # 3. Perform correlation and isolate Dark Vessels. The metric CRS is derived
+    #    from the detections rather than taken from the payload, so the buffer
+    #    distance is always applied in a zone that actually covers them.
     dark_vessels_gdf = correlate_targets(
-        detections_geojson, ais_telemetry, acquisition_time, metric_crs
+        detections_geojson, ais_telemetry, acquisition_time
     )
 
     # 4. Save results to GeoJSON
@@ -166,6 +205,27 @@ def main() -> None:
 
     # 5. Update payload and print to stdout
     payload["dark_vessels_geojson"] = output_geojson_path
+
+    # The dark ratio is the headline operational number, and it is only
+    # meaningful alongside the AIS coverage that produced it — a 100% dark
+    # mission with no telemetry is a coverage gap, not a finding.
+    tracker = RunTracker.resume(payload.get("mlflow_run_id"))
+    try:
+        detections_count = len(gpd.read_file(detections_geojson))
+        dark_count = len(dark_vessels_gdf)
+        tracker.set_tags({"stage": "correlation"})
+        tracker.log_params({"correlation_radius_m": CORRELATION_RADIUS_M})
+        metrics: Dict[str, float] = {
+            "dark_vessels": dark_count,
+            "correlated_vessels": max(0, detections_count - dark_count),
+        }
+        if detections_count:
+            metrics["dark_ratio"] = dark_count / detections_count
+        tracker.log_metrics(metrics)
+        tracker.log_artifact(output_geojson_path, "dark_vessels")
+    finally:
+        tracker.end()
+
     print(json.dumps(payload, indent=2))
 
 
