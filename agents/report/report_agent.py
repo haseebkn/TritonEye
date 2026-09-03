@@ -74,7 +74,7 @@ def build_html_report(
     spatial_bounds = payload.get("spatial_bounds", {})
     bbox = spatial_bounds.get("bbox", [-52.6, 47.3, -51.5, 47.8])
 
-    # "none" means no real AIS source (MarineCadastre or the recorded
+    # "none" means no real AIS source (the recorded
     # aisstream.io archive) had coverage for this acquisition, so every
     # detection was reported dark by default rather than by confirmed absence
     # of AIS. That distinction is easy to lose once it's just a number on the
@@ -110,7 +110,8 @@ def build_html_report(
             f'<div class="surface-breakdown">{total} raw &rarr; '
             f'<b>{counts.get("water", 0)} water</b> &middot; '
             f'{counts.get("coastal", 0)} coastal &middot; '
-            f'{counts.get("land", 0)} land-rejected</div>'
+            f'{counts.get("land", 0)} land &middot; '
+            f'{counts.get("infrastructure", 0)} installation</div>'
         )
     elif landmask.get("status") in ("unavailable", "no_footprint"):
         landmask_row = (
@@ -134,7 +135,6 @@ def build_html_report(
         landmask_attribution = _attrib.get(landmask.get("source", ""), "")
 
     coverage_label = {
-        "marinecadastre": ("MarineCadastre", "#4ade80"),
         "aisstream": ("aisstream.io", "#4ade80"),
         "mock": ("Synthetic", "#94a3b8"),
         "none": ("NO COVERAGE", "#f87171"),

@@ -262,16 +262,16 @@ def generate_synthetic_data(
     }
 
 
-# AIS timestamp/coordinate column names differ by source. MarineCadastre's raw
-# daily archive uses these; the aisstream.io recorder already writes the
-# target schema, so its map is the identity.
-_MARINECADASTRE_COLUMNS = {
-    "timestamp": "base_date_time",
-    "lon": "longitude",
-    "lat": "latitude",
-    "speed_knots": "sog",
-    "course_deg": "cog",
-}
+# Operating area. This project covers Newfoundland and Labrador only:
+# the Grand Banks carry the region's commercial fishing, the Jeanne d'Arc
+# Basin production installations, and the approaches to St. John's.
+DEFAULT_AOI = "grand_banks.geojson"
+
+
+# The aisstream.io recorder already writes the target schema, so this map is
+# the identity. It exists so _filter_ais_file stays source-agnostic: a second
+# AIS source with different column names is added by supplying another map, not
+# by branching inside the filter.
 _NORMALIZED_COLUMNS = {
     "timestamp": "timestamp",
     "lon": "lon",
@@ -291,7 +291,7 @@ def _filter_ais_file(
     """
     Filters one AIS CSV to the +/-5 minute acquisition window and bbox, and
     writes the result in the target schema (mmsi, lat, lon, timestamp,
-    speed_knots, course_deg). Shared by the MarineCadastre and aisstream.io
+    speed_knots, course_deg). Source-agnostic: a source with different column
     archive paths, which differ only in their source column names.
     """
     import pandas as pd
@@ -365,37 +365,6 @@ def _filter_ais_file(
         return False
 
 
-def filter_real_ais_data(
-    ais_dir: str, acquisition_time_str: str, bbox: List[float], output_path: str
-) -> bool:
-    """
-    Locates the MarineCadastre daily AIS archive in ais_dir and filters it to
-    the acquisition window and bbox.
-    """
-    if not os.path.exists(ais_dir):
-        print(f"AIS directory not found: {ais_dir}", file=sys.stderr)
-        return False
-
-    files = [f for f in os.listdir(ais_dir) if os.path.isfile(os.path.join(ais_dir, f))]
-    if not files:
-        print(f"No files found in AIS directory: {ais_dir}", file=sys.stderr)
-        return False
-
-    # _filter_ais_file appends, so that a window spanning several source files
-    # accumulates into one output. Clear any output from a previous run first,
-    # or re-ingesting the same acquisition silently doubles its AIS records.
-    if os.path.exists(output_path):
-        os.remove(output_path)
-
-    return _filter_ais_file(
-        os.path.join(ais_dir, files[0]),
-        acquisition_time_str,
-        bbox,
-        output_path,
-        _MARINECADASTRE_COLUMNS,
-    )
-
-
 def filter_ais_stream_archive(
     archive_dir: str,
     acquisition_time_str: str,
@@ -404,7 +373,7 @@ def filter_ais_stream_archive(
 ) -> bool:
     """
     Filters the locally recorded aisstream.io archive (see agents/ais_recorder.py)
-    to the acquisition window and bbox. Unlike MarineCadastre, this archive is
+    to the acquisition window and bbox. This archive is
     global, so it is the fallback for acquisitions outside US waters — but it
     only has coverage from whenever the recorder was actually running.
 
@@ -701,29 +670,24 @@ def query_copernicus_data(
     ais_bbox = pad_bbox(scene_bbox, AIS_MARGIN_DEG)
     acq_time_str_full = dt.strftime("%Y-%m-%d %H:%M:%S")
 
-    # Try MarineCadastre first (US Coast Guard archive, only covers US waters),
-    # then the locally recorded aisstream.io archive (global, but only from
-    # whenever the recorder — agents/ais_recorder.py — was actually running).
+    # The locally recorded aisstream.io archive is the ONLY AIS source for this
+    # operating area. MarineCadastre — the usual free bulk archive — is US Coast
+    # Guard data and holds zero records east of -67.4W, so it does not reach
+    # Newfoundland and Labrador at all; it is not consulted. That leaves the
+    # recorder (agents/ais_recorder.py) as the sole ground-truth source, and it
+    # only covers time during which it was actually running.
     ais_telemetry_path = None
     ais_coverage = "none"
 
-    if target_date:
-        ais_dir = os.path.join(output_dir, f"ais-{target_date}")
-        output_ais_path = os.path.join(output_dir, f"ais_{target_date}_filtered.csv")
-        if filter_real_ais_data(ais_dir, acq_time_str_full, ais_bbox, output_ais_path):
-            ais_telemetry_path = output_ais_path
-            ais_coverage = "marinecadastre"
-
-    if ais_telemetry_path is None:
-        ais_stream_dir = os.path.join(output_dir, "ais_stream")
-        output_stream_path = os.path.join(
-            output_dir, f"ais_stream_{dt.strftime('%Y%m%d_%H%M%S')}_filtered.csv"
-        )
-        if filter_ais_stream_archive(
-            ais_stream_dir, acq_time_str_full, ais_bbox, output_stream_path
-        ):
-            ais_telemetry_path = output_stream_path
-            ais_coverage = "aisstream"
+    ais_stream_dir = os.path.join(output_dir, "ais_stream")
+    output_stream_path = os.path.join(
+        output_dir, f"ais_stream_{dt.strftime('%Y%m%d_%H%M%S')}_filtered.csv"
+    )
+    if filter_ais_stream_archive(
+        ais_stream_dir, acq_time_str_full, ais_bbox, output_stream_path
+    ):
+        ais_telemetry_path = output_stream_path
+        ais_coverage = "aisstream"
 
     if ais_telemetry_path is None:
         # No real telemetry exists for this acquisition. Previously this fell
@@ -742,10 +706,11 @@ def query_copernicus_data(
                     ["mmsi", "lat", "lon", "timestamp", "speed_knots", "course_deg"]
                 )
         print(
-            "WARNING: no real AIS coverage (MarineCadastre or recorded "
-            "aisstream.io archive) for this acquisition. All detections will "
-            "be reported dark, reflecting missing telemetry coverage rather "
-            "than confirmed silence.",
+            "WARNING: no recorded AIS coverage for this acquisition. All "
+            "detections will be reported dark, reflecting missing telemetry "
+            "coverage rather than confirmed silence. Newfoundland and Labrador "
+            "has no historical AIS archive, so coverage exists only for periods "
+            "when agents/ais_recorder.py was running.",
             file=sys.stderr,
         )
 
@@ -808,7 +773,7 @@ def main() -> None:
             aoi_override += ".geojson"
         aoi_path = os.path.join(base_dir, "configs", "aois", aoi_override)
     elif target_dates:
-        aoi_path = os.path.join(base_dir, "configs", "aois", "boston_offshore.geojson")
+        aoi_path = os.path.join(base_dir, "configs", "aois", DEFAULT_AOI)
     else:
         aoi_path = os.path.join(
             base_dir, "configs", "aois", "st_johns_offshore.geojson"

@@ -97,7 +97,7 @@ def swath_hull(vv_path: str) -> Any:
 
 def vessel_lengths(ais_dir_hint: str, mmsis: List[int]) -> Dict[int, float]:
     """
-    Pulls self-reported vessel length from a raw MarineCadastre daily archive.
+    Pulls self-reported vessel length from a raw AIS daily archive.
 
     The filtered per-mission CSV keeps only kinematics, so length has to come
     from the raw file when it is still on disk. Absent that, recall is reported

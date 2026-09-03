@@ -7,17 +7,17 @@ position reports to daily CSV files under data/raw/ais_stream/.
 
 aisstream.io has no historical archive — it only streams AIS as vessels
 transmit it. This recorder exists to build that archive ourselves, so that
-future Sentinel-1 acquisitions in areas MarineCadastre does not cover (it is
-US Coast Guard data, so anything outside US waters — including Newfoundland —
-has zero coverage there) can still be correlated against real AIS.
+future Sentinel-1 acquisitions over Newfoundland and Labrador can be correlated
+against real AIS. No historical archive covers this region: MarineCadastre, the
+usual free bulk source, is US Coast Guard data and holds nothing east of
+-67.4W, so this recorder is the project's only route to ground truth.
 
 It cannot retroactively supply AIS for acquisitions already on disk; it only
 covers time recorded from the moment it is started onward. Run it
 continuously, well ahead of the Sentinel-1 acquisitions you want to validate.
 
-Output schema matches the one ingest_agent.py's MarineCadastre filtering
-already produces, so ingest_agent can read either source with the same
-filtering code: mmsi, lat, lon, timestamp, speed_knots, course_deg.
+Output schema is the one ingest_agent.py filters against directly:
+mmsi, lat, lon, timestamp, speed_knots, course_deg.
 """
 
 import argparse

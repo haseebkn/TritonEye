@@ -27,10 +27,16 @@ like "the model is broken" rather than "the input is wrong":
    uses. Measured on a known vessel: (VH, VV) peaked at 0.33 objectness 56 px
    from the target, (VV, VH) at 0.11 and 918 px away.
 
-Measured against AIS ground truth on the full 2025-01-08 Boston scene (126
-tiles, 141 AIS vessels in swath): 59% recall on vessels >=50 m at threshold
-0.05, against 4% for the deployed yolov8n. See EVALUATION.md for the operating
-point sweep and the precision caveat.
+WHY THIS MODEL: at 10 m ground spacing a 70 m vessel spans 7 pixels, which is
+smaller than one output cell of a stride-8 detector -- the target is gone before
+the head ever sees it. This ensemble predicts at stride 2, which is a geometric
+argument for the architecture rather than a claim about a particular scene. It
+also won the xView3-SAR challenge, whose task (vessel detection in Sentinel-1
+GRD) is the task here.
+
+RECALL OVER NEWFOUNDLAND AND LABRADOR IS NOT YET MEASURED. No historical AIS
+archive covers this region, so ground truth exists only for periods when
+agents/ais_recorder.py was running. See EVALUATION.md.
 
 WHAT THIS MODEL DOES NOT DO, both of which are easy to misread from its outputs:
 
@@ -72,19 +78,23 @@ NORM_TEMPERATURE = 0.18
 # Objectness peaks well below 1.0 — a CenterNet heatmap is not calibrated like a
 # classifier, so this is nowhere near a 0.5 default.
 #
-# Swept against AIS ground truth over a full IW scene (141 AIS vessels in swath):
+# 0.15 IS PROVISIONAL. Choosing an operating point needs recall on one axis and
+# false alarms on the other, and recall cannot yet be measured over Newfoundland
+# and Labrador: no historical AIS archive covers the region (EVALUATION.md 1.1).
 #
-#   thresh   dets   recall(all)   recall(>=50m)   detections per AIS vessel
-#     0.05   1419         51%            59%            10.1x
-#     0.10    313         33%            52%             2.2x
-#     0.15    160         21%            48%             1.1x
-#     0.25     97         13%            44%             0.7x
-#     0.40     40          8%            30%             0.3x
+# What HAS been measured here is the false-alarm side, on the 2026-08-17 eastern
+# Newfoundland scene — and it argues against tuning this value at all:
 #
-# Recall on resolvable vessels decays far more slowly than the detection count,
-# so 0.15 is the better operating point: 8.9x fewer detections than 0.05 for an
-# 11-point drop in >=50 m recall. Lower it toward 0.05 once a land mask exists
-# to absorb the resulting coastal false positives.
+#   confidence   detections   on land
+#     0.15-0.20     185          78%
+#     0.20-0.30      87          67%
+#     0.30-0.50      21          57%
+#     0.50+           5          60%
+#
+# Land contamination does NOT fall away with confidence over this terrain, so no
+# threshold separates land from water; that is the land mask's job, not this
+# constant's. Revisit only once an AIS-scored NL acquisition exists to measure
+# what a change costs in recall.
 DEFAULT_THRESHOLD = 0.15
 
 # Half-width of the square emitted around each detection, in pixels (~150 m at

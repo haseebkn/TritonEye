@@ -107,25 +107,3 @@ def test_rerunning_stream_filter_does_not_duplicate_records(archive_dir: str) ->
     first = open(out_path, encoding="utf-8").read()
     assert filter_ais_stream_archive(*args)
     assert open(out_path, encoding="utf-8").read() == first
-
-
-def test_rerunning_marinecadastre_filter_does_not_duplicate_records(
-    archive_dir: str,
-) -> None:
-    # Same idempotency requirement for the MarineCadastre path, which reads a
-    # daily archive out of a directory rather than named daily files.
-    from agents.ingest.ingest_agent import filter_real_ais_data
-
-    source_dir = os.path.join(archive_dir, "ais-2026-08-18")
-    os.makedirs(source_dir)
-    with open(os.path.join(source_dir, "ais-2026-08-18"), "w", encoding="utf-8") as f:
-        f.write("mmsi,base_date_time,longitude,latitude,sog,cog\n")
-        f.write("316000001,2026-08-18 09:12:00,-52.70,47.50,10.0,90.0\n")
-
-    out_path = os.path.join(archive_dir, "mc_out.csv")
-    args = (source_dir, "2026-08-18 09:15:00", [-53.0, 47.0, -52.0, 48.0], out_path)
-
-    assert filter_real_ais_data(*args)
-    first = open(out_path, encoding="utf-8").read()
-    assert filter_real_ais_data(*args)
-    assert open(out_path, encoding="utf-8").read() == first

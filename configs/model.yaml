@@ -64,6 +64,19 @@ landmask:
                            # above the measured gcp_tps georeferencing residual
   cache_dir: null          # null -> data/reference/
 
+# Known fixed offshore installations. A production platform sits in open water,
+# has no AIS transmitter, and appears in every acquisition over its field -- so
+# without this it is reported as a dark vessel on every single pass. A false
+# positive that REPEATS erodes an alert list faster than a sporadic one.
+#
+# Registry and published position sources: agents/infrastructure.py
+infrastructure:
+  enabled: true
+  exclusion_radius_m: 1000   # covers the structure and its 500 m safety zone
+                             # plus georeferencing slop, while leaving the
+                             # supply and standby vessels working the field
+                             # visible -- they are real traffic
+
 # Baseline hyperparameters for autoresearch training runs
 training:
   optimizer: "AdamW"

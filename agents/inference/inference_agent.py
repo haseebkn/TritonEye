@@ -513,11 +513,39 @@ def classify_surfaces(
         )
         return None, None, {"enabled": True, "status": "unavailable", "error": str(e)}
 
+    # Known fixed installations override the water classification. A production
+    # platform sits in open water and has no AIS transmitter, so it satisfies
+    # the dark-vessel definition on every single pass over its field -- a false
+    # positive that REPEATS, which erodes trust faster than a sporadic one.
+    infra_meta: Dict[str, Any] = {"enabled": False}
+    infra_cfg = config.get("infrastructure", {}) or {}
+    if infra_cfg.get("enabled", False):
+        from agents import infrastructure as infra
+
+        radius_m = float(infra_cfg.get("exclusion_radius_m", infra.EXCLUSION_RADIUS_M))
+        is_infra, attributed = infra.classify_infrastructure(
+            lons, lats, scene_bounds, radius_m=radius_m
+        )
+        for i, flagged in enumerate(is_infra):
+            if flagged:
+                surfaces[i] = infra.SURFACE_INFRASTRUCTURE
+        per_installation = infra.summarize(attributed)
+        infra_meta = {
+            "enabled": True,
+            "exclusion_radius_m": radius_m,
+            "total": sum(per_installation.values()),
+            "per_installation": per_installation,
+        }
+        if per_installation:
+            named = ", ".join(f"{k}: {v}" for k, v in sorted(per_installation.items()))
+            print(f"Infrastructure mask: {named}", file=sys.stderr)
+
     counts = lm.summarize(surfaces)
+    infra_n = sum(1 for x in surfaces if x == "infrastructure")
     print(
         f"Land mask ({source}): {counts['water']} water, "
-        f"{counts['coastal']} coastal, {counts['land']} land-rejected "
-        f"of {len(surfaces)}",
+        f"{counts['coastal']} coastal, {counts['land']} land-rejected, "
+        f"{infra_n} infrastructure of {len(surfaces)}",
         file=sys.stderr,
     )
     meta = {
@@ -526,7 +554,8 @@ def classify_surfaces(
         "source": source,
         "licence": mask.licence,
         "coastal_buffer_m": buffer_m,
-        "counts": counts,
+        "counts": {**counts, "infrastructure": infra_n},
+        "infrastructure": infra_meta,
     }
     return surfaces, dist, meta
 

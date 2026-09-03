@@ -89,13 +89,17 @@ def correlate_targets(
             return detections_gdf.to_crs("EPSG:4326")
         return detections_gdf
 
-    # Only water-classified detections can be dark vessels. Land and coastal
-    # detections stay in detections.geojson -- they are annotated, not deleted,
-    # so the rejection remains auditable -- but they must not raise an alert:
-    # a rock outcrop has no AIS transmitter and would otherwise satisfy the
-    # dark-vessel definition perfectly. Detections predating the land mask have
-    # no `surface` property at all, and are treated as water so that older
-    # missions keep correlating exactly as before.
+    # Only open water is alert-eligible:
+    #   land            terrain -- a rock outcrop has no AIS transmitter and
+    #                   would otherwise satisfy the dark-vessel definition
+    #   coastal         the ambiguous nearshore band
+    #   infrastructure  a known production platform, which would otherwise be
+    #                   reported dark on every single pass over its field
+    #
+    # These stay in detections.geojson -- annotated, not deleted -- so the
+    # rejection remains auditable. Detections predating the mask carry no
+    # `surface` property and are treated as water, so older missions correlate
+    # exactly as they did before.
     if "surface" in detections_gdf.columns:
         before = len(detections_gdf)
         detections_gdf = detections_gdf[

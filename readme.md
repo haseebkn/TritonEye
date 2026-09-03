@@ -1,52 +1,74 @@
 # TritonEye
 
-> Sentinel-1 SAR + AIS dark-vessel detection pipeline for the North Atlantic.
+> Satellite-based maritime domain awareness for **Newfoundland and Labrador** —
+> Sentinel-1 SAR vessel detection correlated against AIS, to surface targets
+> that are present in the imagery but silent on their transponders.
 
-**Status: research prototype.** The pipeline runs end to end on real Copernicus
-data and its geolocation is verified against AIS. **The detection model is not
-fit for purpose** — measured recall is 4% on vessels ≥50 m. See
-[EVALUATION.md](EVALUATION.md) for the measurements and the diagnostic work
-behind that number.
+**Status: research prototype with measured false-positive suppression and
+unmeasured detection recall.** Both halves of that sentence are load-bearing;
+[EVALUATION.md](EVALUATION.md) is the evidence for each.
 
-This README documents what is built. A [Not implemented](#not-implemented)
-section lists what is not.
+## Operating area
 
----
+Newfoundland and Labrador only — the Grand Banks, the Jeanne d'Arc Basin
+production installations, and the approaches to St. John's. That is not a
+cosmetic scope; three regional facts drive most of the engineering here:
+
+- **No historical AIS archive exists for these waters.** MarineCadastre, the
+  usual free bulk source, is US Coast Guard data with **zero records east of
+  −67.4°W**. Ground truth has to be collected prospectively, which is why this
+  project ships its own AIS recorder — and why recall is not yet measured.
+- **The scene is mostly land.** On a real acquisition, **72.8% of raw
+  detections fell on land**, some 35.4 km inland. Suppressing that is not
+  polish; without it the output is unusable.
+- **This is Iceberg Alley.** An iceberg is a bright compact target with no
+  transponder, so it satisfies this pipeline's dark-vessel definition exactly.
+  See [§7.1](EVALUATION.md) — the limitation is structural, not incidental.
 
 ## What it does
 
-Downloads a Sentinel-1 Level-1 GRD scene from the Copernicus Data Space, runs a
-YOLOv8 detector over it in overlapping tiles, georeferences the surviving
-detections, and flags those with no matching AIS transponder signal as candidate
-dark vessels. Outputs GeoJSON plus an interactive HTML brief, and records
-parameters, operational metrics and artifacts to MLflow.
+Downloads a Sentinel-1 Level-1 GRD scene from the Copernicus Data Space,
+calibrates it to σ⁰, runs a SAR-specific detector over it in overlapping tiles,
+georeferences the detections, suppresses land and known fixed infrastructure,
+and flags the survivors with no matching AIS transponder signal as candidate
+**AIS-uncorrelated targets**. Outputs GeoJSON plus an interactive HTML brief,
+and records parameters, metrics and artifacts to MLflow.
 
 | Component | Status |
 |---|---|
 | Copernicus CDSE ingest (OAuth2, OData, download) | **Working** |
-| GCP/TPS georeferencing of radar-geometry products | **Working** — verified to 41 m against AIS |
-| Windowed tiling + NMS | **Working** |
-| YOLOv8 inference (Ultralytics + HF Hub weights) | **Working**, but see [EVALUATION.md](EVALUATION.md) |
-| xView3 ensemble backend (opt-in) | **Working** — 59% recall @ ≥50 m vs 4% |
-| Radiometric calibration to σ⁰ dB | **Working** (`agents/calibration.py`) |
-| AIS ingest — MarineCadastre archive | **Working** (US waters only) |
-| AIS ingest — live `aisstream.io` recorder | **Working** (global, forward-recording only) |
-| Dark-vessel correlation | **Working** |
+| GCP/TPS georeferencing of radar-geometry products | **Working** — 0.00 m residual at 210 GCPs; affine is 801 m out |
+| Radiometric calibration to σ⁰ dB | **Working** — exact, 3.4× less memory than the naive path |
+| xView3 ensemble detector | **Working** — stride-2 dense prediction |
+| Land masking | **Working** — rejected 72.8% of a real scene; alerts 298 → 17 |
+| Fixed infrastructure masking | **Working** — 4 Jeanne d'Arc Basin installations; unit-tested, not yet run on a Grand Banks scene |
+| AIS recorder (`aisstream.io`) | **Working** — forward-recording only; cannot backfill |
+| Dark-vessel correlation | **Working** — water-classified detections only |
 | HTML mission report | **Working** |
 | MLflow tracking + model registry | **Working** |
-| Evaluation vs AIS ground truth | **Working** |
-| Detector accuracy (default `yolov8`) | **Inadequate** — 4% recall @ ≥50 m |
-| Land masking | **Working** — 72.8% of the 2026-08-17 detections rejected as land ([§5a.8](EVALUATION.md)) |
-| Precision / false positives | **Unmeasured** — land is masked, but clutter and icebergs are not; see [EVALUATION.md](EVALUATION.md) §5a.5 |
-| Ship / iceberg discrimination | **Not implemented** — every detected iceberg becomes a dark-vessel alert ([§8.1](EVALUATION.md)) |
+| Evaluation vs AIS ground truth | **Implemented, not yet exercised** — no NL scene has coincided with recorder uptime |
+| **Detection recall over NL** | **UNMEASURED** — the project's central open gap |
+| **Precision / false positives** | **UNMEASURED** — land is masked; clutter and ice are not |
+| **Ship / iceberg discrimination** | **Not implemented** — every detected iceberg becomes an alert |
+
+### What the numbers do and do not say
+
+The alert list for the 2026-08-17 eastern Newfoundland acquisition went from
+**298 to 17** once land was masked. That measures **false-positive suppression**,
+which is real and reproducible.
+
+It does **not** mean 17 vessels. It means 17 AIS-uncorrelated targets, which is
+an *upper bound* on marine targets in that scene — sea clutter, wind streaks and
+icebergs are unquantified within it, and no AIS existed for that acquisition to
+correlate against in the first place.
 
 ---
 
 ## Architecture
 
 ```
-  Copernicus Data Space                MarineCadastre archive
-  (OAuth2 / OData / download)          aisstream.io live feed
+  Copernicus Data Space                aisstream.io live feed
+  (OAuth2 / OData / download)          (recorded locally)
             |                                    |
             v                                    v
   +---------------------------------------------------------+
@@ -102,15 +124,15 @@ Agents are standalone scripts chained by a JSON payload on stdout/stdin.
   by — the `xview3` backend. Orbit file application, thermal/border noise
   removal, speckle filtering and terrain correction remain *not* implemented.
 
-**AIS**, tried in order per acquisition:
-1. **MarineCadastre** daily archive (US Coast Guard). Chunked filtering to the
-   ±5 min window and the scene footprint. **US waters only** — measured: zero
-   records east of −67.4°W, so it has no coverage for Newfoundland.
-2. **Recorded `aisstream.io` archive** (`data/raw/ais_stream/`), built by
-   `agents/ais_recorder.py`. Global, but aisstream.io is a live feed with no
-   historical API, so this only covers time from whenever the recorder was
-   running. It cannot backfill imagery acquired earlier.
-3. **Nothing.** A production run with no real coverage gets an *empty* — not
+**AIS.** There is exactly one source, because there is only one that reaches
+this operating area:
+1. **Recorded `aisstream.io` archive** (`data/raw/ais_stream/`), built by
+   `agents/ais_recorder.py`. aisstream.io is a live feed with **no historical
+   API**, so this covers only time during which the recorder was actually
+   running, and it cannot backfill imagery acquired earlier. MarineCadastre —
+   the usual free bulk archive — is not consulted: it is US Coast Guard data
+   with zero records east of −67.4°W and does not reach Newfoundland at all.
+2. **Nothing.** A production run with no real coverage gets an *empty* — not
    fabricated — AIS file, and `spatial_bounds.ais_coverage` is set to `"none"`.
    The report shows a red **NO COVERAGE** badge, so an all-dark result is
    auditable as a telemetry gap rather than an intelligence finding.
@@ -167,7 +189,24 @@ points in WGS-84.
 - Each box is carried through as its four corners, since an axis-aligned box in
   pixel space is a rotated quadrilateral on the ground.
 
-### 4 — Land masking (`agents/landmask.py`)
+### 4 — False-positive suppression (`agents/landmask.py`, `agents/infrastructure.py`)
+
+Two masks run after georeferencing, on detection centroids rather than the
+raster. Both **annotate rather than delete** — only `water` reaches the
+correlator, and the rejection tally goes to the payload and the report header,
+because what was discarded is itself the evidence.
+
+**Fixed infrastructure.** The Grand Banks carries four production installations
+(Hibernia, Hebron, Terra Nova, White Rose). Each is a large radar-hard target
+that appears in every acquisition over its field, does not move, and carries no
+AIS transmitter — so each satisfies the dark-vessel definition on **every single
+pass**. A false positive that repeats on a fixed schedule erodes trust in an
+alert list faster than a sporadic one. Detections within 1 km of a published
+position are attributed to the installation by name; the radius covers the
+structure and its 500 m safety zone while leaving the supply and standby vessels
+working the field visible, because those are real traffic.
+
+#### Land masking
 
 - Detections are classified **water / coastal / land** against open coastline
   data (OSM land polygons, ODbL; GSHHG, public domain, as a fallback).
@@ -249,15 +288,19 @@ cp .env.example .env          # then fill in credentials
 # offline, no credentials needed
 MOCK_INGEST=true python agents/ingest/ingest_agent.py > p1.json
 
+# start collecting ground truth -- nothing can be scored without this
+python agents/ais_recorder.py --aoi grand_banks &
+
 # real acquisition
-export TARGET_DATE=2025-01-08 AOI_NAME=boston_offshore
+export TARGET_DATE=2026-08-17 AOI_NAME=eastern_newfoundland
+export TRITONEYE_DETECTOR=xview3
 python agents/ingest/ingest_agent.py            > p1.json
 python agents/inference/inference_agent.py    --payload-file p1.json > p2.json
 python agents/correlation/correlation_agent.py --payload-file p2.json > p3.json
 python agents/report/report_agent.py          --payload-file p3.json > p4.json
 python agents/evaluate/evaluate_agent.py      --payload-file p4.json > p5.json
 
-pytest tests/                                  # 43 tests
+pytest tests/ -m 'not slow'                    # 127 tests
 ```
 
 Docker:
