@@ -71,11 +71,19 @@ services:
       | python agents/evaluate/evaluate_agent.py"
 
   # ---------------------------------------------------------------- services
-  # The only service meant to stay up. Subscribes to aisstream.io and builds a
-  # local historical archive (data/raw/ais_stream/) for AOIs MarineCadastre does
-  # not cover — it is US Coast Guard data, so anything outside US waters has no
-  # coverage there. Requires AISSTREAM_API_KEY in .env. Records only from
-  # whenever it is started onward; it cannot backfill imagery already on disk.
+  # The only service meant to stay up, and the project's ONLY route to ground
+  # truth: no historical AIS archive covers Newfoundland and Labrador, so recall
+  # can only ever be measured for periods this was running. It records from
+  # whenever it starts onward and cannot backfill imagery already on disk, so
+  # every hour it is down is permanently unscorable.
+  #
+  # `restart: unless-stopped` is the point of running it here rather than by
+  # hand -- a shell-backgrounded recorder dies with its session, and the archive
+  # gap is not noticed until an acquisition turns out to be unscorable.
+  #
+  # No --aoi: the default is the nl_shelf recording envelope, which contains
+  # every imaging AOI. Do not narrow it to one imaging AOI.
+  # Requires AISSTREAM_API_KEY in .env.
   ais-recorder:
     <<: *tritoneye-base
     command: python agents/ais_recorder.py

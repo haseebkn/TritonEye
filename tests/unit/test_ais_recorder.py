@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 from agents.ais_recorder import (
     DailyCsvWriter,
     bbox_to_subscription_area,
+    load_bbox_from_aoi,
     parse_position_report,
 )
 
@@ -193,3 +194,59 @@ def test_backoff_does_not_reset_without_receiving_data(monkeypatch: Any) -> None
     assert max(delays) > delays[0], f"backoff never grew: {delays}"
     for prev, cur in zip(delays, delays[1:]):
         assert cur >= prev - 1e-9, f"backoff did not grow monotonically: {delays}"
+
+
+def test_recording_envelope_contains_every_imaging_aoi() -> None:
+    """
+    Regression: the recorder was subscribed to `eastern_newfoundland`, whose
+    bbox has NO longitude overlap with `grand_banks`. A week of recording
+    produced ~15k rows and exactly zero inside the Grand Banks, so every scene
+    there was unscorable. The archive looked healthy the whole time, which is
+    what makes this worth a test rather than a comment.
+
+    Any imaging AOI added later must also fall inside the envelope.
+    """
+    import glob
+
+    base = os.path.join(os.path.dirname(__file__), "..", "..")
+    aoi_dir = os.path.abspath(os.path.join(base, "configs", "aois"))
+    envelope = load_bbox_from_aoi(os.path.join(aoi_dir, "nl_shelf.geojson"))
+
+    imaging = [
+        p
+        for p in glob.glob(os.path.join(aoi_dir, "*.geojson"))
+        if not p.endswith("nl_shelf.geojson")
+    ]
+    assert imaging, "expected at least one imaging AOI"
+
+    for path in imaging:
+        b = load_bbox_from_aoi(path)
+        name = os.path.basename(path)
+        assert (
+            envelope[0] <= b[0] and b[2] <= envelope[2]
+        ), f"{name} lon outside envelope"
+        assert (
+            envelope[1] <= b[1] and b[3] <= envelope[3]
+        ), f"{name} lat outside envelope"
+
+
+def test_recorder_default_aoi_is_the_envelope_not_an_imaging_aoi() -> None:
+    """
+    The default must be the recording envelope.
+
+    Defaulting to an imaging AOI is the same failure the envelope exists to
+    prevent: a narrow subscription that looks healthy while scenes processed
+    elsewhere score zero. It reached the shipped default once already.
+    """
+    from agents.ais_recorder import DEFAULT_RECORDING_AOI
+
+    assert DEFAULT_RECORDING_AOI == "nl_shelf"
+
+    base = os.path.join(os.path.dirname(__file__), "..", "..")
+    aoi_dir = os.path.abspath(os.path.join(base, "configs", "aois"))
+    envelope = load_bbox_from_aoi(
+        os.path.join(aoi_dir, f"{DEFAULT_RECORDING_AOI}.geojson")
+    )
+    grand_banks = load_bbox_from_aoi(os.path.join(aoi_dir, "grand_banks.geojson"))
+    assert envelope[0] <= grand_banks[0] and grand_banks[2] <= envelope[2]
+    assert envelope[1] <= grand_banks[1] and grand_banks[3] <= envelope[3]

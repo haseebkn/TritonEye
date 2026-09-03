@@ -775,9 +775,7 @@ def main() -> None:
     elif target_dates:
         aoi_path = os.path.join(base_dir, "configs", "aois", DEFAULT_AOI)
     else:
-        aoi_path = os.path.join(
-            base_dir, "configs", "aois", "st_johns_offshore.geojson"
-        )
+        aoi_path = os.path.join(base_dir, "configs", "aois", DEFAULT_AOI)
 
     # Ensure raw output dir exists
     os.makedirs(output_dir, exist_ok=True)

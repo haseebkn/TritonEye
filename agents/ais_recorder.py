@@ -16,6 +16,19 @@ It cannot retroactively supply AIS for acquisitions already on disk; it only
 covers time recorded from the moment it is started onward. Run it
 continuously, well ahead of the Sentinel-1 acquisitions you want to validate.
 
+SUBSCRIBE TO AN ENVELOPE, NOT TO ONE IMAGING AOI. The bounding box here decides
+what is recorded, and an acquisition outside it is unscorable no matter how long
+the recorder ran. This is a silent failure: the archive fills up, the row counts
+look healthy, and every scene in the area you actually care about still scores
+zero. It happened here -- a week was recorded against `eastern_newfoundland`
+(lon -53.5..-52.0), which has NO longitude overlap with `grand_banks`
+(-51.0..-47.5), so the Grand Banks had exactly zero rows despite ~15k recorded.
+
+Use `configs/aois/nl_shelf.geojson`, which is sized to contain every imaging AOI
+in the project rather than to match any one of them:
+
+    python agents/ais_recorder.py --aoi nl_shelf
+
 Output schema is the one ingest_agent.py filters against directly:
 mmsi, lat, lon, timestamp, speed_knots, course_deg.
 """
@@ -41,6 +54,10 @@ except ImportError as e:
     )
 
 STREAM_URL = "wss://stream.aisstream.io/v0/stream"
+
+# The recording envelope: sized to contain every imaging AOI, not to match any
+# one of them. See the module docstring for why this is not an imaging AOI.
+DEFAULT_RECORDING_AOI = "nl_shelf"
 
 # The service closes the connection if a subscription isn't sent within 3
 # seconds of connecting, and rate-limits subscription updates to 1/second.
@@ -271,8 +288,9 @@ def parse_arguments() -> argparse.Namespace:
         type=str,
         default=None,
         help="AOI name under configs/aois/ (without .geojson) to derive the "
-        "bounding box from. Defaults to AOI_NAME env var, then "
-        "st_johns_offshore.",
+        "bounding box from. Defaults to nl_shelf, the envelope containing "
+        "every imaging AOI -- subscribing to a single narrow imaging AOI "
+        "silently makes scenes outside it unscorable.",
     )
     parser.add_argument(
         "--output-dir",
@@ -309,7 +327,11 @@ def main() -> None:
         )
         sys.exit(1)
 
-    aoi_name = args.aoi or os.getenv("AOI_NAME", "st_johns_offshore")
+    # Deliberately NOT AOI_NAME: that variable selects which area to IMAGE, and
+    # the recorder must cover every such area at once. Honouring it here is how
+    # the recorder ends up subscribed to one narrow box while scenes are
+    # processed somewhere else entirely.
+    aoi_name = args.aoi or DEFAULT_RECORDING_AOI
     if not aoi_name.endswith(".geojson"):
         aoi_name += ".geojson"
     aoi_path = os.path.join(base_dir, "configs", "aois", aoi_name)

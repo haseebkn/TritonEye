@@ -300,7 +300,7 @@ python agents/correlation/correlation_agent.py --payload-file p2.json > p3.json
 python agents/report/report_agent.py          --payload-file p3.json > p4.json
 python agents/evaluate/evaluate_agent.py      --payload-file p4.json > p5.json
 
-pytest tests/ -m 'not slow'                    # 127 tests
+pytest tests/ -m 'not slow'                    # skips the 1.3 GB ensemble load
 ```
 
 Docker:
@@ -322,7 +322,7 @@ them to block on empty stdin.
 ruff check agents tests      # lint          (0 findings)
 black --check agents tests   # formatting
 mypy agents tests            # strict types  (0 findings)
-pytest tests/ -q -m "not slow"   # 72 tests, ~10 s
+pytest tests/ -q -m "not slow"   # ~10 s
 pytest tests/ -q                 # + 2 that load the 1.3 GB xView3 ensemble
 ```
 
@@ -358,7 +358,7 @@ agents/
 configs/
   aois/*.geojson          areas of interest
   model.yaml              tiling + inference thresholds
-tests/unit/               43 tests
+tests/unit/               unit + integration tests
 data/raw/                 SAFE products, AIS archives (gitignored)
 missions/<id>/            detections.geojson, dark_vessels.geojson
 reports/<id>/report.html
