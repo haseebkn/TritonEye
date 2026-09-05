@@ -6,7 +6,10 @@ import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from agents.ingest.ingest_agent import filter_ais_stream_archive
+from agents.ingest.ingest_agent import (
+    archive_coverage_details,
+    filter_ais_stream_archive,
+)
 
 NORMALIZED_HEADER = "mmsi,lat,lon,timestamp,speed_knots,course_deg\n"
 
@@ -107,3 +110,74 @@ def test_rerunning_stream_filter_does_not_duplicate_records(archive_dir: str) ->
     first = open(out_path, encoding="utf-8").read()
     assert filter_ais_stream_archive(*args)
     assert open(out_path, encoding="utf-8").read() == first
+
+
+def test_invalid_rows_dropped_and_unavailable_velocity_preserved(
+    archive_dir: str,
+) -> None:
+    import pandas as pd
+
+    write_day_file(
+        archive_dir,
+        "2026-08-18",
+        "316000001,47.5,-52.7,2026-08-18T06:42:00-02:30,102.3,360\n"
+        "broken,47.5,-52.7,2026-08-18T09:12:00Z,10,90\n"
+        "316000002,91,-52.7,2026-08-18T09:12:00Z,10,90\n"
+        "316000003,47.5,-52.7,not-a-time,10,90\n"
+        "316000004,47.5,181,2026-08-18T09:12:00Z,10,90\n",
+    )
+    output = os.path.join(archive_dir, "out.csv")
+    assert filter_ais_stream_archive(
+        archive_dir, "2026-08-18T09:15:00Z", [-180, -90, 180, 90], output
+    )
+    rows = pd.read_csv(output)
+    assert len(rows) == 1
+    assert rows.iloc[0]["timestamp"] == "2026-08-18T09:12:00Z"
+    assert pd.isna(rows.iloc[0]["speed_knots"])
+    assert pd.isna(rows.iloc[0]["course_deg"])
+    assert rows.iloc[0]["timestamp_basis"] == "legacy_archive_utc_assumed"
+
+
+def test_rerun_with_missing_archive_clears_stale_derived_rows(tmp_path: Path) -> None:
+    output = tmp_path / "filtered.csv"
+    output.write_text(
+        NORMALIZED_HEADER + "316000001,47.5,-52.7,2026-08-18T09:12:00Z,10,90\n"
+    )
+    assert not filter_ais_stream_archive(
+        str(tmp_path / "missing"),
+        "2026-08-18T09:15:00Z",
+        [-53, 47, -52, 48],
+        str(output),
+    )
+    assert len(output.read_text().splitlines()) == 1
+
+
+def test_single_observation_does_not_establish_complete_coverage(
+    archive_dir: str,
+) -> None:
+    write_day_file(
+        archive_dir, "2026-08-18", "316000001,47.5,-52.7,2026-08-18T09:12:00Z,10,90\n"
+    )
+    output = os.path.join(archive_dir, "filtered.csv")
+    assert filter_ais_stream_archive(
+        archive_dir, "2026-08-18T09:15:00Z", [-53, 47, -52, 48], output
+    )
+    coverage = archive_coverage_details(
+        archive_dir, "2026-08-18T09:15:00Z", [-53, 47, -52, 48], output
+    )
+    assert coverage["status"] == "partial"
+    assert coverage["coverage_known"] is False
+    assert coverage["observations"] == 1
+
+
+def test_filter_rejects_source_overwrite(archive_dir: str) -> None:
+    write_day_file(
+        archive_dir, "2026-08-18", "316000001,47.5,-52.7,2026-08-18T09:12:00Z,10,90\n"
+    )
+    with pytest.raises(ValueError, match="source AIS archive"):
+        filter_ais_stream_archive(
+            archive_dir,
+            "2026-08-18T09:15:00Z",
+            [-53, 47, -52, 48],
+            os.path.join(archive_dir, "ais_stream_2026-08-18.csv"),
+        )

@@ -1,680 +1,457 @@
 #!/usr/bin/env python3
-"""
-TritonEye Mission Report Agent
-Generates an interactive HTML dashboard using Leaflet.js and Esri Ocean maps.
-Presents cooperative targets alongside highlighted dark vessel alerts.
+"""Evidence-led Newfoundland/Labrador SAR and AIS research reports.
+
+HTML tables and provenance work without a network. The optional Leaflet map
+requires the CDN and Esri tiles. Association never establishes intent or identity.
 """
 
 import argparse
+import csv
+import html
 import json
+import math
 import os
 import sys
-from typing import Any, Dict, List, Optional
+from collections import Counter
+from pathlib import Path
+from typing import Any
 
-# Agents run as standalone scripts; put the workspace root on the path first.
+from shapely.errors import ShapelyError
+from shapely.geometry import Point, mapping, shape
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-try:
-    from agents.tracking import RunTracker
-except ImportError as e:  # pragma: no cover
-    print(f"Dependency missing during startup: {e}", file=sys.stderr)
+from agents.artifacts import mission_directory  # noqa: E402
+from agents.region import REGION_NAME, load_region  # noqa: E402
+from agents.tracking import RunTracker  # noqa: E402
 
-# Standard python libraries (no third-party dependencies required)
+STATE_LABELS = {
+    "ais_associated": "AIS associated (provisional)",
+    "uncorrelated_candidate": "Uncorrelated candidate: analyst review",
+    "ambiguous_association": "Ambiguous association: analyst review",
+    "unassessable": "Unassessable",
+    "excluded_land": "Excluded: land",
+    "excluded_coastal": "Excluded: coastal uncertainty",
+    "excluded_infrastructure": "Excluded: infrastructure proximity (uncertain)",
+    "excluded_unknown_surface": "Excluded: surface unverified",
+    "excluded_outside_region": "Outside study area",
+    "excluded_invalid_geometry": "Invalid geometry",
+}
+REVIEW_STATES = {"uncorrelated_candidate", "ambiguous_association"}
 
 
 def parse_arguments() -> argparse.Namespace:
-    """Parses command line arguments."""
     parser = argparse.ArgumentParser(description="TritonEye Report Agent")
-    parser.add_argument(
-        "--payload", type=str, help="JSON payload string passed directly"
-    )
-    parser.add_argument(
-        "--payload-file", type=str, help="Path to JSON file containing payload"
-    )
+    parser.add_argument("--payload", help="JSON payload string")
+    parser.add_argument("--payload-file", help="JSON payload file")
     return parser.parse_args()
 
 
-def get_payload(args: argparse.Namespace) -> Dict[str, Any]:
-    """Retrieves the payload from CLI args or stdin."""
+def get_payload(args: argparse.Namespace) -> dict[str, Any]:
     if args.payload:
-        return json.loads(args.payload)  # type: ignore[no-any-return]
-    if args.payload_file:
-        with open(args.payload_file, "r", encoding="utf-8") as f:
-            return json.load(f)  # type: ignore[no-any-return]
+        value = json.loads(args.payload)
+    elif args.payload_file:
+        with open(args.payload_file, encoding="utf-8") as stream:
+            value = json.load(stream)
+    elif not sys.stdin.isatty():
+        value = json.loads(sys.stdin.read())
+    else:
+        raise ValueError("Provide --payload, --payload-file, or stdin")
+    if not isinstance(value, dict):
+        raise ValueError("Payload must be an object")
+    return value
 
-    # Stdin fallback
-    if not sys.stdin.isatty():
-        return json.loads(sys.stdin.read())  # type: ignore[no-any-return]
 
-    raise ValueError(
-        "No input payload provided via --payload, --payload-file, or stdin."
+def read_geojson_file(path: str) -> dict[str, Any]:
+    with open(path, encoding="utf-8") as stream:
+        value = json.load(stream)
+    if not isinstance(value, dict) or value.get("type") != "FeatureCollection":
+        raise ValueError("Expected a GeoJSON FeatureCollection")
+    if not isinstance(value.get("features"), list):
+        raise ValueError("GeoJSON features must be a list")
+    return value
+
+
+def _text(value: Any) -> str:
+    return html.escape(str(value if value is not None else "unavailable"), quote=True)
+
+
+def _safe_json(value: Any) -> str:
+    """HTML parsers terminate script tags even for application/json data."""
+    return (
+        json.dumps(value, ensure_ascii=True, allow_nan=False, sort_keys=True)
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace("&", "\\u0026")
     )
 
 
-def read_geojson_file(path: str) -> Dict[str, Any]:
-    """Reads a GeoJSON file and returns its parsed structure."""
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"GeoJSON data not found at {path}")
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)  # type: ignore[no-any-return]
+def _finite_number(value: Any) -> float | None:
+    try:
+        result = float(value)
+    except (TypeError, ValueError):
+        return None
+    return result if math.isfinite(result) else None
+
+
+def prepare_report_data(
+    payload: dict[str, Any],
+    detections: dict[str, Any],
+    correlations: dict[str, Any] | None = None,
+    ais_data: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Normalize states conservatively and independently enforce the study area.
+
+    Legacy candidate-only artifacts cannot establish which remaining detections
+    were associated, so unspecified states remain unassessable. Map data never
+    contain out-of-area features even when an old payload incorrectly marks them.
+    """
+    spatial = payload.get("spatial_bounds") or {}
+    area = load_region(spatial.get("analysis_region"))
+    coverage = str(spatial.get("ais_coverage", "unknown"))
+    coverage_absent = coverage.lower() in {
+        "none",
+        "unknown",
+        "n/a",
+        "mock",
+        "synthetic",
+        "unavailable",
+        "",
+    }
+    annotated: dict[str, dict[str, Any]] = {}
+    for feature in (correlations or {}).get("features", []):
+        props = feature.get("properties") or {}
+        if props.get("target_id") is not None:
+            annotated[str(props["target_id"])] = props
+
+    features = []
+    states: Counter[str] = Counter()
+    surfaces: Counter[str] = Counter()
+    for feature in detections.get("features", []):
+        props = dict(feature.get("properties") or {})
+        props.update(annotated.get(str(props.get("target_id")), {}))
+        try:
+            geom = shape(feature.get("geometry"))
+            if geom.is_empty or not geom.is_valid:
+                raise ValueError("Empty or invalid target geometry")
+            center = geom.centroid
+            if not all(math.isfinite(v) for v in (*geom.bounds, center.x, center.y)):
+                raise ValueError("Nonfinite target geometry")
+        except (TypeError, ValueError, AttributeError, ShapelyError):
+            states["excluded_invalid_geometry"] += 1
+            continue
+        if props.get("in_study_area") is False or not area.covers(center):
+            states["excluded_outside_region"] += 1
+            continue
+        # Clip boxes straddling the boundary so even rejected layers remain local.
+        geom = geom.intersection(area)
+        surface = str(props.get("surface") or "unknown")
+        surfaces[surface] += 1
+        state = str(props.get("correlation_status") or "unassessable")
+        if surface in {"infrastructure", "infrastructure_proximity"}:
+            state = "excluded_infrastructure"
+        elif surface in {"land", "coastal"}:
+            state = "excluded_" + surface
+        elif surface != "water":
+            state = "excluded_unknown_surface"
+        elif state not in STATE_LABELS or state.startswith("excluded_"):
+            state = "unassessable"
+        elif coverage_absent:
+            state = "unassessable"
+        props["correlation_status"] = state
+        props["state_label"] = STATE_LABELS[state]
+        props["review_required"] = state in REVIEW_STATES
+        props["operational_alert"] = False
+        props["confidence"] = _finite_number(props.get("confidence"))
+        # No SAR detector in this project can infer cargo/fishing vessel type.
+        props["class_name"] = "unresolved SAR object"
+        features.append(
+            {"type": "Feature", "geometry": mapping(geom), "properties": props}
+        )
+        states[state] += 1
+
+    local_ais = []
+    for vessel in ais_data or []:
+        lon, lat = _finite_number(vessel.get("lon")), _finite_number(vessel.get("lat"))
+        if lon is None or lat is None or not area.covers(Point(lon, lat)):
+            continue
+        local_ais.append(
+            {
+                "mmsi": str(vessel.get("mmsi") or "unknown"),
+                "lon": lon,
+                "lat": lat,
+                "timestamp": str(vessel.get("timestamp") or "unavailable"),
+                "speed_knots": _finite_number(vessel.get("speed_knots")),
+                "course_deg": _finite_number(vessel.get("course_deg")),
+            }
+        )
+    return {
+        "targets": {"type": "FeatureCollection", "features": features},
+        "ais": local_ais,
+        "region": mapping(area),
+        "bbox": list(area.bounds),
+        "states": dict(states),
+        "surfaces": dict(surfaces),
+        "ais_coverage": coverage,
+        "raw_detections": len(detections.get("features", [])),
+        "review_count": sum(states[s] for s in REVIEW_STATES),
+    }
+
+
+def _target_table(features: list[dict[str, Any]]) -> str:
+    rows = []
+    for feature in features:
+        props = feature["properties"]
+        score = props.get("confidence")
+        score_text = "unavailable" if score is None else f"{score:.3f}"
+        rows.append(
+            "<tr><td>"
+            + _text(props.get("target_id", "unknown"))
+            + "</td><td>"
+            + _text(props["state_label"])
+            + "</td><td>"
+            + score_text
+            + "</td><td>"
+            + _text(props.get("association_mmsi"))
+            + "</td><td>"
+            + _text(props.get("correlation_reason", "No association evidence supplied"))
+            + "</td></tr>"
+        )
+    if not rows:
+        return '<p class="muted">No targets in this category.</p>'
+    return (
+        '<div class="table-wrap"><table><thead><tr><th>Target</th><th>State</th>'
+        "<th>Detector score</th><th>Associated MMSI</th><th>Reason</th></tr></thead>"
+        "<tbody>" + "".join(rows) + "</tbody></table></div>"
+    )
 
 
 def build_html_report(
-    payload: Dict[str, Any],
-    detections: Dict[str, Any],
-    dark_vessels: Dict[str, Any],
-    ais_data: Optional[List[Dict[str, Any]]] = None,
+    payload: dict[str, Any],
+    detections: dict[str, Any],
+    dark_vessels: dict[str, Any] | None = None,
+    ais_data: list[dict[str, Any]] | None = None,
 ) -> str:
-    """Constructs the self-contained interactive Leaflet HTML dashboard string."""
-    if ais_data is None:
-        ais_data = []
-
-    mission_id = payload.get("mission_id", "mission_default")
-    acq_time = payload.get("acquisition_time", "N/A")
-    spatial_bounds = payload.get("spatial_bounds", {})
-    bbox = spatial_bounds.get("bbox", [-52.6, 47.3, -51.5, 47.8])
-
-    # "none" means no real AIS source (the recorded
-    # aisstream.io archive) had coverage for this acquisition, so every
-    # detection was reported dark by default rather than by confirmed absence
-    # of AIS. That distinction is easy to lose once it's just a number on the
-    # map, so it is surfaced explicitly rather than folded into the dark count.
-    ais_coverage = spatial_bounds.get("ais_coverage", "n/a")
-
-    # The tracking run id travels in the payload; without it there is no run to
-    # link to, so the row is omitted rather than pointing somewhere dead.
-    run_id = payload.get("mlflow_run_id", "")
-    if run_id:
-        tracking_row = (
-            '<div class="meta-item"><span>MLflow Run</span>'
-            f'<b><a href="http://localhost:5000/#/experiments/1/runs/{run_id}" '
-            'target="_blank" style="color:#38bdf8;text-decoration:none;">'
-            f"{run_id[:12]} &#8599;</a></b></div>"
+    """Keep the positional legacy API; third argument should be all correlations."""
+    data = prepare_report_data(payload, detections, dark_vessels, ais_data)
+    features = data["targets"]["features"]
+    review = [f for f in features if f["properties"]["review_required"]]
+    remaining = [
+        f
+        for f in features
+        if not f["properties"]["review_required"]
+        and not f["properties"]["correlation_status"].startswith("excluded_")
+    ]
+    rejected = [
+        f
+        for f in features
+        if f["properties"]["correlation_status"].startswith("excluded_")
+    ]
+    states, surfaces = data["states"], data["surfaces"]
+    provenance = {
+        "mission_id": payload.get("mission_id", "mission_default"),
+        "acquisition_time": payload.get("acquisition_time", "unavailable"),
+        "region": REGION_NAME,
+        "processing": payload.get("processing", {"status": "unavailable"}),
+        "landmask": payload.get("landmask", {"status": "unavailable"}),
+        "ais_coverage": data["ais_coverage"],
+        "ais_coverage_completeness": "unverified",
+        "correlation_summary": payload.get("correlation_summary", {}),
+        "evaluation": payload.get(
+            "evaluation",
+            {"precision": None, "false_alarms_per_km2": None, "status": "not measured"},
+        ),
+        "mlflow_run_id": payload.get("mlflow_run_id", "not tracked"),
+        "ice_context": payload.get("ice_context", {"status": "unavailable"}),
+    }
+    model = payload.get("processing") or {}
+    synthetic_notice = (
+        '<div class="notice"><strong>SYNTHETIC DEMONSTRATION</strong><br>'
+        "Simulated imagery and AIS. Not real surveillance or accuracy evidence.</div>"
+        if payload.get("mode") == "mock"
+        or model.get("detector") == "mock"
+        or data["ais_coverage"] in {"mock", "synthetic"}
+        else ""
+    )
+    summary = " · ".join(
+        f"{name}: {surfaces.get(name, 0)}"
+        for name in (
+            "water",
+            "land",
+            "coastal",
+            "infrastructure",
+            "infrastructure_proximity",
+            "unknown",
         )
-    else:
-        tracking_row = (
-            '<div class="meta-item"><span>MLflow Run</span>'
-            '<b style="color:#94a3b8">not tracked</b></div>'
-        )
-    # The land-mask rejection tally. A count of surviving targets alone hides
-    # the thing worth showing -- that a false-alarm mode was found and how much
-    # of the raw output it accounted for -- so the breakdown is rendered rather
-    # than only the survivors.
-    landmask = payload.get("landmask") or {}
-    counts = landmask.get("counts") or {}
-    if landmask.get("status") == "ok" and counts:
-        total = sum(counts.values())
-        landmask_row = (
-            '<div class="meta-item"><span>Land Mask</span>'
-            f'<b style="color:#4ade80">{landmask.get("source", "?")}</b></div>'
-            f'<div class="surface-breakdown">{total} raw &rarr; '
-            f'<b>{counts.get("water", 0)} water</b> &middot; '
-            f'{counts.get("coastal", 0)} coastal &middot; '
-            f'{counts.get("land", 0)} land &middot; '
-            f'{counts.get("infrastructure", 0)} installation</div>'
-        )
-    elif landmask.get("status") in ("unavailable", "no_footprint"):
-        landmask_row = (
-            '<div class="meta-item"><span>Land Mask</span>'
-            '<b style="color:#f87171">UNMASKED</b></div>'
-            '<div class="surface-breakdown">Coastline unavailable; land returns '
-            "may be present in this alert list.</div>"
-        )
-    else:
-        landmask_row = (
-            '<div class="meta-item"><span>Land Mask</span>'
-            '<b style="color:#94a3b8">disabled</b></div>'
-        )
-
-    landmask_attribution = ""
-    if landmask.get("status") == "ok":
-        _attrib = {
-            "osm": " &middot; Coastline &copy; OpenStreetMap contributors (ODbL)",
-            "gshhg": " &middot; Coastline: GSHHG (public domain)",
-        }
-        landmask_attribution = _attrib.get(landmask.get("source", ""), "")
-
-    coverage_label = {
-        "aisstream": ("aisstream.io", "#4ade80"),
-        "mock": ("Synthetic", "#94a3b8"),
-        "none": ("NO COVERAGE", "#f87171"),
-        "n/a": ("N/A", "#94a3b8"),
-    }.get(ais_coverage, (ais_coverage, "#94a3b8"))
-
-    det_count = len(detections.get("features", []))
-    dark_count = len(dark_vessels.get("features", []))
-    active_count = max(0, det_count - dark_count)
-    ais_count = len(ais_data)
-
-    # Escape quotes and serialize data for injection into script tag
-    detections_json = json.dumps(detections)
-    dark_vessels_json = json.dumps(dark_vessels)
-    bbox_json = json.dumps(bbox)
-    ais_data_json = json.dumps(ais_data)
-
-    # Construct sidebar list rows dynamically in python to facilitate styling
-    vessel_rows = []
-    for f in dark_vessels.get("features", []):
-        props = f.get("properties", {})
-        tid = props.get("target_id", "Unknown")
-        cls_name = props.get("class_name", "unknown")
-        conf = props.get("confidence", 0.0)
-
-        # Extract coordinates of polygon center to pan to
-        coords = f.get("geometry", {}).get("coordinates", [[[]]])[0]
-        if coords and len(coords) >= 4:
-            # Average the bounding box points for centroid estimation
-            lons = [pt[0] for pt in coords]
-            lats = [pt[1] for pt in coords]
-            c_lon = sum(lons) / len(lons)
-            c_lat = sum(lats) / len(lats)
-        else:
-            c_lon, c_lat = -52.0, 47.5
-
-        row_html = (
-            f'<div class="vessel-item" '
-            f"onclick=\"panToTarget('{tid}', {c_lat}, {c_lon})\">"
-            f'  <div class="vessel-id">{tid}</div>'
-            f'  <div class="vessel-details">'
-            f"    <span>Type: <b>{cls_name.upper()}</b></span>"
-            f"    <span>Conf: <b>{conf:.2f}</b></span>"
-            f"  </div>"
-            f"</div>"
-        )
-        vessel_rows.append(row_html)
-
-    if vessel_rows:
-        vessels_list_html = "\n".join(vessel_rows)
-    else:
-        vessels_list_html = '<div class="no-alerts">No Dark Vessels Isolated</div>'
-
-    html_template = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TritonEye Mission Brief - {mission_id}</title>
-
-    <!-- Premium Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
-          rel="stylesheet">
-
-    <!-- Leaflet.js CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <style>
-        * {{
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }}
-        body {{
-            font-family: 'Outfit', sans-serif;
-            background-color: #0b0f19;
-            color: #f1f5f9;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-        }}
-        #map {{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }}
-
-        /* Glassmorphism sidebar panel */
-        .sidebar {{
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            bottom: 20px;
-            width: 380px;
-            z-index: 10;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            overflow-y: auto;
-        }}
-
-        h1 {{
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: #38bdf8;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }}
-
-        .subtitle {{
-            font-size: 12px;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 12px;
-        }}
-
-        .meta-item {{
-            margin-bottom: 12px;
-            font-size: 13px;
-        }}
-
-        .meta-item span {{
-            color: #94a3b8;
-            display: inline-block;
-            width: 100px;
-        }}
-
-        .meta-item b {{
-            color: #f1f5f9;
-        }}
-
-        .stats-grid {{
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-            margin: 20px 0;
-        }}
-
-        .stat-card {{
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 12px 4px;
-            text-align: center;
-        }}
-
-        .stat-val {{
-            font-size: 18px;
-            font-weight: 700;
-            color: #f8fafc;
-        }}
-
-        .stat-val.detections {{ color: #38bdf8; }}
-        .stat-val.active {{ color: #4ade80; }}
-        .stat-val.dark {{ color: #f87171; }}
-        .stat-val.ais {{ color: #a78bfa; }}
-        .surface-breakdown {{
-            font-size: 11px; color: #94a3b8; margin: -4px 0 12px 0;
-            line-height: 1.5; letter-spacing: 0.02em;
-        }}
-        .surface-breakdown b {{ color: #cbd5e1; font-weight: 600; }}
-
-        .stat-lbl {{
-            font-size: 10px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }}
-
-        .alert-section-title {{
-            font-size: 12px;
-            font-weight: 700;
-            color: #ef4444;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 20px;
-            margin-bottom: 12px;
-        }}
-
-        .vessel-list {{
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }}
-
-        .vessel-item {{
-            background: rgba(239, 68, 68, 0.06);
-            border: 1px solid rgba(239, 68, 68, 0.15);
-            border-radius: 8px;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }}
-
-        .vessel-item:hover {{
-            background: rgba(239, 68, 68, 0.12);
-            border-color: rgba(239, 68, 68, 0.35);
-            transform: translateX(4px);
-        }}
-
-        .vessel-id {{
-            font-size: 14px;
-            font-weight: 700;
-            color: #f87171;
-            margin-bottom: 4px;
-        }}
-
-        .vessel-details {{
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #cbd5e1;
-        }}
-
-        .no-alerts {{
-            text-align: center;
-            padding: 20px;
-            font-size: 13px;
-            color: #94a3b8;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            border: 1px dashed rgba(255, 255, 255, 0.05);
-        }}
-
-        /* Map custom styling */
-        .leaflet-bar a {{
-            background-color: rgba(15, 23, 42, 0.95) !important;
-            color: #f1f5f9 !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }}
-        .leaflet-bar a:hover {{
-            background-color: #38bdf8 !important;
-            color: #0f172a !important;
-        }}
-
-        /* Popup override styling */
-        .leaflet-popup-content-wrapper {{
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(8px);
-            color: #f1f5f9;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            font-family: 'Outfit', sans-serif;
-        }}
-        .leaflet-popup-tip {{
-            background: rgba(15, 23, 42, 0.95);
-        }}
-        .popup-title {{
-            font-weight: 700;
-            margin-bottom: 4px;
-            font-size: 13px;
-        }}
-        .popup-title.dark-alert {{
-            color: #f87171;
-        }}
-        .popup-title.coop {{
-            color: #38bdf8;
-        }}
-        .popup-body {{
-            font-size: 11px;
-            color: #cbd5e1;
-        }}
-    </style>
-</head>
-<body>
-
-    <div class="sidebar">
-        <h1>TritonEye Brief</h1>
-        <div class="subtitle">Maritime Domain Awareness Report</div>
-
-        <div class="meta-item"><span>Mission ID</span><b>{mission_id}</b></div>
-        <div class="meta-item"><span>Acquisition</span><b>{acq_time}</b></div>
-        <div class="meta-item"><span>AIS Source</span>
-            <b style="color:{coverage_label[1]}">{coverage_label[0]}</b></div>
-        {landmask_row}
-        {tracking_row}
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-val detections">{det_count}</div>
-                <div class="stat-lbl">Targets</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-val active">{active_count}</div>
-                <div class="stat-lbl">Active</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-val dark">{dark_count}</div>
-                <div class="stat-lbl">Dark</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-val ais">{ais_count}</div>
-                <div class="stat-lbl">AIS</div>
-            </div>
-        </div>
-
-        <div class="alert-section-title">Dark Vessel Alerts</div>
-        <div class="vessel-list">
-            {vessels_list_html}
-        </div>
-    </div>
-
-    <div id="map"></div>
-
-    <script>
-        // 1. Inject coordinates and GeoJSON sets
-        const bbox = {bbox_json};
-        const detections = {detections_json};
-        const darkVessels = {dark_vessels_json};
-        const aisData = {ais_data_json};
-
-        // 2. Initialize Leaflet Map centered on St. John's AOI bounds
-        const map = L.map('map', {{
-            zoomControl: false
-        }}).fitBounds([
-            [bbox[1], bbox[0]],
-            [bbox[3], bbox[2]]
-        ]);
-
-        L.control.zoom({{
-            position: 'topright'
-        }}).addTo(map);
-
-        const base_url = 'https://server.arcgisonline.com/ArcGIS/rest/' +
-                         'services/Ocean/World_Ocean_Base/MapServer/tile/{{z}}/{{y}}/{{x}}';
-        const ref_url = 'https://server.arcgisonline.com/ArcGIS/rest/' +
-                        'services/Ocean/World_Ocean_Reference/MapServer/tile/{{z}}/{{y}}/{{x}}';
-
-        L.tileLayer(base_url, {{
-            maxZoom: 13,
-            attribution: 'Basemap &copy; Esri &mdash; '
-                       + 'Sources: GEBCO, NOAA, CHS{landmask_attribution}'
-        }}).addTo(map);
-
-        L.tileLayer(ref_url, {{
-            maxZoom: 13,
-            attribution: 'Labels &copy; Esri'
-        }}).addTo(map);
-
-        // Reference mapping directory for quick pan lookup callbacks
-        const targetsMap = {{}};
-
-        // 4. Plot cooperative detections (Blue Polygons)
-        L.geoJSON(detections, {{
-            style: function(feature) {{
-                return {{
-                    color: '#0284c7',
-                    weight: 2,
-                    fillColor: '#0ea5e9',
-                    fillOpacity: 0.15
-                }};
-            }},
-            onEachFeature: function(feature, layer) {{
-                const props = feature.properties || {{}};
-                const tid = props.target_id || 'N/A';
-                const cls = props.class_name || 'unknown';
-                const conf = props.confidence || 0.0;
-
-                layer.bindPopup(`
-                    <div class="popup-title coop">Cooperative Target</div>
-                    <div class="popup-body">
-                        ID: <b>${{tid}}</b><br/>
-                        Class: <b>${{cls.toUpperCase()}}</b><br/>
-                        Confidence: <b>${{conf.toFixed(2)}}</b>
-                    </div>
-                `);
-
-                targetsMap[tid] = layer;
-            }}
-        }}).addTo(map);
-
-        // 5. Plot Dark Vessel anomalies (Thick Red Polygons + Highlight popup)
-        L.geoJSON(darkVessels, {{
-            style: function(feature) {{
-                return {{
-                    color: '#dc2626',
-                    weight: 3,
-                    fillColor: '#ef4444',
-                    fillOpacity: 0.3,
-                    dashArray: '4, 4'
-                }};
-            }},
-            onEachFeature: function(feature, layer) {{
-                const props = feature.properties || {{}};
-                const tid = props.target_id || 'N/A';
-                const cls = props.class_name || 'unknown';
-                const conf = props.confidence || 0.0;
-
-                layer.bindPopup(`
-                    <div class="popup-title dark-alert">
-                        🚨 ALERT: Dark Vessel Candidate
-                    </div>
-                    <div class="popup-body">
-                        ID: <b>${{tid}}</b><br/>
-                        Class: <b>${{cls.toUpperCase()}}</b><br/>
-                        Confidence: <b>${{conf.toFixed(2)}}</b><br/>
-                        AIS Telemetry Status: <b style="color:#ef4444">OFFLINE</b>
-                    </div>
-                `);
-
-                targetsMap[tid] = layer;
-            }}
-        }}).addTo(map);
-
-        // One-decimal formatter for AIS kinematics, tolerating null/absent
-        // fields in the source CSV.
-        const fmt = (v) => (v || v === 0) ? Number(v).toFixed(1) : '0.0';
-
-        // 5.5 Plot Active AIS Signals (Green/Emerald Circle Markers)
-        if (typeof aisData !== 'undefined' && aisData && aisData.length > 0) {{
-            aisData.forEach(function(vessel) {{
-                L.circleMarker([vessel.lat, vessel.lon], {{
-                    radius: 5,
-                    color: '#059669', // Emerald green outline
-                    fillColor: '#10b981', // Emerald green fill
-                    fillOpacity: 0.75,
-                    weight: 1.5
-                }}).bindPopup(`
-                    <div class="popup-title" style="color: #10b981; font-weight: 700;">
-                        Active AIS Signal
-                    </div>
-                    <div class="popup-body">
-                        MMSI: <b>${{vessel.mmsi}}</b><br/>
-                        SOG: <b>${{fmt(vessel.speed_knots)}} kn</b><br/>
-                        COG: <b>${{fmt(vessel.course_deg)}}&deg;</b><br/>
-                        Time: <b>${{vessel.timestamp}}</b>
-                    </div>
-                `).addTo(map);
-            }});
-        }}
-
-        // 6. Callback interface from the sidebar click events
-        function panToTarget(targetId, lat, lon) {{
-            map.setView([lat, lon], 12);
-            const targetLayer = targetsMap[targetId];
-            if (targetLayer) {{
-                targetLayer.openPopup();
-            }}
-        }}
-    </script>
-</body>
-</html>"""
-    return html_template
+    )
+    outside = states.get("excluded_outside_region", 0)
+    invalid = states.get("excluded_invalid_geometry", 0)
+    return f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TritonEye | {_text(provenance["mission_id"])}</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{{color-scheme:dark}}*{{box-sizing:border-box}}body{{margin:0;background:#09131e;
+color:#dce7ef;font:15px/1.55 system-ui,sans-serif}}main{{max-width:1280px;margin:auto;
+padding:32px}}h1{{color:#83d5d6;font-size:32px;margin:0}}h2{{font-size:20px;
+margin:28px 0 10px}}.muted,small{{color:#a5b6c7}}.eyebrow{{text-transform:uppercase;
+letter-spacing:2px;color:#83d5d6;font-size:12px}}.notice{{border-left:4px solid #f4bf66;
+background:#25241f;padding:16px;margin:22px 0}}.cards{{display:grid;
+grid-template-columns:repeat(4,1fr);gap:12px}}.card{{background:#132332;padding:16px;
+border-radius:8px}}.value{{font-size:30px;color:#fff}}#map{{height:470px;
+background:#132332;border-radius:8px}}#map-status{{margin:8px 0}}table{{width:100%;
+border-collapse:collapse;font-size:13px}}th,td{{padding:11px;text-align:left;
+border-bottom:1px solid #304252;overflow-wrap:anywhere}}th{{color:#83d5d6}}
+.table-wrap{{overflow:auto}}details{{padding:12px 0}}summary{{cursor:pointer}}
+pre{{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 ui-monospace,monospace;
+background:#132332;padding:16px}}.leaflet-popup-content{{color:#162635}}
+@media(max-width:700px){{main{{padding:16px}}.cards{{grid-template-columns:repeat(2,1fr)}}
+#map{{height:340px}}}}@media print{{#map,#map-status{{display:none}}
+body{{background:white;
+color:black}}.card,pre,.notice{{background:#eee;color:black}}.value{{color:black}}}}
+</style></head><body><main>
+<div class="eyebrow">Newfoundland and Labrador · Research prototype</div>
+<h1>TritonEye mission review</h1>
+{synthetic_notice}
+<p class="muted">Mission {_text(provenance["mission_id"])} · Acquisition
+{_text(provenance["acquisition_time"])}<br>{_text(REGION_NAME)}.
+Study boundary is not a legal maritime boundary.</p>
+<div class="notice"><strong>Analyst review required.
+Iceberg discrimination is unresolved.</strong>
+<br>A SAR return may be a vessel, iceberg, sea ice or clutter. An absent AIS match does
+not establish that a vessel switched off its transponder, is non-compliant,
+or poses a threat.
+Detector scores are not calibrated probabilities of vessel identity. Operational alerts
+are not enabled. This portfolio prototype is not certified or endorsed by C-CORE.</div>
+<div class="cards">
+<div class="card"><div class="value">{len(features)}</div>In-area SAR targets</div>
+<div class="card"><div class="value">{states.get("ais_associated", 0)}</div>
+AIS associations (provisional)</div>
+<div class="card"><div class="value">{data["review_count"]}</div>Review candidates</div>
+<div class="card"><div class="value">{states.get("unassessable", 0)}</div>
+Unassessable</div>
+</div>
+<p>Recorded AIS source: <strong>{_text(data["ais_coverage"])}</strong>.
+Coverage completeness is unverified. Missing or stale telemetry prevents
+association assessment.
+AIS points are historical observations, not current vessel positions.</p>
+<p class="muted">Raw detections: {data["raw_detections"]}. In-area surface breakdown:
+{_text(summary)}. Outside study area: {outside}; invalid geometry: {invalid}.
+Land/coastal/infrastructure exclusions are not AIS associations.</p>
+<h2>Study area and observations</h2><div id="map" role="img"
+aria-label="Map of the Newfoundland and Labrador maritime study area"></div>
+<p id="map-status" class="muted">The optional map requires the Leaflet CDN and online
+Esri tiles. All target tables and provenance below remain available offline.</p>
+<h2>Uncorrelated and ambiguous candidates</h2>
+<p class="muted">Review the SAR chip, land/coast proximity, acquisition-matched ice
+information and AIS history before assigning an identity. Suppression can also remove
+real coastal vessels; it is not a measured precision improvement.</p>
+{_target_table(review)}
+<h2>Provisional associations and unassessable targets</h2>{_target_table(remaining)}
+<details><summary>Excluded in-area returns ({len(rejected)})</summary>
+{_target_table(rejected)}</details>
+<h2>Evidence and reproducibility</h2>
+<p>Detector: {_text(model.get("detector"))} · Actual threshold:
+{_text(model.get("threshold"))}<br>Weights SHA-256:
+<code>{_text(model.get("weights_sha256"))}</code></p>
+<p>Precision and false alarms per square kilometre require independently labelled NL
+scenes. Counts and AIS association rates do not measure precision.
+Missing metrics remain
+unavailable; the report supplies no inferred accuracy estimate.</p>
+<details open><summary>Mission provenance</summary>
+<pre>{_text(json.dumps(provenance, indent=2, ensure_ascii=True, allow_nan=False))}</pre>
+</details><p class="muted">Method references and access requirements are documented in
+docs/MDA_METHODS.md and docs/DATA_SOURCES.md in the project repository.</p>
+</main>
+<script type="application/json" id="report-data">{_safe_json(data)}</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(() => {{
+  if (typeof L === 'undefined') return;
+  const data = JSON.parse(document.getElementById('report-data').textContent);
+  const box = data.bbox;
+  const map = L.map('map').fitBounds([[box[1],box[0]],[box[3],box[2]]]);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/' +
+    'World_Ocean_Base/MapServer/tile/{{z}}/{{y}}/{{x}}', {{maxZoom:13,
+    attribution:'Basemap © Esri; GEBCO, NOAA, CHS'}}).addTo(map);
+  L.geoJSON(data.region, {{style:{{color:'#83d5d6',weight:1,fillOpacity:0,
+    dashArray:'6,6'}}}}).addTo(map);
+  const groups = {{'AIS associated (provisional)':L.featureGroup().addTo(map),
+    'Analyst review':L.featureGroup().addTo(map),
+    'Unassessable':L.featureGroup().addTo(map),
+    'Excluded returns':L.featureGroup(), 'Recorded AIS':L.featureGroup()}};
+  function popup(items) {{
+    const box = document.createElement('div');
+    for (const [label,value] of items) {{
+      const row = document.createElement('div');
+      row.textContent = label + ': ' + (value ?? 'unavailable');
+      box.appendChild(row);
+    }}
+    return box;
+  }}
+  data.targets.features.forEach(feature => {{
+    const p = feature.properties, s = p.correlation_status;
+    const group = s.startsWith('excluded_') ? 'Excluded returns' :
+      s === 'ais_associated' ? 'AIS associated (provisional)' :
+      p.review_required ? 'Analyst review' : 'Unassessable';
+    const color = group === 'Analyst review' ? '#eab35f' :
+      group === 'AIS associated (provisional)' ? '#2c9da6' : '#9099a8';
+    L.geoJSON(feature, {{style:{{color,weight:2,fillOpacity:0.15}},
+      pointToLayer:(f,ll)=>L.circleMarker(ll,{{color,radius:5}}),
+      onEachFeature:(f,layer)=>layer.bindPopup(popup([
+        ['Target',p.target_id], ['State',p.state_label],
+        ['Detector score (uncalibrated)',p.confidence],
+        ['Associated MMSI',p.association_mmsi], ['Reason',p.correlation_reason],
+        ['Iceberg discrimination','unresolved']]))}}).addTo(groups[group]);
+  }});
+  data.ais.forEach(v => L.circleMarker([v.lat,v.lon],{{radius:4,color:'#9372db'}})
+    .bindPopup(popup([['Recorded MMSI',v.mmsi],['Observation time',v.timestamp],
+      ['SOG (knots)',v.speed_knots],['COG (degrees)',v.course_deg]]))
+    .addTo(groups['Recorded AIS']));
+  L.control.layers(null,groups).addTo(map);
+  document.getElementById('map-status').textContent =
+    'Online basemap. Excluded returns and recorded AIS are optional layers. ' +
+    'All observations are limited to the NL study area; no operational alerts.';
+}})();
+</script></body></html>"""
 
 
 def main() -> None:
-    # 1. Parse arguments and configuration
-    args = parse_arguments()
-    payload = get_payload(args)
-
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
-    # 2. Extract paths from the payload
-    detections_geojson_path = payload.get("detections_geojson")
-    dark_vessels_geojson_path = payload.get("dark_vessels_geojson")
-    mission_id = payload.get("mission_id", "mission_default")
-
-    if not detections_geojson_path or not dark_vessels_geojson_path:
-        raise ValueError(
-            "Invalid payload: Missing detections_geojson "
-            "or dark_vessels_geojson path references."
-        )
-
-    # 3. Load actual GeoJSON structures
-    detections = read_geojson_file(detections_geojson_path)
-    dark_vessels = read_geojson_file(dark_vessels_geojson_path)
-
-    # Load and parse AIS telemetry CSV if present
-    ais_telemetry_path = payload.get("ais_telemetry")
-    ais_data = []
-    if ais_telemetry_path and os.path.exists(ais_telemetry_path):
-        import csv
-
+    payload = get_payload(parse_arguments())
+    detection_path = payload.get("detections_geojson")
+    if not detection_path:
+        raise ValueError("Missing detections_geojson path")
+    detections = read_geojson_file(detection_path)
+    correlation_path = (
+        payload.get("correlation_geojson")
+        or payload.get("candidates_geojson")
+        or payload.get("dark_vessels_geojson")
+    )
+    correlations = read_geojson_file(correlation_path) if correlation_path else None
+    ais_data: list[dict[str, Any]] = []
+    ais_path = payload.get("ais_telemetry")
+    if ais_path:
         try:
-            with open(ais_telemetry_path, "r", encoding="utf-8") as f:
-                reader = csv.DictReader(f)
-                for row in reader:
-                    try:
-                        ais_data.append(
-                            {
-                                "mmsi": row.get("mmsi", ""),
-                                "lat": float(row.get("lat", 0.0)),
-                                "lon": float(row.get("lon", 0.0)),
-                                "timestamp": row.get("timestamp", ""),
-                                "speed_knots": (
-                                    float(row.get("speed_knots", 0.0))
-                                    if row.get("speed_knots")
-                                    else 0.0
-                                ),
-                                "course_deg": (
-                                    float(row.get("course_deg", 0.0))
-                                    if row.get("course_deg")
-                                    else 0.0
-                                ),
-                            }
-                        )
-                    except Exception:
-                        pass
-        except Exception as e:
-            print(f"Warning: Failed to parse AIS telemetry file: {e}", file=sys.stderr)
-
-    # 4. Generate report HTML string
-    report_html = build_html_report(payload, detections, dark_vessels, ais_data)
-
-    # 5. Save HTML output
-    report_dir = os.path.join(base_dir, "reports", mission_id)
-    os.makedirs(report_dir, exist_ok=True)
-
-    report_path = os.path.join(report_dir, "report.html")
-    with open(report_path, "w", encoding="utf-8") as f:
-        f.write(report_html)
-
-    # 6. Update payload and print to stdout
-    payload["report_html"] = report_path
-
+            with open(ais_path, encoding="utf-8") as stream:
+                ais_data = list(csv.DictReader(stream))
+        except (OSError, csv.Error) as exc:
+            print(f"AIS observations unavailable to report: {exc}", file=sys.stderr)
+    report = build_html_report(payload, detections, correlations, ais_data)
+    root = Path(__file__).resolve().parents[2]
+    directory = mission_directory(
+        payload.get("mission_id", "mission_default"), root / "reports"
+    )
+    report_path = directory / "report.html"
+    report_path.write_text(report, encoding="utf-8")
+    payload["report_html"] = str(report_path)
     tracker = RunTracker.resume(payload.get("mlflow_run_id"))
     try:
         tracker.set_tags({"stage": "report"})
-        tracker.log_metrics({"ais_points_plotted": len(ais_data)})
-        tracker.log_artifact(report_path, "report")
+        tracker.log_artifact(str(report_path), "report")
     finally:
         tracker.end()
-
-    print(json.dumps(payload, indent=2))
+    print(json.dumps(payload, indent=2, allow_nan=False))
 
 
 if __name__ == "__main__":

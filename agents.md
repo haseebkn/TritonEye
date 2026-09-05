@@ -1,3 +1,13 @@
+# Current implementation boundary (September 2026)
+
+This file records a **future blueprint**, not an implemented autonomous system.
+The working pipeline is `python -m agents.pipeline`: sequential Python ingestion,
+inference, correlation, evaluation and reporting with optional MLflow provenance.
+The eight repository integrations below, SQLite task bus, unattended research,
+AWS training, DVC data versioning and notification delivery are not implemented
+here. Do not present this blueprint as evidence of completed MLOps infrastructure.
+See readme.md, EVALUATION.md and docs/AUDIT.md for verified behavior and limitations.
+
 # TritonEye — Autonomous Workflow Engine Blueprint
 > **AGENTS.MD** · Project TritonEye · Maritime Domain Awareness Pipeline  
 > Status: Blueprint v0.1 — Blueprint Updated & Approved

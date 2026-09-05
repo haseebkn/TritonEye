@@ -1,0 +1,8 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {"name": "Labrador shelf", "purpose": "Sentinel-1 imaging subset of the Newfoundland and Labrador maritime study area"},
+    "geometry": {"type": "Polygon", "coordinates": [[[-60.0, 54.0], [-56.0, 54.0], [-56.0, 58.0], [-60.0, 58.0], [-60.0, 54.0]]]}
+  }]
+}

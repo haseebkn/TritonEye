@@ -1,31 +1,10 @@
 #!/usr/bin/env python3
-"""
-TritonEye Fixed Offshore Infrastructure
+"""Provisional infrastructure-proximity flags for Newfoundland offshore targets.
 
-Known permanent installations in the Newfoundland and Labrador offshore, so a
-production platform is not reported as a dark vessel every time it is imaged.
-
-WHY THIS MATTERS MORE THAN IT LOOKS: a dark vessel is defined here as a
-detection with no correlating AIS transmission. A gravity base structure is a
-large, bright, radar-hard target that appears in every single acquisition over
-its field, and it does not move. That makes it a FALSE POSITIVE THAT REPEATS --
-not a random one -- and repeatable false alerts erode trust in an alert list
-faster than sporadic ones. Four installations, imaged on a 6-day repeat cycle,
-generate a steady stream of confident nonsense unless they are known about.
-
-The xView3 ensemble's VESSEL head is trained to separate vessels from exactly
-this class of target (see EVALUATION.md 8.2), but that head is not yet decoded
-into a calibrated probability, and a published position is more reliable than
-an uncalibrated model output for something whose location is a matter of public
-record.
-
-POSITIONS ARE PUBLIC RECORD, not estimates. Each carries its source below.
-
-WHAT THIS DELIBERATELY DOES NOT DO: it does not mask the surrounding field. A
-production installation is served by supply vessels, standby vessels, and
-shuttle tankers, and those are real traffic that an MDA system exists to see.
-The default radius covers the structure and its immediate safety zone, not the
-field around it -- see EXCLUSION_RADIUS_M.
+The small reference list is not a current authoritative installation inventory.
+A nearby detection may be a supply vessel, not the structure itself. Proximity
+is retained for analyst review, never used as proof of target identity.
+Nominal mobile FPSO positions are deliberately excluded from automatic flags.
 """
 
 import os
@@ -38,19 +17,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 FloatArray = np.ndarray[Any, Any]
 
-SURFACE_INFRASTRUCTURE = "infrastructure"
+SURFACE_INFRASTRUCTURE = "infrastructure_proximity"
 
-# Radius around a published position within which a detection is attributed to
-# the installation rather than to a vessel.
-#
-# This is a trade, and it is worth stating which way it errs. The standard
-# offshore safety zone is 500 m, and gcp_tps georeferencing carries residual
-# error of its own, so anything tighter risks missing the structure it exists to
-# catch. Anything much wider starts swallowing the supply and standby vessels
-# working the field -- which are real traffic, and exactly what an operator
-# needs to see. 1 km covers the structure plus georeferencing slop while leaving
-# the field itself visible.
-EXCLUSION_RADIUS_M = 1000.0
+# Provisional proximity radius, not a legal safety-zone determination.
+EXCLUSION_RADIUS_M = 500.0
 
 # Fixed production installations, Jeanne d'Arc Basin, Grand Banks of
 # Newfoundland. All four lie within configs/aois/grand_banks.geojson.
@@ -133,7 +103,13 @@ def classify_infrastructure(
     if n == 0:
         return [], []
 
-    present = installations_in_bounds(bounds)
+    # Nominal oil-field/FPSO positions cannot prove where a mobile facility
+    # was at image time. Only fixed structures provide a useful proximity cue.
+    # Do not clip reference points to the raster bbox: their radius may extend
+    # into the scene from outside it.
+    present = [item for item in INSTALLATIONS if item["fixed"]]
+    if not np.isfinite(radius_m) or radius_m < 0:
+        raise ValueError("Infrastructure radius must be finite and nonnegative")
     if not present:
         return [False] * n, [""] * n
 

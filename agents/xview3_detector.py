@@ -1,56 +1,16 @@
 #!/usr/bin/env python3
-"""
-TritonEye xView3 Detector
+"""Calibrated Sentinel-1 VV/VH inference using the pinned xView3 ensemble.
 
-Runs the xView3-SAR challenge winning ensemble (Eugene Khvedchenya, MIT licence)
-over Sentinel-1 GRD imagery.
+This is an adaptation of BloodAxe's MIT-licensed challenge solution, not a
+reproduction of its competition score. Inputs are sigma-zero dB, normalized as
+sigmoid((dB + 20) * 0.18), in VH/VV order, with fixed 2048-pixel tiles.
+The exported model already applies sigmoid to objectness. Output stride is two.
 
-The model is a CircleNet-style encoder-decoder ensemble — EfficientNet B4/B5/V2S
-backbones with U-Net decoders — producing dense predictions at stride 2 rather
-than the stride-8 grid a YOLO detector uses. That matters at 10 m ground
-spacing, where a 70 m vessel spans 7 pixels and occupies less than one YOLOv8
-output cell.
-
-Weights are distributed as a frozen TorchScript trace:
-    https://github.com/BloodAxe/xView3-The-First-Place-Solution/releases
-
-THREE INPUT DETAILS ARE LOAD-BEARING, and each one, when wrong, looks exactly
-like "the model is broken" rather than "the input is wrong":
-
-1. CALIBRATED sigma-nought in dB, not raw digital numbers. Their normalisation
-   is sigmoid((x + 20) * 0.18), which saturates above roughly +10 dB. Raw GRD DN
-   (median ~165) drives every pixel to 1.0 — a uniformly white image.
-2. EXACTLY 2048x2048 input. Concrete sizes were baked in when the ensemble was
-   traced, so its twelve sub-models only agree at that size; anything else fails
-   inside the ensembling stack with a shape mismatch.
-3. CHANNEL ORDER IS (VH, VV) — the reverse of what the rest of this pipeline
-   uses. Measured on a known vessel: (VH, VV) peaked at 0.33 objectness 56 px
-   from the target, (VV, VH) at 0.11 and 918 px away.
-
-WHY THIS MODEL: at 10 m ground spacing a 70 m vessel spans 7 pixels, which is
-smaller than one output cell of a stride-8 detector -- the target is gone before
-the head ever sees it. This ensemble predicts at stride 2, which is a geometric
-argument for the architecture rather than a claim about a particular scene. It
-also won the xView3-SAR challenge, whose task (vessel detection in Sentinel-1
-GRD) is the task here.
-
-RECALL OVER NEWFOUNDLAND AND LABRADOR IS NOT YET MEASURED. No historical AIS
-archive covers this region, so ground truth exists only for periods when
-agents/ais_recorder.py was running. See EVALUATION.md.
-
-WHAT THIS MODEL DOES NOT DO, both of which are easy to misread from its outputs:
-
-- It does not discriminate icebergs from vessels. An iceberg is a bright compact
-  target against a dark sea -- the signature this model is trained to find -- and
-  ice is nowhere in its training negatives. Over the Newfoundland AOI this is not
-  a tuning problem: the pipeline defines a dark vessel as a detection with no AIS
-  correlation, and an iceberg carries no transmitter, so every detected iceberg
-  becomes a confident false alert by construction. See EVALUATION.md section 8.1.
-- Its VESSEL_MAP head separates vessels from FIXED MARINE INFRASTRUCTURE, the
-  negative class the xView3 challenge defined. A low score means "not a vessel
-  under that training distribution", which lumps together infrastructure, ice,
-  and terrain clutter. It is not a classifier, an ice filter, or a land filter.
-  See EVALUATION.md section 8.2.
+Per-tile peak decoding and cross-tile deduplication differ from upstream's
+weighted heatmap stitching. Objectness is not a calibrated vessel probability.
+The vessel head has not been validated here for iceberg discrimination; no
+automatic dark-vessel conclusion is supported. NL precision and recall require
+independent, co-temporal labels. AIS observations alone are incomplete references.
 """
 
 import os
@@ -75,26 +35,7 @@ OUTPUT_STRIDE = 2
 NORM_MIDPOINT_DB = -20.0
 NORM_TEMPERATURE = 0.18
 
-# Objectness peaks well below 1.0 — a CenterNet heatmap is not calibrated like a
-# classifier, so this is nowhere near a 0.5 default.
-#
-# 0.15 IS PROVISIONAL. Choosing an operating point needs recall on one axis and
-# false alarms on the other, and recall cannot yet be measured over Newfoundland
-# and Labrador: no historical AIS archive covers the region (EVALUATION.md 1.1).
-#
-# What HAS been measured here is the false-alarm side, on the 2026-08-17 eastern
-# Newfoundland scene — and it argues against tuning this value at all:
-#
-#   confidence   detections   on land
-#     0.15-0.20     185          78%
-#     0.20-0.30      87          67%
-#     0.30-0.50      21          57%
-#     0.50+           5          60%
-#
-# Land contamination does NOT fall away with confidence over this terrain, so no
-# threshold separates land from water; that is the land mask's job, not this
-# constant's. Revisit only once an AIS-scored NL acquisition exists to measure
-# what a change costs in recall.
+# Provisional, not optimized on a labelled NL holdout.
 DEFAULT_THRESHOLD = 0.15
 
 # Half-width of the square emitted around each detection, in pixels (~150 m at
@@ -104,8 +45,8 @@ DEFAULT_THRESHOLD = 0.15
 NOMINAL_HALF_EXTENT_PX = 15.0
 
 # Detections closer than this in scene pixels are treated as the same vessel
-# seen from two overlapping tiles (~200 m at 10 m spacing).
-DEDUP_RADIUS_PX = 20.0
+# seen from two overlapping tiles (~60 m at 10 m spacing; provisional).
+DEDUP_RADIUS_PX = 6.0
 
 # Output keys, from xview3/centernet/constants.py.
 KEY_OBJECTNESS = "CENTERNET_OUTPUT_OBJECTNESS_MAP"
@@ -134,6 +75,8 @@ def tile_origins(width: int, height: int, overlap: int = 128) -> List[Tuple[int,
     receives a full-size input; edge tiles overlap their neighbours more than
     `overlap` instead.
     """
+    if width <= 0 or height <= 0 or not 0 <= overlap < TILE_SIZE:
+        raise ValueError("Positive raster dimensions and 0 <= overlap < 2048 required")
     step = TILE_SIZE - overlap
     origins = []
     rows = list(range(0, max(1, height - TILE_SIZE + step), step))
@@ -193,6 +136,9 @@ class XView3Detector:
 
         self.device = device if torch.cuda.is_available() or device == "cpu" else "cpu"
         self.threshold = threshold
+        if not np.isfinite(threshold) or not 0 < threshold < 1:
+            raise ValueError("Objectness threshold must be in (0, 1)")
+        self.scene_stats: Dict[str, Any] = {}
 
         # The ensemble was traced under torch 1.10 and runs here under 2.x, so
         # TorchScript's JIT fuser tries to build fused CUDA kernels at runtime
@@ -215,8 +161,17 @@ class XView3Detector:
     def _forward(self, tile_vh_vv: FloatArray) -> Dict[str, Any]:
         torch = self._torch
         x = torch.from_numpy(tile_vh_vv[None].astype("float32")).to(self.device)
-        with torch.no_grad():
-            return dict(self.model(x))
+        with (
+            torch.no_grad(),
+            torch.autocast(
+                device_type="cuda",
+                dtype=torch.float16,
+                enabled=self.device.startswith("cuda"),
+            ),
+        ):
+            # Decode the small output maps on CPU, leaving GPU memory for the
+            # ensemble. This does not change scores or input precision.
+            return {key: value.detach().cpu() for key, value in self.model(x).items()}
 
     def detect_tile(self, db_vv: FloatArray, db_vh: FloatArray) -> List[Dict[str, Any]]:
         """
@@ -225,10 +180,10 @@ class XView3Detector:
         Returns detections in tile pixel coordinates, sub-pixel refined via the
         offset head.
         """
-        if db_vv.shape != (TILE_SIZE, TILE_SIZE):
+        if db_vv.shape != (TILE_SIZE, TILE_SIZE) or db_vh.shape != db_vv.shape:
             raise ValueError(
                 f"xView3 ensemble requires {TILE_SIZE}x{TILE_SIZE} tiles, "
-                f"got {db_vv.shape}"
+                f"got VV={db_vv.shape}, VH={db_vh.shape}"
             )
 
         torch = self._torch
@@ -239,10 +194,12 @@ class XView3Detector:
         out = self._forward(stacked)
 
         objectness = out[KEY_OBJECTNESS][0, 0]
-        # The head already emits probabilities; only apply a sigmoid if the
-        # values are outside [0, 1].
-        if float(objectness.min()) < 0.0 or float(objectness.max()) > 1.0:
-            objectness = torch.sigmoid(objectness)
+        # The pinned release applies its sigmoid inside the ensemble. A different
+        # output contract is an error, not permission to silently rescale scores.
+        if not bool(torch.isfinite(objectness).all()) or (
+            float(objectness.min()) < 0.0 or float(objectness.max()) > 1.0
+        ):
+            raise ValueError("Pinned ensemble objectness must be finite in [0, 1]")
 
         offset = out[KEY_OFFSET][0]
         size_map = out[KEY_SIZE][0, 0]
@@ -300,51 +257,76 @@ class XView3Detector:
                 "sigma-nought in dB and cannot run on raw digital numbers."
             )
 
-        failed = 0
-        with rasterio.open(vv_path) as src_vv, rasterio.open(vh_path) as src_vh:
+        with (
+            rasterio.Env(GDAL_CACHEMAX=64 * 1024 * 1024),
+            rasterio.open(vv_path) as src_vv,
+            rasterio.open(vh_path) as src_vh,
+        ):
+            if (
+                src_vv.shape != src_vh.shape
+                or src_vv.transform != src_vh.transform
+                or src_vv.crs != src_vh.crs
+            ):
+                raise ValueError("VV/VH raster grids must agree")
+            vv_gcps, vv_crs = src_vv.gcps
+            vh_gcps, vh_crs = src_vh.gcps
+            vv_grid = [(p.row, p.col, p.x, p.y, p.z) for p in vv_gcps]
+            vh_grid = [(p.row, p.col, p.x, p.y, p.z) for p in vh_gcps]
+            if (
+                vv_crs != vh_crs
+                or len(vv_grid) != len(vh_grid)
+                or (vv_grid and not np.allclose(vv_grid, vh_grid, rtol=0, atol=1e-8))
+            ):
+                raise ValueError("VV/VH ground control points must agree")
             origins = tile_origins(src_vv.width, src_vv.height, overlap)
+            self.scene_stats = {
+                "tiles_total": len(origins),
+                "tiles_processed": 0,
+                "tiles_nodata": 0,
+                "tiles_failed": 0,
+                "nodata_detections_rejected": 0,
+            }
             for n, (r0, c0) in enumerate(origins, 1):
                 win = Window(c0, r0, TILE_SIZE, TILE_SIZE)
-                dn_vv = src_vv.read(1, window=win).astype("float64")
-                dn_vh = src_vh.read(1, window=win).astype("float64")
-                if dn_vv.shape != (TILE_SIZE, TILE_SIZE):
-                    continue
+                padded = src_vv.width < TILE_SIZE or src_vv.height < TILE_SIZE
+                dn_vv = src_vv.read(1, window=win, boundless=padded, fill_value=0)
+                dn_vh = src_vh.read(1, window=win, boundless=padded, fill_value=0)
                 if dn_vv.max() == 0 and dn_vh.max() == 0:
+                    self.scene_stats["tiles_nodata"] += 1
                     continue  # entirely in the product's zero-fill border
 
                 db_vv = cal_vv.to_sigma0_db(dn_vv, r0, c0)
                 db_vh = cal_vh.to_sigma0_db(dn_vh, r0, c0)
 
-                # A scene is ~126 tiles and tens of minutes of work. A transient
-                # per-tile failure — a CUDA OOM, a JIT compile failure under
-                # memory pressure — should cost that tile, not the whole run, so
-                # it is reported and skipped. A run that fails everywhere still
-                # surfaces clearly: every tile logs its own reason.
+                # Never report a partially processed scene as a completed scan.
                 try:
                     detections = self.detect_tile(db_vv, db_vh)
                 except Exception as e:
-                    failed += 1
-                    print(
-                        f"  tile {n}/{len(origins)} at (row={r0}, col={c0}) "
-                        f"failed: {type(e).__name__}: {str(e).splitlines()[0][:120]}",
-                        file=sys.stderr,
-                    )
-                    continue
+                    self.scene_stats["tiles_failed"] += 1
+                    raise RuntimeError(
+                        f"Tile {n}/{len(origins)} failed; scene is incomplete"
+                    ) from e
+                self.scene_stats["tiles_processed"] += 1
 
                 for det in detections:
+                    row, col = int(round(det["row"])), int(round(det["col"]))
+                    if (
+                        not (
+                            0 <= row < min(TILE_SIZE, src_vv.height - r0)
+                            and 0 <= col < min(TILE_SIZE, src_vv.width - c0)
+                        )
+                        or dn_vv[row, col] <= 0
+                        or dn_vh[row, col] <= 0
+                    ):
+                        self.scene_stats["nodata_detections_rejected"] += 1
+                        continue
+                    det["tile_id"] = (r0, c0)
                     det["col"] += c0
                     det["row"] += r0
                     yield det
 
                 if progress:
                     print(f"  tile {n}/{len(origins)}", file=sys.stderr)
-
-            if failed:
-                print(
-                    f"WARNING: {failed} of {len(origins)} tiles failed; "
-                    "coverage of this scene is incomplete.",
-                    file=sys.stderr,
-                )
 
 
 def resolve_weights(base_dir: str) -> Optional[str]:
@@ -367,6 +349,8 @@ def dedupe_detections(
     suppression in scene pixel space; without it the detection count inflates
     and precision looks better than it is.
     """
+    if not np.isfinite(radius_px) or radius_px <= 0:
+        raise ValueError("Deduplication radius must be finite and positive")
     if not detections:
         return []
 
@@ -376,10 +360,15 @@ def dedupe_detections(
     rows: FloatArray = np.empty(0, dtype="float64")
 
     for det in ordered:
-        if (
-            len(kept)
-            and float(np.min(np.hypot(cols - det["col"], rows - det["row"])))
-            < radius_px
+        distances = np.hypot(cols - det["col"], rows - det["row"])
+        if any(
+            float(distance) < radius_px
+            and (
+                "tile_id" not in det
+                or "tile_id" not in other
+                or det["tile_id"] != other["tile_id"]
+            )
+            for other, distance in zip(kept, distances)
         ):
             continue
         kept.append(det)

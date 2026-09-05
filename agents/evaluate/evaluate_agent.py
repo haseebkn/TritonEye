@@ -2,15 +2,10 @@
 """
 TritonEye Evaluation Agent
 
-Scores a mission's detections against ground truth derived from AIS, and logs
-the result as operational metrics.
-
-Every AIS-broadcasting vessel inside the imaged swath at acquisition time was
-definitely there, so the fraction the detector found is a *lower bound* on
-recall — dark vessels are absent from AIS by construction, so true recall can be
-higher but never lower. That makes this a conservative, always-available
-regression metric: it needs no hand labelling and it recomputes on every
-mission that has AIS coverage.
+Scores proximity recall on the observed AIS subset, not complete ground truth.
+AIS reception, position accuracy, and self-reported identity are imperfect.
+This selected subset is neither a lower nor an upper bound on overall recall.
+Unmatched SAR returns cannot establish precision or a false-positive rate.
 
 Recall is stratified by vessel length where the raw AIS archive provides it,
 because 10 m imagery cannot resolve small craft and a single blended number
@@ -30,10 +25,17 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 
 try:
     import geopandas as gpd
+    import numpy as np
     import pandas as pd
     import rasterio
-    from shapely.geometry import MultiPoint, Point
+    from pyproj import Transformer
+    from rasterio.transform import GCPTransformer, rowcol
+    from rasterio.windows import Window
+    from shapely.geometry import MultiPoint, Point, Polygon
+    from shapely.ops import transform
 
+    from agents.association import aligned_ais, one_to_one_matches, real_ais_source
+    from agents.region import contains_points, load_region
     from agents.tracking import RunTracker
 except ImportError as e:
     print(f"Dependency missing during startup: {e}", file=sys.stderr)
@@ -84,15 +86,64 @@ def swath_hull(vv_path: str) -> Any:
     misses.
     """
     with rasterio.open(vv_path) as src:
-        gcps, _ = src.gcps
+        gcps, gcp_crs = src.gcps
         if gcps:
-            return MultiPoint([Point(g.x, g.y) for g in gcps]).convex_hull
-        bounds = src.bounds
-        return (
-            Point(bounds.left, bounds.bottom)
-            .buffer(0)
-            .envelope.union(Point(bounds.right, bounds.top).buffer(0).envelope)
-        )
+            hull = MultiPoint([Point(g.x, g.y) for g in gcps]).convex_hull
+            crs = gcp_crs
+        else:
+            hull = Polygon(
+                [
+                    src.transform * xy
+                    for xy in [
+                        (0, 0),
+                        (src.width, 0),
+                        (src.width, src.height),
+                        (0, src.height),
+                    ]
+                ]
+            )
+            crs = src.crs
+        if crs is None:
+            raise ValueError("SAR raster has no georeferencing CRS")
+        project = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        return transform(project.transform, hull)
+
+
+def valid_sar_points(vv_path: str, points: list[Point]) -> list[bool]:
+    """Test actual SAR pixels, excluding mask/nodata, NaN, and zero DN padding.
+
+    Georeferencing uses the GCP CRS and TPS inverse for unwarped Sentinel GRD,
+    or the affine transform for projected products. Read one pixel at a time so
+    full scenes and their validity masks never need to fit in memory.
+    """
+    if not points:
+        return []
+    with rasterio.open(vv_path) as src:
+        gcps, gcp_crs = src.gcps
+        crs = gcp_crs if gcps else src.crs
+        if crs is None:
+            raise ValueError("SAR raster has no georeferencing CRS")
+        project = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        xs, ys = project.transform([p.x for p in points], [p.y for p in points])
+        if gcps:
+            with GCPTransformer(gcps, tps=True) as converter:
+                rows, cols = converter.rowcol(xs, ys)
+        else:
+            rows, cols = rowcol(src.transform, xs, ys)
+        valid = []
+        for row, col in zip(rows, cols):
+            if not (0 <= row < src.height and 0 <= col < src.width):
+                valid.append(False)
+                continue
+            pixel = src.read(1, window=Window(int(col), int(row), 1, 1), masked=True)
+            valid.append(
+                bool(
+                    not bool(np.asarray(pixel.mask).any())
+                    and np.isfinite(pixel[0, 0])
+                    and pixel[0, 0] != 0
+                )
+            )
+        return valid
 
 
 def vessel_lengths(ais_dir_hint: str, mmsis: List[int]) -> Dict[int, float]:
@@ -128,7 +179,7 @@ def vessel_lengths(ais_dir_hint: str, mmsis: List[int]) -> Dict[int, float]:
 
 
 def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
-    """Scores detections against AIS ground truth for one mission."""
+    """Score one-to-one proximity recall on the observed, time-aligned AIS subset."""
     detections_path = payload.get("detections_geojson")
     ais_path = payload.get("ais_telemetry")
     vv_path = (payload.get("sar_bands") or {}).get("VV")
@@ -139,13 +190,23 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
         "ais_coverage": coverage,
         "match_radius_m": MATCH_RADIUS_M,
         "scored": False,
+        "metric_scope": "observed AIS subset proximity recall",
+        "precision": None,
+        "false_positive_rate": None,
+        "limitations": (
+            "AIS is incomplete and self-reported; subset recall is neither a lower "
+            "nor upper bound on overall recall. Precision and false-alarm rate "
+            "require independent labelled SAR targets, including ice and clutter."
+        ),
     }
 
-    if coverage in ("none", "mock"):
-        # No real telemetry means no ground truth. Reporting 0% recall here
-        # would be indistinguishable from a detector failure, so the mission is
-        # explicitly marked unscored instead.
-        result["reason"] = f"no real AIS ground truth (coverage={coverage})"
+    if not real_ais_source(coverage):
+        result["reason"] = f"no real AIS observations (coverage={coverage})"
+        return result
+
+    processing = payload.get("processing") or payload.get("processing_manifest") or {}
+    if processing.get("complete") is False or processing.get("detector") == "mock":
+        result["reason"] = "incomplete processing or synthetic detector output"
         return result
 
     if not detections_path or not ais_path or not vv_path:
@@ -153,51 +214,92 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
         return result
 
     detections = gpd.read_file(detections_path)
-    ais = pd.read_csv(ais_path)
+    try:
+        ais = pd.read_csv(ais_path, dtype={"mmsi": str})
+    except (OSError, pd.errors.EmptyDataError, pd.errors.ParserError) as error:
+        result["reason"] = f"AIS unavailable: {error}"
+        return result
     if ais.empty:
         result["reason"] = "AIS file is empty"
         return result
 
-    # one position per vessel: the report closest to acquisition
-    ais["timestamp"] = pd.to_datetime(ais["timestamp"])
-    acq_ts = pd.Timestamp(acq)
-    ais["dt"] = (ais["timestamp"] - acq_ts).abs()
-    nearest = ais.sort_values("dt").groupby("mmsi", as_index=False).first()
-
-    truth = gpd.GeoDataFrame(
-        nearest,
-        geometry=[Point(xy) for xy in zip(nearest.lon, nearest.lat)],
-        crs="EPSG:4326",
-    )
-
-    hull = swath_hull(vv_path)
-    truth = truth[truth.geometry.within(hull)].copy()
+    truth, diagnostics = aligned_ais(ais, acq)
+    result["ais_alignment"] = diagnostics
+    if truth.empty:
+        result["reason"] = diagnostics.get("reason", "no usable AIS positions")
+        return result
+    region = load_region((payload.get("spatial_bounds") or {}).get("analysis_region"))
+    truth = truth.loc[
+        contains_points(list(truth.lon), list(truth.lat), region=region)
+    ].copy()
+    try:
+        truth = truth.loc[valid_sar_points(vv_path, list(truth.geometry))].copy()
+    except (ValueError, rasterio.errors.RasterioError) as error:
+        result["reason"] = f"SAR validity/georeferencing unavailable: {error}"
+        return result
+    truth = truth.reset_index(drop=True)
     result["ais_vessels_in_swath"] = int(len(truth))
     result["detections"] = int(len(detections))
 
     if truth.empty:
-        result["reason"] = "no AIS vessels inside the imaged swath"
+        result["reason"] = "no AIS vessels on valid SAR pixels inside the NL study area"
         return result
+
+    if detections.crs is None:
+        result["reason"] = "detections have no CRS"
+        return result
+    detections = detections.to_crs("EPSG:4326")
+    detections = detections.loc[
+        detections.geometry.notna()
+        & ~detections.geometry.is_empty
+        & detections.geometry.is_valid
+    ].copy()
+    detections = detections.loc[
+        [region.covers(geometry) for geometry in detections.geometry]
+    ].copy()
+    detections = detections.loc[
+        valid_sar_points(
+            vv_path, [geometry.centroid for geometry in detections.geometry]
+        )
+    ].reset_index(drop=True)
 
     # attach length where the raw archive is still available
     base = os.path.dirname(os.path.abspath(ais_path))
     date_tag = acq[:10] if len(acq) >= 10 else ""
-    lengths = vessel_lengths(os.path.join(base, f"ais-{date_tag}"), list(truth.mmsi))
-    truth["vessel_len"] = truth.mmsi.astype(int).map(lengths)
-
-    if detections.empty:
-        truth["found"] = False
-    else:
-        metric_crs = detections.estimate_utm_crs()
-        cent = detections.to_crs(metric_crs).geometry.centroid
-        truth_m = truth.to_crs(metric_crs)
-        truth["found"] = [
-            bool(cent.distance(g).min() <= MATCH_RADIUS_M) for g in truth_m.geometry
-        ]
+    lengths = vessel_lengths(
+        os.path.join(base, f"ais-{date_tag}"), [int(m) for m in truth.mmsi]
+    )
+    truth["vessel_len"] = truth["length"].where(truth["length"] > 0)
+    truth["vessel_len"] = truth["vessel_len"].fillna(
+        truth.mmsi.astype(int).map(lengths)
+    )
+    raw_pairs, _, raw_ambiguous = one_to_one_matches(
+        [geometry.centroid for geometry in detections.geometry],
+        list(truth.geometry),
+        MATCH_RADIUS_M,
+    )
+    surfaces = detections.get("surface", pd.Series("unknown", index=detections.index))
+    eligible = detections.loc[surfaces == "water"]
+    eligible_pairs, _, eligible_ambiguous = one_to_one_matches(
+        [geometry.centroid for geometry in eligible.geometry],
+        list(truth.geometry),
+        MATCH_RADIUS_M,
+    )
+    found = {position for position, _ in raw_pairs.values()}
+    eligible_found = {position for position, _ in eligible_pairs.values()}
+    truth["found"] = [index in found for index in range(len(truth))]
+    result["raw_detections_in_valid_region"] = len(detections)
+    result["eligible_detections"] = len(eligible)
+    result["matched_eligible"] = len(eligible_found)
+    result["recall_eligible"] = round(len(eligible_found) / len(truth), 4)
+    result["raw_ambiguous_targets"] = len(raw_ambiguous)
+    result["eligible_ambiguous_targets"] = len(eligible_ambiguous)
+    result["eligibility_scope"] = "known open-water detections; same AIS denominator"
 
     result["scored"] = True
     result["matched"] = int(truth.found.sum())
     result["recall_all"] = round(float(truth.found.mean()), 4)
+    result["recall_raw"] = result["recall_all"]
 
     known = truth[truth["vessel_len"].notna()]
     if not known.empty:
@@ -236,6 +338,13 @@ def flatten_metrics(ev: Dict[str, Any]) -> Dict[str, float]:
         "resolvable_in_swath",
         "resolvable_matched",
         "recall_resolvable",
+        "recall_raw",
+        "recall_eligible",
+        "matched_eligible",
+        "raw_detections_in_valid_region",
+        "eligible_detections",
+        "raw_ambiguous_targets",
+        "eligible_ambiguous_targets",
     ):
         if isinstance(ev.get(key), (int, float)):
             out[f"eval.{key}"] = float(ev[key])
@@ -268,7 +377,7 @@ def main() -> None:
 
     if ev.get("scored"):
         print(
-            f"Recall vs AIS ground truth: {ev['matched']}/{ev['ais_vessels_in_swath']}"
+            f"Observed AIS-subset recall: {ev['matched']}/{ev['ais_vessels_in_swath']}"
             f" = {ev['recall_all']:.1%}",
             file=sys.stderr,
         )

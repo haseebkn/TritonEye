@@ -4,19 +4,19 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Newfoundland Shelf - AIS recording envelope",
+        "name": "Newfoundland and Labrador - AIS recording envelope",
         "purpose": "RECORDING ONLY, not an imaging AOI. The AIS recorder must cover every area the project images, otherwise an acquisition lands outside the subscription and is unscorable no matter how long the recorder ran.",
-        "covers": "grand_banks, eastern_newfoundland, st_johns_offshore",
+        "covers": "grand_banks, eastern_newfoundland, st_johns_offshore, labrador_shelf, newfoundland_labrador",
         "history": "Added after the recorder spent a week subscribed to eastern_newfoundland (lon -53.5..-52.0), which has zero longitude overlap with grand_banks (-51.0..-47.5). Every Grand Banks scene in that period was unscorable."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
-          [-55.5, 45.0],
-          [-47.0, 45.0],
-          [-47.0, 50.0],
-          [-55.5, 50.0],
-          [-55.5, 45.0]
+          [-61.5, 45.0],
+          [-45.0, 45.0],
+          [-45.0, 61.5],
+          [-61.5, 61.5],
+          [-61.5, 45.0]
         ]]
       }
     }

@@ -47,9 +47,9 @@ def test_detection_on_a_platform_is_attributed_to_it() -> None:
     assert names == ["Hibernia"]
 
 
-def test_detection_inside_the_safety_zone_is_masked() -> None:
-    """800 m out, inside the 1 km radius."""
-    lon = east_of(HIBERNIA_LON, HIBERNIA_LAT, 800.0)
+def test_detection_inside_provisional_proximity_radius_is_flagged() -> None:
+    """A nearby target is flagged for review, not identified as a structure."""
+    lon = east_of(HIBERNIA_LON, HIBERNIA_LAT, 400.0)
     hit, names = classify_infrastructure([lon], [HIBERNIA_LAT], GRAND_BANKS)
     assert hit == [True]
     assert names == ["Hibernia"]
@@ -87,8 +87,8 @@ def test_each_detection_is_attributed_to_its_nearest_installation() -> None:
     hit, names = classify_infrastructure(
         [-48.498056, -48.479440], [46.543889, 46.475000], GRAND_BANKS
     )
-    assert hit == [True, True]
-    assert names == ["Hebron", "Terra Nova"]
+    assert hit == [True, False]
+    assert names == ["Hebron", ""]
 
 
 def test_aoi_without_installations_masks_nothing() -> None:
@@ -160,4 +160,4 @@ def test_summarize_counts_per_installation() -> None:
 
 def test_default_radius_is_documented_as_a_trade() -> None:
     """The value is a judgement, not a constant of nature; keep it visible."""
-    assert EXCLUSION_RADIUS_M == 1000.0
+    assert EXCLUSION_RADIUS_M == 500.0

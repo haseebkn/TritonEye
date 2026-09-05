@@ -6,17 +6,25 @@ Supports a deterministic mock mode for offline testing and pipeline validation.
 """
 
 import csv
+import glob
 import json
 import math
 import os
 import random
+import re
 import sys
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Agents are executed as standalone scripts, so the workspace root has to be on
 # the path before the shared modules under agents/ can be imported.
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+
+from agents.ais_recorder import CSV_HEADER
+from agents.ais_validation import course_deg, parse_utc, speed_knots, utc_string
+from agents.artifacts import mission_directory, write_json
+from agents.region import REGION_NAME, contains_points, load_region, validate_aoi
 
 # Third-party imports (handled gracefully if missing during bootstrap checks)
 try:
@@ -64,10 +72,7 @@ def pad_bbox(bbox: List[float], margin_deg: float) -> List[float]:
 
 def aoi_bbox(geom: Dict[str, Any]) -> List[float]:
     """Returns the [min_lon, min_lat, max_lon, max_lat] envelope of an AOI polygon."""
-    coords = geom["coordinates"][0]
-    lons = [pt[0] for pt in coords]
-    lats = [pt[1] for pt in coords]
-    return [min(lons), min(lats), max(lons), max(lats)]
+    return list(shapely.geometry.shape(geom).bounds)
 
 
 def generate_synthetic_data(
@@ -86,16 +91,17 @@ def generate_synthetic_data(
         timestamp_str = override_timestamp
     else:
         timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-    safe_name = (
-        f"S1A_IW_GRDH_1SDV_{timestamp_str}_" "20260708T050025_061234_07ABCD_1234.SAFE"
-    )
-    safe_dir = os.path.join(output_dir, safe_name)
+    mission_id = f"mission_mock_{timestamp_str}_{Path(aoi_path).stem}"
+    synthetic_dir = mission_directory(mission_id, root=Path(output_dir) / "synthetic")
+    safe_name = f"SYNTHETIC_VV_VH_{timestamp_str}.SAFE"
+    safe_dir = str(synthetic_dir / safe_name)
     measurement_dir = os.path.join(safe_dir, "measurement")
     os.makedirs(measurement_dir, exist_ok=True)
 
-    # Coordinates of St. John's offshore center
-    center_lon = -52.0
-    center_lat = 47.5
+    aoi = load_aoi(aoi_path)["features"][0]["geometry"]
+    validate_aoi(aoi)
+    center = shapely.geometry.shape(aoi).representative_point()
+    center_lon, center_lat = center.x, center.y
 
     # 2. Setup Spatial Projection (EPSG:32622 - UTM Zone 22N)
     proj_wgs84 = "EPSG:4326"
@@ -125,7 +131,9 @@ def generate_synthetic_data(
     # 3. Generate 50 deterministic vessel tracks
     vessels: List[Dict[str, Any]] = []
     base_mmsi = 316000000
-    image_time = datetime.strptime(timestamp_str, "%Y%m%dT%H%M%S")
+    image_time = datetime.strptime(timestamp_str, "%Y%m%dT%H%M%S").replace(
+        tzinfo=timezone.utc
+    )
 
     for i in range(50):
         mmsi = base_mmsi + i
@@ -213,11 +221,11 @@ def generate_synthetic_data(
     with open(manifest_path, "w", encoding="utf-8") as f:
         f.write(
             f"<xml><metadata><product>{safe_name}</product>"
-            f"<crs>{proj_utm}</crs></xml>"
+            f"<crs>{proj_utm}</crs></metadata></xml>"
         )
 
     # 5. Write AIS track records to CSV (Active vessels only)
-    ais_path = os.path.join(output_dir, "ais_mock.csv")
+    ais_path = str(synthetic_dir / "ais_mock.csv")
     with open(ais_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(
@@ -233,7 +241,7 @@ def generate_synthetic_data(
                         v["mmsi"],
                         round(pt["lat"], 6),
                         round(pt["lon"], 6),
-                        pt["time"].strftime("%Y-%m-%d %H:%M:%S"),
+                        utc_string(pt["time"]),
                         round(v["speed"], 1),
                         round(v["heading"], 1),
                     ]
@@ -244,13 +252,18 @@ def generate_synthetic_data(
     bottom_right_lon, bottom_right_lat = rev_transformer.transform(x_max, y_min)
 
     return {
-        "mission_id": f"mission_{image_time.strftime('%Y%m%d_%H%M%S')}",
+        "mission_id": mission_id,
         "status": "success",
         "mode": "mock",
         "sar_product": safe_name,
         "sar_bands": {"VV": vv_path, "VH": vh_path},
         "ais_telemetry": ais_path,
-        "acquisition_time": image_time.strftime("%Y-%m-%d %H:%M:%S"),
+        "acquisition_time": utc_string(image_time),
+        "region_name": REGION_NAME,
+        "analysis_region": shapely.geometry.mapping(load_region()),
+        "data_provenance": (
+            "synthetic demonstration; not evidence of detection performance"
+        ),
         "spatial_bounds": {
             # Mock products are written with a real CRS and affine transform, so
             # they take the affine georeferencing path downstream.
@@ -296,7 +309,9 @@ def _filter_ais_file(
     """
     import pandas as pd
 
-    acq_dt = datetime.fromisoformat(acquisition_time_str.replace(" ", "T"))
+    acq_dt = parse_utc(acquisition_time_str, allow_naive=True)
+    if acq_dt is None:
+        raise ValueError("A valid acquisition timestamp is required for AIS filtering")
     time_window_start = acq_dt - timedelta(minutes=5)
     time_window_end = acq_dt + timedelta(minutes=5)
     lon_min, lat_min, lon_max, lat_max = bbox
@@ -314,7 +329,15 @@ def _filter_ais_file(
 
     try:
         for chunk in pd.read_csv(ais_file_path, chunksize=chunk_size):
-            chunk["timestamp_dt"] = pd.to_datetime(chunk[ts_col])
+            if not {"mmsi", ts_col, lon_col, lat_col}.issubset(chunk.columns):
+                raise ValueError(
+                    "AIS file is missing identity, time or position fields"
+                )
+            chunk["timestamp_dt"] = pd.to_datetime(
+                chunk[ts_col], errors="coerce", utc=True, format="mixed"
+            )
+            for name in ("mmsi", lon_col, lat_col):
+                chunk[name] = pd.to_numeric(chunk[name], errors="coerce")
 
             mask_temp = (chunk["timestamp_dt"] >= time_window_start) & (
                 chunk["timestamp_dt"] <= time_window_end
@@ -324,9 +347,20 @@ def _filter_ais_file(
                 & (chunk[lon_col] <= lon_max)
                 & (chunk[lat_col] >= lat_min)
                 & (chunk[lat_col] <= lat_max)
+                & chunk[lon_col].between(-180, 180)
+                & chunk[lat_col].between(-90, 90)
             )
-
-            filtered_chunk = chunk[mask_temp & mask_spatial]
+            mask_identity = chunk["mmsi"].between(100000000, 999999999) & (
+                chunk["mmsi"] % 1 == 0
+            )
+            filtered_chunk = chunk[mask_temp & mask_spatial & mask_identity].copy()
+            if not filtered_chunk.empty:
+                filtered_chunk = filtered_chunk.loc[
+                    contains_points(
+                        filtered_chunk[lon_col].tolist(),
+                        filtered_chunk[lat_col].tolist(),
+                    )
+                ]
             if not filtered_chunk.empty:
                 filtered_rows.append(filtered_chunk)
 
@@ -340,17 +374,25 @@ def _filter_ais_file(
         full_filtered = pd.concat(filtered_rows)
         renamed_df = full_filtered.rename(columns={v: k for k, v in columns.items()})
 
-        columns_to_keep = [
-            "mmsi",
-            "lat",
-            "lon",
-            "timestamp",
-            "speed_knots",
-            "course_deg",
-        ]
-        renamed_df = renamed_df[
-            [col for col in columns_to_keep if col in renamed_df.columns]
-        ]
+        renamed_df["mmsi"] = renamed_df["mmsi"].astype("int64")
+        renamed_df["timestamp"] = renamed_df["timestamp_dt"].map(
+            lambda value: utc_string(value.to_pydatetime())
+        )
+        for column, validator in (
+            ("speed_knots", speed_knots),
+            ("course_deg", course_deg),
+        ):
+            renamed_df[column] = (
+                renamed_df[column].map(validator) if column in renamed_df else None
+            )
+        defaults = {
+            "source": "legacy_local_archive",
+            "timestamp_basis": "legacy_archive_utc_assumed",
+        }
+        for column in CSV_HEADER:
+            if column not in renamed_df:
+                renamed_df[column] = defaults.get(column)
+        renamed_df = renamed_df[CSV_HEADER].drop_duplicates()
 
         # Multiple source files (e.g. an acquisition window spanning UTC
         # midnight) may already have been filtered into output_path by an
@@ -373,18 +415,15 @@ def filter_ais_stream_archive(
 ) -> bool:
     """
     Filters the locally recorded aisstream.io archive (see agents/ais_recorder.py)
-    to the acquisition window and bbox. This archive is
-    global, so it is the fallback for acquisitions outside US waters — but it
-    only has coverage from whenever the recorder was actually running.
+    to the acquisition window, bbox and approved NL study area. The existence
+    of matching rows establishes observations only, never complete coverage.
 
     An acquisition window can straddle a UTC day boundary, so every daily file
     the window overlaps is checked.
     """
-    if not os.path.isdir(archive_dir):
-        print(f"AIS stream archive not found: {archive_dir}", file=sys.stderr)
-        return False
-
-    acq_dt = datetime.fromisoformat(acquisition_time_str.replace(" ", "T"))
+    acq_dt = parse_utc(acquisition_time_str, allow_naive=True)
+    if acq_dt is None:
+        raise ValueError("A valid acquisition timestamp is required for AIS filtering")
     window_start = acq_dt - timedelta(minutes=5)
     window_end = acq_dt + timedelta(minutes=5)
     candidate_dates = {
@@ -392,18 +431,32 @@ def filter_ais_stream_archive(
         window_end.strftime("%Y-%m-%d"),
     }
 
-    if os.path.exists(output_path):
-        os.remove(output_path)  # _filter_ais_file appends across daily files
+    import tempfile
 
+    sources = [
+        path
+        for date_str in sorted(candidate_dates)
+        for path in sorted(
+            glob.glob(os.path.join(archive_dir, f"ais_stream_{date_str}*.csv"))
+        )
+    ]
+    if Path(output_path).resolve() in {Path(source).resolve() for source in sources}:
+        raise ValueError("Filtered output must not overwrite a source AIS archive")
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(dir=Path(output_path).parent, suffix=".csv.tmp")
+    with os.fdopen(fd, "w", newline="", encoding="utf-8") as stream:
+        csv.writer(stream).writerow(CSV_HEADER)
     matched_any = False
-    for date_str in sorted(candidate_dates):
-        day_file = os.path.join(archive_dir, f"ais_stream_{date_str}.csv")
-        if not os.path.exists(day_file):
-            continue
-        if _filter_ais_file(
-            day_file, acquisition_time_str, bbox, output_path, _NORMALIZED_COLUMNS
-        ):
-            matched_any = True
+    try:
+        for day_file in sources:
+            if _filter_ais_file(
+                day_file, acquisition_time_str, bbox, temporary, _NORMALIZED_COLUMNS
+            ):
+                matched_any = True
+        os.replace(temporary, output_path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
 
     if not matched_any:
         print(
@@ -412,6 +465,53 @@ def filter_ais_stream_archive(
             file=sys.stderr,
         )
     return matched_any
+
+
+def archive_coverage_details(
+    archive_dir: str, acquisition_time: str, bbox: List[float], filtered_path: str
+) -> Dict[str, Any]:
+    """Describe observed data and recorded sessions without inventing coverage."""
+    dt = parse_utc(acquisition_time, allow_naive=True)
+    if dt is None:
+        raise ValueError("Coverage requires a valid acquisition timestamp")
+    start, end = dt - timedelta(minutes=5), dt + timedelta(minutes=5)
+    sessions = []
+    for path in sorted(Path(archive_dir).glob("coverage_*.jsonl")):
+        events = []
+        with open(path, encoding="utf-8") as stream:
+            for line in stream:
+                try:
+                    value = json.loads(line)
+                    event_time = parse_utc(value.get("time"))
+                    if event_time is not None:
+                        events.append(value)
+                except (ValueError, TypeError, AttributeError):
+                    continue  # partial final journal line after a crash
+        if not events:
+            continue
+        first = parse_utc(events[0]["time"])
+        last = parse_utc(events[-1]["time"])
+        if first is None or last is None or first > end or last < start:
+            continue
+        sessions.append({"journal": str(path), "events": events})
+    observations = 0
+    if os.path.exists(filtered_path):
+        with open(filtered_path, newline="", encoding="utf-8") as stream:
+            observations = sum(1 for _ in csv.DictReader(stream))
+    return {
+        "status": "partial" if observations else "none",
+        "coverage_known": False,
+        "source": "aisstream.io local archive",
+        "observations": observations,
+        "query_bbox": bbox,
+        "window_start": utc_string(start),
+        "window_end": utc_string(end),
+        "recording_sessions": sessions,
+        "limitation": (
+            "Observed messages and subscriptions do not establish receiver coverage "
+            "or vessel silence; legacy records lack verified provenance."
+        ),
+    }
 
 
 def select_polarization_bands(
@@ -467,6 +567,7 @@ def query_copernicus_data(
 
     # Convert GeoJSON AOI to WKT
     geom = aoi_data["features"][0]["geometry"]
+    validate_aoi(geom)
     poly = shapely.geometry.shape(geom)
     footprint = poly.wkt
 
@@ -493,12 +594,15 @@ def query_copernicus_data(
     base_filter = (
         "Collection/Name eq 'SENTINEL-1' "
         "and contains(Name, 'IW_GRDH') "
+        "and contains(Name, '_1SDV_') "
         f"and OData.CSC.Intersects(area=geography'SRID=4326;{footprint}')"
     )
     if target_date:
+        date = datetime.strptime(target_date, "%Y-%m-%d").date()
+        following_date = (date + timedelta(days=1)).isoformat()
         window = (
-            f" and ContentDate/Start ge {target_date}T00:00:00Z"
-            f" and ContentDate/Start le {target_date}T23:59:59Z"
+            f" and ContentDate/Start ge {date.isoformat()}T00:00:00Z"
+            f" and ContentDate/Start lt {following_date}T00:00:00Z"
         )
     else:
         start_date = (datetime.now(timezone.utc) - timedelta(days=15)).strftime(
@@ -531,25 +635,25 @@ def query_copernicus_data(
     product_uuid = product["Id"]
     product_name = product["Name"]
     start_time_str = product["ContentDate"]["Start"]
-    try:
-        dt = datetime.fromisoformat(start_time_str.replace("Z", "+00:00"))
-    except Exception:
-        dt = datetime.now(timezone.utc)
+    dt = parse_utc(start_time_str)
+    if dt is None:
+        raise ValueError("Catalogue product has no valid UTC acquisition timestamp")
+    if target_date and dt.date().isoformat() != target_date:
+        raise ValueError("Catalogue returned a product outside TARGET_DATE")
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+", product_name) or not re.fullmatch(
+        r"[A-Fa-f0-9-]{36}", product_uuid
+    ):
+        raise ValueError("Invalid catalogue product identifier")
 
     print(f"Found product: {product_name} (UUID: {product_uuid})", file=sys.stderr)
     print(f"Acquisition time: {dt.strftime('%Y-%m-%d %H:%M:%S')}", file=sys.stderr)
     os.makedirs(output_dir, exist_ok=True)
 
     # Check local cache first
-    product_path = os.path.join(output_dir, f"{product_name}.SAFE")
-    if not os.path.exists(product_path):
-        potential_paths = [
-            os.path.join(output_dir, name)
-            for name in os.listdir(output_dir)
-            if name.startswith(product_name)
-        ]
-        if potential_paths:
-            product_path = potential_paths[0]
+    safe_name = (
+        product_name if product_name.endswith(".SAFE") else f"{product_name}.SAFE"
+    )
+    product_path = os.path.join(output_dir, safe_name)
 
     local_cache_valid = False
     if os.path.exists(product_path):
@@ -560,7 +664,16 @@ def query_copernicus_data(
                 for f in os.listdir(measurement_dir)
                 if f.endswith(".tiff") or f.endswith(".tif")
             ]
-            if len(tiffs) >= 2:
+            co, cross, pol = select_polarization_bands(tiffs)
+            if (
+                co
+                and cross
+                and pol == "VV/VH"
+                and os.path.isfile(os.path.join(product_path, "manifest.safe"))
+            ):
+                for band in (co, cross):
+                    with rasterio.open(os.path.join(measurement_dir, band)) as raster:
+                        raster.read(1, window=rasterio.windows.Window(0, 0, 1, 1))
                 local_cache_valid = True
                 print(
                     f"Product {product_name} already exists locally; "
@@ -569,24 +682,15 @@ def query_copernicus_data(
                 )
 
     if not local_cache_valid:
-        download_url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products({product_uuid})/$value"
-
-        # Resolve redirects manually so the Authorization header survives a
-        # change of domain.
-        try:
-            r_head = requests.get(
-                download_url, headers=headers, allow_redirects=False, timeout=15
+        if os.path.exists(product_path):
+            raise RuntimeError(
+                f"Incomplete product cache at {product_path}; "
+                "preserve or move it before retrying"
             )
-            if r_head.status_code in (301, 302, 303, 307, 308):
-                download_url = r_head.headers["Location"]
-        except Exception as e:
-            print(
-                f"Warning: Failed to pre-resolve download redirect: {e}",
-                file=sys.stderr,
-            )
+        download_url = f"https://download.dataspace.copernicus.eu/odata/v1/Products({product_uuid})/$value"
 
         print(f"Downloading product {product_name}...", file=sys.stderr)
-        fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
+        fd, temp_zip_path = tempfile.mkstemp(suffix=".zip.part", dir=output_dir)
         os.close(fd)
 
         try:
@@ -594,32 +698,54 @@ def query_copernicus_data(
                 download_url, headers=headers, stream=True, timeout=120
             ) as r:
                 r.raise_for_status()
+                bytes_received = 0
                 with open(temp_zip_path, "wb") as f:
                     for chunk in r.iter_content(chunk_size=8192):
                         if chunk:
                             f.write(chunk)
+                            bytes_received += len(chunk)
+                declared_length = r.headers.get("Content-Length")
+                if declared_length and bytes_received != int(declared_length):
+                    raise RuntimeError("Incomplete satellite product download")
 
             print(f"Extracting product to {output_dir}...", file=sys.stderr)
-            with zipfile.ZipFile(temp_zip_path, "r") as zip_ref:
-                zip_ref.extractall(output_dir)
+            with tempfile.TemporaryDirectory(
+                prefix="safe_extract_", dir=output_dir
+            ) as staging:
+                with zipfile.ZipFile(temp_zip_path, "r") as zip_ref:
+                    for member in zip_ref.infolist():
+                        target = (Path(staging) / member.filename).resolve()
+                        if (
+                            not target.is_relative_to(Path(staging).resolve())
+                            or "\\" in member.filename
+                        ):
+                            raise RuntimeError(
+                                "Unsafe path in satellite product archive"
+                            )
+                    # extractall verifies member CRC while writing. A partial
+                    # extraction never becomes the accepted cache directory.
+                    zip_ref.extractall(staging)
+                extracted = Path(staging) / safe_name
+                if not (extracted / "manifest.safe").is_file():
+                    raise RuntimeError(
+                        "Downloaded product is missing its SAFE manifest"
+                    )
+                extracted_bands = [
+                    p.name for p in (extracted / "measurement").glob("*.tif*")
+                ]
+                co, cross, pol = select_polarization_bands(extracted_bands)
+                if not co or not cross or pol != "VV/VH":
+                    raise RuntimeError(
+                        "Downloaded product lacks required VV/VH measurements"
+                    )
+                for band in (co, cross):
+                    with rasterio.open(extracted / "measurement" / band) as raster:
+                        raster.read(1, window=rasterio.windows.Window(0, 0, 1, 1))
+                os.replace(extracted, product_path)
 
         finally:
             if os.path.exists(temp_zip_path):
                 os.remove(temp_zip_path)
-
-    product_path = os.path.join(output_dir, f"{product_name}.SAFE")
-    if not os.path.exists(product_path):
-        potential_paths = [
-            os.path.join(output_dir, name)
-            for name in os.listdir(output_dir)
-            if name.startswith(product_name)
-        ]
-        if potential_paths:
-            product_path = potential_paths[0]
-        else:
-            raise RuntimeError(
-                f"Could not locate extracted product directory at {product_path}"
-            )
 
     measurement_dir = os.path.join(product_path, "measurement")
     if not os.path.exists(measurement_dir):
@@ -643,11 +769,8 @@ def query_copernicus_data(
         # scattering regime, so results from it are not comparable — say so
         # rather than silently relabelling HH as VV, which is what this code
         # used to do via a "just take the first two files" fallback.
-        print(
-            f"WARNING: product polarization is {polarization}, not VV/VH. "
-            "Detectors are trained on VV/VH; detections from this scene are "
-            "outside their trained domain and should not be trusted.",
-            file=sys.stderr,
+        raise ValueError(
+            f"Unsupported polarization {polarization}: detector requires VV/VH"
         )
 
     # Measure the product's true ground footprint. Level-1 GRD rasters are in
@@ -668,61 +791,55 @@ def query_copernicus_data(
     # vessel detected outside the AOI would otherwise have no telemetry to match
     # against and be misreported as a dark vessel.
     ais_bbox = pad_bbox(scene_bbox, AIS_MARGIN_DEG)
-    acq_time_str_full = dt.strftime("%Y-%m-%d %H:%M:%S")
+    acq_time_str_full = utc_string(dt)
+    mission_id = f"mission_{dt.strftime('%Y%m%d_%H%M%S')}_{product_uuid[:8]}"
+    mission_dir = mission_directory(mission_id)
 
-    # The locally recorded aisstream.io archive is the ONLY AIS source for this
-    # operating area. MarineCadastre — the usual free bulk archive — is US Coast
-    # Guard data and holds zero records east of -67.4W, so it does not reach
-    # Newfoundland and Labrador at all; it is not consulted. That leaves the
-    # recorder (agents/ais_recorder.py) as the sole ground-truth source, and it
-    # only covers time during which it was actually running.
+    # This implementation integrates the local aisstream archive only. Other
+    # public/licensed sources may exist but have not been integrated. Matching
+    # messages are cooperative observations, not independent vessel labels.
     ais_telemetry_path = None
     ais_coverage = "none"
 
     ais_stream_dir = os.path.join(output_dir, "ais_stream")
-    output_stream_path = os.path.join(
-        output_dir, f"ais_stream_{dt.strftime('%Y%m%d_%H%M%S')}_filtered.csv"
-    )
+    output_stream_path = str(mission_dir / "ais_filtered.csv")
     if filter_ais_stream_archive(
         ais_stream_dir, acq_time_str_full, ais_bbox, output_stream_path
     ):
         ais_telemetry_path = output_stream_path
-        ais_coverage = "aisstream"
+        ais_coverage = "partial"
 
     if ais_telemetry_path is None:
-        # No real telemetry exists for this acquisition. Previously this fell
-        # back to ais_mock.csv — the synthetic generator's fabricated vessels —
-        # which meant a production correlation run could silently match real
-        # detections against invented MMSI numbers, or hide genuine dark
-        # vessels behind mock "cooperative" tracks. An empty, correctly-schemed
-        # file makes the absence of coverage explicit and auditable instead:
-        # correlation still runs, and every detection is reported dark, but
-        # spatial_bounds.ais_coverage records that this reflects missing
-        # telemetry, not confirmed silence from real vessels.
-        ais_telemetry_path = os.path.join(output_dir, "ais_empty.csv")
+        # No matching observations were available from the configured archive.
+        # An empty, explicitly marked file allows downstream stages to report
+        # cooperation as unassessable, without inventing synthetic AIS matches.
+        ais_telemetry_path = output_stream_path
         if not os.path.exists(ais_telemetry_path):
             with open(ais_telemetry_path, "w", newline="", encoding="utf-8") as empty_f:
-                csv.writer(empty_f).writerow(
-                    ["mmsi", "lat", "lon", "timestamp", "speed_knots", "course_deg"]
-                )
+                csv.writer(empty_f).writerow(CSV_HEADER)
         print(
-            "WARNING: no recorded AIS coverage for this acquisition. All "
-            "detections will be reported dark, reflecting missing telemetry "
-            "coverage rather than confirmed silence. Newfoundland and Labrador "
-            "has no historical AIS archive, so coverage exists only for periods "
-            "when agents/ais_recorder.py was running.",
+            "No matching AIS observations: vessel cooperation is unassessable. "
+            "An absent AIS record must not be called a dark vessel.",
             file=sys.stderr,
         )
 
-    acq_time_str = dt.strftime("%Y%m%d_%H%M%S")
     return {
-        "mission_id": f"mission_{acq_time_str}",
+        "mission_id": mission_id,
         "status": "success",
         "mode": "production",
         "sar_product": product_name,
+        "sar_product_id": product_uuid,
+        "source_catalogue": "Copernicus Data Space Ecosystem",
+        "catalogue_content_date": product["ContentDate"],
+        "catalogue_checksum": product.get("Checksum", []),
         "sar_bands": {"VV": vv_full_path, "VH": os.path.join(measurement_dir, vh_file)},
         "ais_telemetry": ais_telemetry_path,
-        "acquisition_time": dt.strftime("%Y-%m-%d %H:%M:%S"),
+        "acquisition_time": utc_string(dt),
+        "analysis_region": shapely.geometry.mapping(load_region()),
+        "region_name": REGION_NAME,
+        "ais_coverage_details": archive_coverage_details(
+            ais_stream_dir, acq_time_str_full, ais_bbox, ais_telemetry_path
+        ),
         "spatial_bounds": {
             "georeferencing": georeferencing,
             "crs": "EPSG:4326",
@@ -746,25 +863,7 @@ def main() -> None:
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     output_dir = os.path.join(base_dir, "data", "raw")
 
-    # Check for TARGET_DATE override via env var
-    target_date_override = os.getenv("TARGET_DATE")
-    if target_date_override:
-        target_dates = [target_date_override]
-    else:
-        target_dates = []
-        if os.path.exists(output_dir):
-            for name in sorted(os.listdir(output_dir)):
-                if name.startswith("ais-") and os.path.isdir(
-                    os.path.join(output_dir, name)
-                ):
-                    parts = name.split("-")
-                    if (
-                        len(parts) == 4
-                        and len(parts[1]) == 4
-                        and len(parts[2]) == 2
-                        and len(parts[3]) == 2
-                    ):
-                        target_dates.append(f"{parts[1]}-{parts[2]}-{parts[3]}")
+    target_date_override = os.getenv("TARGET_DATE", "").strip()
 
     # Check for AOI override via env var
     aoi_override = os.getenv("AOI_NAME")
@@ -772,8 +871,6 @@ def main() -> None:
         if not aoi_override.endswith(".geojson"):
             aoi_override += ".geojson"
         aoi_path = os.path.join(base_dir, "configs", "aois", aoi_override)
-    elif target_dates:
-        aoi_path = os.path.join(base_dir, "configs", "aois", DEFAULT_AOI)
     else:
         aoi_path = os.path.join(base_dir, "configs", "aois", DEFAULT_AOI)
 
@@ -785,60 +882,30 @@ def main() -> None:
     user = os.getenv("COPERNICUS_USER", "")
     password = os.getenv("COPERNICUS_PASS", "")
 
-    # Fallback to mock mode if credentials are missing
-    is_mock = mock_flag or not user or not password
-
     try:
+        if aoi_override and os.path.basename(aoi_override) != aoi_override:
+            raise ValueError("AOI_NAME must be a filename under configs/aois")
         aoi_data = load_aoi(aoi_path)
+        validate_aoi(aoi_data["features"][0]["geometry"])
+        if target_date_override:
+            datetime.strptime(target_date_override, "%Y-%m-%d")
 
-        if is_mock:
-            if mock_flag:
-                print(
-                    "Mock Ingestion flagged manually via MOCK_INGEST.",
-                    file=sys.stderr,
-                )
-            else:
-                print(
-                    "Copernicus credentials missing. Falling back to mock "
-                    "ingestion mode.",
-                    file=sys.stderr,
-                )
-
+        if mock_flag:
+            print("Explicit synthetic ingestion via MOCK_INGEST=true.", file=sys.stderr)
             result: Dict[str, Any] = generate_synthetic_data(aoi_path, output_dir)
         else:
+            if not user or not password:
+                raise RuntimeError(
+                    "Production ingestion requires COPERNICUS_USER and "
+                    "COPERNICUS_PASS. Set them in .env; use MOCK_INGEST=true "
+                    "only for a synthetic demonstration."
+                )
             print("Initiating Copernicus Sentinel-1 API Ingest...", file=sys.stderr)
-
-            result = {}
-            if target_dates:
-                for target_date in target_dates:
-                    print(
-                        f"Checking for matching Sentinel-1 imagery on {target_date}...",
-                        file=sys.stderr,
-                    )
-                    try:
-                        result = query_copernicus_data(
-                            aoi_data,
-                            output_dir,
-                            user,
-                            password,
-                            target_date=target_date,
-                        )
-                        print(
-                            f"Successfully aligned with date: {target_date}",
-                            file=sys.stderr,
-                        )
-                        break
-                    except Exception as e:
-                        print(
-                            f"No match or download failed for date {target_date}: {e}",
-                            file=sys.stderr,
-                        )
-
-                if not result:
-                    print("Falling back to query latest 15 days...", file=sys.stderr)
-                    result = query_copernicus_data(aoi_data, output_dir, user, password)
-            else:
-                result = query_copernicus_data(aoi_data, output_dir, user, password)
+            # An explicit date is a reproducibility constraint. No silent
+            # substitution with recent imagery or unrelated archived AIS dates.
+            result = query_copernicus_data(
+                aoi_data, output_dir, user, password, target_date=target_date_override
+            )
 
         # Open the mission's tracking run here, at the head of the pipeline, and
         # pass its id downstream so every later stage records into the same run.
@@ -882,6 +949,7 @@ def main() -> None:
             except Exception:
                 pass
         tracker.end()
+        write_json(mission_directory(result["mission_id"]) / "ingest.json", result)
 
         # Write clean task-axi payload string to stdout
         print(json.dumps(result, indent=2))
