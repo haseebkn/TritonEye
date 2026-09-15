@@ -34,6 +34,13 @@ Coastline sources, all open, none paid:
           inland lakes are PART of the land polygons rather than holes in them.
           Newfoundland's interior is full of ponds and this is the behaviour we
           want. https://osmdata.openstreetmap.de/data/land-polygons.html
+
+          KNOWN GAP: this generalisation does not resolve narrow harbour
+          entrances. St. John's classifies as berths -39 m (land), mid-basin
+          +122 m (coastal), The Narrows entrance -220 m (land) -- so the port
+          and its approaches sit outside coverage, and harbour AIS cannot be
+          used as ground truth. CanVec resolves such channels better. See
+          EVALUATION.md.
   gshhg   GSHHG 2.3.7, GNU Lesser General Public License.
           https://www.soest.hawaii.edu/pwessel/gshhg/
 
