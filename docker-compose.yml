@@ -1,18 +1,5 @@
-# Every agent is a one-shot stage reading a JSON payload on stdin and writing
-# one on stdout, so these are `docker compose run` targets rather than services
-# to bring up. They sit behind profiles for that reason: a bare
-# `docker compose up` would otherwise launch all of them at once, each blocking
-# on an empty stdin.
-#
-#   docker compose run --rm pipeline        full five-stage run
-#   docker compose run --rm ingest          a single stage
-#   docker compose up ais-recorder          the one genuinely long-running service
-#   docker compose run --rm tests           unit tests inside the image
-
 x-tritoneye-base: &tritoneye-base
-  build:
-    context: .
-    dockerfile: Dockerfile
+  build: .
   image: tritoneye:latest
   volumes:
     - ./data:/app/data
@@ -20,69 +7,47 @@ x-tritoneye-base: &tritoneye-base
     - ./reports:/app/reports
     - ./models:/app/models
     - ./mlruns:/app/mlruns
-    - ./mlflow.db:/app/mlflow.db
-    - ./.env:/app/.env
+    - ./state:/app/state
+  env_file:
+    - path: .env
+      required: false
   environment:
-    - PYTHONPATH=/app
+    PYTHONPATH: /app
+    MLFLOW_TRACKING_URI: sqlite:////app/state/mlflow.db
 
 services:
-  # ---------------------------------------------------------------- stages
-  ingest:
-    <<: *tritoneye-base
-    profiles: ["stage"]
-    command: python agents/ingest/ingest_agent.py
-
-  inference:
-    <<: *tritoneye-base
-    profiles: ["stage"]
-    command: python agents/inference/inference_agent.py
-
-  correlation:
-    <<: *tritoneye-base
-    profiles: ["stage"]
-    command: python agents/correlation/correlation_agent.py
-
-  report:
-    <<: *tritoneye-base
-    profiles: ["stage"]
-    command: python agents/report/report_agent.py
-
-  # Scores detections against AIS-derived ground truth and logs operational
-  # metrics to the mission's MLflow run.
-  evaluate:
-    <<: *tritoneye-base
-    profiles: ["stage"]
-    command: python agents/evaluate/evaluate_agent.py
-
-  # ---------------------------------------------------------------- pipeline
-  # `set -o pipefail` is deliberate: /bin/sh in python:*-slim is dash, whose
-  # pipelines report only the last command's status, so an ingest failure would
-  # otherwise surface as a confusing JSON parse error downstream and still exit 0.
   pipeline:
     <<: *tritoneye-base
     profiles: ["stage"]
-    entrypoint: /bin/bash
-    command: >
-      -c "set -o pipefail;
-      python agents/ingest/ingest_agent.py
-      | python agents/inference/inference_agent.py
-      | python agents/correlation/correlation_agent.py
-      | python agents/report/report_agent.py
-      | python agents/evaluate/evaluate_agent.py"
-
-  # ---------------------------------------------------------------- services
-  # The only service meant to stay up. Subscribes to aisstream.io and builds a
-  # local historical archive (data/raw/ais_stream/) for AOIs MarineCadastre does
-  # not cover — it is US Coast Guard data, so anything outside US waters has no
-  # coverage there. Requires AISSTREAM_API_KEY in .env. Records only from
-  # whenever it is started onward; it cannot backfill imagery already on disk.
+    command: python -m agents.pipeline
+  ingest:
+    <<: *tritoneye-base
+    profiles: ["stage"]
+    command: python -m agents.ingest.ingest_agent
+  inference:
+    <<: *tritoneye-base
+    profiles: ["stage"]
+    command: python -m agents.inference.inference_agent
+  correlation:
+    <<: *tritoneye-base
+    profiles: ["stage"]
+    command: python -m agents.correlation.correlation_agent
+  evaluate:
+    <<: *tritoneye-base
+    profiles: ["stage"]
+    command: python -m agents.evaluate.evaluate_agent
+  report:
+    <<: *tritoneye-base
+    profiles: ["stage"]
+    command: python -m agents.report.report_agent
   ais-recorder:
     <<: *tritoneye-base
-    command: python agents/ais_recorder.py
+    # NL subscription envelope; live observations are not complete ground truth.
+    command: python -m agents.ais_recorder
     restart: unless-stopped
-
-  # ---------------------------------------------------------------- checks
   tests:
     <<: *tritoneye-base
     profiles: ["ci"]
-    command: pytest tests/ -q
+    environment:
+      TRITONEYE_TRACKING: "off"
+    command: pytest tests/ -q -m "not slow"

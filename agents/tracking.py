@@ -17,6 +17,7 @@ a no-op and reports the reason on stderr rather than raising. Set
 TRITONEYE_TRACKING=off to disable entirely.
 """
 
+import math
 import os
 import sys
 from types import TracebackType
@@ -168,7 +169,9 @@ class RunTracker:
             if v is None or isinstance(v, bool):
                 continue
             try:
-                clean[k] = float(v)
+                number = float(v)
+                if math.isfinite(number):
+                    clean[k] = number
             except (TypeError, ValueError):
                 continue
         if not clean:
@@ -220,20 +223,38 @@ class RunTracker:
         if not self.active or not weights_path or not os.path.exists(weights_path):
             return None
         try:
-            self._mlflow.log_artifact(weights_path, "model")
-            self.set_tags({f"model.{k}": v for k, v in metadata.items()})
-        except Exception as e:
-            print(f"Failed to log detector weights ({e}).", file=sys.stderr)
-            return None
-
-        try:
             from mlflow.tracking import MlflowClient
 
-            client = MlflowClient()
+            from agents.artifacts import sha256_file
+
+            client = self._client or MlflowClient()
+            digest = sha256_file(weights_path)
+            # Reuse the immutable weights identity; thresholds belong to the
+            # mission, not a fresh 1.3 GB model version per inference run.
+            metadata = {**metadata, "weights_sha256": digest}
+            self.set_tags({f"model.{k}": v for k, v in metadata.items()})
+            if not name or any(
+                c
+                not in (
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-"
+                )
+                for c in name
+            ):
+                raise ValueError("Invalid registered model name")
+            matches = client.search_model_versions(
+                f"name = '{name}' and tags.weights_sha256 = '{digest}'"
+            )
+            if matches:
+                existing = matches[0]
+                self.set_tags({"model.registry_version": str(existing.version)})
+                return str(existing.version)
             try:
                 client.create_registered_model(name)
             except Exception:
-                pass  # already exists
+                client.get_registered_model(
+                    name
+                )  # distinguish existing from backend failure
+            self._mlflow.log_artifact(weights_path, "model")
             version = client.create_model_version(
                 name=name, source=f"runs:/{self.run_id}/model", run_id=self.run_id
             )
@@ -246,12 +267,13 @@ class RunTracker:
                 f"Registered detector '{name}' version {version.version}.",
                 file=sys.stderr,
             )
+            self.set_tags({"model.registry_version": str(version.version)})
             return str(version.version)
         except Exception as e:
             # A file-store backend has no registry; the weights and provenance
             # tags on the run still record what ran.
             print(
-                f"Model registry unavailable ({e}); weights logged as artifact.",
+                f"Model registry unavailable ({e}); registration not confirmed.",
                 file=sys.stderr,
             )
             return None

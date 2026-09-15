@@ -143,7 +143,7 @@ class Georeferencer:
         ys_arr = np.atleast_1d(np.asarray(ys, dtype="float64"))
 
         if self._to_wgs84 is not None:
-            lon, lat = self._to_wgs84.transform(xs_arr, ys_arr)
+            lon, lat = self._to_wgs84.transform(xs_arr.tolist(), ys_arr.tolist())
             return np.atleast_1d(lon), np.atleast_1d(lat)
         return xs_arr, ys_arr
 

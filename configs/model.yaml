@@ -1,82 +1,33 @@
-# TritonEye YOLOv8 SAR Vessel Detector Configuration
-
+# NL research defaults. No operating point has measured NL precision.
 model:
-  name: "yolov8m_sar_vessel"
-  type: "yolov8"
-  version: "1.0.0"
+  name: xview3_circlenet_ensemble
+  type: xview3
+  version: "1.0"
+  xview3_sha256: c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38
+  yolo_sha256: 8c3b45950ec1c1d954c4a7a901744d8024b59be75684b92064da0a5a9c979297
   classes:
-    0: "cargo"
-    1: "tanker"
-    2: "fishing"
-    3: "military"
-    4: "unknown"
-
-# Imagery processing settings
+    4: unknown
 sensor:
-  platform: "Sentinel-1"
-  product_type: "GRD"
-  polarizations: ["VV", "VH"] # Dual-polarization backscatter channels
-
-# Large-scale GeoTIFF chunking / tiling settings
+  platform: Sentinel-1
+  product_type: GRD
+  polarizations: [VV, VH]
 tiling:
-  tile_size: 640        # 640x640 pixel window size
-  overlap: 128          # 128 pixel overlap between adjacent windows (20%)
-  step_size: 512        # tile_size - overlap
-  use_windowed_read: false
-  xview3_overlap: 128   # tile overlap for the xView3 backend (fixed 2048 tiles)
-
-# Inference post-processing and stitching
+  tile_size: 640  # experimental YOLO / synthetic smoke detector
+  overlap: 128
+  use_windowed_read: true
+  xview3_overlap: 128  # fixed 2048px tiles; adapted, not upstream stitching
 inference:
-  # Detection backend: "yolov8" or "xview3".
-  #
-  #   yolov8  Ultralytics YOLOv8 with HF Hub weights. ~47 s/scene. Measured
-  #           recall on vessels >=50 m: 4%. See EVALUATION.md.
-  #   xview3  xView3 challenge-winning ensemble. ~28 min/scene and needs the
-  #           product's calibration LUT, but recall on the same vessels is 59%.
-  #           Requires models/xview3/traced_ensemble.jit (1.3 GB, gitignored).
-  #
-  # Override per run with the TRITONEYE_DETECTOR env var.
-  detector: "yolov8"
-
-  conf_threshold: 0.35  # YOLOv8 confidence threshold. Inherited default; a sweep
-                        # against AIS ground truth favours 0.10 (4% -> 11% recall).
-  iou_threshold: 0.45   # IoU threshold for Non-Maximum Suppression (NMS) during stitching
-  crs: "EPSG:4326"       # Alignment Coordinate Reference System (WGS-84)
-
-  # xView3 objectness threshold. Swept against AIS ground truth over a full
-  # scene: 0.05 gives 59% recall at 10.1 detections per AIS vessel, 0.15 gives
-  # 48% at 1.1x. Lower it toward 0.05 once a land mask absorbs the coastal
-  # false positives. Omit to use the module default (0.15).
-  xview3_threshold: 0.15
-
-# Coastline masking. A SAR vessel detector responds to bright compact targets
-# against a dark background, which describes rock outcrops and buildings as
-# readily as hulls: the 2026-08-17 Newfoundland scene put most of its 298
-# detections on land. Detections are annotated, never deleted -- only "water"
-# becomes a dark-vessel alert, so the rejection count stays auditable.
-#
-# Fetch the coastline once before use (several hundred MB, gitignored):
-#   python -m agents.landmask --fetch --source osm
+  detector: xview3
+  device: cuda  # CPU fallback is supported but much slower
+  conf_threshold: 0.35  # experimental YOLO only
+  iou_threshold: 0.45
+  crs: EPSG:4326
+  xview3_threshold: 0.15  # provisional objectness, not vessel probability
 landmask:
   enabled: true
-  source: "osm"            # osm (ODbL) | gshhg (public domain)
-  coastal_buffer_m: 300    # water/coastal boundary; ~30 px at 10 m spacing,
-                           # above the measured gcp_tps georeferencing residual
-  cache_dir: null          # null -> data/reference/
-
-# Baseline hyperparameters for autoresearch training runs
-training:
-  optimizer: "AdamW"
-  lr0: 0.001
-  batch_size: 16
-  epochs: 30
-  imgsz: 640
-  mixed_precision: true
-  device: "cuda"
-
-# Compute environment for training (Spot optimized)
-compute:
-  target: "aws"
-  instance_type: "g4dn.xlarge"
-  use_spot: true
-  max_spot_price: 0.52   # Target budget limit in USD/hr
+  source: osm
+  coastal_buffer_m: 300  # conservative review band, not a measured accuracy claim
+  cache_dir: null
+infrastructure:
+  enabled: true
+  exclusion_radius_m: 500  # proximity review only; movable FPSOs not masked

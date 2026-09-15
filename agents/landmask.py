@@ -22,8 +22,8 @@ TWO DESIGN DECISIONS ARE LOAD-BEARING:
    georeferencing is milliseconds and allocates nothing.
 
 2. FLAG, DO NOT DROP. Detections are annotated with `surface` and
-   `distance_to_shore_m`, never deleted. Only water-classified detections become
-   alerts. This keeps the rejection count auditable -- "298 raw -> N marine" is
+   `distance_to_shore_m`, never deleted. Only water-classified detections are
+   eligible for AIS association and analyst review. Counts remain auditable; this
    itself the evidence that a false-alarm mode was found and fixed -- and avoids
    silently discarding genuine harbour traffic on the strength of georeferencing
    that carries known residual error.
@@ -34,8 +34,7 @@ Coastline sources, all open, none paid:
           inland lakes are PART of the land polygons rather than holes in them.
           Newfoundland's interior is full of ponds and this is the behaviour we
           want. https://osmdata.openstreetmap.de/data/land-polygons.html
-  gshhg   GSHHG, public domain, long-established in the SAR community. Fallback
-          for when ODbL share-alike is awkward.
+  gshhg   GSHHG 2.3.7, GNU Lesser General Public License.
           https://www.soest.hawaii.edu/pwessel/gshhg/
 
 CanVec (Open Government Licence - Canada) is the intended refinement for
@@ -46,6 +45,7 @@ is not wired up here.
 import os
 import sys
 import zipfile
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
@@ -81,7 +81,7 @@ SOURCES: Dict[str, Dict[str, str]] = {
         # an inland pond is not navigable water for our purposes, and a
         # detection on one is a false positive either way.
         "shapefile": "GSHHS_shp/f/GSHHS_f_L1.shp",
-        "licence": "public domain",
+        "licence": "GNU LGPL - GSHHG 2.3.7",
     },
 }
 
@@ -98,7 +98,9 @@ def local_aeqd_crs(bounds: Sequence[float]) -> Any:
     footprint spans lon -55.00..-51.17, straddling the zone 21N/22N boundary at
     -54W, so either zone distorts the far edge of the scene. AEQD centred on the
     footprint is exact for distance-from-centre by construction -- which is the
-    quantity being measured -- and needs no zone-selection logic for any AOI.
+    distance from the projection centre, not every target-to-coast distance.
+    Short local distances are approximate; coastal buffering accounts for
+    uncertainty and should be validated against regional reference shorelines.
     """
     try:
         from pyproj import CRS
@@ -170,6 +172,13 @@ def fetch(source: str = "osm", cache_dir: str = ".", quiet: bool = False) -> str
     if not quiet:
         print(f"Extracting {spec['archive']}", file=sys.stderr)
     with zipfile.ZipFile(archive_path) as zf:
+        root = Path(cache_dir).resolve()
+        for member in zf.infolist():
+            target = (root / member.filename).resolve()
+            if not target.is_relative_to(root) or member.filename.startswith(
+                ("/", "\\")
+            ):
+                raise LandMaskUnavailable("Unsafe coastline archive member path")
         zf.extractall(cache_dir)
 
     if not os.path.exists(shp_path):
@@ -248,9 +257,11 @@ class LandMask:
         except ImportError as e:  # pragma: no cover
             raise LandMaskUnavailable(f"geopandas is required: {e}") from e
 
-        spec = SOURCES.get(source, {})
+        if source not in SOURCES:
+            raise LandMaskUnavailable(f"Unknown coastline source: {source!r}")
+        spec = SOURCES[source]
         path = shapefile or os.path.join(cache_dir, spec.get("shapefile", ""))
-        if not path or not os.path.exists(path):
+        if not path or not os.path.isfile(path):
             raise LandMaskUnavailable(
                 f"Coastline data for source {source!r} not found at {path!r}. "
                 f"Run: python -m agents.landmask --fetch --source {source}"
@@ -258,7 +269,13 @@ class LandMask:
 
         # Reading with a bbox filter pushes the spatial query into the driver,
         # so world-scale files never fully enter memory.
-        gdf = gpd.read_file(path, bbox=tuple(bounds))
+        # Include coastline just outside a scene: a target at the image edge
+        # can still be coastal even if the land polygon lies beyond the swath.
+        min_lon, min_lat, max_lon, max_lat = bounds
+        padded = (min_lon - 0.1, min_lat - 0.1, max_lon + 0.1, max_lat + 0.1)
+        gdf = gpd.read_file(path, bbox=padded)
+        if gdf.crs is None or not gdf.crs.equals("EPSG:4326"):
+            raise LandMaskUnavailable("Coastline input must have an explicit WGS84 CRS")
         crs = local_aeqd_crs(bounds)
         if len(gdf):
             gdf = gdf.to_crs(crs)
@@ -287,6 +304,8 @@ class LandMask:
         from shapely import points as shapely_points
 
         n = len(lons)
+        if not np.isfinite(coastal_buffer_m) or coastal_buffer_m < 0:
+            raise ValueError("Coastal buffer must be finite and nonnegative")
         if n != len(lats):
             raise ValueError(f"lons/lats length mismatch: {n} != {len(lats)}")
         if n == 0:

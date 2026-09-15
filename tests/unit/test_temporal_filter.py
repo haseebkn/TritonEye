@@ -37,6 +37,7 @@ def temp_files_temporal() -> Iterator[tuple[str, str]]:
                     "target_id": "TRITON-001",
                     "class_name": "cargo",
                     "confidence": 0.95,
+                    "surface": "water",
                 },
             }
         ],
@@ -71,12 +72,15 @@ def test_correlation_filters_out_of_time_telemetry(
     # Execute correlation agent logic
     # Acquisition time is 05:00:00. The AIS data is at 04:30:00.
     # The ±5m window should drop the out-of-time telemetry record.
-    # Target 1 should end up isolated as a Dark Vessel since no temporal AIS matched.
-    dark_vessels_gdf = correlate_targets(
-        path_det, path_ais, acquisition_time="2026-07-08 05:00:00"
+    # Stale AIS is missing evidence, never proof of a dark vessel.
+    targets = correlate_targets(
+        path_det,
+        path_ais,
+        acquisition_time="2026-07-08 05:00:00",
+        ais_coverage="partial",
     )
 
-    # Detections become dark vessels because the temporal filter drops the
-    # out-of-window telemetry.
-    assert len(dark_vessels_gdf) == 1
-    assert dark_vessels_gdf.iloc[0]["target_id"] == "TRITON-001"
+    assert len(targets) == 1
+    assert targets.iloc[0]["correlation_status"] == "unassessable"
+    assert not targets.iloc[0]["review_required"]
+    assert not targets.iloc[0]["operational_alert"]

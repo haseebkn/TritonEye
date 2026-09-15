@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grand Banks of Newfoundland",
+        "nafo_divisions": "3L (northern Grand Bank), 3N/3O to the south",
+        "why": "The primary maritime domain awareness area for Newfoundland and Labrador: the Jeanne d'Arc Basin oil installations, the Grand Banks fishing grounds, and the transatlantic approaches to St. John's all fall inside it.",
+        "installations": "Hibernia, Hebron, Terra Nova, White Rose (see agents/infrastructure.py)",
+        "note": "Sized to fit inside a single Sentinel-1 IW swath (250 km); 3.5 deg of longitude here is ~265 km."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-51.0, 45.5],
+          [-47.5, 45.5],
+          [-47.5, 47.5],
+          [-51.0, 47.5],
+          [-51.0, 45.5]
+        ]]
+      }
+    }
+  ]
+}

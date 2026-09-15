@@ -5,12 +5,16 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import numpy as np
+import rasterio
+from pyproj import Transformer
 from rasterio.control import GroundControlPoint
 from rasterio.io import MemoryFile
+from rasterio.transform import from_origin
+from shapely.geometry import Point
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from agents.evaluate.evaluate_agent import evaluate, flatten_metrics
+from agents.evaluate.evaluate_agent import evaluate, flatten_metrics, swath_hull
 
 ACQ = "2026-08-18 09:15:00"
 
@@ -27,7 +31,7 @@ def write_gcp_raster(path: Path) -> None:
     profile = dict(driver="GTiff", dtype="uint8", width=1001, height=1001, count=1)
     with MemoryFile() as mem:
         with mem.open(gcps=gcps, crs="EPSG:4326", **profile) as dst:
-            dst.write(np.zeros((1001, 1001), "uint8"), 1)
+            dst.write(np.ones((1001, 1001), "uint8"), 1)
         data = mem.read()
     path.write_bytes(data)
 
@@ -49,7 +53,11 @@ def write_detections(path: Path, points: List[Tuple[float, float]]) -> None:
                 "type": "Feature",
                 "id": i,
                 "geometry": {"type": "Polygon", "coordinates": [ring]},
-                "properties": {"target_id": f"TRITON-{i:03d}", "confidence": 0.9},
+                "properties": {
+                    "target_id": f"TRITON-{i:03d}",
+                    "confidence": 0.9,
+                    "surface": "water",
+                },
             }
         )
     path.write_text(json.dumps({"type": "FeatureCollection", "features": feats}))
@@ -66,7 +74,7 @@ def build_payload(
     tmp_path: Path,
     detections: List[Tuple[float, float]],
     vessels: List[Tuple[int, float, float]],
-    coverage: str = "marinecadastre",
+    coverage: str = "partial",
 ) -> Dict[str, Any]:
     raster = tmp_path / "vv.tif"
     det = tmp_path / "detections.geojson"
@@ -133,7 +141,7 @@ def test_no_ais_coverage_is_unscored_not_zero(tmp_path: Path) -> None:
     ev = evaluate(payload)
     assert ev["scored"] is False
     assert "recall_all" not in ev
-    assert "no real AIS ground truth" in ev["reason"]
+    assert "no real AIS observations" in ev["reason"]
 
 
 def test_mock_coverage_is_unscored(tmp_path: Path) -> None:
@@ -168,3 +176,102 @@ def test_flatten_metrics_produces_numeric_only() -> None:
     assert flat["eval.count_50_100m"] == 4.0
     assert all(isinstance(v, float) for v in flat.values())
     assert "reason" not in flat
+
+
+def test_one_detection_cannot_inflate_recall_for_two_ais_vessels(
+    tmp_path: Path,
+) -> None:
+    payload = build_payload(
+        tmp_path,
+        [(-52.5, 47.5)],
+        [(316000001, -52.5, 47.5), (316000002, -52.501, 47.5)],
+    )
+    ev = evaluate(payload)
+    assert ev["matched"] == 1
+    assert ev["recall_all"] == 0.5
+    assert ev["raw_ambiguous_targets"] == 1
+    assert ev["precision"] is None
+    assert ev["false_positive_rate"] is None
+
+
+def test_affine_projected_swath_is_nonempty_and_reprojected(tmp_path: Path) -> None:
+    payload = build_payload(tmp_path, [(-52.5, 47.5)], [(316000001, -52.5, 47.5)])
+    raster = Path(payload["sar_bands"]["VV"])
+    x, y = Transformer.from_crs(4326, 32622, always_xy=True).transform(-52.5, 47.5)
+    with rasterio.open(
+        raster,
+        "w",
+        driver="GTiff",
+        width=100,
+        height=100,
+        count=1,
+        dtype="uint16",
+        crs="EPSG:32622",
+        transform=from_origin(x - 500, y + 500, 10, 10),
+    ) as dst:
+        dst.write(np.ones((100, 100), dtype="uint16"), 1)
+    hull = swath_hull(str(raster))
+    assert not hull.is_empty
+    assert hull.covers(Point(-52.5, 47.5))
+    assert evaluate(payload)["recall_all"] == 1
+
+
+def test_projected_gcp_hull_is_reprojected(tmp_path: Path) -> None:
+    raster = tmp_path / "projected_gcps.tif"
+    transform = Transformer.from_crs(4326, 32622, always_xy=True)
+    gcps = []
+    for row, lat in [(0, 48.0), (100, 47.0)]:
+        for col, lon in [(0, -53.0), (100, -52.0)]:
+            x, y = transform.transform(lon, lat)
+            gcps.append(GroundControlPoint(row=row, col=col, x=x, y=y))
+    with rasterio.open(
+        raster,
+        "w",
+        driver="GTiff",
+        width=101,
+        height=101,
+        count=1,
+        dtype="uint8",
+        gcps=gcps,
+        crs="EPSG:32622",
+    ) as dst:
+        dst.write(np.ones((101, 101), dtype="uint8"), 1)
+    assert swath_hull(str(raster)).covers(Point(-52.5, 47.5))
+
+
+def test_nodata_pixels_do_not_enter_ais_denominator(tmp_path: Path) -> None:
+    payload = build_payload(tmp_path, [(-52.5, 47.5)], [(316000001, -52.5, 47.5)])
+    with rasterio.open(payload["sar_bands"]["VV"], "r+") as dst:
+        dst.write(np.zeros((1001, 1001), dtype="uint8"), 1)
+    ev = evaluate(payload)
+    assert ev["scored"] is False
+    assert ev["ais_vessels_in_swath"] == 0
+
+
+def test_raw_and_eligible_recall_are_distinct(tmp_path: Path) -> None:
+    payload = build_payload(tmp_path, [(-52.5, 47.5)], [(316000001, -52.5, 47.5)])
+    path = Path(payload["detections_geojson"])
+    data = json.loads(path.read_text())
+    data["features"][0]["properties"]["surface"] = "coastal"
+    path.write_text(json.dumps(data))
+    ev = evaluate(payload)
+    assert ev["recall_raw"] == 1
+    assert ev["recall_eligible"] == 0
+    assert ev["ais_vessels_in_swath"] == 1
+
+
+def test_stale_ais_cannot_be_evaluation_truth(tmp_path: Path) -> None:
+    payload = build_payload(tmp_path, [(-52.5, 47.5)], [(316000001, -52.5, 47.5)])
+    path = Path(payload["ais_telemetry"])
+    path.write_text(path.read_text().replace(ACQ, "2026-08-18T08:00:00Z"))
+    ev = evaluate(payload)
+    assert ev["scored"] is False
+    assert "recall_all" not in ev
+
+
+def test_incomplete_and_mock_processing_are_unscored(tmp_path: Path) -> None:
+    payload = build_payload(tmp_path, [(-52.5, 47.5)], [(316000001, -52.5, 47.5)])
+    payload["processing"] = {"complete": False, "detector": "xview3"}
+    assert evaluate(payload)["scored"] is False
+    payload["processing"] = {"complete": True, "detector": "mock"}
+    assert evaluate(payload)["scored"] is False

@@ -1,68 +1,44 @@
 #!/usr/bin/env python3
-"""
-TritonEye Correlation Agent
-Correlates detected vessel footprints with AIS telemetry.
-Isolates "dark" vessels (vessel detections without corresponding active AIS signals).
-"""
+"""Annotate SAR targets with tentative AIS associations and review eligibility."""
 
 import argparse
 import json
 import os
 import sys
-from typing import Any, Dict
+from typing import Any
 
-# Agents run as standalone scripts; put the workspace root on the path first.
+import geopandas as gpd
+import pandas as pd
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-# Third-party imports (handled gracefully if missing during bootstrap checks)
-try:
-    import geopandas as gpd
-    import pandas as pd
-    import shapely.geometry
+from agents.association import (  # noqa: E402
+    aligned_ais,
+    one_to_one_matches,
+    real_ais_source,
+)
+from agents.region import contains_points, load_region  # noqa: E402
+from agents.tracking import RunTracker  # noqa: E402
 
-    from agents.tracking import RunTracker
-except ImportError as e:
-    print(f"Dependency missing during startup: {e}", file=sys.stderr)
-    print(
-        "Please ensure your Python environment matches pyproject.toml.",
-        file=sys.stderr,
-    )
-    # We will let the script fail gracefully on execution rather than crash on import
-
-
-# Radius around an AIS position within which a detection counts as correlated,
-# in metres. Roughly 1 nautical mile, absorbing transponder timing offset and
-# vessel drift across the +/-5 minute matching window.
-CORRELATION_RADIUS_M = 2000.0
+CORRELATION_RADIUS_M = 500.0
 
 
 def parse_arguments() -> argparse.Namespace:
-    """Parses command line arguments."""
-    parser = argparse.ArgumentParser(description="TritonEye Correlation Agent")
-    parser.add_argument(
-        "--payload", type=str, help="JSON payload string passed directly"
-    )
-    parser.add_argument(
-        "--payload-file", type=str, help="Path to JSON file containing payload"
-    )
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--payload", type=str)
+    parser.add_argument("--payload-file", type=str)
     return parser.parse_args()
 
 
-def get_payload(args: argparse.Namespace) -> Dict[str, Any]:
-    """Retrieves the payload from CLI args or stdin."""
+def get_payload(args: argparse.Namespace) -> dict[str, Any]:
     if args.payload:
-        return json.loads(args.payload)  # type: ignore[no-any-return]
+        return dict(json.loads(args.payload))
     if args.payload_file:
-        with open(args.payload_file, "r", encoding="utf-8") as f:
-            return json.load(f)  # type: ignore[no-any-return]
-
-    # Stdin fallback
+        with open(args.payload_file, encoding="utf-8") as source:
+            return dict(json.load(source))
     if not sys.stdin.isatty():
-        return json.loads(sys.stdin.read())  # type: ignore[no-any-return]
-
-    raise ValueError(
-        "No input payload provided via --payload, --payload-file, or stdin."
-    )
+        return dict(json.loads(sys.stdin.read()))
+    raise ValueError("Provide --payload, --payload-file, or a JSON payload on stdin")
 
 
 def correlate_targets(
@@ -70,162 +46,181 @@ def correlate_targets(
     ais_path: str,
     acquisition_time: str = "",
     metric_crs: str = "",
+    *,
+    ais_coverage: str = "unknown",
+    analysis_region: Any = None,
 ) -> gpd.GeoDataFrame:
+    """Return ALL annotated targets, including exclusions and uncertainty.
+
+    ``metric_crs`` remains accepted for old callers; distances are geodesic.
+    Unknown surface, missing timestamp, and missing telemetry never yield an
+    automatic alert. A proximity association is tentative; an unmatched return
+    is a review candidate, not a confirmed vessel or intentional AIS silence.
     """
-    Loads detections and AIS records, projects them to a metric CRS, buffers AIS
-    points by CORRELATION_RADIUS_M, and filters for detections with NO active AIS.
-    Enforces a ±5-minute temporal window on AIS records if acquisition_time is provided.
+    del metric_crs
+    targets = gpd.read_file(detections_path).reset_index(drop=True)
+    if targets.crs is None:
+        raise ValueError("Detections require an explicit geographic CRS")
+    targets = targets.to_crs("EPSG:4326")
+    region = load_region(analysis_region)
+    defaults: dict[str, Any] = {
+        "correlation_status": "unassessable",
+        "correlation_reason": "AIS coverage or timing is unavailable",
+        "review_required": False,
+        "operational_alert": False,
+        "association_mmsi": None,
+        "association_distance_m": None,
+        "association_uncertainty_m": None,
+        "association_method": None,
+        "candidate_mmsis": "[]",
+        "ais_coverage": ais_coverage,
+        "ais_coverage_completeness": "unverified",
+        "association_eligible": False,
+    }
+    for key, value in defaults.items():
+        targets[key] = pd.Series([value] * len(targets), dtype="object")
+    if "surface" not in targets:
+        targets["surface"] = "unknown"
+    targets["surface"] = targets["surface"].fillna("unknown")
+    eligible: list[int] = []
+    for index, row in targets.iterrows():
+        index = int(index)
+        geometry = row.geometry
+        if geometry is None or geometry.is_empty or not geometry.is_valid:
+            state, reason = "excluded_invalid_geometry", "Invalid or absent geometry"
+        elif not region.covers(geometry):
+            state, reason = "excluded_outside_region", "Outside the NL study area"
+        elif row["surface"] != "water":
+            surface = row["surface"]
+            if surface in {"land", "coastal"}:
+                state = f"excluded_{surface}"
+            elif surface in {"infrastructure", "infrastructure_proximity"}:
+                state = "excluded_infrastructure"
+            else:
+                state = "excluded_unknown_surface"
+            reason = f"Surface={surface}; open-water eligibility not established"
+        else:
+            eligible.append(index)
+            targets.at[index, "association_eligible"] = True
+            continue
+        targets.at[index, "correlation_status"] = state
+        targets.at[index, "correlation_reason"] = reason
 
-    When metric_crs is empty the appropriate UTM zone is derived from the
-    detections themselves. The buffer is a distance in metres, so it is only
-    meaningful in a projected CRS covering the data — a zone inherited from
-    elsewhere in the payload would silently distort it.
-    """
-    # 1. Load detections GeoJSON
-    detections_gdf = gpd.read_file(detections_path)
-
-    if detections_gdf.empty:
-        if detections_gdf.crs:
-            return detections_gdf.to_crs("EPSG:4326")
-        return detections_gdf
-
-    # Only water-classified detections can be dark vessels. Land and coastal
-    # detections stay in detections.geojson -- they are annotated, not deleted,
-    # so the rejection remains auditable -- but they must not raise an alert:
-    # a rock outcrop has no AIS transmitter and would otherwise satisfy the
-    # dark-vessel definition perfectly. Detections predating the land mask have
-    # no `surface` property at all, and are treated as water so that older
-    # missions keep correlating exactly as before.
-    if "surface" in detections_gdf.columns:
-        before = len(detections_gdf)
-        detections_gdf = detections_gdf[
-            detections_gdf["surface"].isna() | (detections_gdf["surface"] == "water")
-        ].copy()
-        excluded = before - len(detections_gdf)
-        if excluded:
-            print(
-                f"Land mask: {excluded} of {before} detections excluded from "
-                f"dark-vessel candidacy (not classified as water).",
-                file=sys.stderr,
-            )
-        if detections_gdf.empty:
-            return detections_gdf.to_crs("EPSG:4326")
-
-    if not metric_crs:
-        metric_crs = detections_gdf.estimate_utm_crs()
-
-    # 2. Load and parse AIS telemetry CSV
-    ais_df = pd.read_csv(ais_path)
-
-    # Apply temporal filtering if acquisition_time is supplied
-    if acquisition_time:
-        ais_df["timestamp_dt"] = pd.to_datetime(ais_df["timestamp"])
-        acq_dt = pd.to_datetime(acquisition_time)
-        time_diff = abs(ais_df["timestamp_dt"] - acq_dt)
-        ais_df = ais_df[time_diff <= pd.Timedelta(minutes=5)].copy()
-
-    # Convert lat/lon fields to shapely Points
-    geometry = [shapely.geometry.Point(xy) for xy in zip(ais_df["lon"], ais_df["lat"])]
-
-    # Cast to GeoDataFrame setting WGS84 CRS
-    ais_gdf = gpd.GeoDataFrame(ais_df, crs="EPSG:4326", geometry=geometry)
-
-    # 3. Reproject to metric projected coordinate reference system (UTM Zone 22N)
-    detections_projected = detections_gdf.to_crs(metric_crs)
-    ais_projected = ais_gdf.to_crs(metric_crs)
-
-    # 4. Apply the correlation buffer to the AIS point shapes
-    if not ais_projected.empty:
-        ais_projected["geometry"] = ais_projected.geometry.buffer(CORRELATION_RADIUS_M)
-
-    # 5. Spatial Join - Correlate detections with active AIS footprints
-    # detections_projected is left df, ais_projected is right df
-    if not ais_projected.empty:
-        joined_gdf = gpd.sjoin(
-            detections_projected, ais_projected, how="left", predicate="intersects"
+    try:
+        records = pd.read_csv(ais_path, dtype={"mmsi": str})
+    except (OSError, pd.errors.EmptyDataError, pd.errors.ParserError) as error:
+        records = pd.DataFrame()
+        targets.attrs["ais_read_error"] = str(error)
+    positions, diagnostics = aligned_ais(records, acquisition_time)
+    if not positions.empty:
+        positions = positions.loc[
+            contains_points(list(positions.lon), list(positions.lat), region=region)
+        ].reset_index(drop=True)
+    targets.attrs["ais_diagnostics"] = diagnostics
+    targets.attrs["ais_positions"] = len(positions)
+    if not real_ais_source(ais_coverage) or positions.empty:
+        reason = diagnostics.get("reason", "Real AIS scene coverage is not established")
+        for index in eligible:
+            targets.at[index, "correlation_reason"] = reason
+        return targets
+    points = [targets.loc[index].geometry.centroid for index in eligible]
+    gates = [CORRELATION_RADIUS_M + float(u) for u in positions.uncertainty_m]
+    selected, alternatives, ambiguous = one_to_one_matches(
+        points, list(positions.geometry), gates
+    )
+    for local, index in enumerate(eligible):
+        targets.at[index, "candidate_mmsis"] = json.dumps(
+            [str(positions.iloc[j].mmsi) for j in alternatives.get(local, [])]
         )
-    else:
-        # If no AIS points are in range, all detections are dark vessels
-        joined_gdf = detections_projected.copy()
-        joined_gdf["mmsi"] = None
+        if local in selected:
+            position_index, distance = selected[local]
+            position = positions.iloc[position_index]
+            targets.at[index, "association_mmsi"] = str(position.mmsi)
+            targets.at[index, "association_distance_m"] = distance
+            targets.at[index, "association_uncertainty_m"] = float(
+                position.uncertainty_m
+            )
+            targets.at[index, "association_method"] = position.alignment_method
+        if local in ambiguous:
+            state = "ambiguous_association"
+            reason = "Competing gated associations; selected identity is tentative"
+        elif local in selected:
+            state = "ais_associated"
+            reason = "Unique gated proximity association; identity is not verified"
+        else:
+            state = "uncorrelated_candidate"
+            reason = (
+                "No gated AIS association; vessel identity and reception coverage "
+                "are unverified. Iceberg, clutter, or missing AIS remain possible"
+            )
+        targets.at[index, "correlation_status"] = state
+        targets.at[index, "correlation_reason"] = reason
+        targets.at[index, "review_required"] = state != "ais_associated"
+    return targets
 
-    # Dark vessels are detections with no matching AIS records (NaN in joined columns)
-    dark_mask = joined_gdf["mmsi"].isna()
-    dark_vessels_projected = joined_gdf[dark_mask].copy()
 
-    # Clean up joined index and telemetry columns to restore original schema
-    original_cols = list(detections_gdf.columns)
-    # Ensure 'geometry' remains in original columns list
-    if "geometry" not in original_cols:
-        original_cols.append("geometry")
-
-    # Keep only the original columns to clean up the output schema
-    dark_vessels_projected = dark_vessels_projected[original_cols]
-
-    # 6. Reproject isolated Dark Vessels back to EPSG:4326 for standard GIS viewing
-    dark_vessels_wgs84 = dark_vessels_projected.to_crs("EPSG:4326")
-
-    return dark_vessels_wgs84
+def summarize_correlation(targets: gpd.GeoDataFrame) -> dict[str, Any]:
+    states = {
+        str(k): int(v) for k, v in targets.correlation_status.value_counts().items()
+    }
+    return {
+        "states": states,
+        "raw_detections": len(targets),
+        "eligible_detections": int(targets.association_eligible.sum()),
+        "review_candidates": int(targets.review_required.sum()),
+        "ais_positions": targets.attrs.get("ais_positions", 0),
+        "ais_diagnostics": targets.attrs.get("ais_diagnostics", {}),
+        "operational_alerts": 0,
+        "precision": None,
+        "note": (
+            "Analyst-review research outputs; no confirmed dark vessels. "
+            "No validated precision or false-alarm rate. Automatic alerts disabled."
+        ),
+    }
 
 
 def main() -> None:
-    # 1. Parse arguments and configuration
-    args = parse_arguments()
-    payload = get_payload(args)
-
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
-    # 2. Retrieve file path pointers from Phase 3 payload
-    detections_geojson = payload.get("detections_geojson")
-    ais_telemetry = payload.get("ais_telemetry")
-    acquisition_time = payload.get("acquisition_time", "")
-    mission_id = payload.get("mission_id", "mission_default")
-
-    if not detections_geojson or not ais_telemetry:
-        raise ValueError(
-            "Invalid payload: Missing detections_geojson "
-            "or ais_telemetry path references."
-        )
-
-    # 3. Perform correlation and isolate Dark Vessels. The metric CRS is derived
-    #    from the detections rather than taken from the payload, so the buffer
-    #    distance is always applied in a zone that actually covers them.
-    dark_vessels_gdf = correlate_targets(
-        detections_geojson, ais_telemetry, acquisition_time
+    payload = get_payload(parse_arguments())
+    detections = payload.get("detections_geojson")
+    ais = payload.get("ais_telemetry")
+    if not detections or not ais:
+        raise ValueError("Payload requires detections_geojson and ais_telemetry")
+    bounds = payload.get("spatial_bounds") or {}
+    targets = correlate_targets(
+        detections,
+        ais,
+        payload.get("acquisition_time", ""),
+        ais_coverage=bounds.get("ais_coverage", "unknown"),
+        analysis_region=bounds.get("analysis_region"),
     )
-
-    # 4. Save results to GeoJSON
-    mission_dir = os.path.join(base_dir, "missions", mission_id)
-    os.makedirs(mission_dir, exist_ok=True)
-
-    output_geojson_path = os.path.join(mission_dir, "dark_vessels.geojson")
-
-    # Geopandas handles file writing conversion
-    dark_vessels_gdf.to_file(output_geojson_path, driver="GeoJSON")
-
-    # 5. Update payload and print to stdout
-    payload["dark_vessels_geojson"] = output_geojson_path
-
-    # The dark ratio is the headline operational number, and it is only
-    # meaningful alongside the AIS coverage that produced it — a 100% dark
-    # mission with no telemetry is a coverage gap, not a finding.
+    directory = os.path.dirname(os.path.abspath(detections))
+    all_path = os.path.join(directory, "correlation.geojson")
+    candidates_path = os.path.join(directory, "review_candidates.geojson")
+    targets.to_file(all_path, driver="GeoJSON")
+    targets.loc[targets.review_required.astype(bool)].to_file(
+        candidates_path, driver="GeoJSON"
+    )
+    payload["correlation_geojson"] = all_path
+    payload["candidates_geojson"] = candidates_path
+    # Compatibility pointer only: no artifact or classification claims darkness.
+    payload["dark_vessels_geojson"] = candidates_path
+    payload["deprecated_fields"] = list(
+        dict.fromkeys(payload.get("deprecated_fields", []) + ["dark_vessels_geojson"])
+    )
+    summary = summarize_correlation(targets)
+    payload["correlation_summary"] = summary
     tracker = RunTracker.resume(payload.get("mlflow_run_id"))
     try:
-        detections_count = len(gpd.read_file(detections_geojson))
-        dark_count = len(dark_vessels_gdf)
-        tracker.set_tags({"stage": "correlation"})
-        tracker.log_params({"correlation_radius_m": CORRELATION_RADIUS_M})
-        metrics: Dict[str, float] = {
-            "dark_vessels": dark_count,
-            "correlated_vessels": max(0, detections_count - dark_count),
-        }
-        if detections_count:
-            metrics["dark_ratio"] = dark_count / detections_count
+        tracker.set_tags({"stage": "correlation", "automatic_alerts": "disabled"})
+        tracker.log_params({"correlation_base_radius_m": CORRELATION_RADIUS_M})
+        metrics = {f"correlation.{k}": float(v) for k, v in summary["states"].items()}
+        metrics["correlation.review_candidates"] = float(summary["review_candidates"])
+        metrics["correlation.operational_alerts"] = 0.0
         tracker.log_metrics(metrics)
-        tracker.log_artifact(output_geojson_path, "dark_vessels")
+        tracker.log_artifact(all_path, "correlation")
+        tracker.log_artifact(candidates_path, "review_candidates")
     finally:
         tracker.end()
-
     print(json.dumps(payload, indent=2))
 
 

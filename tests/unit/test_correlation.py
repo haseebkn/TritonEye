@@ -40,6 +40,7 @@ def temp_files() -> Iterator[tuple[str, str]]:
                     "target_id": "TRITON-001",
                     "class_name": "cargo",
                     "confidence": 0.95,
+                    "surface": "water",
                 },
             },
             {
@@ -61,6 +62,7 @@ def temp_files() -> Iterator[tuple[str, str]]:
                     "target_id": "TRITON-002",
                     "class_name": "cargo",
                     "confidence": 0.88,
+                    "surface": "water",
                 },
             },
         ],
@@ -87,19 +89,27 @@ def temp_files() -> Iterator[tuple[str, str]]:
     os.remove(path_ais)
 
 
-def test_correlation_isolates_dark_vessel(temp_files: tuple[str, str]) -> None:
+def test_correlation_retains_association_and_review_candidate(
+    temp_files: tuple[str, str],
+) -> None:
     path_det, path_ais = temp_files
 
     # Execute correlation agent logic
     # Acquisition time matches the AIS timestamp exactly
-    dark_vessels_gdf = correlate_targets(
-        path_det, path_ais, acquisition_time="2026-07-08 05:00:00"
+    targets = correlate_targets(
+        path_det,
+        path_ais,
+        acquisition_time="2026-07-08 05:00:00",
+        ais_coverage="partial",
     )
 
-    # Assert TRITON-001 matches cooperative AIS and is excluded
-    # Assert TRITON-002 has no AIS match and is isolated as a Dark Vessel
-    assert len(dark_vessels_gdf) == 1
-    assert dark_vessels_gdf.iloc[0]["target_id"] == "TRITON-002"
+    assert len(targets) == 2
+    assert list(targets.correlation_status) == [
+        "ais_associated",
+        "uncorrelated_candidate",
+    ]
+    assert targets.iloc[1].review_required
+    assert not targets.operational_alert.any()
 
 
 def _write_detections(
@@ -136,7 +146,7 @@ def _write_empty_ais(path: Path) -> None:
         f.write("mmsi,lat,lon,timestamp,speed_knots,course_deg\n")
 
 
-def test_land_detections_do_not_become_dark_vessels(tmp_path: Path) -> None:
+def test_land_and_coastal_exclusions_are_retained_and_counted(tmp_path: Path) -> None:
     """
     A land return has no AIS transmitter and would otherwise satisfy the
     dark-vessel definition perfectly. Only water may raise an alert.
@@ -154,31 +164,68 @@ def test_land_detections_do_not_become_dark_vessels(tmp_path: Path) -> None:
     )
     _write_empty_ais(ais)
 
-    dark = correlate_targets(str(det), str(ais))
-    assert len(dark) == 1
-    assert dark.iloc[0]["surface"] == "water"
+    targets = correlate_targets(str(det), str(ais))
+    assert list(targets.correlation_status) == [
+        "unassessable",
+        "excluded_land",
+        "excluded_land",
+        "excluded_coastal",
+    ]
+    assert not targets.review_required.any()
+    from agents.correlation.correlation_agent import summarize_correlation
+
+    summary = summarize_correlation(targets)
+    assert summary["eligible_detections"] == 1
+    assert summary["states"].get("ais_associated", 0) == 0
 
 
-def test_detections_without_surface_property_still_correlate(tmp_path: Path) -> None:
+def test_missing_surface_is_unknown_and_ineligible(tmp_path: Path) -> None:
     """
-    Missions predating the land mask carry no `surface` field. They must keep
-    correlating exactly as before rather than being silently dropped.
+    Missions lacking surface evidence remain auditable but cannot create alerts.
     """
     det = tmp_path / "detections.geojson"
     ais = tmp_path / "ais.csv"
     _write_detections(det, [(-52.70, 48.00, None), (-52.71, 48.01, None)])
     _write_empty_ais(ais)
 
-    dark = correlate_targets(str(det), str(ais))
-    assert len(dark) == 2
+    targets = correlate_targets(str(det), str(ais))
+    assert len(targets) == 2
+    assert set(targets.correlation_status) == {"excluded_unknown_surface"}
+    assert not targets.review_required.any()
 
 
 def test_all_land_scene_yields_no_alerts(tmp_path: Path) -> None:
-    """An entirely land-classified scene must return empty, not crash."""
+    """An entirely land-classified scene retains exclusions without alerts."""
     det = tmp_path / "detections.geojson"
     ais = tmp_path / "ais.csv"
     _write_detections(det, [(-52.70, 48.00, "land"), (-52.71, 48.01, "land")])
     _write_empty_ais(ais)
 
-    dark = correlate_targets(str(det), str(ais))
-    assert len(dark) == 0
+    targets = correlate_targets(str(det), str(ais))
+    assert len(targets) == 2
+    assert not targets.operational_alert.any()
+    assert not targets.review_required.any()
+
+
+def test_out_of_region_return_cannot_be_review_candidate(tmp_path: Path) -> None:
+    det, ais = tmp_path / "detections.geojson", tmp_path / "ais.csv"
+    _write_detections(det, [(-70.0, 42.0, "water")])
+    _write_empty_ais(ais)
+    targets = correlate_targets(str(det), str(ais))
+    assert targets.iloc[0].correlation_status == "excluded_outside_region"
+    assert not targets.iloc[0].review_required
+
+
+def test_competing_returns_remain_ambiguous(tmp_path: Path) -> None:
+    det, ais = tmp_path / "detections.geojson", tmp_path / "ais.csv"
+    _write_detections(det, [(-52.0, 47.5, "water"), (-52.001, 47.5, "water")])
+    ais.write_text(
+        "mmsi,lat,lon,timestamp\n316000001,47.5,-52.0,2026-07-08T05:00:00Z\n"
+    )
+    targets = correlate_targets(
+        str(det), str(ais), "2026-07-08T05:00:00Z", ais_coverage="partial"
+    )
+    assert set(targets.correlation_status) == {"ambiguous_association"}
+    assert targets.association_mmsi.notna().sum() == 1
+    assert targets.review_required.all()
+    assert not targets.operational_alert.any()

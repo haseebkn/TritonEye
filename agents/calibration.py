@@ -276,8 +276,15 @@ class Calibrator:
         valid = (a > 0) & (dn > 0)
         dn64 = dn.astype("float64")
         a64 = a.astype("float64")
-        sigma0 = np.divide(dn64 * dn64, a64 * a64, out=np.zeros_like(dn64), where=valid)
+        # Reuse two work arrays: separate squared operands plus a new ratio
+        # created several extra 32 MiB buffers per 2048-pixel tile.
+        np.square(dn64, out=dn64)
+        np.square(a64, out=a64)
+        np.divide(dn64, a64, out=dn64, where=valid)
+        dn64[~valid] = 0
+        sigma0 = dn64
         np.maximum(sigma0, _MIN_SIGMA0, out=sigma0)
         db = np.log10(sigma0, out=sigma0)
         np.multiply(db, 10.0, out=db)
-        return np.asarray(np.where(dn64 > 0, db, NODATA_DB), dtype="float64")
+        db[dn <= 0] = NODATA_DB
+        return np.asarray(db, dtype="float64")
