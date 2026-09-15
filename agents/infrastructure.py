@@ -5,6 +5,12 @@ The small reference list is not a current authoritative installation inventory.
 A nearby detection may be a supply vessel, not the structure itself. Proximity
 is retained for analyst review, never used as proof of target identity.
 Nominal mobile FPSO positions are deliberately excluded from automatic flags.
+
+NOT EXERCISED ON REAL IMAGERY. The detector requires VV/VH, and every one of the
+75 Sentinel-1 IW GRDH scenes covering these installations between 2026-01-06 and
+2026-09-10 is HH/HV -- none VV/VH. A zero proximity count on a Grand Banks run
+means the area is not processable by this detector, NOT that the reference list
+found nothing. See docs/DATA_SOURCES.md.
 """
 
 import os

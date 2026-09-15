@@ -39,6 +39,46 @@ does not establish guaranteed offshore coverage; do not advertise archival AIS
 as globally complete. Historical NL vessel observations coincident with a chosen
 SAR pass may require additional licensed data or a locally recorded archive.
 
+## Polarization availability constrains what can be processed
+
+The detector requires **VV/VH** (product type `1SDV`). Sentinel-1 does not
+acquire Newfoundland uniformly in that mode, and the difference is not marginal.
+
+Measured against the Copernicus catalogue, IW GRDH products, 2026-01-06 to
+2026-09-10:
+
+| area | scenes | VV/VH | HH/HV |
+|---|---|---|---|
+| Jeanne d'Arc Basin installations | 75 | **0 (0%)** | 75 (100%) |
+| grand_banks AOI (intersecting) | 59 | 16 (27%) | 43 |
+| eastern_newfoundland AOI | 100 | 32 (32%) | 68 |
+
+**Every scene covering the offshore production installations is HH/HV.** The
+VV/VH passes cover coastal and western waters; the open ocean east of
+Newfoundland is acquired in HH-based modes, which is consistent with ESA
+prioritising HH for high-latitude sea-ice and iceberg monitoring — the same
+physical reasoning that makes HH attractive for Canadian maritime surveillance
+generally.
+
+Three consequences:
+
+1. **The infrastructure-proximity reference list cannot be exercised on real
+   imagery** with the current detector. An `infrastructure_proximity` count of
+   zero in a Grand Banks run reflects this, not a working mask finding nothing.
+2. **Roughly two thirds of available Newfoundland imagery is unusable** by a
+   VV/VH-only model.
+3. **Intersecting an AOI is not the same as covering a target.** A wide AOI
+   matches scenes covering only part of it: a VV/VH scene selected for the
+   `grand_banks` AOI on 2026-08-29 covered the western half and left all four
+   installations 156-215 km outside its footprint. Queries aimed at a specific
+   target must use that target's own footprint.
+
+Closing this needs either an HH/HV-capable detector, a polarisation-adaptive
+model, or a sensor whose acquisition plan covers the area in VV/VH. None is
+implemented. `agents/ingest/ingest_agent.py` refuses HH/HV rather than
+relabelling it, so the constraint surfaces as an explicit failure rather than
+as confident wrong output.
+
 ## Public ice information
 
 | Source | Public access checked | Appropriate use and limitations |

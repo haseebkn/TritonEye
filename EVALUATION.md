@@ -52,6 +52,13 @@ carried forward as a benchmark after decoding and filtering changes.
 - AIS velocity propagation is deliberately bounded. Provider receipt/observation
   timestamps cannot prove exact onboard fix time; AIS absence cannot prove silence.
 - The pipeline is batch processing, not a real-time multi-sensor service.
+- **The detector's VV/VH requirement excludes the offshore production area
+  entirely.** Of 75 Sentinel-1 IW GRDH scenes covering the Jeanne d'Arc Basin
+  installations between 2026-01-06 and 2026-09-10, **100% are HH/HV and none are
+  VV/VH**; across the wider NL AOIs only about a third are VV/VH. The
+  infrastructure-proximity reference list therefore cannot be exercised on real
+  imagery, and a zero proximity count means "not processable", not "nothing
+  found". See [DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
 ## How to obtain an honest low-false-positive operating point
 
