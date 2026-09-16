@@ -44,6 +44,32 @@ It proves workflow behavior, not vessel detection accuracy. The demo uses
 deterministic NL imagery/AIS; missing coastline data stays explicitly unverified.
 Paths to each stage's JSON and log are under `missions/execution_*/`.
 
+## Finding a scene that can actually be scored
+
+```bash
+python -m agents.scene_watch --days 12 --aoi eastern_newfoundland
+```
+
+A scene is only scorable if three things hold at once, and a source product is
+~1.7 GB, so this checks the free ones first rather than recommending a download
+that cannot yield a measurement:
+
+1. **VV/VH** — the detector cannot use HH/HV, and over parts of this region
+   HH/HV is all that is acquired ([DATA_SOURCES.md](docs/DATA_SOURCES.md))
+2. **Recorded AIS in the ±5 min window** — no historical archive covers these
+   waters, so coverage exists only where the recorder was running
+3. **Those AIS positions in alert-eligible water** — vessels berthed in a
+   harbour cannot contribute to recall, because the pipeline excludes those
+   positions by design
+
+The third gate exists because of a real near-miss. A 2026-09-03 acquisition
+reported 75 AIS observations from 18 vessels and looked scorable, but every
+position lay inside the coastline in St. John's harbour. Scoring it would have
+produced a recall of zero **by construction** and read like a detector result.
+
+Exit status is 0 when something is scorable and 3 when nothing is, so a
+scheduled job can branch on it without parsing text.
+
 ## Real Newfoundland/Labrador data
 
 1. Copy `.env.example` to `.env`. Supply a free Copernicus Data Space account

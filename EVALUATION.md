@@ -23,11 +23,20 @@ Local CPU regression results and Docker/CI status are recorded in
 [the audit log](docs/AUDIT.md). Synthetic end-to-end success establishes interfaces
 and failure handling only; it is not an ML benchmark.
 
-A fresh full-scene replay was attempted on the existing public Newfoundland
-acquisition `S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4`.
-The 8 GB RTX 4070 Laptop GPU encountered memory pressure in full precision.
-The audit log records the eventual replay outcome; until a completed processing
-manifest exists, no fresh full-scene detection totals are claimed.
+A fresh full-scene replay **completed on 2026-09-15** on the public Newfoundland
+acquisition `S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4`
+(`status: success`, 16m43s, 6.4 GB peak VRAM). Current-code surface
+classification: **17 water, 67 coastal, 228 land, 0 infrastructure of 312**.
+
+The earlier memory failures were host RAM, not VRAM — the GPU was idle at 0 MiB
+while host memory sat at 91% used. Allocator tuning
+(`PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`) was sufficient.
+
+**These are surface classifications, not vessel labels.** The scene carried no
+AIS coverage, so it is not scored: precision, false alarms per km² and overall
+recall remain unmeasured. The `infrastructure` count of zero reflects that no
+installation falls in this scene's footprint, and separately that the offshore
+production area is not acquired in VV/VH at all.
 
 Historical outputs from earlier commits included 298 targets on this acquisition
 and 217 land classifications. These are legacy detector/mask counts, **not verified
@@ -52,6 +61,18 @@ carried forward as a benchmark after decoding and filtering changes.
 - AIS velocity propagation is deliberately bounded. Provider receipt/observation
   timestamps cannot prove exact onboard fix time; AIS absence cannot prove silence.
 - The pipeline is batch processing, not a real-time multi-sensor service.
+- **The coastline mask closes St. John's harbour, including its entrance.**
+  Classified by the pipeline: harbour berths `land` (-39 m), mid-basin
+  `coastal` (+122 m), **The Narrows entrance `land` (-220 m)**, open water only
+  beyond (+444 m). OSM's coastline generalisation does not resolve a ~200 m
+  entrance channel, so the polygon encloses the basin. Two consequences: the
+  port and its approaches are outside coverage until a vessel clears the
+  entrance, and **harbour AIS cannot serve as ground truth** -- a 2026-09-03
+  acquisition carried 75 observations from 18 vessels, every one inside the
+  coastline, which would have scored recall of zero by construction rather than
+  by detector performance. A higher-resolution coastline (CanVec resolves
+  narrow channels better than OSM here) or explicit port-water polygons would
+  address it; neither is implemented.
 - **The detector's VV/VH requirement excludes the offshore production area
   entirely.** Of 75 Sentinel-1 IW GRDH scenes covering the Jeanne d'Arc Basin
   installations between 2026-01-06 and 2026-09-10, **100% are HH/HV and none are

@@ -37,11 +37,23 @@ tests was available. This is not a compliance certification or product endorseme
 - MLflow: actual temporary SQLite integration verifies two runs reuse one model
   version for identical weights; no model inference performed by that test.
 - Cached public xView3 model: SHA-256 verified against the pinned configuration.
-- Fresh full-scene NL replay: **not completed**. Full-precision and mixed-precision
-  attempts hit GPU/host memory errors on the 8 GB RTX 4070 Laptop GPU. One attempt
-  processed four tiles before failing. No complete manifest or fresh full-scene
-  counts were published. More available memory and a successful full replay are
-  required before claiming this hardware configuration supports full scenes.
+- Fresh full-scene NL replay: **completed 2026-09-15**, `status: success` in
+  16m43s on the 8 GB RTX 4070 Laptop GPU, peak 6.4 GB VRAM. Mission
+  `mission_20260817_212209_9d86c0e9` on acquisition
+  `S1D_IW_GRDH_1SDV_20260817T212209`. Surface classification: 17 water, 67
+  coastal, 228 land, 0 infrastructure of 312.
+
+  The earlier failures were diagnosed as **host** memory exhaustion, not VRAM:
+  at the time of the failing attempts the GPU was idle at 0 MiB while host RAM
+  sat at 91% used with 2.3 GB free. Setting
+  `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` to reduce allocator
+  fragmentation across the 126-tile loop was sufficient; no precision or batch
+  change was needed.
+
+  These are current-code detection and classification counts. They remain
+  **surface classifications, not verified vessel labels**: precision, false
+  alarms per km² and overall recall are still unmeasured. The scene carried no
+  AIS coverage, so `evaluation.scored` is false.
 - Clean Docker build: passed after correcting a type-stub version pin and missing
   OpenCV system libraries discovered by the build/run checks.
 - Container suite: 173 passed, 2 real-local-data tests skipped, 2 heavyweight
