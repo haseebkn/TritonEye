@@ -28,6 +28,18 @@ in the project rather than to match any one of them:
 
     python agents/ais_recorder.py --aoi nl_shelf
 
+THE HOST MUST STAY AWAKE. `restart: unless-stopped` survives a crash or a
+reboot, but nothing restarts a container the host has frozen: when the machine
+sleeps the recorder stops mid-stream and logs nothing, so the gap is invisible
+until an acquisition turns out to be unscorable. Observed here as a 9-hour hole
+with only three logged disconnects, all recovered within 14 seconds -- the
+missing time was not disconnection, it was suspension.
+
+This matters because Sentinel-1 crosses this region near 09:30 and 21:30 UTC
+(about 07:00 and 19:00 local), and an overnight or early-morning sleep lands
+squarely on the morning pass. Disable idle sleep on any machine expected to
+collect ground truth.
+
 Output schema is the one ingest_agent.py filters against directly:
 mmsi, lat, lon, timestamp, speed_knots, course_deg.
 """

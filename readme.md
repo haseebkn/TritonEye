@@ -70,6 +70,27 @@ produced a recall of zero **by construction** and read like a detector result.
 Exit status is 0 when something is scorable and 3 when nothing is, so a
 scheduled job can branch on it without parsing text.
 
+### Catching one unattended
+
+A qualifying scene cannot be arranged, only caught — it needs a VV/VH pass over
+open water while the recorder happens to be running. `scripts/watch_and_score.sh`
+checks and, if one qualifies, processes it:
+
+```bash
+scripts/watch_and_score.sh              # check, and score if possible
+scripts/watch_and_score.sh --check-only # never download, just report
+```
+
+Safe to run repeatedly: the common case costs one catalogue query. A scene is
+only downloaded (~1.7 GB) and processed (~17 min GPU) when all three gates pass,
+and a stamp file in `data/watch/` stops the same acquisition being reprocessed.
+
+Register it on Windows so it runs without supervision:
+
+```bash
+schtasks /create /tn TritonEyeSceneWatch /sc hourly /f /tr "\"C:\Program Files\Git\bin\bash.exe\" E:\TritonEye\scripts\watch_and_score.sh"
+```
+
 ## Real Newfoundland/Labrador data
 
 1. Copy `.env.example` to `.env`. Supply a free Copernicus Data Space account

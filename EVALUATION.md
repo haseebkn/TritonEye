@@ -61,6 +61,12 @@ carried forward as a benchmark after decoding and filtering changes.
 - AIS velocity propagation is deliberately bounded. Provider receipt/observation
   timestamps cannot prove exact onboard fix time; AIS absence cannot prove silence.
 - The pipeline is batch processing, not a real-time multi-sensor service.
+- **Ground-truth collection is bounded by host uptime, not just recorder
+  uptime.** The recorder cannot backfill, and a sleeping machine freezes it
+  mid-stream while logging nothing -- observed as a 9-hour gap containing only
+  three disconnects, all recovered within 14 seconds. Sentinel-1 crosses this
+  region near 09:30 and 21:30 UTC, so an overnight sleep lands on the morning
+  pass. Every hour the host is asleep is permanently unscorable.
 - **The coastline mask closes St. John's harbour, including its entrance.**
   Classified by the pipeline: harbour berths `land` (-39 m), mid-basin
   `coastal` (+122 m), **The Narrows entrance `land` (-220 m)**, open water only
