@@ -40,6 +40,38 @@ log() { printf '%s  %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$*" | tee -a "$LOG
 export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
 export TRITONEYE_DETECTOR="${TRITONEYE_DETECTOR:-xview3}"
 
+# Supervise the recorder before looking for scenes.
+#
+# `restart: unless-stopped` only holds while the Docker daemon is alive. If
+# Docker Desktop is not running -- after a reboot, or because it was quit --
+# nothing restarts the recorder, and the gap is invisible until an acquisition
+# turns out to be unscorable. That has now cost coverage four separate times,
+# most recently ~28 hours.
+#
+# This task is the reliable component: it is a Windows scheduled task, it
+# survives reboots, and it already runs hourly. So it supervises the fragile
+# one rather than the other way round.
+ensure_recorder() {
+  if ! docker info >/dev/null 2>&1; then
+    log "docker daemon unreachable; cannot supervise the recorder"
+    return 1
+  fi
+  local state
+  state="$(docker inspect -f '{{.State.Running}}' tritoneye-ais-recorder-1 2>/dev/null)"
+  if [ "$state" = "true" ]; then
+    return 0
+  fi
+  log "recorder is not running; starting it"
+  if docker compose up -d ais-recorder >>"$LOG" 2>&1; then
+    log "recorder started"
+  else
+    log "failed to start the recorder"
+    return 1
+  fi
+}
+
+ensure_recorder
+
 log "checking $AOI over the last $DAYS days"
 REPORT="$(python -m agents.scene_watch --days "$DAYS" --aoi "$AOI" --json 2>>"$LOG")"
 STATUS=$?
