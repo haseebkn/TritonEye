@@ -10,6 +10,7 @@ import os
 import sys
 from pathlib import Path
 from typing import Any, Dict, List
+from uuid import NAMESPACE_URL, uuid5
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
@@ -22,7 +23,11 @@ from agents.scene_watch import (  # noqa: E402
 
 
 def product(name: str, start: str) -> Dict[str, Any]:
-    return {"Name": name, "ContentDate": {"Start": start}}
+    return {
+        "Id": str(uuid5(NAMESPACE_URL, name + start)),
+        "Name": name,
+        "ContentDate": {"Start": start},
+    }
 
 
 def covering(lon: float, lat: float, half: float = 0.5) -> Dict[str, Any]:
@@ -125,8 +130,7 @@ def test_ais_present_but_all_on_land_is_not_scorable(
     Regression for a real near-miss.
 
     A 2026-09-03 acquisition over St. John's had 75 observations from 18
-    vessels, and every position fell inside the OSM coastline because the
-    polygon encloses the harbour basin. The pipeline scores only water-
+    vessels, and no position met open-water eligibility. The pipeline scores only water-
     classified detections, so those vessels would have produced a recall of
     zero by construction -- a meaningless measurement that looked like a real
     one. AIS existing is not the same as AIS being usable.
@@ -264,3 +268,53 @@ def test_within_footprint_rejects_malformed_geometry() -> None:
     assert within_footprint([(-55.0, 48.5)], {"type": "Polygon"}) == []
     assert within_footprint([], SWATH) == []
     assert within_footprint([(-55.0, 48.5), (-52.69, 47.56)], SWATH) == [(-55.0, 48.5)]
+    assert (
+        within_footprint(
+            [(-55.0, 48.5)], {"type": "Point", "coordinates": [-55.0, 48.5]}
+        )
+        == []
+    )
+    assert (
+        within_footprint(
+            [(-55.0, 48.5)],
+            {
+                "type": "Polygon",
+                "coordinates": [
+                    [[-56, 48], [-54, 49], [-56, 49], [-54, 48], [-56, 48]]
+                ],
+            },
+        )
+        == []
+    )
+
+
+def test_catalogue_preserves_same_prefix_products_and_reads_next_page(
+    monkeypatch: Any,
+) -> None:
+    from types import SimpleNamespace
+
+    import requests
+
+    import agents.scene_watch as sw
+
+    first = product(VV, "2026-09-03T21:30:23Z")
+    second = {**first, "Id": "66d3167d-240a-459a-8066-75b9d2a458f2"}
+    next_link = sw.CATALOGUE + "?$skip=200"
+    pages = [
+        {"value": [first], "@odata.nextLink": next_link},
+        {"value": [first, second]},
+    ]
+    calls: list[str] = []
+
+    def get(url: str, **kwargs: Any) -> SimpleNamespace:
+        calls.append(url)
+        page = pages.pop(0)
+        return SimpleNamespace(status_code=200, json=lambda: page)
+
+    monkeypatch.setattr(
+        sw, "_footprint_wkt", lambda _: "POLYGON((-51 47,-50 47,-50 48,-51 48,-51 47))"
+    )
+    monkeypatch.setattr(requests, "get", get)
+    products = sw.search_acquisitions("unused", token="test")
+    assert {row["Id"] for row in products} == {first["Id"], second["Id"]}
+    assert calls == [sw.CATALOGUE, next_link]

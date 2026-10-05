@@ -589,6 +589,7 @@ def classify_surfaces(
         "source": source,
         "licence": mask.licence,
         "coastal_buffer_m": buffer_m,
+        "shoreline_validation": mask.validation,
         "counts": {**counts, "infrastructure": infra_n},
         "infrastructure": infra_meta,
     }
@@ -804,6 +805,7 @@ def main() -> None:
     # so it belongs in the mission record rather than only in stderr.
     payload["landmask"] = landmask_meta
     processing = {
+        "sar_product_id": payload.get("sar_product_id"),
         "software_versions": {
             name: version(name)
             for name in ("torch", "rasterio", "numpy", "geopandas", "scipy")

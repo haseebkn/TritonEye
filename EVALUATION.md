@@ -23,6 +23,11 @@ Local CPU regression results and Docker/CI status are recorded in
 [the audit log](docs/AUDIT.md). Synthetic end-to-end success establishes interfaces
 and failure handling only; it is not an ML benchmark.
 
+Acquisition selection now uses exact product UUIDs and versioned outcome records.
+Only an evaluator result with a matching UUID, positive AIS denominator and
+finite recall establishes `measured`. Processing can complete without one.
+See [acquisition reliability and replay](docs/ACQUISITION_RELIABILITY.md).
+
 A fresh full-scene replay **completed on 2026-09-15** on the public Newfoundland
 acquisition `S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4`
 (`status: success`, 16m43s, 6.4 GB peak VRAM). Current-code surface
@@ -67,18 +72,20 @@ carried forward as a benchmark after decoding and filtering changes.
   three disconnects, all recovered within 14 seconds. Sentinel-1 crosses this
   region near 09:30 and 21:30 UTC, so an overnight sleep lands on the morning
   pass. Every hour the host is asleep is permanently unscorable.
-- **The coastline mask closes St. John's harbour, including its entrance.**
-  Classified by the pipeline: harbour berths `land` (-39 m), mid-basin
-  `coastal` (+122 m), **The Narrows entrance `land` (-220 m)**, open water only
-  beyond (+444 m). OSM's coastline generalisation does not resolve a ~200 m
-  entrance channel, so the polygon encloses the basin. Two consequences: the
-  port and its approaches are outside coverage until a vessel clears the
-  entrance, and **harbour AIS cannot serve as ground truth** -- a 2026-09-03
-  acquisition carried 75 observations from 18 vessels, every one inside the
-  coastline, which would have scored recall of zero by construction rather than
-  by detector performance. A higher-resolution coastline (CanVec resolves
-  narrow channels better than OSM here) or explicit port-water polygons would
-  address it; neither is implemented.
+- **Harbour coverage is constrained by coastal eligibility, not a closed
+  entrance polygon.** The earlier assertion that OSM enclosed St. John's basin
+  and The Narrows was incorrect. On 2026-10-05 the cached shoreline was compared
+  with the City's Imagery2022 and downloaded CanVec 1:50,000 NL ocean geometry.
+  All eight imagery controls pass for OSM. Basin, channel and entrance water
+  controls are about 112, 133 and 92 m offshore, respectively: physically water,
+  but `coastal` under the current 300 m exclusion policy. An approach-water
+  control is about 562 m offshore and eligible. CanVec misses a north-quay land
+  control and has 1979 source attributes; it is not adopted as a replacement.
+  Runtime controls reject a mask that closes the channel or turns those known
+  land controls into water. This is sparse regional shoreline verification,
+  not a surveyed accuracy assessment or vessel benchmark. Nearshore AIS remains
+  unsuitable for measuring **open-water** eligibility without accounting for
+  this policy. See [the evidence and reproduction guide](docs/ST_JOHNS_SHORELINE.md).
 - **The detector's VV/VH requirement excludes the offshore production area
   entirely.** Of 75 Sentinel-1 IW GRDH scenes covering the Jeanne d'Arc Basin
   installations between 2026-01-06 and 2026-09-10, **100% are HH/HV and none are

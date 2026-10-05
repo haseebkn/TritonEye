@@ -187,6 +187,7 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
     coverage = (payload.get("spatial_bounds") or {}).get("ais_coverage", "unknown")
 
     result: Dict[str, Any] = {
+        "sar_product_id": payload.get("sar_product_id"),
         "ais_coverage": coverage,
         "match_radius_m": MATCH_RADIUS_M,
         "scored": False,

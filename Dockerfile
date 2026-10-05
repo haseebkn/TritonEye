@@ -29,6 +29,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # CMD below; without it the image's own smoke test fails on a missing path.
 COPY configs/ /app/configs/
 COPY agents/ /app/agents/
+COPY scripts/ /app/scripts/
 COPY tests/ /app/tests/
 COPY pyproject.toml /app/
 
