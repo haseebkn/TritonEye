@@ -85,16 +85,23 @@ if [ $STATUS -ne 0 ]; then
   exit "$STATUS"
 fi
 
+# First scorable date NOT already processed. Taking simply the newest scorable
+# and stopping if it was stamped would strand any older scorable scene forever
+# -- exactly what happens after an outage, when several accumulate at once.
 DATE="$(printf '%s' "$REPORT" | python -c '
-import json, sys
+import json, os, sys
+log_dir, aoi = sys.argv[1], sys.argv[2]
 rows = json.load(sys.stdin)["acquisitions"]
-hit = next((r for r in rows if r["scorable"]), None)
-print(hit["acquired"][:10] if hit else "")
-')"
+for r in rows:
+    d = r["acquired"][:10]
+    if r["scorable"] and not os.path.exists(os.path.join(log_dir, f"processed-{aoi}-{d}.done")):
+        print(d)
+        break
+' "$LOG_DIR" "$AOI")"
 
 if [ -z "$DATE" ]; then
-  log "scene_watch reported success but named no acquisition; not processing"
-  exit 1
+  log "every scorable acquisition has already been processed; nothing to do"
+  exit 0
 fi
 
 log "SCORABLE acquisition found on $DATE"
@@ -103,17 +110,36 @@ if [ "${1:-}" = "--check-only" ]; then
   exit 0
 fi
 
-# A scene already processed should not be reprocessed on the next tick.
-STAMP="$LOG_DIR/scored-$AOI-$DATE.done"
-if [ -f "$STAMP" ]; then
-  log "$DATE already scored; nothing to do"
-  exit 0
-fi
+# Two stamps with different meanings, deliberately kept apart:
+#   processed-*  the pipeline ran to completion; do not run it again
+#   scored-*     the evaluation actually produced a measurement
+# A clean pipeline exit is NOT a measurement. Conflating the two once marked
+# 2026-09-22 and 2026-09-27 "scored" when both evaluations read
+# `scored: False` -- the log claimed a result that did not exist.
+PROCESSED="$LOG_DIR/processed-$AOI-$DATE.done"
+SCORED_STAMP="$LOG_DIR/scored-$AOI-$DATE.done"
+OUT="$LOG_DIR/run-$AOI-$DATE.json"
 
 log "processing $DATE (downloads ~1.7 GB, then ~17 min GPU)"
-if python -m agents.pipeline --date "$DATE" --aoi "$AOI" >>"$LOG" 2>&1; then
-  date -u '+%Y-%m-%dT%H:%M:%SZ' > "$STAMP"
-  log "SCORED $DATE -- see missions/ for the manifest and evaluation block"
+if python -m agents.pipeline --date "$DATE" --aoi "$AOI" >"$OUT" 2>>"$LOG"; then
+  date -u '+%Y-%m-%dT%H:%M:%SZ' > "$PROCESSED"
+  RESULT="$(python -c '
+import json, sys
+try:
+    ev = json.load(open(sys.argv[1])).get("evaluation") or {}
+except Exception:
+    ev = {}
+if ev.get("scored") is True:
+    print("scored")
+else:
+    print(ev.get("reason") or ("not scored" if ev else "evaluation missing"))
+' "$OUT")"
+  if [ "$RESULT" = "scored" ]; then
+    date -u '+%Y-%m-%dT%H:%M:%SZ' > "$SCORED_STAMP"
+    log "SCORED $DATE -- evaluation in $OUT"
+  else
+    log "processed $DATE but NOT scored ($RESULT) -- see $OUT"
+  fi
 else
   log "pipeline failed for $DATE; leaving unstamped so the next run retries"
   exit 1

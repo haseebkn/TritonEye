@@ -174,6 +174,30 @@ def ais_observations_near(
     return found
 
 
+def within_footprint(
+    positions: Sequence[Tuple[float, float]], footprint: Optional[Dict[str, Any]]
+) -> List[Tuple[float, float]]:
+    """
+    Keeps only positions inside the product's imaged swath.
+
+    `footprint` is the catalogue's GeoFootprint (GeoJSON). A missing or
+    malformed footprint returns NOTHING rather than everything: claiming a
+    scene is scorable when its swath is unknown is the failure this guards
+    against, and it is far more expensive than missing an opportunity.
+    """
+    if not positions or not footprint:
+        return []
+    try:
+        from shapely.geometry import Point, shape
+
+        swath = shape(footprint)
+    except Exception:
+        return []
+    if swath.is_empty:
+        return []
+    return [p for p in positions if swath.covers(Point(p[0], p[1]))]
+
+
 def water_eligible(positions: Sequence[Tuple[float, float]], cache_dir: str) -> int:
     """
     Counts AIS positions the pipeline would treat as alert-eligible water.
@@ -216,22 +240,36 @@ def assess(
     """
     Annotates each acquisition with why it is, or is not, scorable.
 
-    Scorable means AIS exists AND falls in alert-eligible water. A scene whose
-    only reference vessels are berthed inside a harbour cannot produce a recall
-    number, because the pipeline excludes those positions by design.
+    Scorable means AIS exists INSIDE THE IMAGED SWATH, in the time window, AND
+    in alert-eligible water. A scene whose only reference vessels are berthed
+    inside a harbour cannot produce a recall number, because the pipeline
+    excludes those positions by design.
+
+    The swath check is not optional. The recording envelope spans most of
+    Atlantic Canada, so "AIS in the time window" almost always finds vessels
+    somewhere. Without it this function reported 2026-09-22 and 2026-09-27 as
+    scorable on the strength of 85 observations that were all OUTSIDE the
+    footprint -- two downloads and two full pipeline runs that could only ever
+    come back `scored: False`.
     """
     out = []
     for p in products:
         name = p["Name"]
         start = p["ContentDate"]["Start"]
         usable_pol = REQUIRED_POLARIZATION in name
-        positions = ais_observations_near(archive_dir, start) if usable_pol else []
+        in_window = ais_observations_near(archive_dir, start) if usable_pol else []
+        positions = within_footprint(in_window, p.get("GeoFootprint"))
         eligible = water_eligible(positions, cache_dir) if positions else 0
 
         if not usable_pol:
             reason = "HH/HV - detector requires VV/VH"
-        elif not positions:
+        elif not in_window:
             reason = "no recorded AIS in the +/-5 min window"
+        elif not positions:
+            reason = (
+                f"{len(in_window)} AIS observations in the window, but none "
+                "inside the imaged swath"
+            )
         elif eligible == 0:
             reason = (
                 f"{len(positions)} AIS observations, but none in alert-eligible "
@@ -245,7 +283,8 @@ def assess(
                 "acquired": start[:19],
                 "name": name,
                 "polarization": "VV/VH" if usable_pol else "HH/HV",
-                "ais_observations": len(positions),
+                "ais_observations": len(in_window),
+                "ais_in_swath": len(positions),
                 "ais_in_water": eligible,
                 "scorable": bool(usable_pol and eligible),
                 "reason": reason,
