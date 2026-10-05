@@ -5,7 +5,10 @@ import json
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pytest
+import rasterio
+from rasterio.transform import from_origin
 from shapely.geometry import Point, box, mapping
 
 from agents.artifacts import sha256_file, write_json
@@ -16,7 +19,9 @@ from agents.nl_benchmark import (
     selection_lock,
     validate_contract,
     validation_labels,
+    verify_chip,
 )
+from scripts import build_nl_benchmark, prepare_nl_review
 
 
 def fixture() -> tuple[dict[str, Any], ...]:
@@ -275,3 +280,90 @@ def test_previously_exposed_test_is_rejected() -> None:
     args = (*args[:2], selection_lock(args[1]), *args[3:])
     with pytest.raises(ValueError, match="previously exposed"):
         validate_contract(*args)
+
+
+def test_actual_chip_pixels_and_annotation_geography(tmp_path: Path) -> None:
+    path = tmp_path / "chip.tif"
+    values = np.ones((2, 256, 256), dtype="float32")
+
+    def save(array: np.ndarray[Any, Any]) -> None:
+        with rasterio.open(
+            path,
+            "w",
+            driver="GTiff",
+            width=256,
+            height=256,
+            count=2,
+            dtype="float32",
+            crs="EPSG:4326",
+            transform=from_origin(-55.2, 49.3, 0.0001, 0.0001),
+            nodata=-60,
+        ) as out:
+            out.write(array)
+
+    save(values)
+    roi = {"size": 256}
+    obj = {
+        "bbox_px": [100, 100, 110, 110],
+        "geometry": mapping(Point(-55.1895, 49.2895)),
+    }
+    verify_chip(path, roi, [obj])
+    obj["geometry"] = mapping(Point(-55.18, 49.28))
+    with pytest.raises(ValueError, match="native pixel box"):
+        verify_chip(path, roi, [obj])
+    values[0, 1, 1] = -60
+    save(values)
+    with pytest.raises(ValueError, match="invalid/nodata"):
+        verify_chip(path, roi, [])
+
+
+def test_ais_snapshot_checks_both_midnight_archives(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(build_nl_benchmark, "ROOT", tmp_path)
+    archive = tmp_path / "data/raw/ais_stream"
+    archive.mkdir(parents=True)
+    (archive / "ais_stream_2026-08-31.csv").write_text(
+        "mmsi,lon,lat,timestamp\n123456789,-53.1,48.6,2026-08-31T23:59:00Z\n"
+    )
+    geometry = mapping(box(-53.2, 48.5, -53, 48.7))
+    product = {
+        "Id": "00000000-0000-4000-8000-000000000001",
+        "ContentDate": {"Start": "2026-09-01T00:02:00Z"},
+        "GeoFootprint": geometry,
+    }
+    result = build_nl_benchmark.supporting_ais(
+        product, [{"id": "test", "geometry": geometry}], tmp_path / "data/pilot"
+    )
+    assert result["status"] == "support_available"
+    assert result["observations_in_window"] == result["observations_in_swath"] == 1
+    assert result["observations_by_roi"] == {"test": 1}
+    # Later live/archive writes must not mutate this frozen supporting snapshot.
+    (archive / "ais_stream_2026-08-31.csv").write_text("mmsi,lon,lat,timestamp\n")
+    assert (
+        build_nl_benchmark.supporting_ais(
+            product, [{"id": "test", "geometry": geometry}], tmp_path / "data/pilot"
+        )
+        == result
+    )
+
+
+def test_released_data_cannot_be_overwritten_using_another_output(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(build_nl_benchmark, "ROOT", tmp_path)
+    directory = tmp_path / "datasets/nl_benchmark/vtest"
+    directory.mkdir(parents=True)
+    write_json(directory / "release.json", {"status": "released"})
+    write_json(directory / "selection.json", {"dataset_version": "test"})
+    with pytest.raises(ValueError, match="another output path"):
+        build_nl_benchmark.build(
+            directory / "selection.json", tmp_path / "other/manifest.json"
+        )
+
+
+def test_released_review_preparation_is_immutable() -> None:
+    checksum = sha256_file(DEFAULT_DATASET / "release.json")
+    with pytest.raises(ValueError, match="Immutable release"):
+        prepare_nl_review.prepare(DEFAULT_DATASET)
+    assert sha256_file(DEFAULT_DATASET / "release.json") == checksum

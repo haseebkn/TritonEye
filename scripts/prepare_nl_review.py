@@ -194,6 +194,17 @@ def prepare(directory: Path) -> None:
             },
         },
     )
+    write_json(
+        output.parent / "release_record.json",
+        {
+            "dataset_version": manifest["dataset_version"],
+            "release_sha256": sha256_file(directory / "release.json"),
+            "notes": (
+                "Do not overwrite data for a released version via another "
+                "output directory."
+            ),
+        },
+    )
     print(json.dumps(status, indent=2))
     print("Review bundle:", output)
 

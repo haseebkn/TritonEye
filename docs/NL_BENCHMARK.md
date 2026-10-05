@@ -79,3 +79,21 @@ measured model performance**. Independent adjudication and confirmed vessel
 positives are still needed. Next expansion should add more acquisitions and
 geographic groups, corroborated structures/ice where identifiable, and a
 pretraining-overlap audit before any model-improvement claim.
+
+## Final safeguards and replay verification
+
+Additional regressions verify midnight-spanning AIS archive selection, frozen
+supporting snapshots, immutable releases even when given another output path,
+actual chip nodata/finite pixels, and agreement between annotation pixel boxes
+and geographic centres. The source builder used for materialization is preserved
+byte-for-byte in commit `bfe8a61`; follow-up code changes do not rewrite the released
+dataset. A Git archive independently confirmed all nine released artifact hashes,
+including the preserved Windows-generated line endings.
+
+Final validation: **294 Windows tests pass; 292 offline Linux tests pass, two
+local-data tests skip and two heavy-model tests are deselected**. Lint, formatting
+and strict types (63 files including both preparation tools) pass. The final
+image is `tritoneye:nl-benchmark`, digest
+`2731ccebda90646d33bfcc3a1a61fbe5292ce3cfaa605d0906a3f03d2dff4558`.
+Full real-data hash/pixel/geolocation verification also passes. No operational
+threshold or coastal-buffer default was changed, and no accuracy was measured.

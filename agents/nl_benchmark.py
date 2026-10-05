@@ -14,6 +14,8 @@ import math
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+import rasterio
 from pyproj import Transformer
 from shapely.geometry import shape
 from shapely.ops import transform
@@ -21,6 +23,7 @@ from shapely.ops import transform
 from agents.acquisition import product_id
 from agents.ais_validation import parse_utc
 from agents.artifacts import REPO_ROOT, sha256_file, write_json
+from agents.geo import Georeferencer
 from agents.region import load_region
 from agents.run_versions import digest
 
@@ -43,6 +46,28 @@ def bounded_path(root: Path, relative: str) -> Path:
 
 def objects_digest(objects: list[dict[str, Any]]) -> str:
     return digest(sorted(objects, key=lambda o: o["id"]))
+
+
+def verify_chip(path: Path, roi: dict[str, Any], objects: list[dict[str, Any]]) -> None:
+    """Verify actual pixels and box-centre geolocation, not manifest assertions."""
+    with rasterio.open(path) as src:
+        if src.width != roi["size"] or src.height != roi["size"] or src.count != 2:
+            raise ValueError("Actual chip shape/band count mismatch")
+        values = src.read(masked=True)
+        if not np.all(src.read_masks()) or not np.isfinite(values.data).all():
+            raise ValueError("Actual chip has invalid/nodata pixels")
+        with Georeferencer.from_dataset(src) as geo:
+            for obj in objects:
+                x0, y0, x1, y1 = obj["bbox_px"]
+                lon, lat = geo.xy((y0 + y1) / 2, (x0 + x1) / 2)
+                expected = shape(obj["geometry"])
+                if (
+                    abs(float(lon[0]) - expected.x) > 1e-7
+                    or abs(float(lat[0]) - expected.y) > 1e-7
+                ):
+                    raise ValueError(
+                        "Annotation geography differs from its native pixel box"
+                    )
 
 
 def selection_lock(selection: dict[str, Any]) -> dict[str, Any]:
@@ -377,6 +402,16 @@ def load_dataset(
                 raise ValueError(
                     f"Source/derived artifact hash mismatch: {item['path']}"
                 )
+        for scene in manifest["scenes"]:
+            for roi in scene["rois"]:
+                verify_chip(
+                    bounded_path(REPO_ROOT, roi["chip"]["path"]),
+                    roi,
+                    [o for o in annotations["objects"] if o["roi_id"] == roi["id"]],
+                )
+        bundle = release["review_bundle"]
+        if sha256_file(bounded_path(REPO_ROOT, bundle["path"])) != bundle["sha256"]:
+            raise ValueError("Review bundle hash mismatch")
     return manifest, annotations, status
 
 

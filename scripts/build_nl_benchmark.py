@@ -15,6 +15,7 @@ import platform
 import re
 import tempfile
 import zipfile
+from datetime import timedelta
 from pathlib import Path
 from typing import Any
 
@@ -55,7 +56,13 @@ def supporting_ais(
         acquired = parse_utc(product["ContentDate"]["Start"])
         if acquired is None:
             raise ValueError("Invalid acquisition time")
-        paths = list(archive.glob(f"ais_stream_{acquired.date().isoformat()}*.csv"))
+        days = {
+            (acquired - timedelta(minutes=5)).date().isoformat(),
+            (acquired + timedelta(minutes=5)).date().isoformat(),
+        }
+        paths = sorted(
+            {p for day in days for p in archive.glob(f"ais_stream_{day}*.csv")}
+        )
         # Fail on unreadable archives rather than calling them empty coverage.
         for path in paths:
             with path.open("rb") as stream:
@@ -115,12 +122,12 @@ def metadata(scene: dict[str, Any], directory: Path) -> dict[str, Any]:
     if not re.fullmatch(r"S1[ACD]_IW_GRDH_1SD[VH]_[A-Za-z0-9_]+\.SAFE", name):
         raise ValueError("Expected an exact Sentinel-1 SAFE name")
     target = directory / f"{name}.json"
+    result: dict[str, Any]
     if target.exists():
         result = json.loads(target.read_text(encoding="utf-8"))
     else:
-        response = requests.get(
-            CATALOGUE, params={"$filter": f"Name eq '{name}'", "$top": 2}, timeout=60
-        )
+        query: dict[str, Any] = {"$filter": f"Name eq '{name}'", "$top": 2}
+        response = requests.get(CATALOGUE, params=query, timeout=60)
         response.raise_for_status()
         values = response.json()["value"]
         if len(values) != 1:
@@ -138,7 +145,10 @@ def metadata(scene: dict[str, Any], directory: Path) -> dict[str, Any]:
 
 def download_product(product: dict[str, Any], raw: Path) -> Path:
     """Download and CRC-check a missing exact product without exposing secrets."""
-    target = raw / product["Name"]
+    name = str(product["Name"])
+    if not re.fullmatch(r"S1[ACD]_IW_GRDH_1SD[VH]_[A-Za-z0-9_]+\.SAFE", name):
+        raise ValueError("Invalid SAFE download target")
+    target = raw / name
     if target.exists():
         if not (target / "manifest.safe").is_file():
             raise ValueError(f"Incomplete cache; preserve and inspect: {target}")
@@ -187,7 +197,7 @@ def download_product(product: dict[str, Any], raw: Path) -> Path:
                 ):
                     raise ValueError("Unsafe archive path")
             zipped.extractall(tmp)
-        extracted = Path(tmp) / product["Name"]
+        extracted = Path(tmp) / name
         if not (extracted / "manifest.safe").is_file():
             raise ValueError("Downloaded SAFE manifest missing")
         extracted.rename(target)
@@ -266,7 +276,7 @@ def chip(roi: dict[str, Any], paths: list[Path], directory: Path) -> dict[str, A
                 raise ValueError("Band geometry/alignment mismatch")
             values = source.read(1, window=window, masked=True)
             valid = (
-                ~np.ma.getmaskarray(values)
+                (source.read_masks(1, window=window) > 0)
                 & np.isfinite(values.data)
                 & (values.data > 0)
             )
@@ -358,7 +368,17 @@ def build(selection: Path, output: Path) -> None:
             "new directory/version"
         )
     chosen = json.loads(selection.read_text(encoding="utf-8"))
+    canonical_release = (
+        ROOT
+        / "datasets/nl_benchmark"
+        / ("v" + chosen["dataset_version"])
+        / "release.json"
+    )
     data = ROOT / "data" / "benchmarks" / "nl" / chosen["dataset_version"]
+    if canonical_release.exists() or (data / "release_record.json").exists():
+        raise ValueError(
+            "Released data version cannot be overwritten through another output path"
+        )
     data.mkdir(parents=True, exist_ok=True)
     frozen = data / "selection.json"
     selection_hash = sha256_file(selection)
