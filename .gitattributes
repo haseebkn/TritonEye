@@ -1,0 +1,2 @@
+# The scheduled launcher must remain readable by Bash on Windows and Linux.
+*.sh text eol=lf

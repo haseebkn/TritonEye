@@ -62,3 +62,68 @@ tests was available. This is not a compliance certification or product endorseme
 
 This ledger is updated before delivery; an attempted check is not a passing check.
 ML precision/false-alarm performance remains unmeasured regardless of test results.
+
+## St. John's shoreline verification — 2026-10-05
+
+- Downloaded CanVec 1:50,000 NL hydrography and a public City Imagery2022
+  harbour export. Raw sources, export metadata, clipped comparisons, SHA-256
+  provenance and visual overlays are saved under `data/reference/st_johns/`.
+- Corrected the prior unsupported assertion that OSM enclosed the basin and
+  The Narrows. The cached OSM shoreline passes all eight imagery controls.
+  Basin/channel/entrance controls are physically water but remain in the
+  300 m coastal exclusion band. No geometry replacement or buffer reduction
+  was warranted by this evidence.
+- CanVec misses the north-quay land control and omits a visible pier. Its
+  local ocean feature has 1979 source attributes and nominal 26 m horizontal
+  accuracy; the point discrepancy alone is not an overall accuracy ranking.
+  CanVec is retained for inspection, not adopted as an automatic replacement.
+- Added default footprint-local shoreline checks, including versioned controls
+  and provenance. Known channel closure/land leakage and malformed/missing
+  controls make the mask unavailable; downstream eligibility is not inferred.
+- Final Windows CPU suite: **204 passed, 2 heavyweight tests deselected**.
+  Two expected Rasterio warnings originate from the intentionally ungeoreferenced
+  raster regression. Strict mypy passed all 48 source/test files; Ruff and Black
+  passed, including the audit script. Diff whitespace check passed.
+- Existing Linux image with the updated project mounted read-only, networking
+  disabled: **43 shoreline/scene-watch tests passed**. This was a runtime check,
+  not a fresh Docker build or remote CI run.
+- Offline audit reproduction passed: OSM 8/8 controls, CanVec 7/8. No satellite
+  inference was rerun and no vessel precision or false-alarm improvement was
+  measured. Broader NL coastal geometry remains unverified.
+
+Evidence and reproduction: [ST_JOHNS_SHORELINE.md](ST_JOHNS_SHORELINE.md).
+
+## Acquisition reliability — 2026-10-05
+
+- Product UUID now constrains discovery, ingestion and every pipeline stage.
+  Distinct same-day products retain separate records; pagination is followed.
+  Missing/invalid footprints and out-of-swath/out-of-region AIS are rejected.
+  Legacy and expanded-schema AIS files are both read.
+- Replaced date completion stamps with product-specific JSON transition and
+  attempt histories. A completed pipeline with `scored: false` remains processed.
+  Measurement requires matching evaluation identity and actual valid metrics.
+- Content versions include code, model, settings, dependency versions, shoreline
+  data and acquisition-window AIS. Changed versions can run again. AIS windows
+  and execution artifacts are retained separately; overlapping watchers are
+  excluded by an OS lock. Failed attempts have a one-hour retry delay.
+- Added recorder heartbeat, observation/receipt freshness and persisted gap
+  evidence. Updated the local recorder to the validated image; real heartbeat
+  and incoming AIS were observed. Receiver coverage remains incomplete/unknown.
+- Final Windows CPU suite: **241 passed, 2 heavyweight tests deselected**.
+  Strict mypy passed all 54 source/test files; Ruff and Black passed. Two expected
+  Rasterio warnings came from the deliberately ungeoreferenced regression.
+- Fresh Docker build passed. Offline Linux image: **239 passed, 2 local-data
+  tests skipped, 2 heavyweight tests deselected**. Linux lint, formatting, strict
+  types, launcher syntax and Compose configuration also passed.
+- Live exact-ID query verified product
+  `66d3167d-240a-459a-8066-75b9d2a458f2`, reused its satellite cache without a
+  download and correctly found no AIS in the scene/time window. A live 12-day
+  discovery check produced no eligible pending products and no measurement.
+- Cached real-scene replay completed all 126 inference tiles and subsequent
+  correlation, evaluation and reporting. Selected, processed, inference and
+  evaluation UUIDs all agree. Inference took 963.69 seconds; evaluation correctly
+  remained `scored: false` with `coverage=none`. No vessel precision/false-alarm
+  claim follows. [Compact replay evidence](evidence/acquisition_replay_20261005.json)
+  records model/config/input hashes; full artifacts stay in the project data.
+
+Reproduction and state definitions: [ACQUISITION_RELIABILITY.md](ACQUISITION_RELIABILITY.md).

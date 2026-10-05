@@ -22,6 +22,29 @@ Coastline options are [OSM land polygons](https://osmdata.openstreetmap.de/data/
 domain despite some public-domain source inputs). Neither is a navigation chart
 or a substitute for independent regional geolocation validation.
 
+### St. John's shoreline verification (2026-10-05)
+
+The public [CanVec hydrography archive](https://ftp.maps.canada.ca/pub/nrcan_rncan/vector/canvec/shp/Hydro/canvec_50K_NL_Hydro_shp.zip)
+was downloaded to `data/reference/st_johns/source/` (1,092,372,463 bytes).
+The local ocean feature is `311141d9118146038b2c9a6cd88ba24c`, NAD83(CSRS),
+EPSG:4617; it was transformed to WGS84 explicitly. Its `datemin`/`datemax`
+attributes are 1979 and nominal `haccmin`/`haccmax` are 26 m. These are source
+attributes, not independently verified contemporary accuracy. CanVec is
+distributed under the Open Government Licence – Canada.
+
+The [City's Imagery2022 service](https://map.stjohns.ca/mapsrv/rest/services/Imagery/Imagery2022/MapServer)
+supplies a public harbour aerial image in NAD83 / MTM zone 1 (EPSG:32181).
+The exported image, service/export metadata and overlay are stored locally in
+the same directory. An exact flight date and redistribution permission have
+not been established; municipal imagery is not committed to Git or claimed
+as freely redistributable. It supplies visual reference context, not vessel truth.
+
+The current OSM geometry passes eight visually inspected water/land controls;
+CanVec fails the north-quay land control, so no province-wide replacement or
+automatic ocean-water subtraction is adopted. Checks and source hashes are
+recorded in `data/reference/st_johns/verification.json`.
+[Reproduction and limitations](ST_JOHNS_SHORELINE.md).
+
 The pipeline's Sentinel-1 source is the
 [Copernicus Data Space Ecosystem](https://dataspace.copernicus.eu/).
 Download uses the configured Copernicus credentials; keep them in an untracked

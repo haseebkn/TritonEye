@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 """
-Finds Sentinel-1 acquisitions this project can actually SCORE.
-
-The project's central gap is that detection precision and recall over
-Newfoundland and Labrador are unmeasured. Closing it needs one acquisition that
-satisfies three conditions at once, and missing any of them makes a scene
-unscorable no matter how well the pipeline runs:
+Finds Sentinel-1 products eligible for an NL open-water AIS-subset experiment.
+These metadata checks prioritize acquisitions; valid pixels and aligned AIS
+are checked after processing. Eligibility does not establish a measurement,
+vessel precision, overall recall or complete receiver coverage.
 
   1. VV/VH polarization (1SDV). The detector cannot use HH/HV, and over parts
      of this region HH/HV is all that is acquired -- see docs/DATA_SOURCES.md.
   2. Inside the study area.
-  3. Recorded AIS covering the acquisition instant. No historical archive
-     covers these waters, so coverage exists only where the recorder was
-     actually running. This cannot be backfilled.
+  3. Locally recorded AIS in the acquisition window and footprint. The
+     integrated live source cannot backfill gaps; other archives may exist.
 
 CHEAP CHECKS FIRST. A source product is ~1.7 GB, so this orders the tests by
 cost: catalogue metadata answers polarization and geometry for free, and the
@@ -20,9 +17,7 @@ local AIS archive answers coverage for free. Only a scene that passes all three
 is worth downloading. Running the pipeline first and discovering afterwards that
 no telemetry existed is how the earlier attempts were wasted.
 
-This reports; it does not download or process. Scoring a scene is a deliberate
-act, and an unattended job that silently spends an hour of GPU on an unscorable
-acquisition is worse than one that prints what it found.
+This reports; agents.watch handles versioned processing and outcome records.
 
     python -m agents.scene_watch --days 12
     python -m agents.scene_watch --days 30 --json
@@ -34,6 +29,10 @@ import os
 import sys
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence, Tuple
+from urllib.parse import urlparse
+
+from agents.acquisition import product_id
+from agents.ais_validation import finite_number, parse_utc, valid_mmsi
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -123,19 +122,42 @@ def search_acquisitions(
     if r.status_code != 200:
         raise SceneWatchUnavailable(f"Catalogue query failed: HTTP {r.status_code}")
 
-    # The catalogue returns a product per slice; collapse to unique names so a
-    # multi-slice acquisition is not counted as several opportunities.
+    # Each slice has its own footprint and identity. Never collapse products
+    # merely because their names or acquisition dates share a prefix.
+    page = r.json()
+    products = list(page.get("value", []))
+    visited: set[str] = set()
+    while page.get("@odata.nextLink"):
+        next_link = page["@odata.nextLink"]
+        parsed = urlparse(next_link)
+        if (
+            parsed.scheme != "https"
+            or parsed.netloc != "catalogue.dataspace.copernicus.eu"
+            or next_link in visited
+            or len(visited) >= 100
+        ):
+            raise SceneWatchUnavailable("Invalid or cyclic catalogue pagination")
+        visited.add(next_link)
+        response = requests.get(
+            next_link, headers={"Authorization": f"Bearer {token}"}, timeout=90
+        )
+        if response.status_code != 200:
+            raise SceneWatchUnavailable(
+                f"Catalogue page failed: HTTP {response.status_code}"
+            )
+        page = response.json()
+        products.extend(page.get("value", []))
     seen: Dict[str, Dict[str, Any]] = {}
-    for p in r.json().get("value", []):
-        seen.setdefault(p["Name"][:60], p)
+    for p in products:
+        seen.setdefault(product_id(p["Id"]), p)
     return sorted(seen.values(), key=lambda p: p["ContentDate"]["Start"], reverse=True)
 
 
-def ais_observations_near(
+def ais_rows_near(
     archive_dir: str, acquisition_iso: str, window_minutes: int = AIS_WINDOW_MINUTES
-) -> List[Tuple[float, float]]:
+) -> List[Dict[str, str]]:
     """
-    Returns (lon, lat) of recorded AIS observations within the matching window.
+    Returns valid archived rows, including legacy and expanded-schema files.
 
     Reads the daily archive directly rather than the pipeline's filter, because
     this must answer "is there anything to score against" before any scene is
@@ -143,8 +165,6 @@ def ais_observations_near(
     """
     import csv
     import glob
-
-    from agents.ais_validation import parse_utc
 
     acq = parse_utc(acquisition_iso, allow_naive=True)
     if acq is None:
@@ -156,37 +176,89 @@ def ais_observations_near(
 
     # Day boundaries: a window can straddle midnight, so check both files.
     days = {lo.strftime("%Y-%m-%d"), hi.strftime("%Y-%m-%d")}
-    found: List[Tuple[float, float]] = []
-    for day in days:
-        for path in glob.glob(os.path.join(archive_dir, f"ais_stream_{day}.csv")):
+    found: List[Dict[str, str]] = []
+    for day in sorted(days):
+        for path in sorted(
+            glob.glob(os.path.join(archive_dir, f"ais_stream_{day}*.csv"))
+        ):
             try:
                 with open(path, newline="", encoding="utf-8") as f:
                     for row in csv.DictReader(f):
                         t = parse_utc(row.get("timestamp", ""), allow_naive=True)
                         if t is None or not (lo <= t <= hi):
                             continue
-                        try:
-                            found.append((float(row["lon"]), float(row["lat"])))
-                        except (KeyError, TypeError, ValueError):
+                        lon, lat = finite_number(row.get("lon")), finite_number(
+                            row.get("lat")
+                        )
+                        if (
+                            valid_mmsi(row.get("mmsi")) is None
+                            or lon is None
+                            or lat is None
+                            or not -180 <= lon <= 180
+                            or not -90 <= lat <= 90
+                        ):
                             continue
+                        found.append(
+                            {
+                                key: value
+                                for key, value in row.items()
+                                if isinstance(key, str) and isinstance(value, str)
+                            }
+                        )
             except OSError:
                 continue
     return found
+
+
+def ais_observations_near(
+    archive_dir: str, acquisition_iso: str, window_minutes: int = AIS_WINDOW_MINUTES
+) -> List[Tuple[float, float]]:
+    return [
+        (float(row["lon"]), float(row["lat"]))
+        for row in ais_rows_near(archive_dir, acquisition_iso, window_minutes)
+    ]
+
+
+def within_footprint(
+    positions: Sequence[Tuple[float, float]], footprint: Optional[Dict[str, Any]]
+) -> List[Tuple[float, float]]:
+    """
+    Keeps only positions inside the product's imaged swath.
+
+    `footprint` is the catalogue's GeoFootprint (GeoJSON). A missing or
+    malformed footprint returns NOTHING rather than everything: claiming a
+    scene is scorable when its swath is unknown is the failure this guards
+    against, and it is far more expensive than missing an opportunity.
+    """
+    if not positions or not footprint:
+        return []
+    try:
+        from shapely.geometry import Point, shape
+
+        swath = shape(footprint)
+    except Exception:
+        return []
+    if (
+        swath.is_empty
+        or not swath.is_valid
+        or swath.geom_type not in ("Polygon", "MultiPolygon")
+    ):
+        return []
+    return [p for p in positions if swath.covers(Point(p[0], p[1]))]
 
 
 def water_eligible(positions: Sequence[Tuple[float, float]], cache_dir: str) -> int:
     """
     Counts AIS positions the pipeline would treat as alert-eligible water.
 
-    AIS EXISTING IS NOT THE SAME AS AIS BEING USABLE. The pipeline scores only
-    water-classified detections, so reference vessels sitting on land or in the
-    coastal band cannot contribute to a recall figure -- recall against them
-    reads as zero regardless of how well the detector performs.
+    This watcher prioritizes open-water reference observations. The evaluator
+    can also measure raw AIS-subset recall in coastal settings; this selection
+    policy does not make harbour AIS intrinsically unsuitable for evaluation.
 
-    This is not hypothetical: an acquisition over St. John's on 2026-09-03 had
-    75 observations from 18 vessels, and every one fell INSIDE the OSM coastline
-    because the polygon encloses the harbour basin. Counting those as ground
-    truth would have produced a meaningless zero.
+    Harbour water can be physically water and still fall in the 300 m coastal
+    exclusion band. Municipal imagery controls confirm that the cached OSM
+    polygon leaves St. John's basin and The Narrows open; the earlier diagnosis
+    of an enclosed harbour was incorrect. Eligibility remains policy-dependent.
 
     Returns 0 rather than raising when the coastline is not downloaded; the
     caller reports coverage as unknown instead of overstating it.
@@ -216,38 +288,70 @@ def assess(
     """
     Annotates each acquisition with why it is, or is not, scorable.
 
-    Scorable means AIS exists AND falls in alert-eligible water. A scene whose
-    only reference vessels are berthed inside a harbour cannot produce a recall
-    number, because the pipeline excludes those positions by design.
+    Eligibility is a metadata precheck for an open-water experiment. Actual
+    measurement additionally requires usable aligned AIS on valid SAR pixels.
+    A precheck cannot certify that an evaluation will produce a measurement.
+
+    The swath check is not optional. The recording envelope spans most of
+    Atlantic Canada, so "AIS in the time window" almost always finds vessels
+    somewhere. Without it this function reported 2026-09-22 and 2026-09-27 as
+    scorable on the strength of 85 observations that were all OUTSIDE the
+    footprint -- two downloads and two full pipeline runs that could only ever
+    come back `scored: False`.
     """
     out = []
+    from shapely.geometry import Point
+
+    from agents.region import load_region
+
+    region = load_region()
     for p in products:
         name = p["Name"]
         start = p["ContentDate"]["Start"]
-        usable_pol = REQUIRED_POLARIZATION in name
-        positions = ais_observations_near(archive_dir, start) if usable_pol else []
+        usable_pol = f"_{REQUIRED_POLARIZATION}_" in name
+        in_window = ais_observations_near(archive_dir, start) if usable_pol else []
+        positions = within_footprint(in_window, p.get("GeoFootprint"))
+        positions = [
+            position for position in positions if region.covers(Point(*position))
+        ]
         eligible = water_eligible(positions, cache_dir) if positions else 0
 
-        if not usable_pol:
+        try:
+            selected_id = product_id(p.get("Id", ""))
+        except ValueError:
+            selected_id = None
+        if selected_id is None:
+            reason = "missing or invalid satellite product ID"
+        elif not usable_pol:
             reason = "HH/HV - detector requires VV/VH"
-        elif not positions:
+        elif not in_window:
             reason = "no recorded AIS in the +/-5 min window"
+        elif not p.get("GeoFootprint"):
+            reason = "missing satellite footprint; imaged swath is unknown"
+        elif not positions:
+            reason = (
+                f"{len(in_window)} AIS observations in the window, but none "
+                "inside the imaged swath and NL study area"
+            )
         elif eligible == 0:
             reason = (
                 f"{len(positions)} AIS observations, but none in alert-eligible "
-                "water (berthed/nearshore) - would score zero by construction"
+                "water, or shoreline eligibility is unavailable"
             )
         else:
             reason = f"SCORABLE - {eligible} of {len(positions)} AIS obs in open water"
 
         out.append(
             {
-                "acquired": start[:19],
+                "product_id": selected_id,
+                "acquired": start,
                 "name": name,
                 "polarization": "VV/VH" if usable_pol else "HH/HV",
-                "ais_observations": len(positions),
+                "ais_observations": len(in_window),
+                "ais_in_swath": len(positions),
                 "ais_in_water": eligible,
-                "scorable": bool(usable_pol and eligible),
+                "eligible": bool(selected_id and usable_pol and eligible),
+                "scorable": bool(selected_id and usable_pol and eligible),
                 "reason": reason,
             }
         )
@@ -321,7 +425,7 @@ def main() -> None:
             for r in rows:
                 if r["scorable"]:
                     print(
-                        f"    python -m agents.pipeline --date {r['acquired'][:10]} "
+                        f"    python -m agents.pipeline --product-id {r['product_id']} "
                         f"--aoi {args.aoi}"
                     )
                     break
