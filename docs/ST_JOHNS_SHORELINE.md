@@ -83,3 +83,13 @@ Changes in the real shoreline may require re-reviewing controls; do not bypass
 a failed check by labelling an old reference as current.
 
 Source attribution and access: [DATA_SOURCES.md](DATA_SOURCES.md).
+
+## Separate operating policy and expanded sparse controls
+
+The later implementation retains these eight controls unchanged and adds
+physical-surface versus policy fields, dedicated coastal research artifacts,
+and Bonavista/Lewisporte imagery controls for the selected real replays. No
+CanVec replacement or buffer reduction was adopted. Neither these eight checks
+nor the expanded sparse registry establishes province-wide accuracy. See
+[COASTAL_POLICY.md](COASTAL_POLICY.md) for coverage, buffer counts and the
+still-missing independent validation labels.

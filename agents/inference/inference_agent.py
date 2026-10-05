@@ -544,6 +544,7 @@ def classify_surfaces(
             scene_bounds, source=source, cache_dir=cache_dir
         )
         surfaces, dist = mask.classify(lons, lats, coastal_buffer_m=buffer_m)
+        physical, _ = mask.classify_physical(lons, lats)
     except lm.LandMaskUnavailable as e:
         print(
             f"WARNING: land mask unavailable, detections unmasked: {e}", file=sys.stderr
@@ -553,6 +554,7 @@ def classify_surfaces(
     # Proximity to a provisional fixed reference is an uncertain review flag,
     # not proof that the detection is the installation rather than a vessel.
     infra_meta: Dict[str, Any] = {"enabled": False}
+    is_infra = [False] * len(lons)
     infra_cfg = config.get("infrastructure", {}) or {}
     if infra_cfg.get("enabled", False):
         from agents import infrastructure as infra
@@ -589,6 +591,10 @@ def classify_surfaces(
         "source": source,
         "licence": mask.licence,
         "coastal_buffer_m": buffer_m,
+        "physical_surfaces": physical,
+        "infrastructure_flags": is_infra,
+        "physical_counts": lm.summarize(physical),
+        "surface_field_meaning": "operating zone, not physical land/water",
         "shoreline_validation": mask.validation,
         "counts": {**counts, "infrastructure": infra_n},
         "infrastructure": infra_meta,
@@ -734,6 +740,10 @@ def main() -> None:
     surfaces, shore_dist, landmask_meta = classify_surfaces(
         centroid_lons, centroid_lats, scene_bounds, base_dir, config
     )
+    from agents.coastal_policy import annotations
+
+    physical = landmask_meta.pop("physical_surfaces", [])
+    infrastructure_flags = landmask_meta.pop("infrastructure_flags", [])
     within_region = contains_points(centroid_lons, centroid_lats, region)
 
     features: List[Dict[str, Any]] = []
@@ -758,14 +768,21 @@ def main() -> None:
             "score_kind": "uncalibrated_objectness",
             "in_study_area": within_region[idx],
             "surface": "unknown",
+            "physical_surface": "unknown",
+            "alert_eligible": False,
+            "research_retained": True,
             "ice_discrimination": "unvalidated",
             "geometry_kind": "nominal_display_marker" if use_xview3 else "detector_box",
         }
         if surfaces is not None:
-            properties["surface"] = surfaces[idx]
             d = float(shore_dist[idx])
-            properties["distance_to_shore_m"] = (
-                None if not np.isfinite(d) else round(d, 1)
+            properties.update(
+                annotations(
+                    physical[idx],
+                    d,
+                    landmask_meta["coastal_buffer_m"],
+                    bool(infrastructure_flags[idx]),
+                )
             )
 
         feature = {
@@ -776,7 +793,13 @@ def main() -> None:
         }
         (features if within_region[idx] else outside_features).append(feature)
 
-    geojson = {"type": "FeatureCollection", "features": features}
+    geojson = {
+        "type": "FeatureCollection",
+        "features": features,
+        "sar_product_id": payload.get("sar_product_id"),
+        "acquisition_time": payload.get("acquisition_time"),
+        "shoreline_status": landmask_meta.get("status", "unavailable"),
+    }
 
     # 6. Save the resulting GeoJSON
     geojson_path = str(mission_dir / "detections.geojson")

@@ -22,6 +22,7 @@ from shapely.geometry import Point, mapping, shape
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from agents.artifacts import mission_directory  # noqa: E402
+from agents.coastal_policy import eligible as policy_eligible  # noqa: E402
 from agents.region import REGION_NAME, load_region  # noqa: E402
 from agents.tracking import RunTracker  # noqa: E402
 
@@ -31,7 +32,7 @@ STATE_LABELS = {
     "ambiguous_association": "Ambiguous association: analyst review",
     "unassessable": "Unassessable",
     "excluded_land": "Excluded: land",
-    "excluded_coastal": "Excluded: coastal uncertainty",
+    "excluded_coastal": "Coastal research: withheld from open-water candidacy",
     "excluded_infrastructure": "Excluded: infrastructure proximity (uncertain)",
     "excluded_unknown_surface": "Excluded: surface unverified",
     "excluded_outside_region": "Outside study area",
@@ -152,7 +153,7 @@ def prepare_report_data(
             state = "excluded_infrastructure"
         elif surface in {"land", "coastal"}:
             state = "excluded_" + surface
-        elif surface != "water":
+        elif not policy_eligible(props):
             state = "excluded_unknown_surface"
         elif state not in STATE_LABELS or state.startswith("excluded_"):
             state = "unassessable"
@@ -162,6 +163,7 @@ def prepare_report_data(
         props["state_label"] = STATE_LABELS[state]
         props["review_required"] = state in REVIEW_STATES
         props["operational_alert"] = False
+        props["coastal_review_required"] = surface == "coastal"
         props["confidence"] = _finite_number(props.get("confidence"))
         # No SAR detector in this project can infer cargo/fishing vessel type.
         props["class_name"] = "unresolved SAR object"
@@ -246,7 +248,9 @@ def build_html_report(
         f
         for f in features
         if f["properties"]["correlation_status"].startswith("excluded_")
+        and f["properties"]["surface"] != "coastal"
     ]
+    coastal = [f for f in features if f["properties"]["surface"] == "coastal"]
     states, surfaces = data["states"], data["surfaces"]
     provenance = {
         "mission_id": payload.get("mission_id", "mission_default"),
@@ -338,7 +342,9 @@ association assessment.
 AIS points are historical observations, not current vessel positions.</p>
 <p class="muted">Raw detections: {data["raw_detections"]}. In-area surface breakdown:
 {_text(summary)}. Outside study area: {outside}; invalid geometry: {invalid}.
-Land/coastal/infrastructure exclusions are not AIS associations.</p>
+The surface field describes operating zones, not physical land/water.
+Coastal returns are retained for research;
+policy exclusions are not AIS associations.</p>
 <h2>Study area and observations</h2><div id="map" role="img"
 aria-label="Map of the Newfoundland and Labrador maritime study area"></div>
 <p id="map-status" class="muted">The optional map requires the Leaflet CDN and online
@@ -349,6 +355,11 @@ information and AIS history before assigning an identity. Suppression can also r
 real coastal vessels; it is not a measured precision improvement.</p>
 {_target_table(review)}
 <h2>Provisional associations and unassessable targets</h2>{_target_table(remaining)}
+<h2>Harbour and coastal research ({len(coastal)})</h2>
+<p class="muted">Coastal operating-zone returns, normally physical water relative
+to the reference shoreline. Inspect physical_surface and shoreline provenance;
+legacy artifacts may lack that evidence. Preserved for chip inspection and research; not
+open-water candidates or validated vessels.</p>{_target_table(coastal)}
 <details><summary>Excluded in-area returns ({len(rejected)})</summary>
 {_target_table(rejected)}</details>
 <h2>Evidence and reproducibility</h2>

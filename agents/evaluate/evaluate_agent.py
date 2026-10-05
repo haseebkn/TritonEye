@@ -35,6 +35,7 @@ try:
     from shapely.ops import transform
 
     from agents.association import aligned_ais, one_to_one_matches, real_ais_source
+    from agents.coastal_policy import eligible as policy_eligible
     from agents.region import contains_points, load_region
     from agents.tracking import RunTracker
 except ImportError as e:
@@ -194,6 +195,16 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
         "metric_scope": "observed AIS subset proximity recall",
         "precision": None,
         "false_positive_rate": None,
+        "shoreline_coverage": (payload.get("landmask") or {}).get(
+            "shoreline_validation", {"status": "not_checked"}
+        ),
+        "by_coastal_regime": {
+            "status": "not_measured",
+            "reason": (
+                "No usable acquisition-aligned AIS subset "
+                "and verified physical shoreline yet"
+            ),
+        },
         "limitations": (
             "AIS is incomplete and self-reported; subset recall is neither a lower "
             "nor upper bound on overall recall. Precision and false-alarm rate "
@@ -279,8 +290,9 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
         list(truth.geometry),
         MATCH_RADIUS_M,
     )
-    surfaces = detections.get("surface", pd.Series("unknown", index=detections.index))
-    eligible = detections.loc[surfaces == "water"]
+    eligible = detections.loc[
+        [policy_eligible(row) for _, row in detections.iterrows()]
+    ]
     eligible_pairs, _, eligible_ambiguous = one_to_one_matches(
         [geometry.centroid for geometry in eligible.geometry],
         list(truth.geometry),
@@ -296,6 +308,64 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
     result["raw_ambiguous_targets"] = len(raw_ambiguous)
     result["eligible_ambiguous_targets"] = len(eligible_ambiguous)
     result["eligibility_scope"] = "known open-water detections; same AIS denominator"
+
+    # Physical shoreline and fixed policy strata are independent of whether a
+    # vessel happened to receive a detection. This avoids survivorship bias.
+    try:
+        from agents.landmask import LandMask, LandMaskUnavailable, resolve_cache_dir
+
+        landmask = payload.get("landmask") or {}
+        if landmask.get("status") != "ok":
+            raise LandMaskUnavailable(
+                "Physical shoreline unavailable for stratified evaluation"
+            )
+        buffer = float(landmask.get("coastal_buffer_m", 300.0))
+        if not np.isfinite(buffer) or buffer < 0:
+            raise ValueError("Invalid coastal buffer")
+        mask = LandMask.for_footprint(
+            swath_hull(vv_path).bounds,
+            source=landmask.get("source", "osm"),
+            cache_dir=resolve_cache_dir(
+                os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+            ),
+        )
+        physical, distances = mask.classify_physical(list(truth.lon), list(truth.lat))
+        regimes = [
+            (
+                "land_or_shoreline_mismatch"
+                if p == "land"
+                else "harbour_coastal" if d <= buffer else "open_water"
+            )
+            for p, d in zip(physical, distances)
+        ]
+        strata = {}
+        for regime in ("harbour_coastal", "open_water", "land_or_shoreline_mismatch"):
+            members = {i for i, value in enumerate(regimes) if value == regime}
+            strata[regime] = {
+                "observed_ais_vessels": len(members),
+                "matched_raw": len(members & found),
+                "matched_open_water_eligible": len(members & eligible_found),
+                "missed_raw": len(members - found),
+                "missed_open_water_eligible": len(members - eligible_found),
+                "recall_raw": len(members & found) / len(members) if members else None,
+                "recall_open_water_eligible": (
+                    len(members & eligible_found) / len(members) if members else None
+                ),
+                "false_alarms": None,
+            }
+        result["by_coastal_regime"] = {
+            "status": "observed_ais_subset_only",
+            "coastal_buffer_m": buffer,
+            "shoreline_coverage": mask.validation,
+            "strata": strata,
+            "limitation": (
+                "AIS subset only; proximity may cross the shoreline or buffer. "
+                "Harbour includes coastal waters, not an official port boundary. "
+                "No false-alarm measurement."
+            ),
+        }
+    except (LandMaskUnavailable, ValueError, OSError) as error:
+        result["by_coastal_regime"] = {"status": "not_measured", "reason": str(error)}
 
     result["scored"] = True
     result["matched"] = int(truth.found.sum())

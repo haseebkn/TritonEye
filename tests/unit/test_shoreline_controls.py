@@ -10,7 +10,6 @@ from shapely.geometry import box
 
 from agents.inference.inference_agent import classify_surfaces
 from agents.landmask import (
-    DEFAULT_SHORELINE_CONTROLS,
     LandMask,
     LandMaskUnavailable,
     local_aeqd_crs,
@@ -18,6 +17,7 @@ from agents.landmask import (
 from agents.scene_watch import water_eligible
 
 ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_SHORELINE_CONTROLS = str(ROOT / "configs/coastline/st_johns_checks.geojson")
 FIXTURE = ROOT / "tests/fixtures/st_johns_osm_land.geojson"
 BOUNDS = (-52.73, 47.54, -52.66, 47.59)
 WATER = (-52.68115769052795, 47.56640409090994)

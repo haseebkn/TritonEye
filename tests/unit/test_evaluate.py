@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import numpy as np
+import pytest
 import rasterio
 from pyproj import Transformer
 from rasterio.control import GroundControlPoint
@@ -275,3 +276,38 @@ def test_incomplete_and_mock_processing_are_unscored(tmp_path: Path) -> None:
     assert evaluate(payload)["scored"] is False
     payload["processing"] = {"complete": True, "detector": "mock"}
     assert evaluate(payload)["scored"] is False
+
+
+def test_coastal_and_open_water_have_independent_ais_denominators(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import geopandas as gpd
+    from shapely.geometry import box
+
+    from agents.coastal_policy import annotations
+    from agents.landmask import LandMask, local_aeqd_crs
+
+    payload = build_payload(
+        tmp_path,
+        [(-52.5, 47.5), (-52.6, 47.6)],
+        [(316000001, -52.5, 47.5), (316000002, -52.6, 47.6)],
+    )
+    path = Path(payload["detections_geojson"])
+    document = json.loads(path.read_text())
+    document["features"][0]["properties"].update(annotations("water", 100))
+    document["features"][1]["properties"].update(annotations("water", 1000))
+    path.write_text(json.dumps(document))
+    crs = local_aeqd_crs((-53, 47, -52, 48))
+    land = gpd.GeoSeries([box(-52.498, 47.49, -52.48, 47.51)], crs=4326).to_crs(crs)
+    mask = LandMask(land, crs, "synthetic", "test fixture")
+    mask.validation = {"status": "passed", "scope": "synthetic fixture"}
+    monkeypatch.setattr(LandMask, "for_footprint", lambda *args, **kwargs: mask)
+    payload["landmask"] = {"status": "ok", "coastal_buffer_m": 300, "source": "osm"}
+    evaluation = evaluate(payload)
+    strata = evaluation["by_coastal_regime"]["strata"]
+    assert strata["harbour_coastal"]["observed_ais_vessels"] == 1
+    assert strata["harbour_coastal"]["matched_raw"] == 1
+    assert strata["harbour_coastal"]["missed_open_water_eligible"] == 1
+    assert strata["open_water"]["matched_open_water_eligible"] == 1
+    assert all(r["false_alarms"] is None for r in strata.values())

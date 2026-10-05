@@ -8,6 +8,20 @@ tests was available. This is not a compliance certification or product endorseme
 
 ## Addressed issues
 
+- October 5 shoreline/policy separation: retained the eight St. John's controls,
+  added five Bonavista and five Lewisporte imagery controls, and checked their
+  coverage against actual valid SAR pixels in two cached scenes. CanVec remains
+  comparison-only. Coastal returns now have separate review artifacts/table;
+  versioned 0/100/300/500/1,000 m replay counts remain unmeasured for accuracy.
+  No province-wide validation or Labrador scene coverage is claimed. Details:
+  [COASTAL_POLICY.md](COASTAL_POLICY.md).
+
+  Local verification: 274 non-heavy tests passed on Windows Python 3.13;
+  network-isolated Linux Python 3.12 container: 272 passed, two local-data skips,
+  two heavy tests deselected. Ruff, Black, strict typing (59 files), Docker build
+  and watcher-shell syntax passed. Real cached-scene replay retained identical
+  source artifacts and correctly produced no accuracy measurement.
+
 - Removed silent synthetic ingestion and wrong-date fallback from production.
 - Enforced VV/VH, UTC/sentinel validation, official AIS Class A/B message parsing,
   and bounded recording with explicit connection/coverage provenance.

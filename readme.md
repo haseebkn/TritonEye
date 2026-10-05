@@ -13,7 +13,9 @@ C-CORE product. Vessel precision and false-alarm rate are not yet measured.**
   No generic detector fallback and no invented vessel-type labels.
 - UTC AIS validation, bounded motion alignment and geodesic one-to-one target
   assignment, retaining ambiguous matches and missing-coverage states.
-- Auditable land/coastal exclusions and provisional fixed-infrastructure
+- Separate physical land/water classification and coastal eligibility policy,
+  preserving coastal research returns independently of open-water candidates.
+- Auditable policy exclusions and provisional fixed-infrastructure
   proximity flags. Nominal mobile FPSO positions are not permanent masks.
 - Per-mission input/model hashes, processing parameters, stage logs, MLflow
   experiment/model provenance, unit tests, and Docker/CI configuration.
@@ -23,6 +25,9 @@ The pipeline is **ingest → inference → correlate → evaluate → report**. 
 stage stops the mission; failed model tiles never silently become a complete scan.
 A target without an AIS match is **not proof of a dark vessel or intent**.
 Automatic operational alerts are disabled pending regional validation.
+
+Regional shoreline controls, coastal/open-water replay counts and remaining
+label/coverage gaps: [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
 
 ## Offline synthetic demonstration
 

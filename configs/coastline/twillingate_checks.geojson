@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "name": "twillingate_western_approaches_checks_v1",
+  "reference": {
+    "source": "Esri World Imagery / Vantor Vivid",
+    "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "reviewed_on": "2026-10-05",
+    "source_date_at_image_centre": "2022-06-23",
+    "image_sha256": "293ca2220e90fa64a0604197409b6e6ccbd1c8a6aef5c5583201722c75447b43",
+    "image_extent_wgs84": [-54.782,49.6225,-54.75,49.6425],
+    "image_size": [1600,1000],
+    "local_provenance": "data/reference/regional/twillingate/provenance.json",
+    "method": "Visual inspection of downloaded image; pixel x/y converted using export extent, longitude first. Not surveyed points or vessel labels.",
+    "scope": "A rocky coastal section on Twillingate's western approaches; not the whole harbour or island",
+    "limitation": "Centre citation does not date every pixel. Sparse development checks do not establish current tidal waterline or accuracy between points. Basemap imagery not redistributed."
+  },
+  "features": [
+    {"type":"Feature","properties":{"id":"twillingate_bay_water","expected":"water","image_pixel_xy":[940,770]},"geometry":{"type":"Point","coordinates":[-54.7632,49.6271]}},
+    {"type":"Feature","properties":{"id":"twillingate_north_water","expected":"water","image_pixel_xy":[450,200]},"geometry":{"type":"Point","coordinates":[-54.773,49.6385]}},
+    {"type":"Feature","properties":{"id":"twillingate_rock_land","expected":"land","image_pixel_xy":[900,670]},"geometry":{"type":"Point","coordinates":[-54.764,49.6291]}},
+    {"type":"Feature","properties":{"id":"twillingate_forest_land","expected":"land","image_pixel_xy":[1200,550]},"geometry":{"type":"Point","coordinates":[-54.758,49.6315]}}
+  ]
+}

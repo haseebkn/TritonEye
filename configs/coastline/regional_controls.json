@@ -1,0 +1,10 @@
+{
+  "type": "ShorelineControlRegistry",
+  "version": 1,
+  "scope": "Sparse visual development checks, not province-wide validation",
+  "collections": [
+    {"location": "St. John's harbour", "path": "st_johns_checks.geojson"},
+    {"location": "Bonavista harbour", "path": "bonavista_checks.geojson"},
+    {"location": "Lewisporte harbour", "path": "lewisporte_checks.geojson"}
+  ]
+}

@@ -13,6 +13,14 @@ reports raw and water-eligible **AIS-subset proximity recall** when valid co-tem
 observations exist. This is neither a lower nor an upper bound on overall recall.
 One-to-one matches may still be accidental; labels are needed to assess correctness.
 
+Physical shoreline classification is now separate from coastal operating policy.
+Coastal returns are retained in dedicated research artifacts and HTML tables.
+Two real-scene replays compare 0/100/300/500/1,000 m buffers, but their false-alarm
+and missed-vessel metrics remain unavailable without independent labels. The
+18 registered imagery controls cover sparse St. John's/Bonavista/Lewisporte
+locations, **not the province or Labrador**. See
+[coverage, results and the validation-label contract](docs/COASTAL_POLICY.md).
+
 ## Verification evidence
 
 The September 2026 audit introduced behavioral regressions for NL scope, missing

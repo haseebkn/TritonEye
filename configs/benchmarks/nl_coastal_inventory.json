@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "status": "prebenchmark_development_inventory",
+  "description": "Cached real-scene replays, NOT a labelled validation benchmark. No operating point may be selected from counts alone.",
+  "buffers_m": [0,100,300,500,1000],
+  "controls_registry": "configs/coastline/regional_controls.json",
+  "scenes": [
+    {
+      "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+      "payload": "missions/execution_20260915T135104_987072Z/evaluate.json",
+      "split": "development",
+      "independent_labels": null,
+      "locations_to_check": ["Bonavista harbour"]
+    },
+    {
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "payload": "missions/execution_20261005T215016_210457Z/evaluate.json",
+      "split": "development",
+      "independent_labels": null,
+      "locations_to_check": ["Lewisporte harbour"]
+    }
+  ],
+  "context_only": [{"location": "St. John's harbour", "controls": 8, "reason": "Imagery shoreline checks; outside these two SAR scene footprints"}],
+  "not_covered": [
+    {"region": "Labrador", "reason": "No cached eligible real scene or imagery controls in this inventory"},
+    {"region": "Western and southern Newfoundland", "reason": "Not represented by these two cached scenes"},
+    {"region": "Other shoreline segments within the swaths", "reason": "Unverified between sparse control locations"}
+  ]
+}

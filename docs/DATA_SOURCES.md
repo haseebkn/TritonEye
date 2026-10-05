@@ -160,3 +160,21 @@ It records the Hibernia platform sampling site around 46°45′1.7″N,
 48°46′58.5″W. This is a sampling-area centre, not a current surveyed footprint;
 the report mixes historical coordinate datums elsewhere, so a datum must be
 established before treating these numbers as exact WGS 84 coordinates.
+
+## Additional sparse regional imagery checks (2026-10-05)
+
+Small Esri World Imagery exports and source-citation responses were saved locally
+for Bonavista, Lewisporte and a supplementary Twillingate coastal section.
+The centre citations identify Vantor/Vivid imagery dated 2025-08-01, 2025-06-04
+and 2022-06-23 respectively; dates are not asserted for every pixel. Pixel
+hashes, export extents and requests accompany each local source under
+`data/reference/regional/`. No basemap pixels are redistributed as open data.
+Only attributed OSM vector clips are committed as offline test fixtures.
+
+Bonavista and Lewisporte each have five physical shoreline controls on actual
+valid pixels in the two selected real-scene replays. Twillingate is not imaged
+by either selected scene and is not part of their benchmark coverage. Labrador
+has no controls/scenes in this inventory. CanVec remains comparison-only; sparse
+control agreement is not a province-wide accuracy ranking. See
+[COASTAL_POLICY.md](COASTAL_POLICY.md) for the rejected quay-edge candidate,
+coverage inventory, reference limitations and still-unmeasured buffer trials.
