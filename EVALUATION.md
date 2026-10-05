@@ -13,6 +13,13 @@ reports raw and water-eligible **AIS-subset proximity recall** when valid co-tem
 observations exist. This is neither a lower nor an upper bound on overall recall.
 One-to-one matches may still be accidental; labels are needed to assess correctness.
 
+A versioned historical [NL SAR annotation pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md)
+now separates acquisition/geographic splits and retains complete selected review
+areas, source hashes, licence provenance and decisions. It is **provisional,
+machine-assisted and not independently reviewed**. It does not change the unknown
+precision/false-alarm/recall claims above, and its locked test is not exported for
+buffer tuning. Historical annotation does not depend on live AIS availability.
+
 Physical shoreline classification is now separate from coastal operating policy.
 Coastal returns are retained in dedicated research artifacts and HTML tables.
 Two real-scene replays compare 0/100/300/500/1,000 m buffers, but their false-alarm

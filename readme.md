@@ -29,6 +29,10 @@ Automatic operational alerts are disabled pending regional validation.
 Regional shoreline controls, coastal/open-water replay counts and remaining
 label/coverage gaps: [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
 
+Historical SAR annotation now has a [versioned NL review pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md),
+with complete selected windows, acquisition/geographic split locks and hashed
+provenance. Independent review is unavailable; this is not measured vessel truth.
+
 ## Offline synthetic demonstration
 
 For a no-install preview, download and open

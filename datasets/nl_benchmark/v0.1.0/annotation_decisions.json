@@ -1,0 +1,55 @@
+{
+  "dataset_version": "0.1.0",
+  "annotator": "codex_primary_machine_assisted",
+  "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+  "independent_review": "unavailable_confirmed_by_owner_2026-10-05",
+  "areas": [
+    {"roi_id": "ferryland_coast", "notes": "All four cells inspected in HH/HV at native resolution. Banded water-like returns and broad land-like texture; compact/elongated near-shore returns cannot be separated confidently from rock, fixed structure or vessel. Offshore-looking streaks may be imaging artefacts. Not expert exhaustive vessel truth.", "objects": [
+      {"class": "unresolved", "kind": "object", "bbox_px": [80,75,115,115], "decision": "Compact bright coastal cluster with azimuth-like streak; rock/land return, vessel and artefact alternatives remain."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [65,165,100,218], "decision": "Elongated bright return by a land-like feature; extent may include sidelobes, not a hull measurement."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [190,350,248,388], "decision": "Bright island-like cluster appears in both bands; no independently referenced fixed object identity."}
+    ]},
+    {"roi_id": "southern_avalon_offshore", "notes": "All four cells inspected in HH/HV at native resolution. Diffuse, banded co-pol texture, subdued cross-pol; no confidently identified compact vessel, structure or ice target. This is not proof of absence.", "objects": [
+      {"class": "clutter", "kind": "area", "bbox_px": [0,0,512,512], "decision": "Contextual diffuse/banded return area; may mix sea texture and processing effects. Not an exhaustive negative target label."}
+    ]},
+    {"roi_id": "st_johns_harbour", "notes": "All four cells inspected in VV/VH at native resolution. Open dark harbour basin and approach are visible; bright quayside clusters are retained as unresolved rather than excluded as land or declared vessels. Many distributed urban returns are context, not individually verified non-vessels.", "objects": [
+      {"class": "unresolved", "kind": "object", "bbox_px": [174,175,202,204], "decision": "Bright cluster on west/north harbour margin; vessel, quay and urban structure cannot be separated."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [207,175,243,203], "decision": "Adjacent bright harbour-margin cluster, partly merged with surrounding returns; count of individual objects unknown."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [274,283,301,305], "decision": "Bright southern harbour-edge return; potential berthed object or fixed structure, no co-temporal identity evidence."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [302,282,329,310], "decision": "Neighbouring harbour-edge cluster; merged structure/vessel alternatives remain unresolved."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [329,301,350,324], "decision": "Compact bright return at basin margin; not enough evidence to label a vessel or fixed structure."}
+    ]},
+    {"roi_id": "eastern_avalon_offshore", "notes": "All four cells inspected in VV/VH at native resolution. Diffuse streaked co-pol surface, dark cross-pol. No confidently identifiable compact target at the inspected display; expert review may find missed small targets.", "objects": [
+      {"class": "clutter", "kind": "area", "bbox_px": [0,0,512,512], "decision": "Diffuse streaked background context, not independently established vessel-free water."}
+    ]},
+    {"roi_id": "bonavista_coast", "notes": "All four cells inspected in VV/VH at native resolution. Land-like texture and harbour/coastal returns are visible. Bright connected features at shore may be rocks/wharf/vessels; no individual target identity established.", "objects": [
+      {"class": "unresolved", "kind": "object", "bbox_px": [230,226,256,254], "decision": "Bright connected shoreline cluster by a dark inlet; fixed structure, rock and vessel alternatives unresolved."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [148,279,181,304], "decision": "Elongated coastal return near an inlet/land-like projection; do not infer a vessel from brightness."}
+    ]},
+    {"roi_id": "bonavista_offshore", "notes": "All four cells inspected in VV/VH at native resolution. Low-contrast diffuse background; no confidently identified compact vessel or ice target. No vessel-free declaration.", "objects": []},
+    {"roi_id": "lewisporte_coast", "notes": "All four cells inspected in VV/VH at native resolution. Dark channel/water-like areas and distributed settlement returns; compact shoreline returns retained for review. No detector/AIS seeds used.", "objects": [
+      {"class": "unresolved", "kind": "object", "bbox_px": [178,92,195,113], "decision": "Compact bright shoreline return; may be land/structure or berthed target, not independently identified."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [107,246,142,265], "decision": "Bright connected coastal cluster in both bands; fixed structure versus other target not adjudicated."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [199,277,235,302], "decision": "Linear shoreline feature with bright tip; structure/land versus vessel alternatives unresolved."}
+    ]},
+    {"roi_id": "bay_of_exploits_water", "notes": "All four cells inspected in VV/VH at native resolution. Broad water-like channel with several island/rock-like isolated returns visible in both bands. Their shape suggests non-vessel land features but no independent reference is used to force that interpretation.", "objects": [
+      {"class": "unresolved", "kind": "object", "bbox_px": [244,294,261,317], "decision": "Isolated shoreline-adjacent bright return; rock/island, structure and vessel alternatives remain."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [407,357,429,391], "decision": "Elongated isolated return in both bands, likely island/rock-like but not independently adjudicated."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [407,404,429,436], "decision": "Another isolated return south of previous; no verified stationary identity."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [311,418,327,438], "decision": "Small compact isolated return in both bands; retain rather than label vessel from brightness."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [386,442,409,481], "decision": "Connected isolated bright return/cluster; object count and physical identity unresolved."}
+    ]},
+    {"roi_id": "makkovik_coast", "notes": "All four cells inspected in HH/HV at native resolution. Land-like texture, inlet-like dark regions and localized bright shore returns. Retained as research context; unsupported HH/HV is not passed to the VV/VH detector.", "objects": [
+      {"class": "unresolved", "kind": "object", "bbox_px": [417,108,443,144], "decision": "Compact bright shoreline cluster; quay/rock/berthed vessel alternatives cannot be independently distinguished."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [386,190,408,221], "decision": "Bright inlet-edge return partly connected to surrounding land-like texture; unresolved physical identity."}
+    ]},
+    {"roi_id": "makkovik_offshore", "notes": "All four cells inspected in HH/HV at native resolution. Diffuse co-pol texture and very dark cross-pol; no confidently identified compact targets. No proof of absence and no ice-free assertion.", "objects": []},
+    {"roi_id": "hopedale_coast", "notes": "Locked test annotation/QA only: all four cells inspected in VV/VH at native resolution, no detector inference or tuning. Winter coastal texture has subdued boundaries; possible ice-covered water cannot be distinguished reliably from other surfaces in this first pass. Do not label ice solely from season.", "objects": [
+      {"class": "unresolved", "kind": "area", "bbox_px": [0,0,512,512], "decision": "Coastal winter context with possible frozen-water/land/rough-surface mixture; ice identity and individual targets not established. Area is not a target-count label."},
+      {"class": "unresolved", "kind": "object", "bbox_px": [327,316,356,346], "decision": "Localized brighter cluster amid winter coastal texture; fixed structure, land/rock, ice and vessel alternatives remain unadjudicated."}
+    ]},
+    {"roi_id": "hopedale_offshore", "notes": "Locked test annotation/QA only: all four cells inspected in VV/VH at native resolution. Co-pol shows strong banding with low cross-pol; no confidently identified compact target. No empty-water or ice-free ground-truth claim.", "objects": [
+      {"class": "clutter", "kind": "area", "bbox_px": [0,0,512,512], "decision": "Strong diffuse banding context, potentially surface texture or imaging effects; neither a verified sea-state diagnosis nor exhaustive vessel-free truth."}
+    ]}
+  ]
+}

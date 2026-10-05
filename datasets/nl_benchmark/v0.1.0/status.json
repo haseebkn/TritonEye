@@ -1,0 +1,142 @@
+{
+  "dataset_version": "0.1.0",
+  "acquisitions": 6,
+  "areas": 12,
+  "pixels": 3145728,
+  "class_counts": {
+    "clutter": 3,
+    "fixed_structure": 0,
+    "ice": 0,
+    "unresolved": 22,
+    "vessel": 0
+  },
+  "review_status": [
+    {
+      "roi_id": "ferryland_coast",
+      "split": "train",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 3,
+      "objects": 3,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "southern_avalon_offshore",
+      "split": "train",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 0,
+      "objects": 1,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "st_johns_harbour",
+      "split": "train",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 5,
+      "objects": 5,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "eastern_avalon_offshore",
+      "split": "train",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 0,
+      "objects": 1,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "bonavista_coast",
+      "split": "validation",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 2,
+      "objects": 2,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "bonavista_offshore",
+      "split": "validation",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 0,
+      "objects": 0,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "lewisporte_coast",
+      "split": "validation",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 3,
+      "objects": 3,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "bay_of_exploits_water",
+      "split": "validation",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 5,
+      "objects": 5,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "makkovik_coast",
+      "split": "validation",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 2,
+      "objects": 2,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "makkovik_offshore",
+      "split": "validation",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 0,
+      "objects": 0,
+      "metric_ready": false,
+      "test_locked": false
+    },
+    {
+      "roi_id": "hopedale_coast",
+      "split": "test",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 2,
+      "objects": 2,
+      "metric_ready": false,
+      "test_locked": true
+    },
+    {
+      "roi_id": "hopedale_offshore",
+      "split": "test",
+      "first_pass_complete": true,
+      "independently_reviewed": false,
+      "unresolved": 0,
+      "objects": 1,
+      "metric_ready": false,
+      "test_locked": true
+    }
+  ],
+  "independent_review_available": false,
+  "accuracy_measured": false,
+  "limits": [
+    "Purposive pilot, not province-wide or statistically representative validation.",
+    "First-pass machine-assisted labels are not independently reviewed ground truth.",
+    "AIS silence is neither evidence of non-vessel nor deliberate dark activity."
+  ]
+}
