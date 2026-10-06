@@ -172,8 +172,17 @@ def validate_bundle(
             for k in ("name", "split", "acquisition_time", "polarizations")
         ):
             raise ValueError("Product metadata differs from the released scene")
-        if case["polarizations"] not in (["vv", "vh"], ["hh", "hv"]):
-            raise ValueError("Preserve a supported polarization branch")
+        native_polarizations = {
+            "1SDV": ["vv", "vh"],
+            "1SDH": ["hh", "hv"],
+        }.get(case["name"].split("_")[3])
+        if (
+            native_polarizations is None
+            or case["polarizations"] != native_polarizations
+        ):
+            raise ValueError(
+                "Native polarization must match a supported dual-pol branch"
+            )
         for key in ("geographic_group", "region", "regime"):
             if not isinstance(case.get(key), str) or not case[key]:
                 raise ValueError("Geographic strata required")

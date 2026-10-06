@@ -332,6 +332,46 @@ def test_canonical_product_identity_still_requires_released_metadata(
         validate_bundle(dataset, artifact_root=tmp_path)
 
 
+@pytest.mark.parametrize(
+    "native_code,declared",
+    [
+        ("1SDV", ["hh", "hv"]),
+        ("1SDH", ["vv", "vh"]),
+        ("1SSV", ["vv", "vh"]),
+        ("1SSH", ["hh", "hv"]),
+    ],
+)
+def test_catalogue_alias_rejects_false_polarization(
+    tmp_path: Path, native_code: str, declared: list[str]
+) -> None:
+    dataset = bundle(tmp_path)
+    case = dataset["cases"][0]
+    case["product_id"] = "42286d3d-0000-4000-8000-000000000001"
+    case["name"] = case["name"].replace("_1SDV_", f"_{native_code}_")
+    case["polarizations"] = declared
+    case["review"]["case_sha256"] = case_digest(case)
+    with pytest.raises(ValueError, match="Native polarization"):
+        compare_bundle(dataset, artifact_root=tmp_path)
+
+
+@pytest.mark.parametrize(
+    "native_code,declared", [("1SDV", ["vv", "vh"]), ("1SDH", ["hh", "hv"])]
+)
+def test_catalogue_alias_preserves_native_polarization_stratum(
+    tmp_path: Path, native_code: str, declared: list[str]
+) -> None:
+    dataset = bundle(tmp_path)
+    case = dataset["cases"][0]
+    case["product_id"] = "42286d3d-0000-4000-8000-000000000001"
+    case["name"] = case["name"].replace("_1SDV_", f"_{native_code}_")
+    case["polarizations"] = declared
+    case["review"]["case_sha256"] = case_digest(case)
+    result = compare_bundle(dataset, artifact_root=tmp_path)
+    assert result["polarization_case_ids"]["/".join(declared).upper()] == [case["id"]]
+    assert result["reviewed_validation_cases"] == 0
+    assert result["validation_cases"][0]["geometric"] is None
+
+
 def test_wrong_identity_misses_and_ambiguity_are_not_successes(tmp_path: Path) -> None:
     case = bundle(tmp_path, reviewed=True)["cases"][0]
     wrong = identity_metrics(case, {0: "316000002"}, set())

@@ -16,7 +16,7 @@ Context clutter areas are not discrete object identities or negative pairs.
 No new independent review is claimed. The complete-area inventory remains
 unverified, including areas with no marked objects.
 
-The [shared-pool replay](evidence/association_shared_pool_20261006.json)
+The [validated replay](evidence/association_validated_20261006.json)
 contains six validation areas: four Newfoundland VV/VH areas and two Labrador
 HH/HV areas. It has zero reviewed validation cases. The September 27 snapshot
 contains 86 reports; bounded alignment retains 26 NL identities, **not 26 vessels
@@ -32,8 +32,10 @@ hash, dataset content digest and matching-code hashes. Existing raw imagery,
 AIS snapshots, released annotations and historical baseline evidence remain
 unchanged. The bundle contains SAR and AIS source paths and SHA256 hashes.
 The [earlier replay](evidence/association_comparison_20261006.json) remains
-historical evidence from before the shared-pool correction. Its recorded code
-hashes refer to that earlier implementation, not the corrected comparison.
+historical evidence from before the shared-pool correction. The
+[shared-pool replay](evidence/association_shared_pool_20261006.json) predates the
+catalogue-alias split and native-polarization safeguards. Their recorded code
+hashes refer to those earlier implementations, not the validated comparison.
 
 ## Algorithms and uncertainty assumptions
 
@@ -128,6 +130,10 @@ test acquisitions and geographic buffers remain locked. Validation is held out
 from fitting; it is not the locked final test. Freeze any future reviewed release
 before tuning, retain all revisions and decisions, and do not rewrite detection
 release v0.1.0.
+
+Every case must declare the polarization encoded by its native product name:
+`1SDV` is VV/VH and `1SDH` is HH/HV. Other polarization codes and contradictory
+declarations are rejected, including cases with unregistered catalogue UUIDs.
 
 ## Metrics and promotion conditions
 
