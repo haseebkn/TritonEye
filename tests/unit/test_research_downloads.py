@@ -1,30 +1,35 @@
 """Bounded public asset downloads preserve existing files and validate bytes."""
 
 import hashlib
+from collections.abc import Iterator
 from pathlib import Path
+from typing import Any
 
 import pytest
+import requests
 
 import scripts.download_model_research_assets as assets
 
 
 class Response:
-    def __enter__(self):
+    def __enter__(self) -> "Response":
         return self
 
-    def __exit__(self, *args):
+    def __exit__(self, *args: Any) -> None:
         pass
 
-    def raise_for_status(self):
+    def raise_for_status(self) -> None:
         pass
 
-    def iter_content(self, size):
+    def iter_content(self, size: int) -> Iterator[bytes]:
         yield b"download fixture"
 
 
-def test_download_publishes_verified_file_and_reuses_it(tmp_path: Path, monkeypatch):
+def test_download_publishes_verified_file_and_reuses_it(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.setattr(assets, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(assets.requests, "get", lambda *args, **kwargs: Response())
+    monkeypatch.setattr(requests, "get", lambda *args, **kwargs: Response())
     target = tmp_path / "model.pt"
     checksum = hashlib.sha256(b"download fixture").hexdigest()
     report = assets.download(
@@ -40,10 +45,13 @@ def test_download_publishes_verified_file_and_reuses_it(tmp_path: Path, monkeypa
 
 @pytest.mark.parametrize("budget,checksum", [(1, None), (100, "wrong")])
 def test_failed_download_does_not_publish_partial_file(
-    tmp_path: Path, monkeypatch, budget, checksum
-):
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    budget: int,
+    checksum: str | None,
+) -> None:
     monkeypatch.setattr(assets, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(assets.requests, "get", lambda *args, **kwargs: Response())
+    monkeypatch.setattr(requests, "get", lambda *args, **kwargs: Response())
     target = tmp_path / "model.pt"
     with pytest.raises(ValueError):
         assets.download(
@@ -53,7 +61,9 @@ def test_failed_download_does_not_publish_partial_file(
     assert not list(tmp_path.glob("*.download"))
 
 
-def test_existing_unverified_file_is_never_replaced(tmp_path: Path, monkeypatch):
+def test_existing_unverified_file_is_never_replaced(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.setattr(assets, "REPO_ROOT", tmp_path)
     target = tmp_path / "model.pt"
     target.write_bytes(b"previous research evidence")
@@ -62,7 +72,9 @@ def test_existing_unverified_file_is_never_replaced(tmp_path: Path, monkeypatch)
     assert target.read_bytes() == b"previous research evidence"
 
 
-def test_download_refuses_outside_project(tmp_path: Path, monkeypatch):
+def test_download_refuses_outside_project(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     root = tmp_path / "project"
     root.mkdir()
     monkeypatch.setattr(assets, "REPO_ROOT", root)

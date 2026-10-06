@@ -2,9 +2,12 @@
 
 import copy
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pytest
+import rasterio
+from rasterio.transform import from_origin
 
 from agents.croma_features import (
     build_encoder,
@@ -45,7 +48,7 @@ def test_normalization_preserves_band_order_and_uses_local_statistics() -> None:
     "value",
     [np.ones((2, 128, 128)), np.full((2, 128, 128), np.nan), np.ones((3, 128, 128))],
 )
-def test_bad_windows_fail_closed(value: np.ndarray) -> None:
+def test_bad_windows_fail_closed(value: np.ndarray[Any, Any]) -> None:
     with pytest.raises(ValueError):
         normalize_window(value)
 
@@ -111,7 +114,7 @@ def test_label_geographic_audit_does_not_adopt_data(tmp_path: Path) -> None:
 
 
 def test_locked_and_hh_chips_are_not_opened_or_encoded(
-    tmp_path: Path, monkeypatch
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     import agents.model_research as research
 
@@ -125,15 +128,88 @@ def test_locked_and_hh_chips_are_not_opened_or_encoded(
         research, "load_dataset", lambda _: (manifest, annotation, status)
     )
 
-    def forbidden(*args, **kwargs):
+    def forbidden(*args: Any, **kwargs: Any) -> Any:
         raise AssertionError("No unsupported or locked imagery may be read/encoded")
 
-    monkeypatch.setattr(research.rasterio, "open", forbidden)
+    monkeypatch.setattr(rasterio, "open", forbidden)
     monkeypatch.setattr(research, "load_encoder", forbidden)
     output = tmp_path / "never_created"
     with pytest.raises(ValueError, match="No eligible"):
         extract_features(tmp_path, tmp_path, tmp_path / "unused", output, "cpu")
     assert not output.exists()
+
+
+def test_extract_features_runs_real_pipeline_on_eligible_roi(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Exercise the actual success path: windowing, encoding, freeze and output."""
+    import agents.model_research as research
+
+    manifest, annotation, status = copy.deepcopy(load_dataset())
+    scene = next(
+        s
+        for s in manifest["scenes"]
+        if s["polarizations"] == ["vv", "vh"] and s["split"] != "test"
+    )
+    roi = copy.deepcopy(scene["rois"][0])
+    roi["size"] = 128
+    roi["chip"]["path"] = "chip.tif"
+    chip_path = tmp_path / "chip.tif"
+    values = np.random.default_rng(3).normal(size=(2, 128, 128)).astype("float32")
+    with rasterio.open(
+        chip_path,
+        "w",
+        driver="GTiff",
+        width=128,
+        height=128,
+        count=2,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(-55.2, 49.3, 0.0001, 0.0001),
+    ) as out:
+        out.write(values)
+        out.set_band_description(1, "sigma0_db_vv")
+        out.set_band_description(2, "sigma0_db_vh")
+    from agents.artifacts import sha256_file
+
+    roi["chip"]["sha256"] = sha256_file(chip_path)
+    scene["rois"] = [roi]
+    manifest["scenes"] = [scene]
+
+    monkeypatch.setattr(
+        research, "load_dataset", lambda _: (manifest, annotation, status)
+    )
+    monkeypatch.setattr(
+        research,
+        "load_encoder",
+        lambda path, device: build_encoder(dim=32, depth=1)
+        .eval()
+        .requires_grad_(False),
+    )
+
+    from agents.nl_benchmark import DEFAULT_DATASET
+
+    output = tmp_path / "experiment"
+    report = extract_features(
+        DEFAULT_DATASET, tmp_path, tmp_path / "unused.pt", output, "cpu"
+    )
+
+    assert report["status"] == "features_extracted_not_a_detector_comparison"
+    assert report["vessel_metrics"] is None
+    assert report["improvement"] is None
+    [case] = report["cases"]
+    assert case["status"] == "frozen_features_only"
+    assert case["windows"] == 1
+    assert case["repeat_max_absolute_error"] < 1e-5
+    assert report["parameter_digest_before"] == report["parameter_digest_after"]
+
+    artifact = output / f"{roi['id']}.npz"
+    assert artifact.exists()
+    saved = np.load(artifact)
+    assert saved["tokens"].shape[0] == 1
+    assert np.isfinite(saved["tokens"]).all()
+    assert np.isfinite(saved["pooled"]).all()
+    assert (output / "experiment.json").exists()
 
 
 def test_checkpoint_checksum_rejects_wrong_weights(tmp_path: Path) -> None:
@@ -166,7 +242,7 @@ def test_radar_architecture_executes_and_freeze_is_observable() -> None:
 
 
 def test_cli_persists_execution_failure_without_claiming_metrics(
-    tmp_path: Path, monkeypatch
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     import sys
 
@@ -178,7 +254,7 @@ def test_cli_persists_execution_failure_without_claiming_metrics(
         target.parent.mkdir(exist_ok=True)
         target.write_bytes(b"fixture byte identity for failure provenance")
 
-    def fail(*args, **kwargs):
+    def fail(*args: Any, **kwargs: Any) -> Any:
         raise RuntimeError("fixture execution failure")
 
     monkeypatch.setattr(research, "extract_features", fail)
