@@ -2,13 +2,18 @@
 
 import csv
 import json
+import sys
+from contextlib import nullcontext
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from unittest.mock import Mock
 
+import dotenv
 import pytest
 
 from agents import scene_watch, watch
+from agents.artifacts import REPO_ROOT
 from agents.run_versions import processing_versions
 
 FIRST = "42286d3d-0000-4000-8000-000000000001"
@@ -471,7 +476,27 @@ def test_aoi_outside_the_study_area_is_rejected_before_discovery(
     assert exit_info.value.code == 1
 
 
-def test_default_watch_aoi_is_the_study_polygon() -> None:
-    import inspect
+def test_default_watch_aoi_is_the_study_polygon(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    products = [product(FIRST)]
+    discovery = Mock(return_value=products)
+    processing = Mock(return_value={"outcome": "processed"})
+    monkeypatch.setattr(sys, "argv", ["watch"])
+    monkeypatch.setattr(dotenv, "load_dotenv", lambda: None)
+    monkeypatch.setattr(watch, "watch_lock", lambda _: nullcontext())
+    monkeypatch.setattr(watch, "processing_versions", lambda *_: {})
+    monkeypatch.setattr(watch, "search_acquisitions", discovery)
+    monkeypatch.setattr(watch, "run_check", processing)
 
-    assert 'default="newfoundland_labrador"' in inspect.getsource(watch.main)
+    with pytest.raises(SystemExit) as exit_info:
+        watch.main()
+
+    assert exit_info.value.code == 0
+    discovery.assert_called_once_with(
+        str(REPO_ROOT / "configs/aois/newfoundland_labrador.geojson"), days=12
+    )
+    processing.assert_called_once()
+    assert processing.call_args.args == (products,)
+    assert processing.call_args.kwargs["aoi"] == "newfoundland_labrador"
+    assert processing.call_args.kwargs["check_only"] is False

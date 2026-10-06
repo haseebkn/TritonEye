@@ -9,7 +9,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import pytest
-from shapely.geometry import Point, box
+from shapely.geometry import Point, box, mapping
 
 from agents.artifacts import sha256_file
 from agents.association import GEOD, aligned_ais
@@ -282,6 +282,50 @@ def test_invalid_review_and_provenance_are_rejected(
     else:
         case["labels"][0]["mmsis"] = ["316999999"]
     with pytest.raises(ValueError):
+        validate_bundle(dataset, artifact_root=tmp_path)
+
+
+@pytest.mark.parametrize("identity", ["uppercase", "compact", "alternate_catalogue"])
+@pytest.mark.parametrize("split", ["train", "validation"])
+def test_released_acquisition_aliases_preserve_split(
+    tmp_path: Path, identity: str, split: str
+) -> None:
+    dataset = bundle(tmp_path)
+    case = dataset["cases"][0]
+    if identity == "uppercase":
+        case["product_id"] = case["product_id"].upper()
+    elif identity == "compact":
+        case["product_id"] = case["product_id"].replace("-", "")
+    else:
+        case["product_id"] = "42286d3d-0000-4000-8000-000000000001"
+        case["name"] = case["name"].replace("97C4.SAFE", "1234_COG.SAFE")
+    case["split"] = split
+    case["geographic_group"] = "synthetic_offshore_area"
+    case["study_roi"] = mapping(box(-48.01, 45.99, -47.99, 46.01))
+    case["targets"][0].update(lon=-48, lat=46)
+    case["review"]["case_sha256"] = case_digest(case)
+    if split == "train":
+        with pytest.raises(ValueError, match="split differs from the released"):
+            validate_bundle(dataset, artifact_root=tmp_path)
+    else:
+        assert validate_bundle(dataset, artifact_root=tmp_path) == [case]
+
+
+@pytest.mark.parametrize("identity", ["uppercase", "compact"])
+def test_canonical_product_identity_still_requires_released_metadata(
+    tmp_path: Path, identity: str
+) -> None:
+    dataset = bundle(tmp_path)
+    case = dataset["cases"][0]
+    case["product_id"] = (
+        case["product_id"].upper()
+        if identity == "uppercase"
+        else case["product_id"].replace("-", "")
+    )
+    case["name"] = case["name"].replace("004171", "004172")
+    case["acquisition_group"] = "S1D_004172_007A29"
+    case["review"]["case_sha256"] = case_digest(case)
+    with pytest.raises(ValueError, match="metadata differs from the released"):
         validate_bundle(dataset, artifact_root=tmp_path)
 
 

@@ -144,16 +144,29 @@ def validate_bundle(
         ids.add(case["id"])
         if case["split"] not in {"train", "validation"}:
             raise ValueError("Locked test cannot be exported or compared")
-        product_id(case["product_id"])
+        selected_product = product_id(case["product_id"])
         group = native_acquisition_group(case["name"])
         if not group or group != case["acquisition_group"]:
             raise ValueError("Native acquisition identity mismatch")
         if parse_utc(case["acquisition_time"]) is None:
             raise ValueError("Explicit UTC acquisition time required")
         known = next(
-            (s for s in manifest["scenes"] if s["product_id"] == case["product_id"]),
+            (
+                s
+                for s in manifest["scenes"]
+                if product_id(s["product_id"]) == selected_product
+            ),
             None,
         )
+        if any(
+            scene["split"] != case["split"]
+            and (
+                product_id(scene["product_id"]) == selected_product
+                or native_acquisition_group(scene["name"]) == group
+            )
+            for scene in manifest["scenes"]
+        ):
+            raise ValueError("Association split differs from the released acquisition")
         if known and any(
             case[k] != known[k]
             for k in ("name", "split", "acquisition_time", "polarizations")
