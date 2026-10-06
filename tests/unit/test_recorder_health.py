@@ -65,6 +65,122 @@ def test_fresh_receipt_of_old_observation_remains_stale(tmp_path: Path) -> None:
     assert recorder_health(tmp_path, now=NOW)["status"] == "observations_stale"
 
 
+@pytest.mark.parametrize(
+    ("observation_ages", "expected"),
+    [
+        ((0, 3600), "fresh"),
+        ((3600, 7200), "observations_stale"),
+        ((3600, 0), "fresh"),
+        ((0, -0.5), "fresh"),
+    ],
+)
+def test_live_recorder_tracks_newest_observation_independently_of_receipt(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    observation_ages: tuple[float, float],
+    expected: str,
+) -> None:
+    import asyncio
+    import csv
+    import json
+
+    import websockets
+
+    from agents import ais_recorder
+    from agents.ais_validation import parse_utc, utc_string
+
+    instant = datetime.now(timezone.utc).replace(microsecond=0)
+    observations = [instant - timedelta(seconds=age) for age in observation_ages]
+
+    async def run() -> None:
+        send_second = asyncio.Event()
+
+        async def feed(ws: Any) -> None:
+            await ws.recv()
+            for index, observation in enumerate(observations):
+                if index:
+                    await send_second.wait()
+                await ws.send(
+                    json.dumps(
+                        {
+                            "MessageType": "PositionReport",
+                            "MetaData": {"time_utc": utc_string(observation)},
+                            "Message": {
+                                "PositionReport": {
+                                    "UserID": 316000123,
+                                    "Latitude": 47.5,
+                                    "Longitude": -52.7,
+                                }
+                            },
+                        }
+                    )
+                )
+            await ws.wait_closed()
+
+        async def wait_for_status(count: int) -> dict[str, Any]:
+            async with asyncio.timeout(3):
+                while True:
+                    path = tmp_path / "recorder_status.json"
+                    if path.exists():
+                        status: dict[str, Any] = json.loads(path.read_text())
+                        if status["observations"] == count:
+                            return status
+                    await asyncio.sleep(0.01)
+
+        async with websockets.serve(feed, "127.0.0.1", 0) as server:
+            port = list(server.sockets)[0].getsockname()[1]
+            monkeypatch.setattr(ais_recorder, "STREAM_URL", f"ws://127.0.0.1:{port}")
+            monkeypatch.setattr(ais_recorder, "HEARTBEAT_INTERVAL_S", 0.02)
+            task = asyncio.create_task(
+                ais_recorder.record("test-key", [-53, 47, -52, 48], str(tmp_path))
+            )
+            try:
+                first_status = await wait_for_status(1)
+                send_second.set()
+                status = await wait_for_status(2)
+                newest = utc_string(max(observations))
+                assert status["connected"] is True
+                assert status["last_observed_at"] == newest
+                first_receipt = parse_utc(first_status["last_received_at"])
+                last_receipt = parse_utc(status["last_received_at"])
+                assert first_receipt is not None and last_receipt is not None
+                assert last_receipt > first_receipt
+                health = recorder_health(tmp_path)
+                assert health["status"] == expected
+                assert health["healthy"] is (expected == "fresh")
+                assert health["heartbeat_age_s"] < 1
+                assert health["receipt_age_s"] < 1
+                rows = []
+                for path in tmp_path.glob("ais_stream_*.csv"):
+                    with path.open(newline="", encoding="utf-8") as source:
+                        rows.extend(csv.DictReader(source))
+                assert len(rows) == 2
+                by_timestamp = {row["timestamp"]: row for row in rows}
+                assert set(by_timestamp) == {utc_string(t) for t in observations}
+                assert by_timestamp[utc_string(observations[0])]["received_at"] == (
+                    first_status["last_received_at"]
+                )
+                assert by_timestamp[utc_string(observations[1])]["received_at"] == (
+                    status["last_received_at"]
+                )
+                events = [
+                    json.loads(line)
+                    for line in next(tmp_path.glob("coverage_*.jsonl"))
+                    .read_text()
+                    .splitlines()
+                ]
+                heartbeat = [e for e in events if e["event"] == "heartbeat"][-1]
+                assert heartbeat["last_observed_at"] == newest
+                assert heartbeat["last_received_at"] == status["last_received_at"]
+            finally:
+                send_second.set()
+                task.cancel()
+                with pytest.raises(asyncio.CancelledError):
+                    await task
+
+    asyncio.run(run())
+
+
 @pytest.mark.parametrize("content", [None, "bad-json", "[]"])
 def test_missing_or_malformed_heartbeat_is_unknown(
     tmp_path: Path, content: str | None

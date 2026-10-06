@@ -429,7 +429,13 @@ async def record(
                                     gaps.append(gap)
                                     event("observation_gap", **gap)
                             last_received_at = row["received_at"]
-                            last_observed_at = row["timestamp"]
+                            prior_observation = parse_utc(last_observed_at)
+                            current_observation = parse_utc(row["timestamp"])
+                            if current_observation is not None and (
+                                prior_observation is None
+                                or current_observation > prior_observation
+                            ):
+                                last_observed_at = row["timestamp"]
                             if row_count % 500 == 0:
                                 print(
                                     f"{row_count} position reports recorded",
