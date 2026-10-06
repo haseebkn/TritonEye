@@ -16,7 +16,7 @@ Context clutter areas are not discrete object identities or negative pairs.
 No new independent review is claimed. The complete-area inventory remains
 unverified, including areas with no marked objects.
 
-The [real comparison replay](evidence/association_comparison_20261006.json)
+The [shared-pool replay](evidence/association_shared_pool_20261006.json)
 contains six validation areas: four Newfoundland VV/VH areas and two Labrador
 HH/HV areas. It has zero reviewed validation cases. The September 27 snapshot
 contains 86 reports; bounded alignment retains 26 NL identities, **not 26 vessels
@@ -31,6 +31,9 @@ The review bundle is saved locally at
 hash, dataset content digest and matching-code hashes. Existing raw imagery,
 AIS snapshots, released annotations and historical baseline evidence remain
 unchanged. The bundle contains SAR and AIS source paths and SHA256 hashes.
+The [earlier replay](evidence/association_comparison_20261006.json) remains
+historical evidence from before the shared-pool correction. Its recorded code
+hashes refer to that earlier implementation, not the corrected comparison.
 
 ## Algorithms and uncertainty assumptions
 
@@ -42,6 +45,17 @@ assignment with a 500 m base gate plus the existing heuristic AIS allowance.
 This is an algorithm comparison over image-first objects, **not an end-to-end
 production-policy replay**. Coastal objects remain available for review; alert
 eligibility is not used to discard difficult matching examples.
+
+Both comparison methods use the **same scene-time-aligned NL identity pool**.
+The geometric control aligns the full telemetry first, then filters aligned
+positions to NL. The experimental method retains the full report histories of
+only those identities, including raw reports outside NL. Reports outside the
+study boundary can therefore move into the shared pool. Per-target refinement
+cannot introduce an identity absent from that pool; this is a controlled
+comparison, not evaluation of a wider experimental retrieval universe. Reports
+record the shared pool's scope, identity count and MMSIs. This fixes the earlier
+asymmetry between aligned-position filtering and raw-report filtering without
+changing the production geometric matcher.
 
 The experimental algorithm aligns AIS separately to each target's UTC timestamp
 when supplied. Otherwise it uses scene start time and an explicit timing

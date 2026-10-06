@@ -414,6 +414,48 @@ def reviewed_pair_counts(cases: list[dict[str, Any]]) -> dict[str, int]:
     return {"positive": positive, "negative": negative, "total": positive + negative}
 
 
+def compare_matchers(
+    targets: list[dict[str, Any]],
+    records: pd.DataFrame,
+    acquisition_time: str,
+    *,
+    analysis_region: Any = None,
+) -> dict[str, Any]:
+    """Keep the production geometric control and share its aligned identity pool.
+
+    The pool is defined at scene time, after alignment, not by raw report
+    coverage. Experimental per-target alignment retains every report belonging
+    to those identities but cannot introduce identities absent from the control.
+    """
+    region = load_region(analysis_region)
+    positions, diagnostics = aligned_ais(records, acquisition_time)
+    positions = positions.loc[positions.geometry.map(region.covers)]
+    positions = positions.reset_index(drop=True)
+    points = [Point(target["lon"], target["lat"]) for target in targets]
+    geometric, _, ambiguous = one_to_one_matches(
+        points,
+        list(positions.geometry),
+        [CORRELATION_RADIUS_M + float(u) for u in positions.uncertainty_m],
+    )
+    selected = {i: str(positions.iloc[j].mmsi) for i, (j, _) in geometric.items()}
+    shared = set(positions.mmsi.astype(str))
+    experimental = uncertainty_matches(
+        targets, records, acquisition_time, admissible_mmsis=shared
+    )
+    return {
+        "positions": positions,
+        "ais_diagnostics": diagnostics,
+        "geometric_selected": selected,
+        "geometric_ambiguous": ambiguous,
+        "experimental": experimental,
+        "candidate_pool": {
+            "scope": "scene-time-aligned NL identities; full report histories retained",
+            "count": len(shared),
+            "mmsis": sorted(shared),
+        },
+    }
+
+
 def compare_bundle(
     bundle: dict[str, Any], *, artifact_root: Path = REPO_ROOT
 ) -> dict[str, Any]:
@@ -423,28 +465,14 @@ def compare_bundle(
         if case["split"] != "validation":
             continue
         records = pd.DataFrame(case["ais_records"])
-        positions, diagnostics = aligned_ais(records, case["acquisition_time"])
-        positions = positions.loc[positions.geometry.map(load_region().covers)]
-        positions = positions.reset_index(drop=True)
-        points = [Point(t["lon"], t["lat"]) for t in case["targets"]]
-        geometric, _, ambiguous = one_to_one_matches(
-            points,
-            list(positions.geometry),
-            [CORRELATION_RADIUS_M + float(u) for u in positions.uncertainty_m],
+        comparison = compare_matchers(
+            case["targets"], records, case["acquisition_time"]
         )
-        selected = {i: str(positions.iloc[j].mmsi) for i, (j, _) in geometric.items()}
-        # Enforce the same NL AIS scope in both methods, while retaining tracks
-        # beyond the image ROI that may move into it at the target instant.
-        scoped = records
-        if not records.empty:
-            numeric = records[["lon", "lat"]].apply(pd.to_numeric, errors="coerce")
-            mask = [
-                load_region().covers(Point(lon, lat)) for lon, lat in numeric.to_numpy()
-            ]
-            scoped = records.loc[mask]
-        experimental = uncertainty_matches(
-            case["targets"], scoped, case["acquisition_time"]
-        )
+        positions = comparison["positions"]
+        diagnostics = comparison["ais_diagnostics"]
+        selected = comparison["geometric_selected"]
+        ambiguous = comparison["geometric_ambiguous"]
+        experimental = comparison["experimental"]
         ready = metric_ready(case)
         rows.append(
             {
@@ -454,7 +482,8 @@ def compare_bundle(
                 "region": case["region"],
                 "regime": case["regime"],
                 "polarizations": case["polarizations"],
-                "targets": len(points),
+                "targets": len(case["targets"]),
+                "candidate_pool": comparison["candidate_pool"],
                 "aligned_ais": len(positions),
                 "aligned_ais_in_roi": sum(
                     shape(case["study_roi"]).covers(point)

@@ -15,7 +15,7 @@ import pandas as pd
 from scipy.optimize import linear_sum_assignment
 from shapely.geometry import Point
 
-from agents.ais_validation import parse_utc
+from agents.ais_validation import parse_utc, valid_mmsi
 from agents.association import (
     GEOD,
     KNOT_M_S,
@@ -89,6 +89,8 @@ def uncertainty_matches(
     records: pd.DataFrame,
     acquisition_time: str,
     config: UncertaintyConfig = UncertaintyConfig(),
+    *,
+    admissible_mmsis: set[str] | None = None,
 ) -> dict[str, Any]:
     """One AIS identity per target, optional abstention, per-target time alignment.
 
@@ -99,6 +101,16 @@ def uncertainty_matches(
     start = parse_utc(acquisition_time)
     if start is None:
         raise ValueError("Explicit UTC acquisition time required")
+    if admissible_mmsis is not None:
+        if any(mmsi != str(valid_mmsi(mmsi)) for mmsi in admissible_mmsis):
+            raise ValueError("Admissible identities require canonical valid MMSIs")
+        if not admissible_mmsis or "mmsi" not in records:
+            records = records.iloc[:0]
+        else:
+            # Keep entire report histories, including raw positions outside NL.
+            # Only the scene-time identity universe is fixed across methods.
+            normalized = records["mmsi"].map(lambda value: str(valid_mmsi(value)))
+            records = records.loc[normalized.isin(admissible_mmsis)]
     aligned: list[dict[str, dict[str, Any]]] = []
     for target in targets:
         instant = target.get("timestamp", acquisition_time)
@@ -179,4 +191,7 @@ def uncertainty_matches(
         "edges": edges,
         "configuration": asdict(config),
         "probabilities_calibrated": False,
+        "admissible_mmsis": (
+            sorted(admissible_mmsis) if admissible_mmsis is not None else None
+        ),
     }

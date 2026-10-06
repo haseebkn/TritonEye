@@ -9,12 +9,14 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import pytest
+from shapely.geometry import Point, box
 
 from agents.artifacts import sha256_file
 from agents.association import GEOD, aligned_ais
 from agents.association_study import (
     case_digest,
     compare_bundle,
+    compare_matchers,
     identity_metrics,
     paired_error_reduction,
     reviewed_pair_counts,
@@ -229,7 +231,9 @@ def test_provisional_bundle_emits_no_accuracy(tmp_path: Path) -> None:
     assert not result["learned_ranker"]["training_readiness"]
 
 
-def test_empty_telemetry_has_zero_image_coverage_not_a_measurement(tmp_path: Path) -> None:
+def test_empty_telemetry_has_zero_image_coverage_not_a_measurement(
+    tmp_path: Path,
+) -> None:
     dataset = bundle(tmp_path)
     case = dataset["cases"][0]
     case["ais_records"] = []
@@ -340,3 +344,78 @@ def test_pair_readiness_counts_actual_aligned_pairs_not_silence(tmp_path: Path) 
     case["labels"][0]["state"] = "no_association"
     case["ais_records"] = []
     assert reviewed_pair_counts([case])["negative"] == 0
+
+
+def test_report_outside_region_can_move_into_shared_scene_pool() -> None:
+    point = target()
+    region = box(
+        point["lon"] - 0.001,
+        point["lat"] - 0.001,
+        point["lon"] + 0.001,
+        point["lat"] + 0.001,
+    )
+    outside_lon, outside_lat, _ = GEOD.fwd(point["lon"], point["lat"], 270, 400)
+    assert not region.covers(Point(outside_lon, outside_lat))
+    record = track(
+        lon=outside_lon,
+        lat=outside_lat,
+        timestamp="2026-08-17T21:21:09.815408Z",
+        speed_knots=400 / 60 / (1852 / 3600),
+    )
+    result = compare_matchers(
+        [point], pd.DataFrame([record]), ACQ, analysis_region=region
+    )
+    assert result["candidate_pool"]["mmsis"] == ["316000001"]
+    assert result["geometric_selected"] == {0: "316000001"}
+    assert result["experimental"]["selected"] == {0: "316000001"}
+    assert result["experimental"]["edges"][0]["distance_m"] < 0.1
+
+
+def test_per_target_alignment_cannot_introduce_extra_identities() -> None:
+    point = target()
+    region = box(
+        point["lon"] - 0.001,
+        point["lat"] - 0.001,
+        point["lon"] + 0.001,
+        point["lat"] + 0.001,
+    )
+    outside_lon, outside_lat, _ = GEOD.fwd(point["lon"], point["lat"], 270, 400)
+    records = pd.DataFrame(
+        [
+            track(speed_knots=0),
+            track(
+                "316000002",
+                lon=outside_lon,
+                lat=outside_lat,
+                speed_knots=400 / 60 / (1852 / 3600),
+            ),
+        ]
+    )
+    later = {**point, "timestamp": "2026-08-17T21:23:09.815408Z"}
+    unrestricted = uncertainty_matches([later], records, ACQ)
+    assert unrestricted["alternatives"][0] == ["316000001", "316000002"]
+    result = compare_matchers([later], records, ACQ, analysis_region=region)
+    assert result["candidate_pool"]["mmsis"] == ["316000001"]
+    assert result["experimental"]["alternatives"] == {0: ["316000001"]}
+    assert result["experimental"]["selected"] == {0: "316000001"}
+
+
+def test_shared_pool_retains_per_target_motion_refinement() -> None:
+    point = {**target(300), "timestamp": "2026-08-17T21:23:09.815408Z"}
+    records = pd.DataFrame([track(speed_knots=5 / (1852 / 3600))])
+    result = compare_matchers([point], records, ACQ)
+    assert result["geometric_selected"] == {0: "316000001"}
+    assert result["experimental"]["selected"] == {0: "316000001"}
+    edge = result["experimental"]["edges"][0]
+    assert edge["alignment_method"] == "velocity_propagated"
+    assert edge["distance_m"] < 0.1
+
+
+def test_explicit_empty_pool_cannot_produce_candidates() -> None:
+    result = uncertainty_matches(
+        [target()], pd.DataFrame([track()]), ACQ, admissible_mmsis=set()
+    )
+    assert result["selected"] == {}
+    assert result["alternatives"] == {}
+    assert result["edges"] == []
+    assert result["admissible_mmsis"] == []
