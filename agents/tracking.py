@@ -21,7 +21,7 @@ import math
 import os
 import sys
 from types import TracebackType
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Mapping, Optional, Type
 
 DEFAULT_EXPERIMENT = "tritoneye"
 
@@ -30,11 +30,16 @@ DEFAULT_EXPERIMENT = "tritoneye"
 _REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 
-def tracking_enabled() -> bool:
-    return os.getenv("TRITONEYE_TRACKING", "on").lower() not in ("off", "0", "false")
+def tracking_enabled(env: Optional[Mapping[str, str]] = None) -> bool:
+    environment = os.environ if env is None else env
+    return environment.get("TRITONEYE_TRACKING", "on").lower() not in (
+        "off",
+        "0",
+        "false",
+    )
 
 
-def resolve_tracking_uri() -> str:
+def resolve_tracking_uri(env: Optional[Mapping[str, str]] = None) -> str:
     """
     Tracking backend, defaulting to a repo-local SQLite database.
 
@@ -45,7 +50,8 @@ def resolve_tracking_uri() -> str:
     to run; inspect with `mlflow ui --backend-store-uri sqlite:///mlflow.db`.
     Override with MLFLOW_TRACKING_URI to point at a shared tracking server.
     """
-    override = os.getenv("MLFLOW_TRACKING_URI")
+    environment = os.environ if env is None else env
+    override = environment.get("MLFLOW_TRACKING_URI")
     if override:
         return override
     db_path = os.path.join(_REPO_ROOT, "mlflow.db").replace("\\", "/")
@@ -80,13 +86,13 @@ class RunTracker:
         return str(self._run.info.run_id)
 
     @classmethod
-    def _connect(cls) -> Any:
-        if not tracking_enabled():
+    def _connect(cls, env: Optional[Mapping[str, str]] = None) -> Any:
+        if not tracking_enabled(env):
             return None
         try:
             import mlflow
 
-            mlflow.set_tracking_uri(resolve_tracking_uri())
+            mlflow.set_tracking_uri(resolve_tracking_uri(env))
             return mlflow
         except Exception as e:  # pragma: no cover - depends on local install
             print(f"Tracking disabled ({e}).", file=sys.stderr)
@@ -94,17 +100,21 @@ class RunTracker:
 
     @classmethod
     def start(
-        cls, mission_id: str, experiment: str = DEFAULT_EXPERIMENT
+        cls,
+        mission_id: str,
+        experiment: str = DEFAULT_EXPERIMENT,
+        *,
+        env: Optional[Mapping[str, str]] = None,
     ) -> "RunTracker":
         """Opens a new run named for the mission."""
-        mlflow = cls._connect()
+        mlflow = cls._connect(env)
         if mlflow is None:
             return cls()
         try:
             mlflow.set_experiment(experiment)
             run = mlflow.start_run(run_name=mission_id)
             print(
-                f"Tracking run {run.info.run_id} in {resolve_tracking_uri()}",
+                f"Tracking run {run.info.run_id} in {resolve_tracking_uri(env)}",
                 file=sys.stderr,
             )
             return cls(run=run, mlflow_mod=mlflow)
@@ -113,11 +123,13 @@ class RunTracker:
             return cls()
 
     @classmethod
-    def resume(cls, run_id: Optional[str]) -> "RunTracker":
+    def resume(
+        cls, run_id: Optional[str], *, env: Optional[Mapping[str, str]] = None
+    ) -> "RunTracker":
         """Re-attaches to a run opened by an upstream stage."""
         if not run_id:
             return cls()
-        mlflow = cls._connect()
+        mlflow = cls._connect(env)
         if mlflow is None:
             return cls()
         try:

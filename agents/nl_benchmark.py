@@ -20,7 +20,7 @@ from pyproj import Transformer
 from shapely.geometry import shape
 from shapely.ops import transform
 
-from agents.acquisition import product_id
+from agents.acquisition import native_acquisition_group, product_id
 from agents.ais_validation import parse_utc
 from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.geo import Georeferencer
@@ -37,6 +37,7 @@ def require_development_scene(
 ) -> None:
     selected = product_id(selected_product_id)
     groups: set[str] = set()
+    declared_groups: set[str] = set()
     records = [
         item for record in metadata for item in (record, record.get("benchmark") or {})
     ]
@@ -44,13 +45,11 @@ def require_development_scene(
         if record.get("split") == "test":
             raise ValueError("Held-out test scenes cannot be used for buffer trials")
         if record.get("acquisition_group"):
-            groups.add(record["acquisition_group"])
+            declared_groups.add(record["acquisition_group"])
         for field in ("name", "sar_product"):
-            name = record.get(field)
-            if name:
-                tokens = name.split("_")
-                if len(tokens) >= 8:
-                    groups.add("_".join([tokens[0], tokens[6], tokens[7]]))
+            group = native_acquisition_group(record.get(field))
+            if group:
+                groups.add(group)
     held_out: set[str] = set()
     for path in (REPO_ROOT / "datasets/nl_benchmark").glob("*/split_lock.json"):
         lock = json.loads(path.read_text(encoding="utf-8"))
@@ -64,13 +63,23 @@ def require_development_scene(
         )
         for scene in manifest["scenes"]:
             if product_id(scene["product_id"]) == selected:
-                groups.add(scene["acquisition_group"])
+                group = native_acquisition_group(scene["name"])
+                if group:
+                    groups.add(group)
                 if scene["split"] == "test":
                     raise ValueError(
                         "Held-out test product cannot be used for buffer trials"
                     )
     if groups & held_out:
         raise ValueError("Held-out test datatake cannot be used for buffer trials")
+    if not groups:
+        raise ValueError(
+            "Native acquisition identity is unresolved; buffer trials refused"
+        )
+    if len(groups) != 1 or (declared_groups and declared_groups != groups):
+        raise ValueError(
+            "Conflicting native acquisition identity; buffer trials refused"
+        )
 
 
 def bounded_path(root: Path, relative: str) -> Path:

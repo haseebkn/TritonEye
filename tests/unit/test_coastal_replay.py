@@ -155,7 +155,7 @@ def test_inventory_cannot_claim_nonimaged_control_location(
         replay(tmp_path, manifest, tmp_path / "derived")
 
 
-@pytest.mark.parametrize("held_out", ["declared", "product", "datatake"])
+@pytest.mark.parametrize("held_out", ["declared", "product", "datatake", "unresolved"])
 def test_unlabelled_held_out_scene_cannot_compare_or_export(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, held_out: str
 ) -> None:
@@ -172,10 +172,15 @@ def test_unlabelled_held_out_scene_cannot_compare_or_export(
         scene["split"] = detections["split"] = "test"
     elif held_out == "product":
         scene["product_id"] = payload["sar_product_id"] = locked["product_id"]
-    else:
-        alias = locked["name"].replace(".SAFE", "_REPROCESSED.SAFE")
+    elif held_out == "datatake":
+        tokens = locked["name"].split("_")
+        alias = "_".join(tokens[:8]) + "_FFFF.SAFE"
         payload["sar_product"] = detections["sar_product"] = alias
         detections["acquisition_group"] = "claimed_development_group"
+    else:
+        scene["product_id"] = payload["sar_product_id"] = (
+            "00000000-0000-4000-8000-000000000099"
+        )
     detections["sar_product_id"] = scene["product_id"]
     manifest_path.write_text(json.dumps(inventory))
     payload_path.write_text(json.dumps(payload))
@@ -186,10 +191,11 @@ def test_unlabelled_held_out_scene_cannot_compare_or_export(
         pytest.fail("Held-out scene reached shoreline comparison")
 
     monkeypatch.setattr("agents.coastal_replay.classify_surfaces", forbidden)
-    with pytest.raises(ValueError, match="Held-out test"):
+    reason = "unresolved" if held_out == "unresolved" else "Held-out test"
+    with pytest.raises(ValueError, match=reason):
         replay(tmp_path, manifest_path, tmp_path / "derived")
     assert not (tmp_path / "derived").exists()
     for labels in (None, {"benchmark": {"split": "validation"}}):
-        with pytest.raises(ValueError, match="Held-out test"):
+        with pytest.raises(ValueError, match=reason):
             compare_buffers(detections, labels, scene["product_id"])
     assert all(path.read_bytes() == content for path, content in originals.items())

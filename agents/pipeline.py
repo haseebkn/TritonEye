@@ -44,17 +44,33 @@ def run_pipeline(
     if provenance is not None:
         current["run_provenance"] = provenance
         process_env["TRITONEYE_MISSION_ID"] = f"execution_{stamp}"
+    stages = STAGES[1:] if payload is not None else STAGES
+    history: list[dict[str, Any]] = []
+    replay_run_id = None
+    try:
         if payload is not None:
             current["source_mission_id"] = current.get("mission_id")
+            current["source_mlflow_run_id"] = current.pop("mlflow_run_id", None)
             current["mission_id"] = f"execution_{stamp}"
+            with RunTracker.start(current["mission_id"], env=process_env) as tracker:
+                replay_run_id = tracker.run_id
+                if replay_run_id:
+                    current["mlflow_run_id"] = replay_run_id
+                tracker.set_tags(
+                    {
+                        key: current.get(key)
+                        for key in (
+                            "mission_id",
+                            "source_mission_id",
+                            "source_mlflow_run_id",
+                        )
+                    }
+                )
             ais_path = current.get("ais_telemetry")
             if ais_path:
                 snapshot = execution_dir / "ais_filtered.csv"
                 shutil.copyfile(ais_path, snapshot)
                 current["ais_telemetry"] = str(snapshot)
-    stages = STAGES[1:] if payload is not None else STAGES
-    history: list[dict[str, Any]] = []
-    try:
         for stage in stages:
             print(f"Running {stage}...", file=sys.stderr, flush=True)
             with open(execution_dir / f"{stage}.log", "w", encoding="utf-8") as log:
@@ -88,7 +104,10 @@ def run_pipeline(
         write_json(execution_dir / "mission.json", current)
         return current
     except Exception as error:
-        RunTracker.resume(current.get("mlflow_run_id")).end("FAILED")
+        RunTracker.resume(
+            replay_run_id if payload is not None else current.get("mlflow_run_id"),
+            env=process_env,
+        ).end("FAILED")
         write_json(
             execution_dir / "failure.json",
             {

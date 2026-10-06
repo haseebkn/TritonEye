@@ -30,6 +30,7 @@ try:
     # ultralytics does not declare an explicit __all__ re-export for YOLO
     from ultralytics import YOLO
 
+    from agents.acquisition import native_acquisition_group
     from agents.artifacts import mission_directory, sha256_file, write_json
     from agents.geo import Georeferencer
     from agents.region import REGION_NAME, contains_points, load_region
@@ -615,6 +616,16 @@ def main() -> None:
     # 1. Parse arguments and configuration
     args = parse_arguments()
     payload = get_payload(args)
+    payload["acquisition_group"] = native_acquisition_group(payload.get("sar_product"))
+    identity = {
+        key: payload.get(key)
+        for key in (
+            "sar_product_id",
+            "sar_product",
+            "acquisition_group",
+            "acquisition_time",
+        )
+    }
 
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     config_path = os.path.join(base_dir, "configs", "model.yaml")
@@ -797,8 +808,7 @@ def main() -> None:
     geojson = {
         "type": "FeatureCollection",
         "features": features,
-        "sar_product_id": payload.get("sar_product_id"),
-        "acquisition_time": payload.get("acquisition_time"),
+        **identity,
         "shoreline_status": landmask_meta.get("status", "unavailable"),
     }
 
@@ -806,9 +816,7 @@ def main() -> None:
     geojson_path = str(mission_dir / "detections.geojson")
     write_json(geojson_path, geojson)
     excluded_path = str(mission_dir / "outside_study_area.geojson")
-    write_json(
-        excluded_path, {"type": "FeatureCollection", "features": outside_features}
-    )
+    write_json(excluded_path, {**geojson, "features": outside_features})
 
     # 7. Update payload and print to stdout. The scene footprint measured off the
     #    raster itself supersedes whatever bounds the AOI search produced.
@@ -829,7 +837,7 @@ def main() -> None:
     # so it belongs in the mission record rather than only in stderr.
     payload["landmask"] = landmask_meta
     processing = {
-        "sar_product_id": payload.get("sar_product_id"),
+        **identity,
         "software_versions": {
             name: version(name)
             for name in ("torch", "rasterio", "numpy", "geopandas", "scipy")

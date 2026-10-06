@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from agents.acquisition import require_product
+from agents.acquisition import native_acquisition_group, require_product
 from agents.artifacts import sha256_file
 from agents.coastal_benchmark import compare_buffers
 from agents.coastal_policy import annotations
@@ -44,6 +44,14 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
     for scene, source_payload, payload, detection_path, detections in inputs:
         detections["sar_product_id"] = scene["product_id"]
         detections["acquisition_time"] = payload["acquisition_time"]
+        native_name = (
+            payload.get("sar_product")
+            or detections.get("sar_product")
+            or scene.get("name")
+        )
+        if native_name:
+            detections["sar_product"] = native_name
+            detections["acquisition_group"] = native_acquisition_group(native_name)
         from shapely.geometry import shape
 
         centres = [shape(f["geometry"]).centroid for f in detections["features"]]
