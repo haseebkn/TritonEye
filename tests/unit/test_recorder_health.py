@@ -150,7 +150,7 @@ def test_live_recorder_tracks_newest_observation_independently_of_receipt(
                 assert health["healthy"] is (expected == "fresh")
                 assert health["heartbeat_age_s"] < 1
                 assert health["receipt_age_s"] < 1
-                rows = []
+                rows: list[dict[str, str]] = []
                 for path in tmp_path.glob("ais_stream_*.csv"):
                     with path.open(newline="", encoding="utf-8") as source:
                         rows.extend(csv.DictReader(source))
