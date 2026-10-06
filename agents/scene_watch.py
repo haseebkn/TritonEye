@@ -247,6 +247,27 @@ def within_footprint(
     return [p for p in positions if swath.covers(Point(p[0], p[1]))]
 
 
+def aligned_positions(
+    archive_dir: str, acquisition_iso: str
+) -> List[Tuple[float, float]]:
+    """(lon, lat) of vessels the evaluator itself would accept at acquisition time.
+
+    Delegates to agents.association.aligned_ais so the watcher's notion of
+    "usable AIS" cannot drift from the evaluator's again.
+    """
+    import pandas as pd
+
+    from agents.association import aligned_ais
+
+    rows = ais_rows_near(archive_dir, acquisition_iso)
+    if not rows:
+        return []
+    aligned, _ = aligned_ais(pd.DataFrame(rows), acquisition_iso)
+    return [
+        (float(lon), float(lat)) for lon, lat in zip(aligned["lon"], aligned["lat"])
+    ]
+
+
 def water_eligible(positions: Sequence[Tuple[float, float]], cache_dir: str) -> int:
     """
     Counts AIS positions the pipeline would treat as alert-eligible water.
@@ -310,7 +331,13 @@ def assess(
         start = p["ContentDate"]["Start"]
         usable_pol = f"_{REQUIRED_POLARIZATION}_" in name
         in_window = ais_observations_near(archive_dir, start) if usable_pol else []
-        positions = within_footprint(in_window, p.get("GeoFootprint"))
+        # Eligibility must use the evaluator's own alignment rule. Counting raw
+        # rows in the +/-5 min window accepted 2026-10-02 (product 2e0f5ee7)
+        # on two vessels whose only reports came 167-258 s AFTER acquisition;
+        # the evaluator cannot interpolate or propagate those, so a full
+        # download and 126-tile run ended "no valid, sufficiently recent AIS".
+        aligned = aligned_positions(archive_dir, start) if in_window else []
+        positions = within_footprint(aligned, p.get("GeoFootprint"))
         positions = [
             position for position in positions if region.covers(Point(*position))
         ]
@@ -328,9 +355,15 @@ def assess(
             reason = "no recorded AIS in the +/-5 min window"
         elif not p.get("GeoFootprint"):
             reason = "missing satellite footprint; imaged swath is unknown"
+        elif not aligned:
+            reason = (
+                f"{len(in_window)} AIS observations in the window, but none the "
+                "evaluator can time-align (needs bracketing reports, or <=120 s "
+                "with valid kinematics, or <=60 s)"
+            )
         elif not positions:
             reason = (
-                f"{len(in_window)} AIS observations in the window, but none "
+                f"{len(aligned)} time-aligned AIS vessels, but none "
                 "inside the imaged swath and NL study area"
             )
         elif eligible == 0:
