@@ -170,15 +170,17 @@ def run_check(
         ]
         latest = previous[-1] if previous else None
         failures = sum(1 for attempt in previous if attempt["state"] == "failed")
+        record["retry_exhausted"] = failures >= MAX_FAILED_ATTEMPTS and not (
+            latest and latest["state"] in ("processed", "measured")
+        )
         if row["eligible"]:
             if latest and latest["state"] in ("processed", "measured"):
                 record["state"] = latest["state"]
-            elif failures >= MAX_FAILED_ATTEMPTS:
+            elif record["retry_exhausted"]:
                 # A deterministic failure after inference would otherwise burn
                 # ~16 min of GPU every hour indefinitely. Changed code, model,
                 # config or data yields a new version key and reopens the scene.
                 record["state"] = "failed"
-                record["retry_exhausted"] = True
             else:
                 retry_at = parse_utc(latest.get("finished_at")) if latest else None
                 retry_due = (
@@ -300,6 +302,15 @@ def run_check(
         finished = datetime.now(timezone.utc) if now is None else instant
         attempt.update(
             state="failed", finished_at=utc_string(finished), error=str(error)
+        )
+        record["retry_exhausted"] = (
+            sum(
+                1
+                for previous_attempt in record["attempts"]
+                if previous_attempt["version_key"] == revision["version_key"]
+                and previous_attempt["state"] == "failed"
+            )
+            >= MAX_FAILED_ATTEMPTS
         )
         transition(
             record,

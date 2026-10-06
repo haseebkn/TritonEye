@@ -454,6 +454,83 @@ def test_failed_attempts_stop_after_cap_until_versions_change(
         },
     )
     assert len(calls) == watch.MAX_FAILED_ATTEMPTS + 1
+    assert record(setup)["retry_exhausted"] is False
+
+
+@pytest.mark.parametrize("measured", [False, True])
+def test_retry_exhaustion_tracks_current_version_and_preserves_history(
+    setup: dict[str, Any], measured: bool
+) -> None:
+    failing = Mock(side_effect=RuntimeError("version A failed"))
+    version_a = {**setup, "runner": failing}
+    for hour in range(watch.MAX_FAILED_ATTEMPTS):
+        version_a["now"] = NOW + timedelta(hours=hour)
+        assert watch.run_check([product(FIRST)], **version_a)["outcome"] == "failed"
+        assert record(setup)["retry_exhausted"] is (
+            hour + 1 == watch.MAX_FAILED_ATTEMPTS
+        )
+    exhausted = record(setup)
+    assert len(exhausted["attempts"]) == watch.MAX_FAILED_ATTEMPTS
+    version_a["now"] = NOW + timedelta(hours=10)
+    assert watch.run_check([product(FIRST)], **version_a)["eligible_pending"] == 0
+    assert failing.call_count == watch.MAX_FAILED_ATTEMPTS
+
+    def recovered(**kwargs: Any) -> dict[str, Any]:
+        payload = runner(**kwargs)
+        if measured:
+            payload["evaluation"].update(
+                scored=True, recall_all=0.5, ais_vessels_in_swath=2
+            )
+        return payload
+
+    successful = Mock(side_effect=recovered)
+    version_b = {
+        **setup,
+        "versions": {
+            **setup["versions"],
+            "code": {"agents/pipeline.py": "version-two"},
+        },
+        "runner": successful,
+        "now": NOW + timedelta(hours=11),
+    }
+    assert (
+        watch.run_check([product(FIRST)], check_only=True, **version_b)[
+            "eligible_pending"
+        ]
+        == 1
+    )
+    eligible = record(setup)
+    assert eligible["current_version_key"] != exhausted["current_version_key"]
+    assert eligible["retry_exhausted"] is False
+    assert eligible["attempts"] == exhausted["attempts"]
+
+    expected = "measured" if measured else "processed"
+    assert watch.run_check([product(FIRST)], **version_b)["outcome"] == expected
+    saved = record(setup)
+    assert saved["product_id"] == FIRST
+    assert saved["state"] == expected
+    assert saved["retry_exhausted"] is False
+    assert saved["current_version_key"] == eligible["current_version_key"]
+    assert saved["attempts"][:-1] == exhausted["attempts"]
+    assert saved["history"][: len(exhausted["history"])] == exhausted["history"]
+    assert saved["attempts"][-1]["version_key"] == saved["current_version_key"]
+    assert saved["attempts"][-1]["state"] == expected
+    assert successful.call_count == 1
+
+    assert watch.run_check([product(FIRST)], **version_a)["eligible_pending"] == 0
+    revisited = record(setup)
+    assert revisited["current_version_key"] == exhausted["current_version_key"]
+    assert revisited["retry_exhausted"] is True
+    assert revisited["state"] == "failed"
+    assert revisited["attempts"] == saved["attempts"]
+    assert revisited["history"] == saved["history"]
+    assert failing.call_count == watch.MAX_FAILED_ATTEMPTS
+
+    assert watch.run_check([product(FIRST)], **version_b)["eligible_pending"] == 0
+    assert record(setup)["retry_exhausted"] is False
+    assert record(setup)["state"] == expected
+    assert record(setup)["attempts"] == saved["attempts"]
+    assert successful.call_count == 1
 
 
 def test_aoi_outside_the_study_area_is_rejected_before_discovery(
