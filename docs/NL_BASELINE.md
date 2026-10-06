@@ -103,6 +103,8 @@ bounds. Source, model, configuration, code and dataset hashes accompany the repo
 Protocol version 2 records executing code, configuration and shoreline controls
 from the running checkout, separately from model, SAR, reference and AIS assets
 at the artifact root. The final integrity check uses the executing checkout.
+Without Git metadata (including in the Docker image), `git_head` and
+`processing_versions.git_commit` are null; executing-source hashes remain required.
 Model loading is timed separately; per-area inference times exclude shoreline
 loading and subsequent scoring. Sampled RSS is absolute process memory, not a
 guaranteed operating-system high-water mark.

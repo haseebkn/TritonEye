@@ -3,6 +3,7 @@
 import json
 import shutil
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -10,6 +11,7 @@ import pytest
 from agents import baseline
 from agents.artifacts import REPO_ROOT, sha256_file
 from agents.landmask import SOURCES
+from agents.nl_benchmark import load_dataset
 
 
 def baseline_inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
@@ -135,3 +137,84 @@ def test_report_without_git_metadata_preserves_source_hashes(
         assets / "models/xview3/traced_ensemble.jit"
     )
     assert report["threshold_selection"]["selected_threshold"] is None
+
+
+def test_mixed_sensor_report_keeps_unmeasured_coverage_and_test_lock(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Synthetic orchestration only: no SAR inference or measured accuracy."""
+    manifest, _, status = load_dataset()
+    assets = baseline_inputs(tmp_path, monkeypatch)
+    manifest["dataset_version"] = "synthetic-orchestration-only"
+    snapshot = assets / "empty_ais.json"
+    snapshot.write_text(json.dumps({"rows": []}))
+    for scene in manifest["scenes"]:
+        scene["sources"] = []
+        scene["ais"]["snapshot"] = {
+            "path": snapshot.name,
+            "sha256": sha256_file(snapshot),
+        }
+    monkeypatch.setattr(baseline, "load_dataset", lambda *a, **kw: (manifest, {}, status))
+    monkeypatch.setattr(
+        baseline.LandMask,
+        "for_footprint",
+        lambda *a, **kw: SimpleNamespace(
+            source="synthetic all-water fixture",
+            licence="test",
+            validation={"scope": "synthetic only"},
+            water_geometry=lambda geometry, *args: geometry,
+        ),
+    )
+    monkeypatch.setattr(
+        baseline,
+        "XView3Detector",
+        lambda *a, **kw: SimpleNamespace(
+            device="cpu", _torch=SimpleNamespace(__version__="synthetic")
+        ),
+    )
+    inferred: list[str] = []
+
+    def synthetic_inference(
+        scene: dict[str, Any], roi: dict[str, Any], *args: Any
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        assert scene["split"] != "test"
+        assert scene["polarizations"] == ["vv", "vh"]
+        inferred.append(roi["id"])
+        return (
+            {
+                "type": "FeatureCollection",
+                "sar_product_id": scene["product_id"],
+                "sar_product": scene["name"],
+                "acquisition_time": scene["acquisition_time"],
+                "study_roi": roi["geometry"],
+                "features": [],
+            },
+            [],
+        )
+
+    def annotate_empty(collection: dict[str, Any], *args: Any, **kwargs: Any) -> None:
+        assert collection["features"] == []
+
+    monkeypatch.setattr(baseline, "infer_roi", synthetic_inference)
+    monkeypatch.setattr(baseline, "annotate", annotate_empty)
+    output = tmp_path / "mixed_sensor"
+    report = baseline.run_baseline(tmp_path, assets, output, device="cpu")
+    assert json.loads((output / "baseline.json").read_text()) == report
+    assert len(inferred) == 6
+    assert len(report["cases"]) == 10
+    assert len(list(output.glob("*.geojson"))) == 6
+    assert not any("hopedale" in path.name for path in output.iterdir())
+    assert sum(c["state"] == "unsupported_polarization" for c in report["cases"]) == 4
+    assert all(c["split"] != "test" for c in report["cases"])
+    summary = report["validation_baseline"]
+    assert 0 < summary["coverage"]["processing"] < 1
+    assert summary["coverage"]["measured"] == 0
+    assert summary["raw"] is summary["post_policy"] is None
+    selection = report["threshold_selection"]
+    assert selection["status"] == "blocked"
+    assert selection["selected_threshold"] is None
+    assert not selection["operational_alerts_enabled"]
+    assert not selection["configuration_changed"]
+    assert all(
+        c["association"]["association_correctness"] is None for c in report["cases"]
+    )

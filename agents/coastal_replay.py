@@ -27,7 +27,9 @@ from agents.run_versions import digest
 
 def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
     if output_dir.exists() or output_dir.is_symlink():
-        raise ValueError("Fresh output directory required; source evidence is immutable")
+        raise ValueError(
+            "Fresh output directory required; source evidence is immutable"
+        )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     inputs = []
     product_ids = set()
@@ -75,7 +77,9 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
         [registry_path]
         + [registry_path.parent / c["path"] for c in registry["collections"]]
     )
-    if any(path.resolve().is_relative_to(output_dir.resolve()) for path in source_paths):
+    if any(
+        path.resolve().is_relative_to(output_dir.resolve()) for path in source_paths
+    ):
         raise ValueError("Replay destination aliases source evidence")
     output_dir.mkdir(parents=True)
     results = []

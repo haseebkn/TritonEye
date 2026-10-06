@@ -37,11 +37,12 @@ changed code, model, configuration, reference data or window observations does.
 
 Window observations are frozen in `data/watch/inputs/<uuid>/<version>/` before
 processing. Snapshot files are published atomically; reuse requires byte-for-byte
-agreement with the selected observations and no extra daily files. Watcher
-executions retain filtered AIS, actual SAR hashes, provenance, logs and stage
-outputs in separate directories, assigned before ingestion writes mission files.
-Prior detections/reports survive re-evaluation. Source manifests and satellite
-caches remain reusable.
+agreement with the selected observations and no extra daily files. Every pipeline
+invocation, including date-only and unversioned runs, assigns a fresh
+`missions/execution_*/` destination before ingestion writes mission files.
+Executions retain filtered AIS, actual SAR hashes, logs and stage outputs;
+watcher executions also retain their versioned provenance. Prior detections and
+reports survive re-evaluation. Source manifests and satellite caches remain reusable.
 
 One pending product runs per invocation. Identical processed/measured versions
 are skipped. Failed versions become retryable after one hour. Unattempted

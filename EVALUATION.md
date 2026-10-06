@@ -87,12 +87,9 @@ carried forward as a benchmark after decoding and filtering changes.
 - AIS velocity propagation is deliberately bounded. Provider receipt/observation
   timestamps cannot prove exact onboard fix time; AIS absence cannot prove silence.
 - The pipeline is batch processing, not a real-time multi-sensor service.
-- **Ground-truth collection is bounded by host uptime, not just recorder
-  uptime.** The recorder cannot backfill, and a sleeping machine freezes it
-  mid-stream while logging nothing -- observed as a 9-hour gap containing only
-  three disconnects, all recovered within 14 seconds. Sentinel-1 crosses this
-  region near 09:30 and 21:30 UTC, so an overnight sleep lands on the morning
-  pass. Every hour the host is asleep is permanently unscorable.
+- **AIS supporting evidence is bounded by host uptime.** The live recorder
+  cannot backfill observations lost during suspension. See
+  [recorder freshness and gap reporting](docs/ACQUISITION_RELIABILITY.md#recorder-freshness-and-gaps).
 - **Harbour coverage is constrained by coastal eligibility, not a closed
   entrance polygon.** The earlier assertion that OSM enclosed St. John's basin
   and The Narrows was incorrect. On 2026-10-05 the cached shoreline was compared
@@ -127,9 +124,9 @@ carried forward as a benchmark after decoding and filtering changes.
 4. Compare the current model and a geospatial-foundation-model baseline. Measure
    precision, recall, false alarms per valid-water km², missed vessels, association
    accuracy/ambiguity, latency and failure rate, stratified by size and conditions.
-5. Choose a threshold on validation data under an agreed precision/false-alarm
-   constraint; report confidence intervals and abstention/coverage tradeoffs.
-   Do not optimize by suppressing all alerts or by treating AIS absence as truth.
+5. Apply the [baseline operating-point protocol](docs/NL_BASELINE.md#provisional-operating-objective)
+   on validation data; its research targets, uncertainty and coverage requirements
+   govern selection. AIS absence is not truth.
 6. Evaluate once on the holdout, then consider staged deployment with human review,
    rollback and monitoring. No automatic retraining/promotion is implemented.
 

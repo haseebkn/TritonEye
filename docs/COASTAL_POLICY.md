@@ -34,9 +34,12 @@ exports `open_water_research.geojson`.
 
 Production registry: `configs/coastline/regional_controls.json`. Runtime checks
 controls inside each scene bounding box and records each source collection.
+Mission `landmask.shoreline_validation` retains registry and control hashes,
+per-collection provenance and results. A scene containing no registered controls
+reports `outside_scope`; passing sample checks does not certify intervening shoreline.
 Replay separately tests **actual valid SAR pixels**. A bounding box alone does
-not prove that a site was imaged. Mismatches fail closed rather than making
-unknown shoreline detections eligible.
+not prove that a site was imaged. Mismatches and missing or malformed controls
+make the mask unavailable; unknown shoreline detections do not become eligible.
 
 | Location | Controls | Reference | Selected real-scene coverage |
 | --- | ---: | --- | --- |
@@ -123,15 +126,28 @@ benchmark command expects these annotations already present, plus detection
 UUID/time and `shoreline_status: ok` metadata. False alarms require genuinely
 exhaustive independent review, not merely setting a boolean in a file.
 
-Buffer comparison and replay enforce held-out product/datatake assignments even
-without labels. Native acquisition identity must resolve from a SAFE product
-name (`sar_product` or `name`) or the registered dataset manifest; a declared
-`acquisition_group` alone is insufficient. Production detection GeoJSON and
+Buffer comparison and replay enforce held-out product, datatake and geographic
+assignments even without labels or detections. Native acquisition identity must
+resolve from a SAFE product name (`sar_product` or `name`) or the registered
+dataset manifest; a declared `acquisition_group` alone is insufficient.
+Production detection GeoJSON and
 processing records retain `sar_product`, `sar_product_id`, `acquisition_time`
 and the derived `acquisition_group`. Unresolved or conflicting datatake identity,
-an explicit test split, or a held-out UUID/datatake rejects comparison. Replay
-checks its input scenes before writing derived outputs. Legacy inputs must
-provide resolvable native identity to use this interface.
+an explicit test split, or a held-out UUID/datatake rejects comparison.
+
+Geographic scope must resolve from `study_roi` or `valid_imagery_roi`, otherwise
+`footprint` or `scene_footprint`, or the registered product's footprint. Both scope
+and feature geometries are checked against held-out areas and their locked
+separation zone, including acquisitions from other datatakes. Declared held-out
+geographic groups and ROI IDs also reject comparison. Production detection
+GeoJSON retains `scene_footprint` even when its feature list is empty. Legacy
+inputs need resolvable native identity and geographic scope.
+
+Replay preflights all input scenes before writing derived outputs. Existing
+detection UUIDs, native product names and acquisition times must agree with the
+selected scene and payload; only absent legacy fields may be populated. The
+output directory must be new and must not alias source evidence. Existing
+directories, symlink destinations and duplicate product destinations are rejected.
 
 The evaluator rejects AIS-only truth, incomplete/uncertain annotations,
 holdout tuning, mismatched UUID/time and non-NL geometry. All labelled vessels

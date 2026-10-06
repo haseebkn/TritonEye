@@ -2,8 +2,8 @@
 """
 TritonEye Land Mask
 
-Classifies detections as water, coastal, or land against an open coastline
-dataset, so that terrain returns do not enter the dark-vessel alert list.
+Classifies physical land/water and coastal operating zones against a reference
+coastline. Eligibility and validation limits are owned by docs/COASTAL_POLICY.md.
 
 WHY THIS EXISTS: the 2026-08-17 eastern Newfoundland scene produced 298
 detections, the majority clustered over the Newfoundland landmass rather than
@@ -36,17 +36,11 @@ Coastline sources, all open, none paid:
           Newfoundland's interior is full of ponds and this is the behaviour we
           want. https://osmdata.openstreetmap.de/data/land-polygons.html
 
-          Imagery checks on 2026-10-05 confirm that the cached polygon leaves
-          St. John's basin and The Narrows open. Earlier claims of a closed
-          entrance were not supported by imagery-referenced controls. The
-          coastal policy still withholds nearshore water from association.
   gshhg   GSHHG 2.3.7, GNU Lesser General Public License.
           https://www.soest.hawaii.edu/pwessel/gshhg/
 
-CanVec 1:50,000 NL hydrography was evaluated against City Imagery2022. Its local
-ocean polygon has 1979 source attributes and misses a quay control; it is not
-adopted as a replacement. Public imagery controls guard against harbour closure
-and obvious land leakage without changing coastal eligibility.
+Local OSM/CanVec comparison evidence is in docs/ST_JOHNS_SHORELINE.md;
+the expanded imagery-control inventory is in docs/COASTAL_POLICY.md.
 """
 
 import hashlib
@@ -92,8 +86,8 @@ SOURCES: Dict[str, Dict[str, str]] = {
         "url": "https://www.soest.hawaii.edu/pwessel/gshhg/gshhg-shp-2.3.7.zip",
         "archive": "gshhg-shp-2.3.7.zip",
         # L1 = continental land. Lakes (L2) are deliberately NOT subtracted:
-        # an inland pond is not navigable water for our purposes, and a
-        # detection on one is a false positive either way.
+        # inland water remains outside this marine research scope regardless
+        # of whether a return there is a vessel.
         "shapefile": "GSHHS_shp/f/GSHHS_f_L1.shp",
         "licence": "GNU LGPL - GSHHG 2.3.7",
     },
