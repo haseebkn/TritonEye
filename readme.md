@@ -44,6 +44,11 @@ not vessel predictions: detector fine-tuning and a controlled improvement
 comparison remain blocked by missing usable vessel labels. HH/HV remains separate
 and unsupported by the current models; locked test imagery is not encoded.
 
+The [target correlation study](docs/TARGET_CORRELATION.md) adds detector-blind
+identity review bundles and an experimental uncertainty-aware comparison. No
+independently reviewed SAR–AIS identities or measured improvement are available;
+the production geometric method is unchanged and no learned ranker is trained.
+
 ## Offline synthetic demonstration
 
 For a no-install preview, download and open

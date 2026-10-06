@@ -177,6 +177,7 @@ def summarize_correlation(targets: gpd.GeoDataFrame) -> dict[str, Any]:
         "raw_detections": len(targets),
         "eligible_detections": int(targets.association_eligible.sum()),
         "review_candidates": int(targets.review_required.sum()),
+        "unassociated_candidates": states.get("uncorrelated_candidate", 0),
         "coastal_research_returns": int(targets.coastal_review_required.sum()),
         "ais_positions": targets.attrs.get("ais_positions", 0),
         "ais_diagnostics": targets.attrs.get("ais_diagnostics", {}),

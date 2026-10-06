@@ -28,7 +28,7 @@ from agents.tracking import RunTracker  # noqa: E402
 
 STATE_LABELS = {
     "ais_associated": "AIS associated (provisional)",
-    "uncorrelated_candidate": "Uncorrelated candidate: analyst review",
+    "uncorrelated_candidate": "Unassociated candidate: analyst review",
     "ambiguous_association": "Ambiguous association: analyst review",
     "unassessable": "Unassessable",
     "excluded_land": "Excluded: land",

@@ -5,3 +5,7 @@
 datasets/nl_benchmark/** -text whitespace=cr-at-eol
 scripts/build_nl_benchmark.py text eol=lf
 scripts/prepare_nl_review.py text eol=lf
+# Research reports hash these implementation bytes across Windows/Linux replay.
+agents/association.py text eol=lf
+agents/association_study.py text eol=lf
+agents/uncertainty_association.py text eol=lf
