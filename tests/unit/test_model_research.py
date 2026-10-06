@@ -5,6 +5,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+import rasterio
+from rasterio.transform import from_origin
 
 from agents.croma_features import (
     build_encoder,
@@ -134,6 +136,79 @@ def test_locked_and_hh_chips_are_not_opened_or_encoded(
     with pytest.raises(ValueError, match="No eligible"):
         extract_features(tmp_path, tmp_path, tmp_path / "unused", output, "cpu")
     assert not output.exists()
+
+
+def test_extract_features_runs_real_pipeline_on_eligible_roi(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """Exercise the actual success path: windowing, encoding, freeze and output."""
+    import agents.model_research as research
+
+    manifest, annotation, status = copy.deepcopy(load_dataset())
+    scene = next(
+        s
+        for s in manifest["scenes"]
+        if s["polarizations"] == ["vv", "vh"] and s["split"] != "test"
+    )
+    roi = copy.deepcopy(scene["rois"][0])
+    roi["size"] = 128
+    roi["chip"]["path"] = "chip.tif"
+    chip_path = tmp_path / "chip.tif"
+    values = np.random.default_rng(3).normal(size=(2, 128, 128)).astype("float32")
+    with rasterio.open(
+        chip_path,
+        "w",
+        driver="GTiff",
+        width=128,
+        height=128,
+        count=2,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(-55.2, 49.3, 0.0001, 0.0001),
+    ) as out:
+        out.write(values)
+        out.set_band_description(1, "sigma0_db_vv")
+        out.set_band_description(2, "sigma0_db_vh")
+    from agents.artifacts import sha256_file
+
+    roi["chip"]["sha256"] = sha256_file(chip_path)
+    scene["rois"] = [roi]
+    manifest["scenes"] = [scene]
+
+    monkeypatch.setattr(
+        research, "load_dataset", lambda _: (manifest, annotation, status)
+    )
+    monkeypatch.setattr(
+        research,
+        "load_encoder",
+        lambda path, device: build_encoder(dim=32, depth=1)
+        .eval()
+        .requires_grad_(False),
+    )
+
+    from agents.nl_benchmark import DEFAULT_DATASET
+
+    output = tmp_path / "experiment"
+    report = extract_features(
+        DEFAULT_DATASET, tmp_path, tmp_path / "unused.pt", output, "cpu"
+    )
+
+    assert report["status"] == "features_extracted_not_a_detector_comparison"
+    assert report["vessel_metrics"] is None
+    assert report["improvement"] is None
+    [case] = report["cases"]
+    assert case["status"] == "frozen_features_only"
+    assert case["windows"] == 1
+    assert case["repeat_max_absolute_error"] < 1e-5
+    assert report["parameter_digest_before"] == report["parameter_digest_after"]
+
+    artifact = output / f"{roi['id']}.npz"
+    assert artifact.exists()
+    saved = np.load(artifact)
+    assert saved["tokens"].shape[0] == 1
+    assert np.isfinite(saved["tokens"]).all()
+    assert np.isfinite(saved["pooled"]).all()
+    assert (output / "experiment.json").exists()
 
 
 def test_checkpoint_checksum_rejects_wrong_weights(tmp_path: Path) -> None:
