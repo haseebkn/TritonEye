@@ -38,6 +38,12 @@ processing coverage, resource use and descriptive returns from unavailable
 accuracy. Validation-only threshold selection requires useful recall and coverage
 as well as a low false-alarm bound; it cannot succeed by withholding everything.
 
+The [model development status](docs/MODEL_DEVELOPMENT.md) includes a real frozen
+CROMA radar-feature experiment on NL VV/VH development imagery. Features are
+not vessel predictions: detector fine-tuning and a controlled improvement
+comparison remain blocked by missing usable vessel labels. HH/HV remains separate
+and unsupported by the current models; locked test imagery is not encoded.
+
 ## Offline synthetic demonstration
 
 For a no-install preview, download and open
