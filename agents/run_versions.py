@@ -31,13 +31,21 @@ def hash_paths(paths: list[Path], root: Path) -> dict[str, str]:
     }
 
 
-def processing_versions(root: Path, env: dict[str, str]) -> dict[str, Any]:
-    """Hash actual local weights/reference data and only non-secret overrides."""
+def processing_versions(
+    root: Path,
+    env: dict[str, str],
+    *,
+    artifact_root: Path | None = None,
+    shoreline_cache: Path | None = None,
+    shoreline_source: str | None = None,
+) -> dict[str, Any]:
+    """Hash executing code/config separately from explicitly located assets."""
+    assets = artifact_root.resolve() if artifact_root is not None else root
     config = yaml.safe_load((root / "configs/model.yaml").read_text(encoding="utf-8"))
     detector = env.get("TRITONEYE_DETECTOR") or config["inference"]["detector"]
     if detector == "xview3":
         weights = Path(
-            env.get("XVIEW3_WEIGHTS", str(root / "models/xview3/traced_ensemble.jit"))
+            env.get("XVIEW3_WEIGHTS", str(assets / "models/xview3/traced_ensemble.jit"))
         )
         expected = config["model"].get("xview3_sha256")
     else:
@@ -45,7 +53,7 @@ def processing_versions(root: Path, env: dict[str, str]) -> dict[str, Any]:
             env.get(
                 "YOLO_WEIGHTS",
                 str(
-                    root
+                    assets
                     / "models"
                     / env.get("HUGGINGFACE_MODEL_FILE", "unquantized/best.pt")
                 ),
@@ -54,10 +62,12 @@ def processing_versions(root: Path, env: dict[str, str]) -> dict[str, Any]:
         expected = env.get("YOLO_WEIGHTS_SHA256") or config["model"].get("yolo_sha256")
     if not weights.is_absolute():
         weights = root / weights
-    cache = Path(config.get("landmask", {}).get("cache_dir") or root / "data/reference")
+    cache = shoreline_cache or Path(
+        config.get("landmask", {}).get("cache_dir") or assets / "data/reference"
+    )
     if not cache.is_absolute():
         cache = root / cache
-    source = config.get("landmask", {}).get("source", "osm")
+    source = shoreline_source or config.get("landmask", {}).get("source", "osm")
     shapefile = cache / SOURCES[source]["shapefile"]
     reference = {
         path.name: sha256_file(path)

@@ -26,13 +26,26 @@ from agents.run_versions import digest
 
 
 def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
+    if output_dir.exists() or output_dir.is_symlink():
+        raise ValueError("Fresh output directory required; source evidence is immutable")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     inputs = []
+    product_ids = set()
+    source_paths = [manifest_path, root / "configs/model.yaml"]
     for scene in manifest["scenes"]:
         source_payload = root / scene["payload"]
         payload = json.loads(source_payload.read_text(encoding="utf-8"))
         require_product(payload, scene["product_id"])
+        if scene["product_id"] in product_ids:
+            raise ValueError("Duplicate replay product destination")
+        product_ids.add(scene["product_id"])
         detection_path = Path(payload["detections_geojson"])
+        source_paths.extend(
+            [source_payload, detection_path, Path(payload["ais_telemetry"])]
+            + [Path(path) for path in payload["sar_bands"].values()]
+        )
+        if scene.get("independent_labels"):
+            source_paths.append(root / scene["independent_labels"])
         detections = json.loads(detection_path.read_text(encoding="utf-8"))
         if "sar_product_id" in detections:
             require_product(detections, scene["product_id"])
@@ -58,6 +71,13 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
     config = load_yaml_config(str(root / "configs/model.yaml"))
     registry_path = root / manifest["controls_registry"]
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    source_paths.extend(
+        [registry_path]
+        + [registry_path.parent / c["path"] for c in registry["collections"]]
+    )
+    if any(path.resolve().is_relative_to(output_dir.resolve()) for path in source_paths):
+        raise ValueError("Replay destination aliases source evidence")
+    output_dir.mkdir(parents=True)
     results = []
     for scene, source_payload, payload, detection_path, detections in inputs:
         detections["sar_product_id"] = scene["product_id"]
@@ -100,7 +120,7 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
             f for f, keep in zip(detections["features"], valid) if keep
         ]
         directory = output_dir / scene["product_id"]
-        directory.mkdir(parents=True, exist_ok=True)
+        directory.mkdir()
         derived_detections = directory / "detections.geojson"
         derived_detections.write_text(
             json.dumps(detections, indent=2, allow_nan=False), encoding="utf-8"
@@ -242,7 +262,6 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
             "or promoted from unlabelled returns"
         ),
     }
-    output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "summary.json").write_text(
         json.dumps(output, indent=2, allow_nan=False), encoding="utf-8"
     )

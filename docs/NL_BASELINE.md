@@ -35,11 +35,11 @@ scope. Scores are uncalibrated objectness values, not vessel probabilities.
 | --- | --- |
 | Raw vessel precision and recall | Geodesic one-to-one matching within 100 m to all independently reviewed vessels in the fixed valid-imagery area. Raw precision includes land returns. |
 | Post-policy precision and recall | Same vessel denominator, after coastal and infrastructure eligibility rules. Withheld coastal vessels remain misses. |
-| False alarms per water square kilometre | Unmatched physical-water returns divided by fixed evaluated physical-water area. Post-policy density uses that same denominator, not a shrinking buffered area. |
+| False alarms per water square kilometre | Physical-water returns unmatched in the raw assignment divided by fixed evaluated physical-water area. Post-policy density counts unmatched water returns in the post-policy assignment using that same area denominator. |
 | Policy exclusions and abstentions | Descriptive retained coastal returns, physical-land returns and unknown-surface or unknown-distance abstentions. These are not false positives. |
 | Detector and policy misses | All reviewed vessels missed by raw detections, and extra misses introduced by eligibility policy. Both remain unavailable without reviewed labels. |
-| AIS subset proximity recall | Matches to the bounded, time-aligned AIS subset in the area; raw and post-policy versions are separate. Not overall detector recall. |
-| Association ambiguity | Competing geometric candidates under bounded AIS uncertainty gates. Unmatched competing returns count as ambiguous. |
+| AIS subset proximity recall | Matches within a fixed 100 m to the bounded, time-aligned AIS subset in the area; raw and post-policy versions are separate. Not overall detector recall. |
+| Association ambiguity | Competing geometric candidates under the production 500 m base gate plus each AIS position's heuristic uncertainty allowance. Unmatched competing returns count as ambiguous. |
 | Association correctness | Requires independent adjudication of vessel identities. A nearest AIS match is not a correct-identity label. Currently unavailable. |
 | Processing completeness and resources | Complete selected-area processing, native context count, wall time, process RSS sampled every 100 ms and CUDA peak allocated/reserved memory. Unsupported and failed areas remain in coverage. |
 
@@ -100,11 +100,24 @@ SAR inputs, model weights, frozen private AIS snapshots and raw prediction cache
 remain in the project folder and outside Git. A validator in a separate checkout
 can use the explicit artifact root without copying private data or weakening path
 bounds. Source, model, configuration, code and dataset hashes accompany the report.
+Protocol version 2 records executing code, configuration and shoreline controls
+from the running checkout, separately from model, SAR, reference and AIS assets
+at the artifact root. The final integrity check uses the executing checkout.
 Model loading is timed separately; per-area inference times exclude shoreline
 loading and subsequent scoring. Sampled RSS is absolute process memory, not a
 guaranteed operating-system high-water mark.
 
 ## Real replay results
+
+The preserved `20261005_replay_02` report and public evidence are historical,
+preceding protocol version 2's provenance separation, fresh replay destination
+guard, raw-assignment water false alarms and production AIS assignment gate.
+Their original hashes and values remain unchanged; they do not validate the
+corrected implementation. Fresh SAR inference is unnecessary to verify these
+fixes: inference is unchanged and every independent accuracy/false-alarm metric
+and AIS subset metric in this pilot is null. Behavioral regressions exercise the
+corrected cases with synthetic inputs; new measured claims require a new run
+with independent labels and co-temporal AIS.
 
 The 5 October 2026 replay used the pinned model on CUDA. Six VV/VH areas
 completed all twelve selected native contexts. Four HH/HV areas were unsupported;

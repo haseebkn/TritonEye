@@ -122,18 +122,15 @@ def score_roi(
         if f["properties"]["class"] == "vessel"
     ]
     eligible_features = [f for f in active if eligible(f["properties"])]
-    water = [f for f in active if f["properties"]["physical_surface"] == "water"]
     for key, subset in [("raw", active), ("post_policy", eligible_features)]:
         pairs, _, ambiguous = one_to_one_matches(
             [shape(f["geometry"]).centroid for f in subset], truth, match_radius_m
         )
         tp, fp, fn = len(pairs), len(subset) - len(pairs), len(truth) - len(pairs)
-        # Water-only raw FP density excludes land returns, while overall
-        # detection precision still accounts for all false returns in the ROI.
-        water_pairs, _, _ = one_to_one_matches(
-            [shape(f["geometry"]).centroid for f in water], truth, match_radius_m
+        density_fp = sum(
+            i not in pairs and f["properties"]["physical_surface"] == "water"
+            for i, f in enumerate(subset)
         )
-        density_fp = len(water) - len(water_pairs) if key == "raw" else fp
         result[key] = {
             "tp": tp,
             "fp": fp,

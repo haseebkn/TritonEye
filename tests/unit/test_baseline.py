@@ -6,7 +6,7 @@ from typing import Any
 
 import geopandas as gpd
 import pytest
-from pyproj import Transformer
+from pyproj import Geod, Transformer
 from shapely.geometry import Point, box, mapping
 from shapely.ops import transform
 
@@ -315,3 +315,60 @@ def test_ais_proximity_is_not_identity_correctness() -> None:
     )
     assert empty["ais_subset_proximity_recall_raw"] is None
     assert empty["ambiguous_assignments"] is None
+
+
+def test_raw_water_false_alarm_keeps_the_raw_assignment() -> None:
+    detections, labels = fixture()
+    labels["features"] = labels["features"][1:2]
+    detections["features"] = detections["features"][:2]
+    geod = Geod(ellps="WGS84")
+    for feature, distance, surface in zip(
+        detections["features"], [1, 80], ["land", "water"]
+    ):
+        lon, lat, _ = geod.fwd(-55.03, 49.24, 90, distance)
+        feature["geometry"] = mapping(Point(lon, lat))
+        feature["properties"].update(annotations(surface, 800))
+    result = score_roi(
+        detections,
+        labels,
+        threshold=0.15,
+        score_floor=0.05,
+        water_area_km2=10,
+        processing_complete=True,
+    )
+    assert result["raw"]["tp"] == result["raw"]["fp"] == 1
+    assert result["raw"]["false_alarms_on_water"] == 1
+    assert result["raw"]["false_alarms_per_km2"] == 0.1
+    assert result["post_policy"]["tp"] == 1
+    assert result["post_policy"]["false_alarms_on_water"] == 0
+
+
+@pytest.mark.parametrize(
+    "distance,uncertainty,assigned", [(300, 0, 1), (550, 100, 1), (650, 100, 0)]
+)
+def test_ais_assignment_uses_production_gate_separately_from_proximity(
+    distance: float, uncertainty: float, assigned: int
+) -> None:
+    detections, _ = fixture()
+    detections["features"] = detections["features"][1:2]
+    lon, lat, _ = Geod(ellps="WGS84").fwd(-55.03, 49.24, 90, distance)
+    positions = gpd.GeoDataFrame(
+        {"uncertainty_m": [uncertainty]},
+        geometry=[Point(lon, lat)],
+        crs="EPSG:4326",
+    )
+    result = association_summary(
+        detections, positions, threshold=0.15, processing_complete=True
+    )
+    assert result["ais_subset_proximity_recall_raw"] == 0
+    assert result["ais_subset_proximity_recall_post_policy"] == 0
+    assert result["geometric_assignments"] == assigned
+    assert result["ais_proximity_radius_m"] == 100
+    assert result["association_base_radius_m"] == 500
+    assert result["association_correctness"] is None
+    detections["features"].append(copy.deepcopy(detections["features"][0]))
+    competing = association_summary(
+        detections, positions, threshold=0.15, processing_complete=True
+    )
+    assert competing["geometric_assignments"] == assigned
+    assert competing["ambiguous_assignments"] == (2 if assigned else 0)

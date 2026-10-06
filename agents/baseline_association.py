@@ -6,6 +6,9 @@ from shapely.geometry import shape
 
 from agents.association import one_to_one_matches
 from agents.coastal_policy import eligible
+from agents.correlation.correlation_agent import CORRELATION_RADIUS_M
+
+AIS_PROXIMITY_RADIUS_M = 100.0
 
 
 def association_summary(
@@ -14,7 +17,6 @@ def association_summary(
     *,
     threshold: float,
     processing_complete: bool,
-    radius_m: float = 100.0,
 ) -> dict[str, Any]:
     """Proximity recall and geometric ambiguity cannot prove identity correctness."""
     roi = shape(detections["study_roi"])
@@ -28,6 +30,9 @@ def association_summary(
         "ambiguous_assignments": None,
         "correctness_reason": "Independent vessel-identity adjudication unavailable",
         "supporting_only": True,
+        "ais_proximity_radius_m": AIS_PROXIMITY_RADIUS_M,
+        "association_base_radius_m": CORRELATION_RADIUS_M,
+        "association_uncertainty": "Added heuristic AIS allowance, not calibrated",
     }
     if not processing_complete or not n:
         result["reason"] = "Processing incomplete or no co-temporal AIS in selected ROI"
@@ -40,7 +45,9 @@ def association_summary(
         ("post_policy", [f for f in returns if eligible(f["properties"])]),
     ):
         points = [shape(f["geometry"]).centroid for f in subset]
-        pairs, _, _ = one_to_one_matches(points, list(positions.geometry), radius_m)
+        pairs, _, _ = one_to_one_matches(
+            points, list(positions.geometry), AIS_PROXIMITY_RADIUS_M
+        )
         result[f"ais_subset_proximity_recall_{name}"] = len(pairs) / n
     points = [
         shape(f["geometry"]).centroid for f in returns if eligible(f["properties"])
@@ -48,7 +55,7 @@ def association_summary(
     pairs, _, ambiguous = one_to_one_matches(
         points,
         list(positions.geometry),
-        [radius_m + float(u) for u in positions.uncertainty_m],
+        [CORRELATION_RADIUS_M + float(u) for u in positions.uncertainty_m],
     )
     result["geometric_assignments"] = len(pairs)
     result["ambiguous_assignments"] = len(ambiguous)

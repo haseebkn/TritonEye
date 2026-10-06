@@ -20,7 +20,7 @@ from shapely.geometry import Point, mapping, shape
 
 from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.association import aligned_ais
-from agents.baseline_association import association_summary
+from agents.baseline_association import AIS_PROXIMITY_RADIUS_M, association_summary
 from agents.baseline_context import (
     area_km2,
     context_geometry,
@@ -32,6 +32,7 @@ from agents.baseline_report import DEFAULT_TARGETS, DEFAULT_THRESHOLDS, make_rep
 from agents.calibration import NODATA_DB, Calibrator
 from agents.coastal_benchmark import compare_buffers
 from agents.coastal_policy import annotations as policy_annotations
+from agents.correlation.correlation_agent import CORRELATION_RADIUS_M
 from agents.geo import Georeferencer
 from agents.infrastructure import classify_infrastructure
 from agents.landmask import LandMask, resolve_cache_dir
@@ -220,9 +221,31 @@ def run_baseline(
     weights = artifact_root / "models/xview3/traced_ensemble.jit"
     if sha256_file(weights) != MODEL_SHA256:
         raise ValueError("Baseline model hash differs from pinned research model")
-    versions = processing_versions(artifact_root, {})
+    artifact_root = artifact_root.resolve()
+    shoreline_cache = artifact_root / "data/reference"
+    versions = processing_versions(
+        REPO_ROOT,
+        {},
+        artifact_root=artifact_root,
+        shoreline_cache=shoreline_cache,
+        shoreline_source="osm",
+    )
     if versions["model"]["actual_sha256"] != MODEL_SHA256:
         raise ValueError("Operational model selection differs from pinned baseline")
+    assets = {
+        "model": versions.pop("model"),
+        "shoreline": versions.pop("shoreline"),
+        "verified_scene_sources": {
+            s["product_id"]: s["sources"]
+            for s in manifest["scenes"]
+            if s["split"] != "test"
+        },
+        "ais_snapshots": {
+            s["product_id"]: s["ais"]["snapshot"]
+            for s in manifest["scenes"]
+            if s["split"] != "test"
+        },
+    }
     if output.exists():
         raise ValueError(
             "Fresh output directory required; previous evidence cannot be overwritten"
@@ -278,7 +301,9 @@ def run_baseline(
             try:
                 mask = LandMask.for_footprint(
                     shape(roi["geometry"]).bounds,
-                    cache_dir=resolve_cache_dir(str(artifact_root)),
+                    cache_dir=resolve_cache_dir(
+                        str(artifact_root), str(shoreline_cache)
+                    ),
                 )
                 case["water_area_km2"] = area_km2(
                     mask.water_geometry(shape(roi["geometry"]))
@@ -371,7 +396,9 @@ def run_baseline(
             print(f"{roi['id']}: {case['state']}", flush=True)
     report = make_report(cases, list(DEFAULT_THRESHOLDS), DEFAULT_TARGETS)
     report["provenance"] = {
+        "baseline_protocol_version": 2,
         "processing_versions": versions,
+        "assets": assets,
         "baseline_configuration_sha256": digest(
             {
                 "score_floor": SCORE_FLOOR,
@@ -379,6 +406,8 @@ def run_baseline(
                 "targets": DEFAULT_TARGETS,
                 "buffer_m": 300.0,
                 "match_radius_m": 100.0,
+                "ais_proximity_radius_m": AIS_PROXIMITY_RADIUS_M,
+                "association_base_radius_m": CORRELATION_RADIUS_M,
                 "tile_size": TILE_SIZE,
             }
         ),
@@ -403,9 +432,13 @@ def run_baseline(
             "Uncalibrated objectness; strict > threshold, cached floor 0.05"
         ),
     }
-    for name, checksum in versions["code"].items():
-        if sha256_file(artifact_root / name) != checksum:
-            raise ValueError("Code changed during replay; report is not reproducible")
+    for category in ("code", "configuration"):
+        for name, checksum in versions[category].items():
+            if sha256_file(REPO_ROOT / name) != checksum:
+                raise ValueError(
+                    "Code or configuration changed during replay; "
+                    "report is not reproducible"
+                )
     report["limits"].extend(
         [
             "Native 2048-pixel production-aligned contexts, bounded selected-ROI "
