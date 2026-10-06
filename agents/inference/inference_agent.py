@@ -590,6 +590,7 @@ def classify_surfaces(
         "status": "ok",
         "source": source,
         "licence": mask.licence,
+        "cache_dir": cache_dir,
         "coastal_buffer_m": buffer_m,
         "physical_surfaces": physical,
         "infrastructure_flags": is_infra,

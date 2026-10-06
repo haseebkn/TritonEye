@@ -131,7 +131,9 @@ def local_aeqd_crs(bounds: Sequence[float]) -> Any:
 
 def resolve_cache_dir(base_dir: str, cache_dir: Optional[str] = None) -> str:
     """Returns the coastline cache directory, creating it if absent."""
-    path = cache_dir or os.path.join(base_dir, "data", "reference")
+    path = os.path.abspath(
+        os.path.join(base_dir, cache_dir or os.path.join("data", "reference"))
+    )
     os.makedirs(path, exist_ok=True)
     return path
 

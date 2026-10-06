@@ -293,3 +293,71 @@ def test_versions_hash_actual_model_config_code_and_reference(tmp_path: Path) ->
     assert before["model"]["actual_sha256"] != after["model"]["actual_sha256"]
     assert "must-not-leak" not in json.dumps(before)
     assert "configs/model.yaml" in before["configuration"]
+
+
+def test_hourly_failures_do_not_starve_unattempted_or_older_products(
+    setup: dict[str, Any],
+) -> None:
+    selected: list[str] = []
+
+    def fail(**kwargs: Any) -> dict[str, Any]:
+        selected.append(kwargs["env"]["TARGET_PRODUCT_ID"])
+        raise RuntimeError("persistent product failure")
+
+    setup["runner"] = fail
+    for _ in range(4):
+        assert (
+            watch.run_check([product(FIRST), product(SECOND)], **setup)["outcome"]
+            == "failed"
+        )
+        setup["now"] += timedelta(hours=2)
+    assert selected == [FIRST, SECOND, FIRST, SECOND]
+
+
+def test_partial_existing_ais_snapshot_is_rejected(setup: dict[str, Any]) -> None:
+    archive(Path(setup["archive_dir"]), extra=True)
+    selected = product(FIRST)
+    revision = watch.acquisition_versions(
+        setup["versions"], selected, setup["archive_dir"]
+    )
+    target = setup["record_dir"] / "inputs" / FIRST / revision["version_key"]
+    target.mkdir(parents=True)
+    path = target / "ais_stream_2026-09-27.csv"
+    path.write_text("mmsi,lon,lat,timestamp\n316000001,-50,47,2026-09-27T21:30:00Z\n")
+    original = path.read_bytes()
+
+    def forbidden(**kwargs: Any) -> dict[str, Any]:
+        pytest.fail("Corrupt snapshot reached ingestion")
+
+    setup["runner"] = forbidden
+    assert watch.run_check([selected], **setup)["outcome"] == "failed"
+    assert path.read_bytes() == original
+    assert "snapshot differs" in record(setup)["attempts"][-1]["error"]
+
+
+def test_interrupted_ais_write_is_never_published_and_can_retry(
+    setup: dict[str, Any], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    selected = product(FIRST)
+    revision = watch.acquisition_versions(
+        setup["versions"], selected, setup["archive_dir"]
+    )
+    row = {"product_id": FIRST, "acquired": selected["ContentDate"]["Start"]}
+    target = setup["record_dir"] / "inputs" / FIRST / revision["version_key"]
+
+    def disk_full(fd: int) -> None:
+        assert not list(target.glob("*.csv"))
+        raise OSError("disk full during write")
+
+    with monkeypatch.context() as failure:
+        failure.setattr(watch.os, "fsync", disk_full)
+        with pytest.raises(OSError, match="disk full"):
+            watch.snapshot_ais(setup["record_dir"], setup["archive_dir"], row, revision)
+    assert list(target.iterdir()) == []
+    snapshot = watch.snapshot_ais(
+        setup["record_dir"], setup["archive_dir"], row, revision
+    )
+    assert len(scene_watch.ais_rows_near(str(snapshot), row["acquired"])) == 1
+    evidence = {path: path.read_bytes() for path in snapshot.iterdir()}
+    watch.snapshot_ais(setup["record_dir"], setup["archive_dir"], row, revision)
+    assert all(path.read_bytes() == content for path, content in evidence.items())

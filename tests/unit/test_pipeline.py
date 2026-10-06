@@ -69,10 +69,13 @@ def test_exact_product_survives_each_stage_and_replay_is_preserved(
         assert kwargs["env"]["TARGET_PRODUCT_ID"] == identity
         payload = json.loads(kwargs["input"])
         if stage == "ingest":
+            destination = tmp_path / "ais_filtered.csv"
+            destination.write_bytes(original_ais.read_bytes())
             payload.update(
                 sar_product_id=identity,
-                mission_id="original_mission",
-                ais_telemetry=str(original_ais),
+                mission_id=kwargs["env"]["TRITONEYE_MISSION_ID"],
+                source_mission_id="original_mission",
+                ais_telemetry=str(destination),
             )
         else:
             assert payload["sar_product_id"] == identity

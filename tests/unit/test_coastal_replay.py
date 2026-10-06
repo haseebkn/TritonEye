@@ -10,7 +10,9 @@ import rasterio
 from rasterio.transform import from_origin
 from shapely.geometry import Point, mapping
 
+from agents.coastal_benchmark import compare_buffers
 from agents.coastal_replay import replay
+from agents.nl_benchmark import DEFAULT_DATASET
 
 PRODUCT = "66d3167d-240a-459a-8066-75b9d2a458f2"
 
@@ -151,3 +153,43 @@ def test_inventory_cannot_claim_nonimaged_control_location(
     monkeypatch.setattr("agents.coastal_replay.classify_surfaces", fake_classification)
     with pytest.raises(ValueError, match="no controls on valid scene pixels"):
         replay(tmp_path, manifest, tmp_path / "derived")
+
+
+@pytest.mark.parametrize("held_out", ["declared", "product", "datatake"])
+def test_unlabelled_held_out_scene_cannot_compare_or_export(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, held_out: str
+) -> None:
+    manifest_path = inputs(tmp_path)
+    inventory = json.loads(manifest_path.read_text())
+    scene = inventory["scenes"][0]
+    payload_path = tmp_path / "payload.json"
+    payload = json.loads(payload_path.read_text())
+    detections_path = tmp_path / "detections.geojson"
+    detections = json.loads(detections_path.read_text())
+    released = json.loads((DEFAULT_DATASET / "manifest.json").read_text())
+    locked = next(s for s in released["scenes"] if s["split"] == "test")
+    if held_out == "declared":
+        scene["split"] = detections["split"] = "test"
+    elif held_out == "product":
+        scene["product_id"] = payload["sar_product_id"] = locked["product_id"]
+    else:
+        alias = locked["name"].replace(".SAFE", "_REPROCESSED.SAFE")
+        payload["sar_product"] = detections["sar_product"] = alias
+        detections["acquisition_group"] = "claimed_development_group"
+    detections["sar_product_id"] = scene["product_id"]
+    manifest_path.write_text(json.dumps(inventory))
+    payload_path.write_text(json.dumps(payload))
+    detections_path.write_text(json.dumps(detections))
+    originals = {path: path.read_bytes() for path in (payload_path, detections_path)}
+
+    def forbidden(*args: Any, **kwargs: Any) -> None:
+        pytest.fail("Held-out scene reached shoreline comparison")
+
+    monkeypatch.setattr("agents.coastal_replay.classify_surfaces", forbidden)
+    with pytest.raises(ValueError, match="Held-out test"):
+        replay(tmp_path, manifest_path, tmp_path / "derived")
+    assert not (tmp_path / "derived").exists()
+    for labels in (None, {"benchmark": {"split": "validation"}}):
+        with pytest.raises(ValueError, match="Held-out test"):
+            compare_buffers(detections, labels, scene["product_id"])
+    assert all(path.read_bytes() == content for path, content in originals.items())

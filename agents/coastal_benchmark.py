@@ -15,6 +15,7 @@ from shapely.geometry import Point, shape
 from agents.acquisition import product_id
 from agents.association import one_to_one_matches
 from agents.coastal_policy import annotations
+from agents.nl_benchmark import require_development_scene
 from agents.region import load_region
 from agents.run_versions import digest
 
@@ -37,6 +38,9 @@ def compare_buffers(
     is reported as a policy miss instead of removing it from the denominator.
     """
     selected = product_id(selected_product_id)
+    require_development_scene(
+        selected, detections, (labels or {}).get("benchmark") or {}
+    )
     if not buffers_m or any(not math.isfinite(b) or b < 0 for b in buffers_m):
         raise ValueError("Buffers must be finite, nonnegative and nonempty")
     if not math.isfinite(match_radius_m) or match_radius_m <= 0:

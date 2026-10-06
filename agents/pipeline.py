@@ -43,6 +43,7 @@ def run_pipeline(
             require_product(current, selected_id)
     if provenance is not None:
         current["run_provenance"] = provenance
+        process_env["TRITONEYE_MISSION_ID"] = f"execution_{stamp}"
         if payload is not None:
             current["source_mission_id"] = current.get("mission_id")
             current["mission_id"] = f"execution_{stamp}"
@@ -81,14 +82,6 @@ def run_pipeline(
                 current["selected_product_id"] = selected_id
             if provenance is not None:
                 current["run_provenance"] = provenance
-                if stage == "ingest":
-                    current["source_mission_id"] = current.get("mission_id")
-                    current["mission_id"] = f"execution_{stamp}"
-                    ais_path = current.get("ais_telemetry")
-                    if ais_path:
-                        snapshot = execution_dir / "ais_filtered.csv"
-                        shutil.copyfile(ais_path, snapshot)
-                        current["ais_telemetry"] = str(snapshot)
             write_json(execution_dir / f"{stage}.json", current)
         current["pipeline_status"] = "completed"
         current["execution_dir"] = str(execution_dir)

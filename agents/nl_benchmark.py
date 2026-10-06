@@ -32,6 +32,47 @@ SPLITS = {"train", "validation", "test"}
 DEFAULT_DATASET = REPO_ROOT / "datasets/nl_benchmark/v0.1.0"
 
 
+def require_development_scene(
+    selected_product_id: str, *metadata: dict[str, Any]
+) -> None:
+    selected = product_id(selected_product_id)
+    groups: set[str] = set()
+    records = [
+        item for record in metadata for item in (record, record.get("benchmark") or {})
+    ]
+    for record in records:
+        if record.get("split") == "test":
+            raise ValueError("Held-out test scenes cannot be used for buffer trials")
+        if record.get("acquisition_group"):
+            groups.add(record["acquisition_group"])
+        for field in ("name", "sar_product"):
+            name = record.get(field)
+            if name:
+                tokens = name.split("_")
+                if len(tokens) >= 8:
+                    groups.add("_".join([tokens[0], tokens[6], tokens[7]]))
+    held_out: set[str] = set()
+    for path in (REPO_ROOT / "datasets/nl_benchmark").glob("*/split_lock.json"):
+        lock = json.loads(path.read_text(encoding="utf-8"))
+        held_out.update(
+            assignment["acquisition_group"]
+            for assignment in lock["assignments"]
+            if assignment["split"] == "test"
+        )
+        manifest = json.loads(
+            path.with_name("manifest.json").read_text(encoding="utf-8")
+        )
+        for scene in manifest["scenes"]:
+            if product_id(scene["product_id"]) == selected:
+                groups.add(scene["acquisition_group"])
+                if scene["split"] == "test":
+                    raise ValueError(
+                        "Held-out test product cannot be used for buffer trials"
+                    )
+    if groups & held_out:
+        raise ValueError("Held-out test datatake cannot be used for buffer trials")
+
+
 def bounded_path(root: Path, relative: str) -> Path:
     """Manifests cannot read outside their declared local root."""
     path = (root / relative).resolve()

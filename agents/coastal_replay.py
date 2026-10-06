@@ -19,22 +19,29 @@ from agents.correlation.correlation_agent import (
 )
 from agents.evaluate.evaluate_agent import evaluate, swath_hull, valid_sar_points
 from agents.inference.inference_agent import classify_surfaces, load_yaml_config
+from agents.nl_benchmark import require_development_scene
 from agents.report.report_agent import build_html_report
 from agents.run_versions import digest
 
 
 def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    config = load_yaml_config(str(root / "configs/model.yaml"))
-    registry_path = root / manifest["controls_registry"]
-    registry = json.loads(registry_path.read_text(encoding="utf-8"))
-    results = []
+    inputs = []
     for scene in manifest["scenes"]:
         source_payload = root / scene["payload"]
         payload = json.loads(source_payload.read_text(encoding="utf-8"))
         require_product(payload, scene["product_id"])
         detection_path = Path(payload["detections_geojson"])
         detections = json.loads(detection_path.read_text(encoding="utf-8"))
+        require_development_scene(scene["product_id"], scene, payload, detections)
+        if scene.get("independent_labels") and scene["split"] != "validation":
+            raise ValueError("Labelled buffer trials require validation scene split")
+        inputs.append((scene, source_payload, payload, detection_path, detections))
+    config = load_yaml_config(str(root / "configs/model.yaml"))
+    registry_path = root / manifest["controls_registry"]
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    results = []
+    for scene, source_payload, payload, detection_path, detections in inputs:
         detections["sar_product_id"] = scene["product_id"]
         detections["acquisition_time"] = payload["acquisition_time"]
         from shapely.geometry import shape
@@ -104,8 +111,6 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
             if scene.get("independent_labels")
             else None
         )
-        if labels_path is not None and scene["split"] != "validation":
-            raise ValueError("Labelled buffer trials require validation scene split")
         labels = (
             json.loads(labels_path.read_text(encoding="utf-8")) if labels_path else None
         )

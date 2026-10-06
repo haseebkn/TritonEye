@@ -31,6 +31,22 @@ def prepare(directory: Path) -> None:
     if (directory / "release.json").exists():
         raise ValueError("Immutable release; preserve it and prepare a new version")
     manifest = json.loads((directory / "manifest.json").read_text(encoding="utf-8"))
+    canonical_release = (
+        REPO_ROOT
+        / "datasets/nl_benchmark"
+        / ("v" + manifest["dataset_version"])
+        / "release.json"
+    )
+    output = (
+        REPO_ROOT
+        / "data/benchmarks/nl"
+        / manifest["dataset_version"]
+        / "review_bundle.html"
+    )
+    if canonical_release.exists() or (output.parent / "release_record.json").exists():
+        raise ValueError(
+            "Released data version cannot be overwritten through another output path"
+        )
     decisions = json.loads(
         (directory / "annotation_decisions.json").read_text(encoding="utf-8")
     )
@@ -147,12 +163,6 @@ def prepare(directory: Path) -> None:
     write_json(directory / "annotations.json", annotation)
     write_json(directory / "review_history.json", history)
     write_json(directory / "status.json", status)
-    output = (
-        REPO_ROOT
-        / "data/benchmarks/nl"
-        / manifest["dataset_version"]
-        / "review_bundle.html"
-    )
     output.write_text(
         '<!doctype html><html lang="en"><meta charset="utf-8">'
         "<title>NL SAR provisional review bundle</title><style>"

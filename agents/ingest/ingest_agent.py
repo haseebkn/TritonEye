@@ -76,7 +76,7 @@ def aoi_bbox(geom: Dict[str, Any]) -> List[float]:
 
 
 def generate_synthetic_data(
-    aoi_path: str, output_dir: str, seed: int = 42
+    aoi_path: str, output_dir: str, seed: int = 42, *, mission_id: str = ""
 ) -> Dict[str, Any]:
     """
     Generates deterministic mock Sentinel-1 GRD GeoTIFF files and matching AIS tracks.
@@ -91,7 +91,7 @@ def generate_synthetic_data(
         timestamp_str = override_timestamp
     else:
         timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-    mission_id = f"mission_mock_{timestamp_str}_{Path(aoi_path).stem}"
+    mission_id = mission_id or f"mission_mock_{timestamp_str}_{Path(aoi_path).stem}"
     synthetic_dir = mission_directory(mission_id, root=Path(output_dir) / "synthetic")
     safe_name = f"SYNTHETIC_VV_VH_{timestamp_str}.SAFE"
     safe_dir = str(synthetic_dir / safe_name)
@@ -561,6 +561,7 @@ def query_copernicus_data(
     password: str,
     target_date: str = "",
     target_product_id: str = "",
+    mission_id: str = "",
 ) -> Dict[str, Any]:
     """Queries and downloads actual Sentinel-1 SAR datasets using CDSE OData API."""
     import tempfile
@@ -803,7 +804,8 @@ def query_copernicus_data(
     # against and be misreported as a dark vessel.
     ais_bbox = pad_bbox(scene_bbox, AIS_MARGIN_DEG)
     acq_time_str_full = utc_string(dt)
-    mission_id = f"mission_{dt.strftime('%Y%m%d_%H%M%S')}_{product_uuid[:8]}"
+    source_mission_id = f"mission_{dt.strftime('%Y%m%d_%H%M%S')}_{product_uuid[:8]}"
+    mission_id = mission_id or source_mission_id
     mission_dir = mission_directory(mission_id)
 
     # This implementation integrates the local aisstream archive only. Other
@@ -840,6 +842,7 @@ def query_copernicus_data(
         "mission_id": mission_id,
         "status": "success",
         "mode": "production",
+        "source_mission_id": source_mission_id,
         "sar_product": product_name,
         "sar_product_id": product_uuid,
         "source_catalogue": "Copernicus Data Space Ecosystem",
@@ -911,7 +914,9 @@ def main() -> None:
             if target_product_override:
                 raise ValueError("A satellite product ID cannot select synthetic data")
             print("Explicit synthetic ingestion via MOCK_INGEST=true.", file=sys.stderr)
-            result: Dict[str, Any] = generate_synthetic_data(aoi_path, output_dir)
+            result: Dict[str, Any] = generate_synthetic_data(
+                aoi_path, output_dir, mission_id=os.getenv("TRITONEYE_MISSION_ID", "")
+            )
         else:
             if not user or not password:
                 raise RuntimeError(
@@ -929,6 +934,7 @@ def main() -> None:
                 password,
                 target_date=target_date_override,
                 target_product_id=target_product_override,
+                mission_id=os.getenv("TRITONEYE_MISSION_ID", ""),
             )
 
         # Open the mission's tracking run here, at the head of the pipeline, and

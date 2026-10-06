@@ -75,7 +75,7 @@ def test_exact_id_query_replays_requested_cached_product(
 
     identity = "42286d3d-cd80-4dc7-9aec-1613992b8256"
     name = "S1D_IW_GRDH_1SDV_20260922T212211_20260922T212236_TEST.SAFE"
-    measurement = tmp_path / "raw" / name / "measurement"
+    measurement = tmp_path / "data/raw" / name / "measurement"
     measurement.mkdir(parents=True)
     (measurement.parent / "manifest.safe").write_text("test cache manifest")
     for polarization in ("vv", "vh"):
@@ -115,9 +115,9 @@ def test_exact_id_query_replays_requested_cached_product(
     )
     monkeypatch.setattr(requests, "get", get)
 
-    def directory(_: str) -> Path:
-        target = tmp_path / "mission"
-        target.mkdir(exist_ok=True)
+    def directory(identifier: str) -> Path:
+        target = tmp_path / "missions" / identifier
+        target.mkdir(parents=True, exist_ok=True)
         return target
 
     monkeypatch.setattr(ingest, "mission_directory", directory)
@@ -129,11 +129,62 @@ def test_exact_id_query_replays_requested_cached_product(
         )
     )
     result = ingest.query_copernicus_data(
-        aoi, str(tmp_path / "raw"), "test", "test", target_product_id=identity
+        aoi, str(tmp_path / "data/raw"), "test", "test", target_product_id=identity
     )
     assert result["sar_product_id"] == identity
     assert result["sar_product"] == name
     assert len(calls) == 1
+
+    import io
+    import json
+    from contextlib import redirect_stdout
+    from subprocess import CompletedProcess
+
+    from agents import pipeline
+
+    original = directory(result["mission_id"])
+    (original / "ingest.json").write_text(json.dumps(result))
+    (original / "ais_filtered.csv").write_text("previous mission AIS evidence\n")
+    evidence = {path: path.read_bytes() for path in original.iterdir()}
+    monkeypatch.setattr(
+        ingest, "__file__", str(tmp_path / "agents/ingest/ingest_agent.py")
+    )
+    monkeypatch.setattr(ingest, "load_aoi", lambda _: aoi)
+    monkeypatch.setattr(pipeline, "mission_directory", directory)
+    monkeypatch.setattr("dotenv.load_dotenv", lambda: None)
+    monkeypatch.setenv("TRITONEYE_TRACKING", "off")
+
+    def execute(args: list[str], **kwargs: Any) -> CompletedProcess[str]:
+        if args[-1] == "agents.ingest.ingest_agent":
+            with monkeypatch.context() as stage_env:
+                for key, value in kwargs["env"].items():
+                    stage_env.setenv(key, value)
+                stdout = io.StringIO()
+                with redirect_stdout(stdout):
+                    ingest.main()
+            return CompletedProcess(args, 0, stdout.getvalue())
+        return CompletedProcess(args, 0, kwargs["input"])
+
+    monkeypatch.setattr(pipeline.subprocess, "run", execute)
+    reprocessed = pipeline.run_pipeline(
+        env={
+            "TARGET_PRODUCT_ID": identity,
+            "COPERNICUS_USER": "test",
+            "COPERNICUS_PASS": "test",
+            "MOCK_INGEST": "false",
+            "TARGET_DATE": "",
+            "AOI_NAME": "grand_banks",
+        },
+        provenance={"version_key": "new-version"},
+    )
+    assert all(path.read_bytes() == content for path, content in evidence.items())
+    assert reprocessed["source_mission_id"] == result["mission_id"]
+    assert reprocessed["mission_id"] != result["mission_id"]
+    destination = Path(reprocessed["execution_dir"])
+    assert Path(reprocessed["ais_telemetry"]).parent == destination
+    assert json.loads((destination / "ingest.json").read_text())["mission_id"] == (
+        reprocessed["mission_id"]
+    )
 
 
 def test_catalogue_cannot_substitute_another_product(

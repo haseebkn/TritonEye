@@ -326,7 +326,8 @@ def evaluate(payload: Dict[str, Any]) -> Dict[str, Any]:
             swath_hull(vv_path).bounds,
             source=landmask.get("source", "osm"),
             cache_dir=resolve_cache_dir(
-                os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+                os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")),
+                landmask.get("cache_dir"),
             ),
         )
         physical, distances = mask.classify_physical(list(truth.lon), list(truth.lat))

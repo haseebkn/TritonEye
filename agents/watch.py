@@ -2,9 +2,11 @@
 
 import argparse
 import csv
+import io
 import json
 import os
 import sys
+import tempfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from importlib import import_module
@@ -69,16 +71,32 @@ def snapshot_ais(
         by_day.setdefault(timestamp.date().isoformat(), []).append(observation)
     for day, observations in by_day.items():
         path = target / f"ais_stream_{day}.csv"
-        if not path.exists():
-            with open(path, "w", newline="", encoding="utf-8") as stream:
-                writer = csv.DictWriter(
-                    stream,
-                    sorted(
-                        {key for observation in observations for key in observation}
-                    ),
-                )
-                writer.writeheader()
-                writer.writerows(observations)
+        content = io.StringIO(newline="")
+        writer = csv.DictWriter(
+            content,
+            sorted({key for observation in observations for key in observation}),
+        )
+        writer.writeheader()
+        writer.writerows(observations)
+        expected = content.getvalue().encode("utf-8")
+        if path.exists():
+            if path.read_bytes() != expected:
+                raise ValueError("Existing AIS snapshot differs from its version")
+            continue
+        fd, temporary = tempfile.mkstemp(dir=target, suffix=".tmp")
+        try:
+            with os.fdopen(fd, "wb") as stream:
+                stream.write(expected)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temporary, path)
+        finally:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
+    if set(target.glob("ais_stream_*.csv")) != {
+        target / f"ais_stream_{day}.csv" for day in by_day
+    }:
+        raise ValueError("AIS snapshot contains files outside its version")
     return target
 
 
@@ -170,7 +188,15 @@ def run_check(
     }
     if check_only or not candidates:
         return result
-    path, record, row, revision = candidates[0]
+    path, record, row, revision = min(
+        candidates,
+        key=lambda candidate: (
+            parse_utc(candidate[1]["attempts"][-1].get("started_at"))
+            if candidate[1]["attempts"]
+            else None
+        )
+        or datetime.min.replace(tzinfo=timezone.utc),
+    )
     attempt: dict[str, Any] = {
         "version_key": revision["version_key"],
         "provenance": revision,

@@ -367,3 +367,36 @@ def test_released_review_preparation_is_immutable() -> None:
     with pytest.raises(ValueError, match="Immutable release"):
         prepare_nl_review.prepare(DEFAULT_DATASET)
     assert sha256_file(DEFAULT_DATASET / "release.json") == checksum
+
+
+@pytest.mark.parametrize("owner", ["canonical_release", "data_record"])
+def test_copied_review_draft_cannot_overwrite_released_bytes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, owner: str
+) -> None:
+    import shutil
+
+    draft = tmp_path / "draft"
+    shutil.copytree(
+        DEFAULT_DATASET, draft, ignore=shutil.ignore_patterns("release.json")
+    )
+    decisions = json.loads((draft / "annotation_decisions.json").read_text())
+    decisions["notes"] = "Changed draft decisions"
+    write_json(draft / "annotation_decisions.json", decisions)
+    data = tmp_path / "data/benchmarks/nl/0.1.0"
+    data.mkdir(parents=True)
+    (data / "review_bundle.html").write_bytes(b"original released review bundle")
+    if owner == "canonical_release":
+        write_json(
+            tmp_path / "datasets/nl_benchmark/v0.1.0/release.json", {"frozen": True}
+        )
+    else:
+        write_json(data / "release_record.json", {"frozen": True})
+    evidence = {
+        path: path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()
+    }
+    monkeypatch.setattr(prepare_nl_review, "REPO_ROOT", tmp_path)
+    with pytest.raises(ValueError, match="another output path"):
+        prepare_nl_review.prepare(draft)
+    assert {
+        path: path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()
+    } == evidence
