@@ -254,7 +254,9 @@ def test_existing_replay_destination_is_rejected_without_writes(
     assert {p: p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()} == originals
 
 
-def test_duplicate_destinations_rejected_before_any_scene_output(tmp_path: Path) -> None:
+def test_duplicate_destinations_rejected_before_any_scene_output(
+    tmp_path: Path,
+) -> None:
     manifest = inputs(tmp_path)
     inventory = json.loads(manifest.read_text())
     inventory["scenes"].append(inventory["scenes"][0])
@@ -264,7 +266,9 @@ def test_duplicate_destinations_rejected_before_any_scene_output(tmp_path: Path)
     assert not (tmp_path / "derived").exists()
 
 
-def test_source_inside_fresh_destination_rejected_before_any_write(tmp_path: Path) -> None:
+def test_source_inside_fresh_destination_rejected_before_any_write(
+    tmp_path: Path,
+) -> None:
     manifest = inputs(tmp_path)
     output = tmp_path / "derived"
     payload_path = tmp_path / "payload.json"

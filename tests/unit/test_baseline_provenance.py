@@ -10,7 +10,7 @@ import pytest
 
 from agents import baseline
 from agents.artifacts import REPO_ROOT, sha256_file
-from agents.landmask import SOURCES
+from agents.landmask import SOURCES, LandMask
 from agents.nl_benchmark import load_dataset
 
 
@@ -78,8 +78,7 @@ def test_alternate_assets_cannot_supply_executing_code_or_control_hashes(
     second = baseline.run_baseline(tmp_path, assets, tmp_path / "second", device="cpu")
     assert second["provenance"]["processing_versions"] == versions
     assert (
-        second["provenance"]["assets"]["shoreline"]
-        != provenance["assets"]["shoreline"]
+        second["provenance"]["assets"]["shoreline"] != provenance["assets"]["shoreline"]
     )
     assert report["threshold_selection"]["selected_threshold"] is None
 
@@ -154,9 +153,11 @@ def test_mixed_sensor_report_keeps_unmeasured_coverage_and_test_lock(
             "path": snapshot.name,
             "sha256": sha256_file(snapshot),
         }
-    monkeypatch.setattr(baseline, "load_dataset", lambda *a, **kw: (manifest, {}, status))
     monkeypatch.setattr(
-        baseline.LandMask,
+        baseline, "load_dataset", lambda *a, **kw: (manifest, {}, status)
+    )
+    monkeypatch.setattr(
+        LandMask,
         "for_footprint",
         lambda *a, **kw: SimpleNamespace(
             source="synthetic all-water fixture",
