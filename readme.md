@@ -121,7 +121,8 @@ model, configuration, shoreline and the acquisition's AIS window. Identical
 completed versions are skipped; changed versions can be evaluated again.
 Legacy date stamps remain on disk but no longer control scheduling. Attempts
 use frozen AIS snapshots and separate execution artifacts. OS locks prevent
-overlapping watchers; failed attempts retry after an hour.
+overlapping watchers. See the [per-version retry policy](docs/ACQUISITION_RELIABILITY.md#product-records)
+for retry delays, exhaustion and retained attempt history.
 
 The recorder publishes a heartbeat every 60 seconds. A heartbeat older than
 180 seconds, observations/receipts older than 600 seconds, and recorded gaps are

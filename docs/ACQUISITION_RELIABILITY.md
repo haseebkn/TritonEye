@@ -45,7 +45,10 @@ watcher executions also retain their versioned provenance. Prior detections and
 reports survive re-evaluation. Source manifests and satellite caches remain reusable.
 
 One pending product runs per invocation. Identical processed/measured versions
-are skipped. Failed versions become retryable after one hour. Unattempted
+are skipped. Failed versions become retryable after one hour, up to three failed
+attempts per version. `retry_exhausted` describes only `current_version_key`:
+a changed version gets its own allowance, while prior attempts remain recorded.
+Returning to an exhausted version does not reset its limit. Unattempted
 products take priority, followed by the least recently attempted product, so a
 repeatedly failing acquisition does not monopolize processing. Interrupted
 eligible attempts can retry after the OS releases their lock. Legacy date stamps
@@ -55,7 +58,11 @@ are retained but ignored by scheduling.
 
 `data/raw/ais_stream/recorder_status.json` is updated atomically every 60 seconds,
 including on a silent connection. It records session, connection state, latest
-observation and receipt times, count and recent gaps. Journals retain periodic
+observation and receipt times, count and recent gaps. `last_observed_at` is the
+maximum accepted observation timestamp in the session; `last_received_at`
+updates independently for every accepted report. Out-of-order reports remain
+archived without moving observation freshness backward. Receiving only stale
+observations does not establish fresh data. Journals retain periodic
 heartbeats and gap events. Heartbeat intervals above 180 seconds indicate a
 recording/liveness gap, including suspension. Receipt intervals above 600 seconds
 record an observation gap; quiet waters and provider outages cannot be
