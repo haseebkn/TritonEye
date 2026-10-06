@@ -64,8 +64,10 @@ tests was available. This is not a compliance certification or product endorseme
   fragmentation across the 126-tile loop was sufficient; no precision or batch
   change was needed.
 
-  These are current-code detection and classification counts. They remain
-  **surface classifications, not verified vessel labels**: precision, false
+  These are historical detection and legacy operating-zone counts from that
+  replay, not physical land/water labels under the later
+  [coastal-policy contract](COASTAL_POLICY.md). They remain
+  **unverified as vessel labels**: precision, false
   alarms per km² and overall recall are still unmeasured. The scene carried no
   AIS coverage, so `evaluation.scored` is false.
 - Clean Docker build: passed after correcting a type-stub version pin and missing

@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+import subprocess
+import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
@@ -11,7 +14,7 @@ import pandas as pd
 import pytest
 from shapely.geometry import Point, box, mapping
 
-from agents.artifacts import sha256_file
+from agents.artifacts import REPO_ROOT, sha256_file
 from agents.association import GEOD, aligned_ais
 from agents.association_study import (
     case_digest,
@@ -463,3 +466,83 @@ def test_explicit_empty_pool_cannot_produce_candidates() -> None:
     assert result["alternatives"] == {}
     assert result["edges"] == []
     assert result["admissible_mmsis"] == []
+
+
+@pytest.mark.parametrize("reviewed", [False, True], ids=["unreviewed", "synthetic-review"])
+def test_comparison_cli_persists_report_and_rejects_stale_review(
+    tmp_path: Path, reviewed: bool
+) -> None:
+    """Exercise the user CLI; fixture review is never real identity evidence."""
+    dataset = bundle(tmp_path, reviewed=reviewed)
+    case = dataset["cases"][0]
+    source = "tests/fixtures/association_synthetic_source.json"
+    for item in case["sources"]:
+        item.update(path=source, sha256=sha256_file(REPO_ROOT / source))
+    case["review"]["case_sha256"] = case_digest(case)
+    if reviewed:
+        dataset["review_history"][0]["case_sha256"] = case_digest(case)
+    input_path = tmp_path / "synthetic-bundle.json"
+    input_path.write_text(json.dumps(dataset), encoding="utf-8")
+    output_path = tmp_path / "synthetic-comparison.json"
+    command = [
+        sys.executable,
+        "-m",
+        "agents.association_study",
+        "compare",
+        "--bundle",
+        str(input_path),
+        "--output",
+        str(output_path),
+    ]
+    completed = subprocess.run(
+        command, cwd=REPO_ROOT, capture_output=True, text=True, check=True
+    )
+    assert json.loads(completed.stdout) == {
+        "output": str(output_path),
+        "step_6_complete": False,
+    }
+    report = json.loads(output_path.read_text(encoding="utf-8"))
+    assert report["dataset_version"] == "synthetic-unit-test"
+    assert report["bundle_file_sha256"] == sha256_file(input_path)
+    assert report["dataset_sha256"] == digest(dataset)
+    assert report["runtime"]["python"]
+    for name, recorded in report["code_sha256"].items():
+        assert recorded == sha256_file(REPO_ROOT / "agents" / name)
+    for flag in (
+        "step_6_complete",
+        "improvement_demonstrated",
+        "production_method_changed",
+        "automatic_alerts",
+    ):
+        assert report[flag] is False
+    assert report["learned_ranker"]["implemented"] is False
+    assert report["learned_ranker"]["training_readiness"] is False
+    assert report["reviewed_validation_cases"] == int(reviewed)
+    row = report["validation_cases"][0]
+    assert row["candidate_pool"]["mmsis"] == ["316000001"]
+    assert row["candidate_pool"]["count"] == 1
+    assert row["descriptive_assignments"] == {"geometric": 1, "uncertainty": 1}
+    for method in ("geometric", "uncertainty"):
+        if reviewed:
+            assert row[method]["association_recall"] == 1
+            assert row[method]["identity_errors"] == 0
+        else:
+            assert row[method] is None
+    assert report["paired_error_reduction"]["interval"] is None
+
+    original = output_path.read_bytes()
+    repeated = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True)
+    assert repeated.returncode != 0
+    assert "previous review/evaluation artifacts are immutable" in repeated.stderr
+    assert output_path.read_bytes() == original
+
+    case["ais_records"][0]["speed_knots"] = 2
+    stale_path = tmp_path / "synthetic-stale-bundle.json"
+    stale_path.write_text(json.dumps(dataset), encoding="utf-8")
+    rejected_path = tmp_path / "must-not-exist.json"
+    command[-3] = str(stale_path)
+    command[-1] = str(rejected_path)
+    rejected = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True)
+    assert rejected.returncode != 0
+    assert "Review refers to stale targets, telemetry or source bytes" in rejected.stderr
+    assert not rejected_path.exists()

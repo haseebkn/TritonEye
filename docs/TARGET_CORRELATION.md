@@ -120,11 +120,14 @@ binding; changing decisions invalidates the corresponding history event.
 Only independent review plus a complete resolved inventory permits metrics.
 These are auditable declarations, not authentication of a human reviewer.
 
-Training and validation cannot share acquisitions, geographic groups or areas
-within 1 km. Existing detection test acquisitions and geographic buffers remain
-locked, including alternate catalogue names. Validation is held out from fitting;
-it is not the locked final test. Freeze any future reviewed release before tuning,
-retain all revisions and decisions, and do not rewrite detection release v0.1.0.
+Released acquisition splits are enforced by both canonical product UUID and
+native acquisition group, including alternate catalogue UUIDs even when the
+original released case is absent from the bundle. Training and validation cannot
+share acquisitions, geographic groups or areas within 1 km. Existing detection
+test acquisitions and geographic buffers remain locked. Validation is held out
+from fitting; it is not the locked final test. Freeze any future reviewed release
+before tuning, retain all revisions and decisions, and do not rewrite detection
+release v0.1.0.
 
 ## Metrics and promotion conditions
 

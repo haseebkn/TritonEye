@@ -104,7 +104,9 @@ scheduled job can branch on it without parsing text.
 
 `scripts/watch_and_score.sh` supervises the recorder and runs the Python watcher.
 It checks heartbeat and observation freshness, discovers eligible products and
-processes at most one pending product per invocation:
+processes at most one pending product per invocation. Both default to the whole
+`newfoundland_labrador` study polygon. Override the Python watcher's area with
+`--aoi`, or the launcher's default with `TRITONEYE_WATCH_AOI`:
 
 ```bash
 scripts/watch_and_score.sh              # discover and process an eligible product
@@ -148,9 +150,10 @@ python -m agents.landmask --fetch --source osm
 python -m agents.pipeline --date 2026-08-17 --aoi eastern_newfoundland
 ```
 
-Imaging AOIs: `grand_banks` (default), `eastern_newfoundland`,
-`st_johns_offshore`, `labrador_shelf`. Dates are UTC; if no compatible VV/VH
-scene is found for the requested date, ingestion fails rather than changing it.
+Imaging AOIs: `grand_banks` (pipeline default), `eastern_newfoundland`,
+`st_johns_offshore`, `labrador_shelf`, `newfoundland_labrador`. Dates are UTC;
+if no compatible VV/VH scene is found for the requested date, ingestion fails
+rather than changing it.
 
 The `newfoundland_labrador.geojson` polygon is a hand-defined **study area**,
 not an EEZ, provincial jurisdiction boundary, or navigation chart.

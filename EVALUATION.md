@@ -49,20 +49,11 @@ Only an evaluator result with a matching UUID, positive AIS denominator and
 finite recall establishes `measured`. Processing can complete without one.
 See [acquisition reliability and replay](docs/ACQUISITION_RELIABILITY.md).
 
-A fresh full-scene replay **completed on 2026-09-15** on the public Newfoundland
-acquisition `S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4`
-(`status: success`, 16m43s, 6.4 GB peak VRAM). Current-code surface
-classification: **17 water, 67 coastal, 228 land, 0 infrastructure of 312**.
-
-The earlier memory failures were host RAM, not VRAM — the GPU was idle at 0 MiB
-while host memory sat at 91% used. Allocator tuning
-(`PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`) was sufficient.
-
-**These are surface classifications, not vessel labels.** The scene carried no
-AIS coverage, so it is not scored: precision, false alarms per km² and overall
-recall remain unmeasured. The `infrastructure` count of zero reflects that no
-installation falls in this scene's footprint, and separately that the offshore
-production area is not acquired in VV/VH at all.
+The [September full-scene replay ledger](docs/AUDIT.md#verification-ledger)
+retains its original runtime and legacy operating-zone counts. These are
+historical processing results, not measurements of current vessel accuracy.
+For the later separation of physical land/water from coastal eligibility and
+the two-scene buffer replay, see [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
 
 Historical outputs from earlier commits included 298 targets on this acquisition
 and 217 land classifications. These are legacy detector/mask counts, **not verified
