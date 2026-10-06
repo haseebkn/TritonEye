@@ -144,6 +144,8 @@ contracts, excludes incomplete regional windows and annotation-helper points,
 and records source, code and regional-boundary hashes. It refuses an existing
 output path. Database reads are read-only. Tests exercise conversion, regional
 selection, split leakage, hidden records, corrupt metadata and non-adoption.
+[Public evidence](evidence/public_label_screen_20261006.json) retains the
+screen's counts, hashes and non-adoption scope.
 
 ## Reproduce the implemented work
 
