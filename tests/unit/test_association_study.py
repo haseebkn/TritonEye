@@ -468,7 +468,9 @@ def test_explicit_empty_pool_cannot_produce_candidates() -> None:
     assert result["admissible_mmsis"] == []
 
 
-@pytest.mark.parametrize("reviewed", [False, True], ids=["unreviewed", "synthetic-review"])
+@pytest.mark.parametrize(
+    "reviewed", [False, True], ids=["unreviewed", "synthetic-review"]
+)
 def test_comparison_cli_persists_report_and_rejects_stale_review(
     tmp_path: Path, reviewed: bool
 ) -> None:
@@ -544,5 +546,7 @@ def test_comparison_cli_persists_report_and_rejects_stale_review(
     command[-1] = str(rejected_path)
     rejected = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True)
     assert rejected.returncode != 0
-    assert "Review refers to stale targets, telemetry or source bytes" in rejected.stderr
+    assert (
+        "Review refers to stale targets, telemetry or source bytes" in rejected.stderr
+    )
     assert not rejected_path.exists()
