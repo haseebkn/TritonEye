@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from agents.acquisition import native_acquisition_group, require_product
+from agents.ais_validation import parse_utc
 from agents.artifacts import sha256_file
 from agents.coastal_benchmark import compare_buffers
 from agents.coastal_policy import annotations
@@ -33,6 +34,23 @@ def replay(root: Path, manifest_path: Path, output_dir: Path) -> dict[str, Any]:
         require_product(payload, scene["product_id"])
         detection_path = Path(payload["detections_geojson"])
         detections = json.loads(detection_path.read_text(encoding="utf-8"))
+        if "sar_product_id" in detections:
+            require_product(detections, scene["product_id"])
+        if "acquisition_time" in detections and (
+            parse_utc(detections["acquisition_time"]) is None
+            or parse_utc(detections["acquisition_time"])
+            != parse_utc(payload["acquisition_time"])
+        ):
+            raise ValueError("Conflicting detection acquisition time")
+        declared_names = {
+            record["sar_product"]
+            for record in (payload, detections)
+            if record.get("sar_product") is not None
+        }
+        if scene.get("name"):
+            declared_names.add(scene["name"])
+        if len(declared_names) > 1:
+            raise ValueError("Conflicting detection native product name")
         require_development_scene(scene["product_id"], scene, payload, detections)
         if scene.get("independent_labels") and scene["split"] != "validation":
             raise ValueError("Labelled buffer trials require validation scene split")

@@ -11,6 +11,51 @@ from agents import pipeline
 from agents.tracking import RunTracker
 
 
+@pytest.mark.parametrize("date_cli", [False, True])
+def test_unversioned_ingestions_never_overwrite_original_mission(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, date_cli: bool
+) -> None:
+    import sys
+
+    original = tmp_path / "original"
+    original.mkdir()
+    evidence = original / "ais_filtered.csv"
+    evidence.write_text("original evidence\n")
+    seen: list[str] = []
+
+    def directory(identifier: str) -> Path:
+        target = tmp_path / identifier
+        target.mkdir(exist_ok=True)
+        return target
+
+    def execute(args: list[str], **kwargs: Any) -> CompletedProcess[str]:
+        current = json.loads(kwargs["input"])
+        if args[-1] == "agents.ingest.ingest_agent":
+            identifier = kwargs["env"].get("TRITONEYE_MISSION_ID", "original")
+            seen.append(identifier)
+            target = directory(identifier) / "ais_filtered.csv"
+            target.write_text("new observations\n")
+            current.update(
+                mission_id=identifier,
+                sar_product_id="66d3167d-240a-459a-8066-75b9d2a458f2",
+                ais_telemetry=str(target),
+            )
+        return CompletedProcess(args, 0, json.dumps(current))
+
+    monkeypatch.setattr(pipeline, "mission_directory", directory)
+    monkeypatch.setattr(pipeline.subprocess, "run", execute)
+    monkeypatch.setenv("TRITONEYE_TRACKING", "off")
+    for _ in range(2):
+        if date_cli:
+            monkeypatch.setattr(sys, "argv", ["pipeline", "--date", "2026-09-27"])
+            pipeline.main()
+        else:
+            pipeline.run_pipeline(env={"TRITONEYE_TRACKING": "off"})
+    assert len(set(seen)) == 2
+    assert "original" not in seen
+    assert evidence.read_text() == "original evidence\n"
+
+
 def test_stages_evaluate_before_report_and_keep_outputs(
     tmp_path: Path, monkeypatch: Any
 ) -> None:

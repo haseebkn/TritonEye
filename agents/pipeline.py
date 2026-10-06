@@ -34,6 +34,8 @@ def run_pipeline(
     process_env["PYTHONUNBUFFERED"] = "1"
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S_%fZ")
     execution_dir = mission_directory(f"execution_{stamp}")
+    # Isolation is unconditional: provenance is optional, evidence preservation is not.
+    process_env["TRITONEYE_MISSION_ID"] = f"execution_{stamp}"
     current = dict(payload or {})
     selected_id = process_env.get("TARGET_PRODUCT_ID", "")
     if selected_id:
@@ -43,7 +45,6 @@ def run_pipeline(
             require_product(current, selected_id)
     if provenance is not None:
         current["run_provenance"] = provenance
-        process_env["TRITONEYE_MISSION_ID"] = f"execution_{stamp}"
     stages = STAGES[1:] if payload is not None else STAGES
     history: list[dict[str, Any]] = []
     replay_run_id = None

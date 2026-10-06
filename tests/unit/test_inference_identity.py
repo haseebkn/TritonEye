@@ -16,11 +16,13 @@ from agents.inference import inference_agent
     "identity",
     ["reprocessed_test", "adjacent_test", "development", "missing", "malformed"],
 )
+@pytest.mark.parametrize("empty", [False, True])
 def test_production_artifacts_enforce_datatake_locks(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
     identity: str,
+    empty: bool,
 ) -> None:
     product = "00000000-0000-4000-8000-000000000099"
     name = "S1A_IW_GRDH_1SDV_20260209T214114_20260209T214138_" "063148_07ED3C_FFFF.SAFE"
@@ -63,7 +65,7 @@ def test_production_artifacts_enforce_datatake_locks(
     monkeypatch.setattr(
         inference_agent,
         "run_xview3_inference",
-        lambda *args: ([(2, 2, 6, 6, 0.8, 4)], 1, ""),
+        lambda *args: ([] if empty else [(2, 2, 6, 6, 0.15001, 4)], 1, ""),
     )
     monkeypatch.setattr(sys, "argv", ["inference", "--payload", json.dumps(payload)])
     inference_agent.main()
@@ -78,7 +80,10 @@ def test_production_artifacts_enforce_datatake_locks(
         )
     ]
     assert output["mode"] == "production"
-    assert len(artifacts[0]["features"]) == 1
+    assert len(artifacts[0]["features"]) == (0 if empty else 1)
+    assert artifacts[0]["scene_footprint"]["type"] == "Polygon"
+    if not empty:
+        assert artifacts[0]["features"][0]["properties"]["confidence"] == 0.15001
     expected_group = (
         None
         if identity in {"missing", "malformed"}

@@ -141,3 +141,33 @@ Evidence and reproduction: [ST_JOHNS_SHORELINE.md](ST_JOHNS_SHORELINE.md).
   records model/config/input hashes; full artifacts stay in the project data.
 
 Reproduction and state definitions: [ACQUISITION_RELIABILITY.md](ACQUISITION_RELIABILITY.md).
+
+## NL baseline implementation on 5 October 2026
+
+The follow-up closes three shipping-review gaps: every pipeline invocation now
+uses a fresh execution directory even without watcher provenance; development
+comparisons reject held-out geography from other datatakes, including empty
+detection files; and coastal replay rejects conflicting UUIDs, native products
+and acquisition times before producing output. Production GeoJSON retains scene
+scope and full-precision confidence scores.
+
+The baseline adds fixed-area raw/post-policy metrics, conditional and connected
+block uncertainty, explicit unsupported-sensor coverage, AIS supporting metrics,
+resource measurements and validation-only operating-point search. Targets are
+provisional research choices. Missing independent labels and HH/HV coverage
+correctly block selection; no operational settings changed.
+
+- Windows CPU regressions: **342 passed, 2 heavyweight tests deselected**.
+- Strict mypy: **74 source/test files passed**. Ruff and Black passed.
+- Fresh Docker build passed; its offline CPU suite passed with **340 tests,
+  2 local-data skips and 2 heavyweight tests deselected**.
+- Immutable local dataset files were rehashed and pixel/geography contracts
+  verified before the real replay. Independent annotation review remains absent.
+- Real bounded replay: six complete VV/VH areas, twelve native contexts; four
+  HH/HV areas unsupported; no test-area inference. Validation water coverage
+  **65.40% processed, 0% independently measured**.
+
+[Baseline methods and results](NL_BASELINE.md) and
+[hashed replay evidence](evidence/nl_baseline_20261005.json) document the remaining
+accuracy, identity-adjudication, sensor and sample-size limits. These software
+checks establish workflow behavior, not verified vessel-detection performance.

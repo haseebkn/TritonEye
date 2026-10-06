@@ -33,6 +33,11 @@ Historical SAR annotation now has a [versioned NL review pilot](datasets/nl_benc
 with complete selected windows, acquisition/geographic split locks and hashed
 provenance. Independent review is unavailable; this is not measured vessel truth.
 
+The [NL baseline and operating-point protocol](docs/NL_BASELINE.md) separates
+processing coverage, resource use and descriptive returns from unavailable
+accuracy. Validation-only threshold selection requires useful recall and coverage
+as well as a low false-alarm bound; it cannot succeed by withholding everything.
+
 ## Offline synthetic demonstration
 
 For a no-install preview, download and open

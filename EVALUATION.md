@@ -20,6 +20,12 @@ machine-assisted and not independently reviewed**. It does not change the unknow
 precision/false-alarm/recall claims above, and its locked test is not exported for
 buffer tuning. Historical annotation does not depend on live AIS availability.
 
+The [baseline protocol](docs/NL_BASELINE.md) implements fixed-area raw and
+post-policy detection metrics, uncertainty summaries, sensor/region strata,
+resource measurements and validation-only threshold search. Unsupported HH/HV
+areas stay in coverage. Independent labels and sufficient acquisition/geographic
+blocks remain prerequisites; no numerical operating point is selected yet.
+
 Physical shoreline classification is now separate from coastal operating policy.
 Coastal returns are retained in dedicated research artifacts and HTML tables.
 Two real-scene replays compare 0/100/300/500/1,000 m buffers, but their false-alarm

@@ -14,6 +14,36 @@ from agents.coastal_benchmark import compare_buffers
 from agents.coastal_replay import replay
 from agents.nl_benchmark import DEFAULT_DATASET
 
+
+@pytest.mark.parametrize("field", ["sar_product_id", "sar_product", "acquisition_time"])
+def test_conflicting_detection_identity_rejected_before_replay_output(
+    tmp_path: Path, field: str
+) -> None:
+    manifest = inputs(tmp_path)
+    detection_path = tmp_path / "detections.geojson"
+    detections = json.loads(detection_path.read_text())
+    if field == "sar_product_id":
+        detections[field] = "9d86c0e9-f457-4948-bb09-3f7d00b22d04"
+    elif field == "acquisition_time":
+        detections[field] = "2026-09-27T21:31:23Z"
+    else:
+        payload_path = tmp_path / "payload.json"
+        payload = json.loads(payload_path.read_text())
+        payload[field] = (
+            "S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_"
+            "004769_008EFD_5767.SAFE"
+        )
+        payload_path.write_text(json.dumps(payload))
+        detections[field] = payload[field].replace("5767", "FFFF")
+    detection_path.write_text(json.dumps(detections))
+    original = detection_path.read_bytes()
+    output = tmp_path / "derived"
+    with pytest.raises(ValueError, match="differs|Conflicting"):
+        replay(tmp_path, manifest, output)
+    assert not output.exists()
+    assert detection_path.read_bytes() == original
+
+
 PRODUCT = "66d3167d-240a-459a-8066-75b9d2a458f2"
 
 

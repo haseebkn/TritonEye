@@ -242,6 +242,28 @@ class LandMask:
         """True when no land intersects the footprint - an all-ocean scene."""
         return self._union is None
 
+    def water_geometry(self, geographic_roi: Any, buffer_m: float = 0.0) -> Any:
+        """Physical water or buffered open water in WGS84; no detection filtering.
+
+        This is conditional on the source polygon, not independent shoreline
+        truth. The caller must supply valid imagery geometry in this footprint.
+        """
+        import math
+
+        from pyproj import Transformer
+        from shapely.ops import transform
+
+        if not math.isfinite(buffer_m) or buffer_m < 0:
+            raise ValueError("Finite nonnegative buffer required")
+        if geographic_roi.is_empty or not geographic_roi.is_valid:
+            raise ValueError("Valid ROI required")
+        forward = Transformer.from_crs("EPSG:4326", self.crs, always_xy=True)
+        inverse = Transformer.from_crs(self.crs, "EPSG:4326", always_xy=True)
+        projected = transform(forward.transform, geographic_roi)
+        if self._union is not None:
+            projected = projected.difference(self._union.buffer(buffer_m))
+        return transform(inverse.transform, projected)
+
     def _require_land(self) -> Tuple[Any, Any]:
         """
         Returns (union, boundary), asserting land is present.

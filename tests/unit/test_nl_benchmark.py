@@ -16,12 +16,44 @@ from agents.nl_benchmark import (
     DEFAULT_DATASET,
     load_dataset,
     objects_digest,
+    require_development_scene,
     selection_lock,
     validate_contract,
     validation_labels,
     verify_chip,
 )
 from scripts import build_nl_benchmark, prepare_nl_review
+
+
+@pytest.mark.parametrize("empty", [False, True])
+def test_other_datatake_cannot_compare_locked_geography(empty: bool) -> None:
+    manifest, _, _ = load_dataset()
+    roi = next(s for s in manifest["scenes"] if s["split"] == "test")["rois"][0]
+    data = {
+        "sar_product": (
+            "S1A_IW_GRDH_1SDV_20260209T214114_20260209T214138_"
+            "063149_07ED3D_FFFF.SAFE"
+        ),
+        "study_roi": roi["geometry"],
+        "features": [] if empty else [{"geometry": mapping(Point(*roi["center"]))}],
+    }
+    with pytest.raises(ValueError, match="Held-out test geography"):
+        require_development_scene("00000000-0000-4000-8000-000000000099", data)
+
+
+def test_locked_features_cannot_hide_behind_a_different_declared_roi() -> None:
+    manifest, _, _ = load_dataset()
+    roi = next(s for s in manifest["scenes"] if s["split"] == "test")["rois"][0]
+    data = {
+        "sar_product": (
+            "S1A_IW_GRDH_1SDV_20260209T214114_20260209T214138_"
+            "063149_07ED3D_FFFF.SAFE"
+        ),
+        "study_roi": mapping(box(-53.2, 48.5, -53.0, 48.7)),
+        "features": [{"geometry": mapping(Point(*roi["center"]))}],
+    }
+    with pytest.raises(ValueError, match="Held-out test geography"):
+        require_development_scene("00000000-0000-4000-8000-000000000099", data)
 
 
 def fixture() -> tuple[dict[str, Any], ...]:

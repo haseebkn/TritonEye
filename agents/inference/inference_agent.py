@@ -776,7 +776,7 @@ def main() -> None:
             "target_id": f"TRITON-{idx:03d}",
             "class_id": UNKNOWN_CLASS_ID,
             "class_name": "unknown",
-            "confidence": round(score, 3),
+            "confidence": float(score),  # retain precision for operating-point replay
             "score_kind": "uncalibrated_objectness",
             "in_study_area": within_region[idx],
             "surface": "unknown",
@@ -805,10 +805,14 @@ def main() -> None:
         }
         (features if within_region[idx] else outside_features).append(feature)
 
+    from shapely.geometry import mapping
+
     geojson = {
         "type": "FeatureCollection",
         "features": features,
         **identity,
+        # Conservative geographic scope survives even an empty detection list.
+        "scene_footprint": mapping(box(*scene_bounds)),
         "shoreline_status": landmask_meta.get("status", "unavailable"),
     }
 
@@ -825,8 +829,6 @@ def main() -> None:
     spatial_bounds["georeferencing"] = geo.method
     spatial_bounds["crs"] = "EPSG:4326"
     spatial_bounds["scene_bbox"] = scene_bounds
-    from shapely.geometry import mapping
-
     spatial_bounds["analysis_region"] = mapping(region)
     spatial_bounds["region_name"] = REGION_NAME
     payload["outside_study_area_geojson"] = excluded_path

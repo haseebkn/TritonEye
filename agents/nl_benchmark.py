@@ -51,6 +51,11 @@ def require_development_scene(
             if group:
                 groups.add(group)
     held_out: set[str] = set()
+    held_geography: list[Any] = []
+    held_groups: set[str] = set()
+    held_rois: set[str] = set()
+    known_footprint = None
+    projection = Transformer.from_crs("EPSG:4326", "EPSG:3347", always_xy=True)
     for path in (REPO_ROOT / "datasets/nl_benchmark").glob("*/split_lock.json"):
         lock = json.loads(path.read_text(encoding="utf-8"))
         held_out.update(
@@ -62,7 +67,17 @@ def require_development_scene(
             path.with_name("manifest.json").read_text(encoding="utf-8")
         )
         for scene in manifest["scenes"]:
+            if scene["split"] == "test":
+                for roi in scene["rois"]:
+                    held_groups.add(roi["group"])
+                    held_rois.add(roi["id"])
+                    held_geography.append(
+                        transform(projection.transform, shape(roi["geometry"])).buffer(
+                            manifest["separation_m"]
+                        )
+                    )
             if product_id(scene["product_id"]) == selected:
+                known_footprint = scene["footprint"]
                 group = native_acquisition_group(scene["name"])
                 if group:
                     groups.add(group)
@@ -80,6 +95,38 @@ def require_development_scene(
         raise ValueError(
             "Conflicting native acquisition identity; buffer trials refused"
         )
+    scoped = [
+        record[field]
+        for record in records
+        for field in ("study_roi", "valid_imagery_roi")
+        if record.get(field) is not None
+    ]
+    extents = scoped or [
+        record[field]
+        for record in records
+        for field in ("footprint", "scene_footprint")
+        if record.get(field) is not None
+    ]
+    if not extents and known_footprint is not None:
+        extents = [known_footprint]
+    if not extents:
+        raise ValueError("Geographic evaluation scope is unresolved; trials refused")
+    geometries = list(extents)
+    for record in records:
+        if (
+            record.get("geographic_group") in held_groups
+            or record.get("group") in held_groups
+            or record.get("roi_id") in held_rois
+        ):
+            raise ValueError("Held-out test geographic group cannot be compared")
+        geometries.extend(f["geometry"] for f in record.get("features", []))
+    for geometry in geometries:
+        geographic = shape(geometry)
+        if geographic.is_empty or not geographic.is_valid:
+            raise ValueError("Valid geographic scope required")
+        projected = transform(projection.transform, geographic)
+        if any(projected.intersects(held) for held in held_geography):
+            raise ValueError("Held-out test geography cannot be used for trials")
 
 
 def bounded_path(root: Path, relative: str) -> Path:
@@ -397,7 +444,10 @@ def validate_contract(
 
 
 def load_dataset(
-    directory: Path = DEFAULT_DATASET, *, verify_files: bool = False
+    directory: Path = DEFAULT_DATASET,
+    *,
+    verify_files: bool = False,
+    artifact_root: Path = REPO_ROOT,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     """Verify versioned small artifacts, optionally rehash all local SAR bytes."""
 
@@ -448,24 +498,26 @@ def load_dataset(
                     + [roi["chip"], roi["review_grid"]]
                 )
         for item in entries:
-            if sha256_file(bounded_path(REPO_ROOT, item["path"])) != item["sha256"]:
+            if sha256_file(bounded_path(artifact_root, item["path"])) != item["sha256"]:
                 raise ValueError(
                     f"Source/derived artifact hash mismatch: {item['path']}"
                 )
         for scene in manifest["scenes"]:
             for roi in scene["rois"]:
                 verify_chip(
-                    bounded_path(REPO_ROOT, roi["chip"]["path"]),
+                    bounded_path(artifact_root, roi["chip"]["path"]),
                     roi,
                     [o for o in annotations["objects"] if o["roi_id"] == roi["id"]],
                 )
         bundle = release["review_bundle"]
-        if sha256_file(bounded_path(REPO_ROOT, bundle["path"])) != bundle["sha256"]:
+        if sha256_file(bounded_path(artifact_root, bundle["path"])) != bundle["sha256"]:
             raise ValueError("Review bundle hash mismatch")
     return manifest, annotations, status
 
 
-def validation_labels(directory: Path, roi_id: str) -> dict[str, Any]:
+def validation_labels(
+    directory: Path, roi_id: str, *, artifact_root: Path = REPO_ROOT
+) -> dict[str, Any]:
     """Bridge approved validation labels to coastal trials; no test bypass."""
     manifest, annotation, status = load_dataset(directory)
     selected = next((r for r in status["review_status"] if r["roi_id"] == roi_id), None)
@@ -479,7 +531,7 @@ def validation_labels(directory: Path, roi_id: str) -> dict[str, Any]:
             "Independent complete-area review and resolved annotations required; "
             "accuracy remains unmeasured"
         )
-    load_dataset(directory, verify_files=True)
+    load_dataset(directory, verify_files=True, artifact_root=artifact_root)
     scene = next(
         s for s in manifest["scenes"] if any(r["id"] == roi_id for r in s["rois"])
     )
@@ -527,15 +579,30 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
     parser.add_argument("--verify-files", action="store_true")
+    parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=REPO_ROOT,
+        help="Explicit local root containing immutable data assets",
+    )
     parser.add_argument("--export-validation", metavar="ROI_ID")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     if args.export_validation:
         if args.output is None:
             parser.error("--export-validation requires --output")
-        write_json(args.output, validation_labels(args.dataset, args.export_validation))
+        write_json(
+            args.output,
+            validation_labels(
+                args.dataset, args.export_validation, artifact_root=args.artifact_root
+            ),
+        )
     else:
-        _, _, status = load_dataset(args.dataset, verify_files=args.verify_files)
+        _, _, status = load_dataset(
+            args.dataset,
+            verify_files=args.verify_files,
+            artifact_root=args.artifact_root,
+        )
         if args.output:
             write_json(args.output, status)
         print(json.dumps(status, indent=2, allow_nan=False))
