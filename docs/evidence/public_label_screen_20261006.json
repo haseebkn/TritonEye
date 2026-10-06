@@ -1,0 +1,43 @@
+{
+  "status": "candidate_screen_only",
+  "step_5_complete": false,
+  "source_repository": "https://github.com/allenai/vessel-detection-sentinels",
+  "source_revision": "60b003d059937a9fcddbf6e1c9b64c00c33c0279",
+  "metadata_sha256": "d3a8bbd6c6685a6f8bb685f122b37fda613649d6da4c450e3240cace353ca2ac",
+  "region_sha256": "2137c35c509588a4ee58d8b4196ec3127d9ebbd79c0131ea002096d60e4692fa",
+  "screen_code_sha256": "8f699f4edc61b7a4fd19155b7cec18e5ea95edae851a8acd6742d9cd4252bb68",
+  "screen_record_sha256": "965de36dc8d572e1821b59862d210419debc35edb44f622845dd153ef2ab211f",
+  "alignment_record_sha256": "472a1cb98f306dfd125f568a1110d8f642240be3683b1d93923fe2f7a8a200ad",
+  "coordinate_contract": "global Web Mercator pixels, tile size 512, zoom 13; not raw SAR offsets",
+  "windows_wholly_inside_nl": 73,
+  "acquisitions": 20,
+  "published_vessel_points": 39,
+  "acquisitions_with_vessel_points": 13,
+  "empty_windows_not_confirmed_negatives": 40,
+  "upstream_acquisitions_with_multiple_splits": [
+    "S1A_042877_051E4D",
+    "S1A_044000_05408F",
+    "S1A_044073_0542C9",
+    "S1A_044175_0545D5",
+    "S1A_044525_05504C",
+    "S1A_044773_0558B9"
+  ],
+  "adopted_as_training_data": false,
+  "upstream_splits_adopted": false,
+  "independent_local_review": false,
+  "annotation_completeness_verified": false,
+  "threshold_selection_allowed": false,
+  "repository_licence": "Apache-2.0; separate annotation-data grant not verified",
+  "alignment_preview_areas": 6,
+  "alignment_source_products": [
+    "S1A_IW_GRDH_1SDV_20220421T212233_20220421T212258_042877_051E4D_68C1.SAFE",
+    "S1A_IW_GRDH_1SDV_20220515T212259_20220515T212324_043227_0529A7_D334.SAFE"
+  ],
+  "alignment_findings": "Mixed initial visual inspection: some published points near compact returns, others with no obvious target under the fixed preview stretch. Not expert re-annotation or proof of source error.",
+  "local_records": {
+    "screen": "data/model_research/allenai_audit/reproducible_screen_formatted_20261006.json",
+    "alignment": "data/model_research/allenai_audit/alignment_20261006/record.json",
+    "downloads": "data/model_research/allenai_audit/downloads.json"
+  },
+  "scope": "Metadata screening only. No dataset adoption, model fitting, scored benchmark, locked-test inference, or production change."
+}

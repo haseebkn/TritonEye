@@ -100,6 +100,51 @@ provenance would need resolution before adoption. No non-NL imagery was
 downloaded or used for model development. No credentials were needed for these
 public downloads.
 
+### Additional published NL point candidates
+
+The [AllenAI Sentinel vessel dataset](https://github.com/allenai/vessel-detection-sentinels/tree/60b003d059937a9fcddbf6e1c9b64c00c33c0279)
+provides a second, materially different source. Its
+[paper](https://arxiv.org/abs/2312.03207) describes expert human annotation of
+Sentinel-1 vessel points. Screening its pinned metadata database found **73
+whole image windows across 20 acquisitions inside the NL study polygon, with
+39 published vessel points in 13 of those acquisitions**. Forty windows have
+no point labels. Neither
+those empty windows nor unmarked pixels are locally confirmed negatives.
+
+Six acquisitions occur in more than one upstream split. Those original splits
+are therefore not adopted. Repeated geographic windows also need grouping;
+different acquisition dates alone cannot make overlapping tiles independent.
+The screening command reads metadata only and does not bypass the frozen
+benchmark's test lock, approve labels, assign a new training split or select a
+threshold. All candidate records remain `metric_ready: false`.
+
+Historical VV/VH imagery is being checked against the global Web Mercator point
+coordinates, which are not raw SAR pixel offsets. Six small native-grid preview
+areas were extracted from the April 21 and May 15, 2022 acquisitions. Initial
+visual inspection was mixed: some points were near compact returns, while
+others lacked an obvious target under the fixed preview stretch. This is an
+alignment investigation, not a local expert re-annotation or proof that the
+source labels are wrong. The imagery, source hashes and inspection records
+remain under `data/model_research/allenai_audit/` and `data/raw/`.
+
+The repository publishes an Apache-2.0 licence. A separate annotation-data
+grant and complete-area annotation protocol have not been verified locally.
+These candidates are **not yet adopted for fitting or scoring**. They replace
+any assumption that suitable public NL vessel points are universally absent,
+but do not resolve the benchmark's current zero-confirmed-vessel limitation.
+
+Reproduce the candidate screen without opening imagery or model weights:
+
+```sh
+python -m agents.public_vessel_labels --output data/model_research/new_allenai_nl_screen.json
+```
+
+The CLI checks the pinned database hash, validates coordinate and point/window
+contracts, excludes incomplete regional windows and annotation-helper points,
+and records source, code and regional-boundary hashes. It refuses an existing
+output path. Database reads are read-only. Tests exercise conversion, regional
+selection, split leakage, hidden records, corrupt metadata and non-adoption.
+
 ## Reproduce the implemented work
 
 Run from the repository root with the existing project environment. Public
