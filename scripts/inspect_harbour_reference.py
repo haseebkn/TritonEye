@@ -83,8 +83,8 @@ def main() -> None:
         ):
             download(url, directory / "source" / name, params)
     bounds = BOUNDS
-    path = f"zip://{archive}!canvec_50K_NL_Hydro/waterbody_2_2.shp"
-    water = gpd.read_file(path, bbox=bounds)
+    canvec_path = f"zip://{archive}!canvec_50K_NL_Hydro/waterbody_2_2.shp"
+    water = gpd.read_file(canvec_path, bbox=bounds)
     water = water.loc[water.definit == 85].to_crs("EPSG:4326")
     water.geometry = water.geometry.intersection(box(*bounds))
     water.to_file(directory / "canvec_ocean_clip.geojson", driver="GeoJSON")

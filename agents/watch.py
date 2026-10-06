@@ -4,7 +4,7 @@ import argparse
 import csv
 import io
 import json
-import os
+import os as os
 import sys
 import tempfile
 from contextlib import contextmanager
@@ -18,7 +18,8 @@ from agents.ais_validation import finite_number, parse_utc, utc_string
 from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.pipeline import run_pipeline
 from agents.recorder_health import recorder_health
-from agents.run_versions import acquisition_versions, digest, processing_versions
+from agents.run_versions import acquisition_versions as acquisition_versions
+from agents.run_versions import digest, processing_versions
 from agents.scene_watch import ais_rows_near, assess, search_acquisitions
 
 PipelineRunner = Callable[..., dict[str, Any]]

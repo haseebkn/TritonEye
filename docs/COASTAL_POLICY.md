@@ -23,7 +23,7 @@ artifacts remain readable but are not silently upgraded into physical evidence.
 not permission to issue an operational alert. `operational_alert` stays false.
 The default buffer remains 300 m; no accuracy evidence justifies changing it.
 
-All detections stay in `detections.geojson` and `correlation.geojson`.
+All in-region detections stay in `detections.geojson` and `correlation.geojson`.
 `coastal_research.geojson` preserves coastal returns with
 `coastal_review_required`, even without AIS. They are not mixed into the
 open-water uncorrelated/ambiguous `review_candidates.geojson` path. HTML reports
@@ -94,6 +94,9 @@ With aligned AIS, evaluation separately reports harbour/coastal, open-water and
 land/shoreline-mismatch denominators, raw matches, eligible matches and misses.
 That remains AIS-subset proximity recall, not precision or complete truth.
 Harbour here includes nearshore coastal waters, not an official port boundary.
+Stratification reloads the shoreline source and cache recorded by inference in
+the payload's `landmask` metadata; a relative cache path is repository-relative.
+If the physical reference cannot be loaded, strata remain unmeasured.
 
 ## Independent validation-label contract
 
@@ -120,6 +123,16 @@ benchmark command expects these annotations already present, plus detection
 UUID/time and `shoreline_status: ok` metadata. False alarms require genuinely
 exhaustive independent review, not merely setting a boolean in a file.
 
+Buffer comparison and replay enforce held-out product/datatake assignments even
+without labels. Native acquisition identity must resolve from a SAFE product
+name (`sar_product` or `name`) or the registered dataset manifest; a declared
+`acquisition_group` alone is insufficient. Production detection GeoJSON and
+processing records retain `sar_product`, `sar_product_id`, `acquisition_time`
+and the derived `acquisition_group`. Unresolved or conflicting datatake identity,
+an explicit test split, or a held-out UUID/datatake rejects comparison. Replay
+checks its input scenes before writing derived outputs. Legacy inputs must
+provide resolvable native identity to use this interface.
+
 The evaluator rejects AIS-only truth, incomplete/uncertain annotations,
 holdout tuning, mismatched UUID/time and non-NL geometry. All labelled vessels
 remain in the fixed denominator, including policy-withheld vessels. It reports
@@ -131,10 +144,11 @@ Synthetic tests establish accounting behavior, **not regional performance**.
 No buffer/configuration/model is automatically selected or promoted.
 
 Remaining measurement work: independently reviewed labels for untouched NL
-validation scenes, Labrador scenes/imagery controls, geographic/date-separated
-holdout groups, then buffer selection under an explicit false-alarm constraint
-while reporting misses. Public training datasets cannot replace labels of the
-2026 acquisitions. The deployed ensemble's upstream data also requires a
+validation scenes and Labrador coastal-policy replays/imagery controls, then
+buffer selection under an explicit false-alarm constraint while reporting misses.
+Use locked holdout groups from the [historical review pilot](NL_BENCHMARK.md).
+Public training datasets cannot replace labels of the 2026 acquisitions.
+The deployed ensemble's upstream data also requires a
 training-overlap audit before reuse as validation:
 [official xView3 model documentation](https://github.com/DIUx-xView/xView3_first_place).
 

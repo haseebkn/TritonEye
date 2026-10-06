@@ -51,6 +51,14 @@ feeds `coastal_replay`, which applies shoreline properties to label positions
 before `coastal_benchmark` compares buffers. Test release needs a separate,
 predeclared versioned evaluation protocol, not an override flag.
 
+Builder and review preparation protect both the supplied directory's release
+and the canonical `datasets/nl_benchmark/v<dataset_version>/release.json`.
+Copying metadata to a draft directory without `release.json` does not free the
+released version for reuse. Revisions need a new `dataset_version`, preserving prior release
+bytes and held-out assignments. Buffer-comparison input requirements, including
+native acquisition identity without labels, are documented in the
+[coastal-policy contract](COASTAL_POLICY.md#independent-validation-label-contract).
+
 The portable, offline, detector-blind review bundle is at
 `data/benchmarks/nl/0.1.0/review_bundle.html`. It embeds both bands without network
 tiles or AIS identities. Provisional first-pass decisions are collapsed so a

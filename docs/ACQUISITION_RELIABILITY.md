@@ -36,14 +36,19 @@ change the key. New AIS outside the historical window does not trigger a run;
 changed code, model, configuration, reference data or window observations does.
 
 Window observations are frozen in `data/watch/inputs/<uuid>/<version>/` before
-processing. Each execution retains filtered AIS, actual SAR hashes, provenance,
-logs and stage outputs in its own directory. Prior detections/reports survive
-re-evaluation. Source manifests and satellite caches remain reusable.
+processing. Snapshot files are published atomically; reuse requires byte-for-byte
+agreement with the selected observations and no extra daily files. Watcher
+executions retain filtered AIS, actual SAR hashes, provenance, logs and stage
+outputs in separate directories, assigned before ingestion writes mission files.
+Prior detections/reports survive re-evaluation. Source manifests and satellite
+caches remain reusable.
 
 One pending product runs per invocation. Identical processed/measured versions
-are skipped. Failed versions retry after one hour, allowing other acquisitions
-to proceed. Interrupted eligible attempts can retry after the OS releases their
-lock. Legacy date stamps are retained but ignored by scheduling.
+are skipped. Failed versions become retryable after one hour. Unattempted
+products take priority, followed by the least recently attempted product, so a
+repeatedly failing acquisition does not monopolize processing. Interrupted
+eligible attempts can retry after the OS releases their lock. Legacy date stamps
+are retained but ignored by scheduling.
 
 ## Recorder freshness and gaps
 
@@ -92,6 +97,13 @@ does not download a replacement scene. Verify the selected, top-level processed,
 inference and evaluation UUIDs agree. It saves the full result and separate
 execution artifacts. This acquisition had no usable recorded AIS, so successful
 processing must not be reported as a measured benchmark.
+
+Saved-payload replay assigns a new execution mission and copies the filtered AIS
+into it. It retains the input identity as `source_mission_id` and
+`source_mlflow_run_id`. When tracking is available, the replay starts a new
+`mlflow_run_id` and records those lineage fields as tags; downstream stages and
+failure handling use only that new run. If tracking is disabled or unavailable,
+the replay proceeds without resuming the source run.
 
 Results are recorded in [AUDIT.md](AUDIT.md). The NL scope and
 [scientific evaluation limits](../EVALUATION.md) continue to apply.

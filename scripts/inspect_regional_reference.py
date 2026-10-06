@@ -34,7 +34,7 @@ def main() -> None:
             continue
         directory = root / site
         directory.mkdir(parents=True, exist_ok=True)
-        params = {
+        params: dict[str, str | int] = {
             "bbox": ",".join(map(str, bounds)),
             "bboxSR": 4326,
             "imageSR": 4326,

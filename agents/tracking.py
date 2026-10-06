@@ -2,14 +2,11 @@
 """
 TritonEye Experiment Tracking
 
-Thin wrapper over MLflow that records one run per mission, spanning all four
-pipeline stages.
+Thin wrapper over MLflow that records one run across a mission's pipeline stages.
 
-The pipeline runs as separate processes piped together, so the run is created
-by the ingest agent and its id travels downstream in the JSON payload
-(`mlflow_run_id`). Later stages resume that run rather than opening their own,
-so a mission's parameters, operational metrics and output artifacts all land in
-one place.
+The JSON payload carries `mlflow_run_id` between stage processes. Ingestion
+starts a run; saved-payload replay starts a separate run before resuming stages.
+See docs/ACQUISITION_RELIABILITY.md for replay identity and lineage.
 
 Tracking is deliberately non-fatal. A missions pipeline that cannot reach its
 tracking backend should still produce detections, so every call here degrades to

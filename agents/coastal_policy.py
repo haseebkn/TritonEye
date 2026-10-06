@@ -1,4 +1,4 @@
-"""Physical shoreline truth and a separate, conservative research policy.
+"""Reference-relative shoreline classification and a separate research policy.
 
 `surface` remains a legacy operating-zone field, NOT physical land/water.
 Automatic operational alerts stay disabled regardless of eligibility.
