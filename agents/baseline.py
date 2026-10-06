@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import json
 import platform
-import subprocess
 import threading
 import time
 from pathlib import Path
@@ -424,9 +423,7 @@ def run_baseline(
             for s in manifest["scenes"]
             if s["split"] != "test"
         },
-        "git_head": subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, text=True
-        ).strip(),
+        "git_head": versions["git_commit"],
         "wall_seconds_excluding_integrity_check": time.perf_counter() - start,
         "threshold_score_semantics": (
             "Uncalibrated objectness; strict > threshold, cached floor 0.05"

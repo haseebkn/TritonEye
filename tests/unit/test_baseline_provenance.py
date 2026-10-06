@@ -1,6 +1,7 @@
 """Executing-checkout and external-asset hashes are separate report contracts."""
 
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -99,3 +100,38 @@ def test_final_integrity_check_uses_executing_checkout(
     with pytest.raises(ValueError, match="Code or configuration changed"):
         baseline.run_baseline(tmp_path, assets, output, device="cpu")
     assert not (output / "baseline.json").exists()
+
+
+def test_report_without_git_metadata_preserves_source_hashes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    assets = baseline_inputs(tmp_path, monkeypatch)
+    source = tmp_path / "source"
+    for directory in ("agents", "configs", "scripts"):
+        shutil.copytree(
+            REPO_ROOT / directory,
+            source / directory,
+            ignore=shutil.ignore_patterns("__pycache__"),
+        )
+    monkeypatch.setattr(baseline, "REPO_ROOT", source)
+    monkeypatch.chdir(source)
+    monkeypatch.delenv("GIT_DIR", raising=False)
+    monkeypatch.delenv("GIT_WORK_TREE", raising=False)
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(tmp_path))
+    output = tmp_path / "without_git"
+    result = baseline.run_baseline(tmp_path, assets, output, device="cpu")
+    report = json.loads((output / "baseline.json").read_text())
+    assert report == result
+    provenance = report["provenance"]
+    versions = provenance["processing_versions"]
+    assert provenance["git_head"] is None
+    assert versions["git_commit"] is None
+    for category in ("code", "configuration"):
+        assert versions[category]
+        for name, checksum in versions[category].items():
+            assert checksum == sha256_file(source / name)
+            assert checksum == sha256_file(REPO_ROOT / name)
+    assert provenance["assets"]["model"]["actual_sha256"] == sha256_file(
+        assets / "models/xview3/traced_ensemble.jit"
+    )
+    assert report["threshold_selection"]["selected_threshold"] is None
