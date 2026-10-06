@@ -1,0 +1,716 @@
+{
+  "evidence_type": "preliminary_foundation_feature_integration_not_controlled_detector_comparison",
+  "step_5_complete": false,
+  "downloads": {
+    "assets": [
+      {
+        "url": "https://huggingface.co/antofuller/CROMA/resolve/0dd28e3d633bd6715856ae9890e8c49360040598/CROMA_base.pt",
+        "path": "models\\croma\\CROMA_base.pt",
+        "sha256": "0238d814b53108f3574bf1ea240e38a0a6edd46173816d9a6962070561893b63",
+        "bytes": 777563846
+      },
+      {
+        "url": "https://raw.githubusercontent.com/antofuller/CROMA/59505a6bcadbf36ba20767270154bf9f3067c5e7/LICENSE",
+        "path": "data\\model_research\\CROMA_LICENSE.txt",
+        "sha256": "5e91f8f44b4fe4139204b307d9853d156075386baff5720e4cb3bc7d5f46437f",
+        "bytes": 1071
+      },
+      {
+        "url": "https://raw.githubusercontent.com/John-J-Tanner/Extract-SARFish-Data/9a06750051ab61ff0f8f86cf4317788295c8a909/Labels/GRD_train.csv",
+        "path": "data\\model_research\\public_label_audit\\GRD_train.csv",
+        "sha256": "d7b96427e1af6e4939b30e2b6937f1fd68f89dcff75e2e7d2e9e6d8e68907145",
+        "bytes": 16781539
+      },
+      {
+        "url": "https://raw.githubusercontent.com/John-J-Tanner/Extract-SARFish-Data/9a06750051ab61ff0f8f86cf4317788295c8a909/Labels/GRD_validation.csv",
+        "path": "data\\model_research\\public_label_audit\\GRD_validation.csv",
+        "sha256": "5808010f68e5206f5e9fee3131d4b4d296fa5c5e3c3ef70cf927d60a18a01a80",
+        "bytes": 5628694
+      },
+      {
+        "url": "https://raw.githubusercontent.com/DIUx-xView/SARFish/main/SARFish_Terms_and_Conditions.md",
+        "path": "data\\model_research\\public_label_audit\\SARFish_terms.md",
+        "sha256": "43ec8c74bfcb5fae7523188a280caceb16a0f32421bc38426ccfd2bae2d5171c",
+        "bytes": 16055
+      }
+    ],
+    "labels_adopted": false,
+    "label_repository_revision": "9a06750051ab61ff0f8f86cf4317788295c8a909"
+  },
+  "public_label_screening": {
+    "geographic_audit_only": true,
+    "files": [
+      {
+        "filename": "GRD_train.csv",
+        "sha256": "d7b96427e1af6e4939b30e2b6937f1fd68f89dcff75e2e7d2e9e6d8e68907145",
+        "labels": 64054,
+        "inside_nl_study_area": 0,
+        "regional_products": [],
+        "regional_is_vessel_counts": {},
+        "boundary_sha256": "2137c35c509588a4ee58d8b4196ec3127d9ebbd79c0131ea002096d60e4692fa",
+        "adopted_for_training": false,
+        "limitation": "No claim about other datasets or province-wide availability."
+      },
+      {
+        "filename": "GRD_validation.csv",
+        "sha256": "5808010f68e5206f5e9fee3131d4b4d296fa5c5e3c3ef70cf927d60a18a01a80",
+        "labels": 19222,
+        "inside_nl_study_area": 0,
+        "regional_products": [],
+        "regional_is_vessel_counts": {},
+        "boundary_sha256": "2137c35c509588a4ee58d8b4196ec3127d9ebbd79c0131ea002096d60e4692fa",
+        "adopted_for_training": false,
+        "limitation": "No claim about other datasets or province-wide availability."
+      }
+    ]
+  },
+  "failed_attempt": {
+    "experiment_type": "frozen_radar_feature_compatibility",
+    "status": "failed_execution",
+    "failure_record_kind": "reconstructed_from_observed_process_traceback",
+    "failure_observed_utc": "2026-10-06T02:55:09Z",
+    "command": "python -m agents.model_research features --weights models/croma/CROMA_base.pt --output data/model_research/croma_probe_20261006_01 --device cuda",
+    "base_commit": "e4a3005db9b920512a193650d87d456f23bac6f9",
+    "worktree_dirty": true,
+    "executing_file_sha256": {
+      "agents/model_research.py": "7989e8b07aff4410c5085b54a4b07a89cc330927be7460f86eac2e3adebd0e6d",
+      "agents/croma_features.py": "d4ed27aab345debf71b1b5958a8c9d8fb1299375e1aaabd70aa00428deeb40f4"
+    },
+    "checkpoint_sha256": "0238d814b53108f3574bf1ea240e38a0a6edd46173816d9a6962070561893b63",
+    "seed": 20261006,
+    "failure_phase": "first_window_forward_after_loading_checkpoint",
+    "exception_type": "RuntimeError",
+    "reason": "Strict deterministic CUDA linear algebra rejected execution because CUBLAS_WORKSPACE_CONFIG was not set to :4096:8 or :16:8 before running PyTorch.",
+    "feature_artifacts_written": 0,
+    "training_steps": 0,
+    "vessel_metrics": null,
+    "improvement": null,
+    "compute": null,
+    "limitation": "Resource telemetry was not persisted by this initial runner. Failure is an execution result, not a failed model-improvement result."
+  },
+  "second_attempt": {
+    "status": "features_extracted_not_a_detector_comparison",
+    "settings": {
+      "seed": 20261006,
+      "window_size": 128,
+      "patch_size": 8,
+      "band_order": [
+        "sigma0_db_vv",
+        "sigma0_db_vh"
+      ],
+      "normalization": "per-window per-band mean +/- 2 sample SD clipped [0,1]",
+      "dtype": "float32",
+      "batch_size": 1,
+      "encoder_frozen": true,
+      "deterministic_algorithms": true,
+      "tf32": false,
+      "cublas_workspace_config": ":4096:8",
+      "optimizer": null,
+      "training_steps": 0,
+      "losses": []
+    },
+    "compute": {
+      "wall_seconds": 9.917139399971347,
+      "rss_sampled_peak_bytes": 1712889856,
+      "rss_sampling_seconds": 0.1,
+      "device": "cuda",
+      "device_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+      "model_load_seconds": 2.265935499977786,
+      "cuda_peak_allocated_bytes": 241259520,
+      "cuda_peak_reserved_bytes": 274726912
+    },
+    "parameter_digest_before": "694043958f9d5399dc6c3d0f9384648f031b113e1ec9923ec68a8aeafb381455",
+    "parameter_digest_after": "694043958f9d5399dc6c3d0f9384648f031b113e1ec9923ec68a8aeafb381455",
+    "executing_code": {
+      "base_commit": "e4a3005db9b920512a193650d87d456f23bac6f9",
+      "worktree_dirty": true,
+      "file_sha256": {
+        "agents/model_research.py": "72bda9739c7b2489b145d160109741e261ce30def760e3204f19a5cf43e8c498",
+        "agents/croma_features.py": "d4ed27aab345debf71b1b5958a8c9d8fb1299375e1aaabd70aa00428deeb40f4",
+        "agents/nl_benchmark.py": "fe3ec567ab93bb5cb94cfdbdf61dc2216b0aa88cbf8cc190cbcc4903142327bb",
+        "agents/region.py": "8a0d8bc74802585a53cfc6187c99345a07ab32ff96f4ced60e9c52ee159403de",
+        "agents/baseline_report.py": "c71c664ecd5e15cf9fcec26664c18e5599f4883cdafaf7b5839596248a5634fc",
+        "agents/baseline.py": "81d6be9f8f30f9cc63f16659f32e034ce2eace5be96d690ef11dcb9636590f3a"
+      }
+    },
+    "dataset_release_sha256": "675aaad14d2c1c6933b95c3caca6585d46346c19e983aa8a9cddcdfec150e618",
+    "split_lock_sha256": "82336dbf7469c77b5e7ba8c7b5b1ffd92d42c2b42bb4d6125b0339364cf0510d",
+    "checkpoint_sha256": "0238d814b53108f3574bf1ea240e38a0a6edd46173816d9a6962070561893b63",
+    "checkpoint_revision": "0dd28e3d633bd6715856ae9890e8c49360040598",
+    "upstream_source_revision": "59505a6bcadbf36ba20767270154bf9f3067c5e7",
+    "runtime": {
+      "python": "3.13.7",
+      "torch": "2.6.0+cu124",
+      "numpy": "2.2.6",
+      "rasterio": "1.5.0"
+    },
+    "vessel_metrics": null,
+    "improvement": null,
+    "blocked_experiments": [
+      {
+        "name": "detector_fine_tuning",
+        "reason": "No usable training vessel labels"
+      },
+      {
+        "name": "frozen_feature_vessel_head",
+        "reason": "No usable training vessel labels"
+      },
+      {
+        "name": "foundation_adaptation",
+        "reason": "No validated frozen-head evidence"
+      },
+      {
+        "name": "HH_HV_model_comparison",
+        "reason": "No compatible model or resolved labels"
+      }
+    ],
+    "limits": [
+      "Frozen features are not detection scores, recall or precision.",
+      "Native radar grid differs from SSL4EO geocoded land imagery pretraining.",
+      "128px windows extrapolate the pretrained 120px field of view.",
+      "An 8px feature token can obscure small vessels; usefulness is unmeasured.",
+      "Blocked fits were not run; they are not failed improvement experiments."
+    ]
+  },
+  "final_local_replay": {
+    "status": "features_extracted_not_a_detector_comparison",
+    "settings": {
+      "seed": 20261006,
+      "window_size": 128,
+      "patch_size": 8,
+      "band_order": [
+        "sigma0_db_vv",
+        "sigma0_db_vh"
+      ],
+      "normalization": "per-window per-band mean +/- 2 sample SD clipped [0,1]",
+      "dtype": "float32",
+      "batch_size": 1,
+      "encoder_frozen": true,
+      "deterministic_algorithms": true,
+      "tf32": false,
+      "cublas_workspace_config": ":4096:8",
+      "optimizer": null,
+      "training_steps": 0,
+      "losses": []
+    },
+    "compute": {
+      "wall_seconds": 9.046680100029334,
+      "rss_sampled_peak_bytes": 1867608064,
+      "rss_sampling_seconds": 0.1,
+      "device": "cuda",
+      "device_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+      "model_load_seconds": 2.222441499994602,
+      "cuda_peak_allocated_bytes": 241259520,
+      "cuda_peak_reserved_bytes": 274726912
+    },
+    "parameter_digest_before": "694043958f9d5399dc6c3d0f9384648f031b113e1ec9923ec68a8aeafb381455",
+    "parameter_digest_after": "694043958f9d5399dc6c3d0f9384648f031b113e1ec9923ec68a8aeafb381455",
+    "executing_code": {
+      "base_commit": "e4a3005db9b920512a193650d87d456f23bac6f9",
+      "worktree_dirty": true,
+      "file_sha256": {
+        "agents/model_research.py": "4e61c49ad0d95a3c44b47a0511e230cf1ae74a0d49b9c7cc32837fc80cec3ff5",
+        "agents/croma_features.py": "d4ed27aab345debf71b1b5958a8c9d8fb1299375e1aaabd70aa00428deeb40f4",
+        "agents/nl_benchmark.py": "fe3ec567ab93bb5cb94cfdbdf61dc2216b0aa88cbf8cc190cbcc4903142327bb",
+        "agents/region.py": "8a0d8bc74802585a53cfc6187c99345a07ab32ff96f4ced60e9c52ee159403de",
+        "agents/baseline_report.py": "c71c664ecd5e15cf9fcec26664c18e5599f4883cdafaf7b5839596248a5634fc",
+        "agents/baseline.py": "81d6be9f8f30f9cc63f16659f32e034ce2eace5be96d690ef11dcb9636590f3a"
+      }
+    },
+    "dataset_release_sha256": "675aaad14d2c1c6933b95c3caca6585d46346c19e983aa8a9cddcdfec150e618",
+    "split_lock_sha256": "82336dbf7469c77b5e7ba8c7b5b1ffd92d42c2b42bb4d6125b0339364cf0510d",
+    "checkpoint_sha256": "0238d814b53108f3574bf1ea240e38a0a6edd46173816d9a6962070561893b63",
+    "checkpoint_revision": "0dd28e3d633bd6715856ae9890e8c49360040598",
+    "upstream_source_revision": "59505a6bcadbf36ba20767270154bf9f3067c5e7",
+    "runtime": {
+      "python": "3.13.7",
+      "torch": "2.6.0+cu124",
+      "numpy": "2.2.6",
+      "rasterio": "1.5.0"
+    },
+    "vessel_metrics": null,
+    "improvement": null,
+    "blocked_experiments": [
+      {
+        "name": "detector_fine_tuning",
+        "reason": "No usable training vessel labels"
+      },
+      {
+        "name": "frozen_feature_vessel_head",
+        "reason": "No usable training vessel labels"
+      },
+      {
+        "name": "foundation_adaptation",
+        "reason": "No validated frozen-head evidence"
+      },
+      {
+        "name": "HH_HV_model_comparison",
+        "reason": "No compatible model or resolved labels"
+      }
+    ],
+    "limits": [
+      "Frozen features are not detection scores, recall or precision.",
+      "Native radar grid differs from SSL4EO geocoded land imagery pretraining.",
+      "128px windows extrapolate the pretrained 120px field of view.",
+      "An 8px feature token can obscure small vessels; usefulness is unmeasured.",
+      "Blocked fits were not run; they are not failed improvement experiments."
+    ],
+    "readiness": {
+      "dataset_version": "0.1.0",
+      "step_5_complete": false,
+      "trainer_implemented": false,
+      "supervised_data_exported": false,
+      "branches": {
+        "VV/VH": {
+          "cases": [
+            {
+              "roi_id": "st_johns_harbour",
+              "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+              "split": "train",
+              "region": "Newfoundland",
+              "regime": "coastal",
+              "confirmed_vessels": 0,
+              "unresolved": 5,
+              "resolved_first_pass": false,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "eastern_avalon_offshore",
+              "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+              "split": "train",
+              "region": "Newfoundland",
+              "regime": "offshore",
+              "confirmed_vessels": 0,
+              "unresolved": 0,
+              "resolved_first_pass": true,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "bonavista_coast",
+              "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+              "split": "validation",
+              "region": "Newfoundland",
+              "regime": "coastal",
+              "confirmed_vessels": 0,
+              "unresolved": 2,
+              "resolved_first_pass": false,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "bonavista_offshore",
+              "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+              "split": "validation",
+              "region": "Newfoundland",
+              "regime": "offshore",
+              "confirmed_vessels": 0,
+              "unresolved": 0,
+              "resolved_first_pass": true,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "lewisporte_coast",
+              "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+              "split": "validation",
+              "region": "Newfoundland",
+              "regime": "coastal",
+              "confirmed_vessels": 0,
+              "unresolved": 3,
+              "resolved_first_pass": false,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "bay_of_exploits_water",
+              "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+              "split": "validation",
+              "region": "Newfoundland",
+              "regime": "coastal",
+              "confirmed_vessels": 0,
+              "unresolved": 5,
+              "resolved_first_pass": false,
+              "metric_ready": false
+            }
+          ],
+          "training_vessels": 0,
+          "resolved_training_vessels": 0,
+          "supervised_fit_status": "blocked_labels",
+          "validation_status": "blocked_independent_labels",
+          "foundation_input_status": "VV/VH radar encoder; native-grid domain shift remains"
+        },
+        "HH/HV": {
+          "cases": [
+            {
+              "roi_id": "ferryland_coast",
+              "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+              "split": "train",
+              "region": "Newfoundland",
+              "regime": "coastal",
+              "confirmed_vessels": 0,
+              "unresolved": 3,
+              "resolved_first_pass": false,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "southern_avalon_offshore",
+              "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+              "split": "train",
+              "region": "Newfoundland",
+              "regime": "offshore",
+              "confirmed_vessels": 0,
+              "unresolved": 0,
+              "resolved_first_pass": true,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "makkovik_coast",
+              "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+              "split": "validation",
+              "region": "Labrador",
+              "regime": "coastal",
+              "confirmed_vessels": 0,
+              "unresolved": 2,
+              "resolved_first_pass": false,
+              "metric_ready": false
+            },
+            {
+              "roi_id": "makkovik_offshore",
+              "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+              "split": "validation",
+              "region": "Labrador",
+              "regime": "offshore",
+              "confirmed_vessels": 0,
+              "unresolved": 0,
+              "resolved_first_pass": true,
+              "metric_ready": false
+            }
+          ],
+          "training_vessels": 0,
+          "resolved_training_vessels": 0,
+          "supervised_fit_status": "blocked_labels",
+          "validation_status": "blocked_independent_labels",
+          "foundation_input_status": "unsupported HH/HV; no renaming or channel substitution"
+        }
+      },
+      "test_locked": true,
+      "operating_constraints": {
+        "targets": {
+          "status": "provisional research targets, not C-CORE requirements",
+          "max_false_alarms_per_km2": 0.1,
+          "min_recall": 0.7,
+          "min_coverage": 0.9,
+          "min_vessels": 30,
+          "min_independent_blocks": 5,
+          "family_alpha": 0.05
+        },
+        "threshold_grid": [
+          0.05,
+          0.1,
+          0.15,
+          0.25,
+          0.35,
+          0.5,
+          0.7,
+          0.9,
+          0.99
+        ],
+        "match_radius_m": 100,
+        "coastal_buffer_m": 300,
+        "alerts_enabled": false
+      },
+      "limits": [
+        "Labels_available is readiness, not an implemented trainer or fit result.",
+        "Resolved provisional training labels still require disclosed provenance.",
+        "Context clutter is not an exhaustive negative annotation.",
+        "Unresolved targets and AIS silence cannot become training negatives."
+      ]
+    },
+    "cases": [
+      {
+        "roi_id": "ferryland_coast",
+        "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+        "acquisition_group": "S1A_057278_070BF3",
+        "acquisition_time": "2025-01-03T09:42:20.920719Z",
+        "split": "train",
+        "region": "Newfoundland",
+        "regime": "coastal",
+        "season": "winter",
+        "polarizations": [
+          "hh",
+          "hv"
+        ],
+        "status": "unsupported_HH_HV_not_encoded"
+      },
+      {
+        "roi_id": "southern_avalon_offshore",
+        "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+        "acquisition_group": "S1A_057278_070BF3",
+        "acquisition_time": "2025-01-03T09:42:20.920719Z",
+        "split": "train",
+        "region": "Newfoundland",
+        "regime": "offshore",
+        "season": "winter",
+        "polarizations": [
+          "hh",
+          "hv"
+        ],
+        "status": "unsupported_HH_HV_not_encoded"
+      },
+      {
+        "roi_id": "makkovik_coast",
+        "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+        "acquisition_group": "S1C_008421_010A93",
+        "acquisition_time": "2026-07-06T10:11:53.952492Z",
+        "split": "validation",
+        "region": "Labrador",
+        "regime": "coastal",
+        "season": "summer",
+        "polarizations": [
+          "hh",
+          "hv"
+        ],
+        "status": "unsupported_HH_HV_not_encoded"
+      },
+      {
+        "roi_id": "makkovik_offshore",
+        "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+        "acquisition_group": "S1C_008421_010A93",
+        "acquisition_time": "2026-07-06T10:11:53.952492Z",
+        "split": "validation",
+        "region": "Labrador",
+        "regime": "offshore",
+        "season": "summer",
+        "polarizations": [
+          "hh",
+          "hv"
+        ],
+        "status": "unsupported_HH_HV_not_encoded"
+      },
+      {
+        "roi_id": "hopedale_coast",
+        "product_id": "2b13a301-59dd-4441-b9df-351737081b4a",
+        "acquisition_group": "S1A_063148_07ED3C",
+        "acquisition_time": "2026-02-09T21:41:14.575252Z",
+        "split": "test",
+        "region": "Labrador",
+        "regime": "coastal",
+        "season": "winter",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "locked_test_not_encoded"
+      },
+      {
+        "roi_id": "hopedale_offshore",
+        "product_id": "2b13a301-59dd-4441-b9df-351737081b4a",
+        "acquisition_group": "S1A_063148_07ED3C",
+        "acquisition_time": "2026-02-09T21:41:14.575252Z",
+        "split": "test",
+        "region": "Labrador",
+        "regime": "offshore",
+        "season": "winter",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "locked_test_not_encoded"
+      },
+      {
+        "roi_id": "st_johns_harbour",
+        "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+        "acquisition_group": "S1D_004346_008054",
+        "acquisition_time": "2026-08-29T21:21:45.545302Z",
+        "split": "train",
+        "region": "Newfoundland",
+        "regime": "coastal",
+        "season": "summer",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "frozen_features_only",
+        "chip_sha256": "80cb313d42d5522e62827d37ad06f4bfb05d9f27a2dc55e7c13488e8ceed133f",
+        "windows": 16,
+        "token_shape": [
+          16,
+          256,
+          768
+        ],
+        "pooled_shape": [
+          16,
+          768
+        ],
+        "pixels_encoded": 262144,
+        "pixels_selected": 262144,
+        "repeat_max_absolute_error": 0,
+        "seconds_including_serialization": 1.4330137000069954,
+        "artifact": "st_johns_harbour.npz",
+        "artifact_sha256": "1dada0aeceb23641d11131babbe0d9cf2172def574154c06b661f2ca5b62f7df"
+      },
+      {
+        "roi_id": "eastern_avalon_offshore",
+        "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+        "acquisition_group": "S1D_004346_008054",
+        "acquisition_time": "2026-08-29T21:21:45.545302Z",
+        "split": "train",
+        "region": "Newfoundland",
+        "regime": "offshore",
+        "season": "summer",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "frozen_features_only",
+        "chip_sha256": "0afd9ec2862bb857906af61c78402e5a60b14106639d817e206bfa8f8cd67e60",
+        "windows": 16,
+        "token_shape": [
+          16,
+          256,
+          768
+        ],
+        "pooled_shape": [
+          16,
+          768
+        ],
+        "pixels_encoded": 262144,
+        "pixels_selected": 262144,
+        "repeat_max_absolute_error": 0,
+        "seconds_including_serialization": 1.1710067000240088,
+        "artifact": "eastern_avalon_offshore.npz",
+        "artifact_sha256": "8a50db5a7466dd8eb6fa8fb85abbc34a97479c4558210ed7ef0f252f785484bf"
+      },
+      {
+        "roi_id": "bonavista_coast",
+        "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+        "acquisition_group": "S1D_004171_007A29",
+        "acquisition_time": "2026-08-17T21:22:09.815408Z",
+        "split": "validation",
+        "region": "Newfoundland",
+        "regime": "coastal",
+        "season": "summer",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "frozen_features_only",
+        "chip_sha256": "43eaee73616ae734857f80206cb04a3b8152227daba38489c94f6f12e0cf937c",
+        "windows": 16,
+        "token_shape": [
+          16,
+          256,
+          768
+        ],
+        "pooled_shape": [
+          16,
+          768
+        ],
+        "pixels_encoded": 262144,
+        "pixels_selected": 262144,
+        "repeat_max_absolute_error": 0,
+        "seconds_including_serialization": 0.9150997000397183,
+        "artifact": "bonavista_coast.npz",
+        "artifact_sha256": "00bd5aec019d07d9493a3cb1e65fca2e139c3644314389683568d3623514b6c0"
+      },
+      {
+        "roi_id": "bonavista_offshore",
+        "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+        "acquisition_group": "S1D_004171_007A29",
+        "acquisition_time": "2026-08-17T21:22:09.815408Z",
+        "split": "validation",
+        "region": "Newfoundland",
+        "regime": "offshore",
+        "season": "summer",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "frozen_features_only",
+        "chip_sha256": "10901285fabcbcd213e334114d5380c4a9bc321c69de3653eb1566144646f571",
+        "windows": 16,
+        "token_shape": [
+          16,
+          256,
+          768
+        ],
+        "pooled_shape": [
+          16,
+          768
+        ],
+        "pixels_encoded": 262144,
+        "pixels_selected": 262144,
+        "repeat_max_absolute_error": 0,
+        "seconds_including_serialization": 0.840380500012543,
+        "artifact": "bonavista_offshore.npz",
+        "artifact_sha256": "383e672d83870dcad6c23ef748f1b2908eae274a396a7b1488d8c69b1edcc844"
+      },
+      {
+        "roi_id": "lewisporte_coast",
+        "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+        "acquisition_group": "S1D_004769_008EFD",
+        "acquisition_time": "2026-09-27T21:30:23.883299Z",
+        "split": "validation",
+        "region": "Newfoundland",
+        "regime": "coastal",
+        "season": "autumn",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "frozen_features_only",
+        "chip_sha256": "e978ce349ae769159588a5bc1a1815d240903ca5b968f1031709d6605185b5bc",
+        "windows": 16,
+        "token_shape": [
+          16,
+          256,
+          768
+        ],
+        "pooled_shape": [
+          16,
+          768
+        ],
+        "pixels_encoded": 262144,
+        "pixels_selected": 262144,
+        "repeat_max_absolute_error": 0,
+        "seconds_including_serialization": 0.9262106000096537,
+        "artifact": "lewisporte_coast.npz",
+        "artifact_sha256": "f3b09b0c5ab97c59bbc42f24039791ef075e9b6021a009b80dfe7315a49a9b77"
+      },
+      {
+        "roi_id": "bay_of_exploits_water",
+        "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+        "acquisition_group": "S1D_004769_008EFD",
+        "acquisition_time": "2026-09-27T21:30:23.883299Z",
+        "split": "validation",
+        "region": "Newfoundland",
+        "regime": "coastal",
+        "season": "autumn",
+        "polarizations": [
+          "vv",
+          "vh"
+        ],
+        "status": "frozen_features_only",
+        "chip_sha256": "9b64d59da0eef8b93cc2a5afcb56b4414a64c7beb1c942f4a4811691d3c8e57c",
+        "windows": 16,
+        "token_shape": [
+          16,
+          256,
+          768
+        ],
+        "pooled_shape": [
+          16,
+          768
+        ],
+        "pixels_encoded": 262144,
+        "pixels_selected": 262144,
+        "repeat_max_absolute_error": 0,
+        "seconds_including_serialization": 0.8061952000134625,
+        "artifact": "bay_of_exploits_water.npz",
+        "artifact_sha256": "25209198ee61ea06111bb3f7a8417d13f8fa7a306b07a2badcb40028f38b8eaa"
+      }
+    ]
+  },
+  "local_reports": [
+    "data/model_research/croma_probe_20261006_01/experiment.json",
+    "data/model_research/croma_probe_20261006_02/experiment.json",
+    "data/model_research/croma_probe_20261006_03/experiment.json"
+  ]
+}

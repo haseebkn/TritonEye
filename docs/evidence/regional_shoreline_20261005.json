@@ -1,0 +1,372 @@
+{
+  "checked_on": "2026-10-05",
+  "locations": [
+    {
+      "location": "bonavista",
+      "reference": {
+        "source": "Esri World Imagery / Vantor Vivid",
+        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "reviewed_on": "2026-10-05",
+        "source_date_at_image_centre": "2025-08-01",
+        "image_sha256": "8a6ca184c311d5cd122a51de9e3a133978f85d3d390118c65c7da50b8dfdc261",
+        "image_extent_wgs84": [
+          -53.1345,
+          48.645,
+          -53.1025,
+          48.665
+        ],
+        "image_size": [
+          1600,
+          1000
+        ],
+        "local_provenance": "data/reference/regional/bonavista/provenance.json",
+        "rejected_candidate": {
+          "image_pixel_xy": [
+            950,
+            825
+          ],
+          "coordinates_wgs84": [
+            -53.1155,
+            48.6485
+          ],
+          "osm_signed_distance_m": -5.7,
+          "canvec_signed_distance_m": -3.3,
+          "reason": "Initial hand-placed point lies at the quay/water edge, not clearly inside the basin. Excluded as ambiguous after overlay inspection; no polygon correction justified."
+        },
+        "method": "Visual inspection of downloaded image; pixel x/y converted using export extent, longitude first. Not surveyed points or vessel labels.",
+        "scope": "Bonavista harbour and immediate bays only",
+        "limitation": "Centre citation does not date every pixel. Sparse development checks do not establish current tidal waterline or accuracy between points. Basemap imagery not redistributed."
+      },
+      "osm_checks": [
+        {
+          "id": "bonavista_basin",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 88.78397076110518,
+          "passed": true
+        },
+        {
+          "id": "bonavista_entrance",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 57.086220868497215,
+          "passed": true
+        },
+        {
+          "id": "bonavista_north_bay",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 189.84023215567885,
+          "passed": true
+        },
+        {
+          "id": "bonavista_town_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -132.9455889903386,
+          "passed": true
+        },
+        {
+          "id": "bonavista_south_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -123.97176554392561,
+          "passed": true
+        }
+      ],
+      "canvec_checks": [
+        {
+          "id": "bonavista_basin",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 107.89671647697224,
+          "passed": true
+        },
+        {
+          "id": "bonavista_entrance",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 201.24072663301672,
+          "passed": true
+        },
+        {
+          "id": "bonavista_north_bay",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 188.83829274182028,
+          "passed": true
+        },
+        {
+          "id": "bonavista_town_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -296.9205644695183,
+          "passed": true
+        },
+        {
+          "id": "bonavista_south_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -111.89340279609405,
+          "passed": true
+        }
+      ],
+      "decision": "Retain OSM; comparison-only CanVec, no automatic replacement"
+    },
+    {
+      "location": "lewisporte",
+      "reference": {
+        "source": "Esri World Imagery / Vantor Vivid",
+        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "reviewed_on": "2026-10-05",
+        "source_date_at_image_centre": "2025-06-04",
+        "image_sha256": "605432f512d6ae5600e9f4908552ec37620eabfed17fdf3e99f7d18fbe0cc449",
+        "image_extent_wgs84": [
+          -55.0712,
+          49.233,
+          -55.0408,
+          49.252
+        ],
+        "image_size": [
+          1600,
+          1000
+        ],
+        "local_provenance": "data/reference/regional/lewisporte/provenance.json",
+        "method": "Visual inspection of downloaded image; pixel x/y converted using export extent, longitude first. Not surveyed points or vessel labels.",
+        "scope": "Lewisporte marina, neighbouring bay and land only",
+        "limitation": "Centre citation does not date every pixel. Sparse development checks do not establish current tidal waterline or accuracy between points. Basemap imagery not redistributed."
+      },
+      "osm_checks": [
+        {
+          "id": "lewisporte_marina_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 55.16617423160828,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_bay_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 664.0814925148836,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_south_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 302.6733552781089,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_town_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -294.67680358177006,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_tanks_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -380.4941077521204,
+          "passed": true
+        }
+      ],
+      "canvec_checks": [
+        {
+          "id": "lewisporte_marina_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 98.98213807920807,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_bay_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 724.6420347486461,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_south_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 302.17067935095673,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_town_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -294.24898336852476,
+          "passed": true
+        },
+        {
+          "id": "lewisporte_tanks_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -390.98743602715393,
+          "passed": true
+        }
+      ],
+      "decision": "Retain OSM; comparison-only CanVec, no automatic replacement"
+    },
+    {
+      "location": "st_johns",
+      "reference": {
+        "source": "City of St. John's Imagery2022",
+        "url": "https://map.stjohns.ca/mapsrv/rest/services/Imagery/Imagery2022/MapServer",
+        "reviewed_on": "2026-10-05",
+        "method": "Water/land control locations visually inspected against the municipal aerial image. These are shoreline checks, not vessel labels or surveyed positions.",
+        "image_crs": "EPSG:32181",
+        "scope": "St. John's harbour and immediate approaches only",
+        "limitation": "2022 imagery cannot establish the current shoreline, tidal waterline, or accuracy between control locations. Coastal eligibility remains a separate policy."
+      },
+      "osm_checks": [
+        {
+          "id": "basin_centre",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 112.34753251546947,
+          "passed": true
+        },
+        {
+          "id": "narrows_channel",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 133.1064648503443,
+          "passed": true
+        },
+        {
+          "id": "entrance_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 92.26348222524646,
+          "passed": true
+        },
+        {
+          "id": "open_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 561.713819646269,
+          "passed": true
+        },
+        {
+          "id": "north_quay",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -7.371785079340694,
+          "passed": true
+        },
+        {
+          "id": "downtown_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -203.80837088121302,
+          "passed": true
+        },
+        {
+          "id": "south_industrial_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -120.73713242394861,
+          "passed": true
+        },
+        {
+          "id": "signal_hill_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -455.352149134614,
+          "passed": true
+        }
+      ],
+      "canvec_checks": [
+        {
+          "id": "basin_centre",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 123.1018903603086,
+          "passed": true
+        },
+        {
+          "id": "narrows_channel",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 133.74107715605567,
+          "passed": true
+        },
+        {
+          "id": "entrance_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 91.47433450679489,
+          "passed": true
+        },
+        {
+          "id": "open_water",
+          "expected": "water",
+          "actual": "water",
+          "distance_to_shore_m": 555.1793683859021,
+          "passed": true
+        },
+        {
+          "id": "north_quay",
+          "expected": "land",
+          "actual": "water",
+          "distance_to_shore_m": 11.47363441196704,
+          "passed": false
+        },
+        {
+          "id": "downtown_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -162.4554114148331,
+          "passed": true
+        },
+        {
+          "id": "south_industrial_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -129.17674137413323,
+          "passed": true
+        },
+        {
+          "id": "signal_hill_land",
+          "expected": "land",
+          "actual": "land",
+          "distance_to_shore_m": -476.1060432203119,
+          "passed": true
+        }
+      ],
+      "decision": "Retain OSM; comparison-only CanVec, no automatic replacement",
+      "sources": [
+        {
+          "path": "data\\reference\\st_johns\\source\\canvec_50K_NL_Hydro_shp.zip",
+          "url": "https://ftp.maps.canada.ca/pub/nrcan_rncan/vector/canvec/shp/Hydro/canvec_50K_NL_Hydro_shp.zip",
+          "sha256": "d35fbcc6e3a70ac0af187fd748334fe457c7fa333a7bd18d333c19c197fa1e91",
+          "bytes": 1092372463,
+          "local_file_time_utc": "2026-10-05T20:42:38.577838+00:00",
+          "licence": "Open Government Licence – Canada"
+        },
+        {
+          "path": "data\\reference\\st_johns\\source\\harbour_aerial2022.png",
+          "url": "https://map.stjohns.ca/mapsrv/rest/services/Imagery/Imagery2022/MapServer/export",
+          "sha256": "8b16d68598c14b8b6382b5979ca8ff8c94ecbc7b49b23d87c7bc7323a1e7d8ee",
+          "bytes": 13505994,
+          "local_file_time_utc": "2026-10-05T20:42:48.014236+00:00",
+          "licence": "City of St. John's; redistribution terms unverified"
+        },
+        {
+          "path": "data\\reference\\land-polygons-split-4326\\land_polygons.shp",
+          "url": "https://osmdata.openstreetmap.de/data/land-polygons.html",
+          "sha256": "aa13c07469a82836f9fafc7547e8aede7cb2b167b3826a094816fcea0b5bc996",
+          "bytes": 1316593132,
+          "local_file_time_utc": "2026-08-24T20:44:05.386730+00:00",
+          "licence": "ODbL; © OpenStreetMap contributors"
+        }
+      ]
+    }
+  ],
+  "limitation": "Sparse visual development checks. No province-wide, surveyed, tidal-waterline or vessel-performance validation."
+}

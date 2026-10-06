@@ -22,6 +22,29 @@ Coastline options are [OSM land polygons](https://osmdata.openstreetmap.de/data/
 domain despite some public-domain source inputs). Neither is a navigation chart
 or a substitute for independent regional geolocation validation.
 
+### St. John's shoreline verification (2026-10-05)
+
+The public [CanVec hydrography archive](https://ftp.maps.canada.ca/pub/nrcan_rncan/vector/canvec/shp/Hydro/canvec_50K_NL_Hydro_shp.zip)
+was downloaded to `data/reference/st_johns/source/` (1,092,372,463 bytes).
+The local ocean feature is `311141d9118146038b2c9a6cd88ba24c`, NAD83(CSRS),
+EPSG:4617; it was transformed to WGS84 explicitly. Its `datemin`/`datemax`
+attributes are 1979 and nominal `haccmin`/`haccmax` are 26 m. These are source
+attributes, not independently verified contemporary accuracy. CanVec is
+distributed under the Open Government Licence – Canada.
+
+The [City's Imagery2022 service](https://map.stjohns.ca/mapsrv/rest/services/Imagery/Imagery2022/MapServer)
+supplies a public harbour aerial image in NAD83 / MTM zone 1 (EPSG:32181).
+The exported image, service/export metadata and overlay are stored locally in
+the same directory. An exact flight date and redistribution permission have
+not been established; municipal imagery is not committed to Git or claimed
+as freely redistributable. It supplies visual reference context, not vessel truth.
+
+The current OSM geometry passes eight visually inspected water/land controls;
+CanVec fails the north-quay land control, so no province-wide replacement or
+automatic ocean-water subtraction is adopted. Checks and source hashes are
+recorded in `data/reference/st_johns/verification.json`.
+[Reproduction and limitations](ST_JOHNS_SHORELINE.md).
+
 The pipeline's Sentinel-1 source is the
 [Copernicus Data Space Ecosystem](https://dataspace.copernicus.eu/).
 Download uses the configured Copernicus credentials; keep them in an untracked
@@ -137,3 +160,21 @@ It records the Hibernia platform sampling site around 46°45′1.7″N,
 48°46′58.5″W. This is a sampling-area centre, not a current surveyed footprint;
 the report mixes historical coordinate datums elsewhere, so a datum must be
 established before treating these numbers as exact WGS 84 coordinates.
+
+## Additional sparse regional imagery checks (2026-10-05)
+
+Small Esri World Imagery exports and source-citation responses were saved locally
+for Bonavista, Lewisporte and a supplementary Twillingate coastal section.
+The centre citations identify Vantor/Vivid imagery dated 2025-08-01, 2025-06-04
+and 2022-06-23 respectively; dates are not asserted for every pixel. Pixel
+hashes, export extents and requests accompany each local source under
+`data/reference/regional/`. No basemap pixels are redistributed as open data.
+Only attributed OSM vector clips are committed as offline test fixtures.
+
+Bonavista and Lewisporte each have five physical shoreline controls on actual
+valid pixels in the two selected real-scene replays. Twillingate is not imaged
+by either selected scene and is not part of their benchmark coverage. Labrador
+has no controls/scenes in this inventory. CanVec remains comparison-only; sparse
+control agreement is not a province-wide accuracy ranking. See
+[COASTAL_POLICY.md](COASTAL_POLICY.md) for the rejected quay-edge candidate,
+coverage inventory, reference limitations and still-unmeasured buffer trials.

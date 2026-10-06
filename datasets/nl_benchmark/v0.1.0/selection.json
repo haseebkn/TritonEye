@@ -1,0 +1,77 @@
+{
+  "dataset_version": "0.1.0",
+  "status": "provisional_review_pilot",
+  "split_strategy": "whole_datatake_and_geographic_group",
+  "separation_m": 1000,
+  "selection_basis": "Named geographic sites and fixed windows selected before looking at detector predictions; purposive pilot, not a representative random sample.",
+  "scenes": [
+    {
+      "name": "S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE",
+      "split": "train",
+      "prior_development_exposure": true,
+      "region": "Newfoundland",
+      "season": "winter",
+      "rois": [
+        {"id": "ferryland_coast", "group": "southern_avalon", "regime": "coastal", "center": [-52.885, 47.025], "size": 512},
+        {"id": "southern_avalon_offshore", "group": "southern_avalon", "regime": "offshore", "center": [-52.4, 46.8], "size": 512}
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260829T212145_20260829T212210_004346_008054_0D9E_COG.SAFE",
+      "split": "train",
+      "prior_development_exposure": true,
+      "region": "Newfoundland",
+      "season": "summer",
+      "rois": [
+        {"id": "st_johns_harbour", "group": "eastern_avalon", "regime": "coastal", "center": [-52.704, 47.563], "size": 512},
+        {"id": "eastern_avalon_offshore", "group": "eastern_avalon", "regime": "offshore", "center": [-52.4, 47.55], "size": 512}
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4.SAFE",
+      "split": "validation",
+      "prior_development_exposure": true,
+      "region": "Newfoundland",
+      "season": "summer",
+      "rois": [
+        {"id": "bonavista_coast", "group": "bonavista", "regime": "coastal", "center": [-53.114, 48.651], "size": 512},
+        {"id": "bonavista_offshore", "group": "bonavista", "regime": "offshore", "center": [-52.9, 48.8], "size": 512}
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE",
+      "split": "validation",
+      "prior_development_exposure": true,
+      "region": "Newfoundland",
+      "season": "autumn",
+      "rois": [
+        {"id": "lewisporte_coast", "group": "bay_of_exploits", "regime": "coastal", "center": [-55.045, 49.246], "size": 512},
+        {"id": "bay_of_exploits_water", "group": "bay_of_exploits", "regime": "coastal", "center": [-55.14, 49.27], "size": 512}
+      ]
+    },
+    {
+      "name": "S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "split": "validation",
+      "prior_development_exposure": false,
+      "region": "Labrador",
+      "season": "summer",
+      "rois": [
+        {"id": "makkovik_coast", "group": "makkovik", "regime": "coastal", "center": [-59.15, 55.07], "size": 512},
+        {"id": "makkovik_offshore", "group": "makkovik", "regime": "offshore", "center": [-58.7, 55.12], "size": 512}
+      ]
+    },
+    {
+      "name": "S1A_IW_GRDH_1SDV_20260209T214114_20260209T214138_063148_07ED3C_31D6_COG.SAFE",
+      "product_id": "2b13a301-59dd-4441-b9df-351737081b4a",
+      "split": "test",
+      "prior_development_exposure": false,
+      "region": "Labrador",
+      "season": "winter",
+      "rois": [
+        {"id": "hopedale_coast", "group": "hopedale", "regime": "coastal", "center": [-60.22, 55.45], "size": 512},
+        {"id": "hopedale_offshore", "group": "hopedale", "regime": "offshore", "center": [-57.8, 55.6], "size": 512}
+      ]
+    }
+  ]
+}

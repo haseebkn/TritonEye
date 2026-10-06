@@ -76,7 +76,7 @@ def aoi_bbox(geom: Dict[str, Any]) -> List[float]:
 
 
 def generate_synthetic_data(
-    aoi_path: str, output_dir: str, seed: int = 42
+    aoi_path: str, output_dir: str, seed: int = 42, *, mission_id: str = ""
 ) -> Dict[str, Any]:
     """
     Generates deterministic mock Sentinel-1 GRD GeoTIFF files and matching AIS tracks.
@@ -91,7 +91,7 @@ def generate_synthetic_data(
         timestamp_str = override_timestamp
     else:
         timestamp_str = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-    mission_id = f"mission_mock_{timestamp_str}_{Path(aoi_path).stem}"
+    mission_id = mission_id or f"mission_mock_{timestamp_str}_{Path(aoi_path).stem}"
     synthetic_dir = mission_directory(mission_id, root=Path(output_dir) / "synthetic")
     safe_name = f"SYNTHETIC_VV_VH_{timestamp_str}.SAFE"
     safe_dir = str(synthetic_dir / safe_name)
@@ -560,6 +560,8 @@ def query_copernicus_data(
     user: str,
     password: str,
     target_date: str = "",
+    target_product_id: str = "",
+    mission_id: str = "",
 ) -> Dict[str, Any]:
     """Queries and downloads actual Sentinel-1 SAR datasets using CDSE OData API."""
     import tempfile
@@ -570,6 +572,10 @@ def query_copernicus_data(
     validate_aoi(geom)
     poly = shapely.geometry.shape(geom)
     footprint = poly.wkt
+
+    from agents.acquisition import product_id
+
+    selected_id = product_id(target_product_id) if target_product_id else ""
 
     print("Authenticating with Copernicus CDSE Keycloak OAuth2...", file=sys.stderr)
     token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
@@ -604,11 +610,15 @@ def query_copernicus_data(
             f" and ContentDate/Start ge {date.isoformat()}T00:00:00Z"
             f" and ContentDate/Start lt {following_date}T00:00:00Z"
         )
-    else:
+    elif not selected_id:
         start_date = (datetime.now(timezone.utc) - timedelta(days=15)).strftime(
             "%Y-%m-%dT%H:%M:%SZ"
         )
         window = f" and ContentDate/Start ge {start_date}"
+    else:
+        window = ""
+    if selected_id:
+        window += f" and Id eq {selected_id}"
 
     params: Dict[str, Any] = {
         "$filter": base_filter + window,
@@ -632,7 +642,9 @@ def query_copernicus_data(
         )
 
     product = products[0]
-    product_uuid = product["Id"]
+    if selected_id and product_id(product["Id"]) != selected_id:
+        raise ValueError("Catalogue returned a different satellite product ID")
+    product_uuid = product_id(product["Id"])
     product_name = product["Name"]
     start_time_str = product["ContentDate"]["Start"]
     dt = parse_utc(start_time_str)
@@ -792,7 +804,8 @@ def query_copernicus_data(
     # against and be misreported as a dark vessel.
     ais_bbox = pad_bbox(scene_bbox, AIS_MARGIN_DEG)
     acq_time_str_full = utc_string(dt)
-    mission_id = f"mission_{dt.strftime('%Y%m%d_%H%M%S')}_{product_uuid[:8]}"
+    source_mission_id = f"mission_{dt.strftime('%Y%m%d_%H%M%S')}_{product_uuid[:8]}"
+    mission_id = mission_id or source_mission_id
     mission_dir = mission_directory(mission_id)
 
     # This implementation integrates the local aisstream archive only. Other
@@ -801,7 +814,9 @@ def query_copernicus_data(
     ais_telemetry_path = None
     ais_coverage = "none"
 
-    ais_stream_dir = os.path.join(output_dir, "ais_stream")
+    ais_stream_dir = os.getenv("AIS_ARCHIVE_DIR") or os.path.join(
+        output_dir, "ais_stream"
+    )
     output_stream_path = str(mission_dir / "ais_filtered.csv")
     if filter_ais_stream_archive(
         ais_stream_dir, acq_time_str_full, ais_bbox, output_stream_path
@@ -827,6 +842,7 @@ def query_copernicus_data(
         "mission_id": mission_id,
         "status": "success",
         "mode": "production",
+        "source_mission_id": source_mission_id,
         "sar_product": product_name,
         "sar_product_id": product_uuid,
         "source_catalogue": "Copernicus Data Space Ecosystem",
@@ -838,7 +854,10 @@ def query_copernicus_data(
         "analysis_region": shapely.geometry.mapping(load_region()),
         "region_name": REGION_NAME,
         "ais_coverage_details": archive_coverage_details(
-            ais_stream_dir, acq_time_str_full, ais_bbox, ais_telemetry_path
+            os.getenv("AIS_COVERAGE_ARCHIVE_DIR") or ais_stream_dir,
+            acq_time_str_full,
+            ais_bbox,
+            ais_telemetry_path,
         ),
         "spatial_bounds": {
             "georeferencing": georeferencing,
@@ -864,6 +883,7 @@ def main() -> None:
     output_dir = os.path.join(base_dir, "data", "raw")
 
     target_date_override = os.getenv("TARGET_DATE", "").strip()
+    target_product_override = os.getenv("TARGET_PRODUCT_ID", "").strip()
 
     # Check for AOI override via env var
     aoi_override = os.getenv("AOI_NAME")
@@ -891,8 +911,12 @@ def main() -> None:
             datetime.strptime(target_date_override, "%Y-%m-%d")
 
         if mock_flag:
+            if target_product_override:
+                raise ValueError("A satellite product ID cannot select synthetic data")
             print("Explicit synthetic ingestion via MOCK_INGEST=true.", file=sys.stderr)
-            result: Dict[str, Any] = generate_synthetic_data(aoi_path, output_dir)
+            result: Dict[str, Any] = generate_synthetic_data(
+                aoi_path, output_dir, mission_id=os.getenv("TRITONEYE_MISSION_ID", "")
+            )
         else:
             if not user or not password:
                 raise RuntimeError(
@@ -904,7 +928,13 @@ def main() -> None:
             # An explicit date is a reproducibility constraint. No silent
             # substitution with recent imagery or unrelated archived AIS dates.
             result = query_copernicus_data(
-                aoi_data, output_dir, user, password, target_date=target_date_override
+                aoi_data,
+                output_dir,
+                user,
+                password,
+                target_date=target_date_override,
+                target_product_id=target_product_override,
+                mission_id=os.getenv("TRITONEYE_MISSION_ID", ""),
             )
 
         # Open the mission's tracking run here, at the head of the pipeline, and

@@ -1,0 +1,11 @@
+# The scheduled launcher must remain readable by Bash on Windows and Linux.
+*.sh text eol=lf
+# Release manifests hash exact bytes. Never rewrite dataset JSON/Markdown
+# line endings on checkout (Windows autocrlf would invalidate every hash).
+datasets/nl_benchmark/** -text whitespace=cr-at-eol
+scripts/build_nl_benchmark.py text eol=lf
+scripts/prepare_nl_review.py text eol=lf
+# Research reports hash these implementation bytes across Windows/Linux replay.
+agents/association.py text eol=lf
+agents/association_study.py text eol=lf
+agents/uncertainty_association.py text eol=lf

@@ -1,0 +1,464 @@
+{
+  "dataset_version": "association-pilot-0.1.0",
+  "dataset_sha256": "49995a15ddcf6b6767f0a79f1cc51d2204688a5859e2a3227c8ad6407a501c61",
+  "step_6_complete": false,
+  "improvement_demonstrated": false,
+  "production_method_changed": false,
+  "automatic_alerts": false,
+  "configuration": {
+    "sar_sigma_m": 100.0,
+    "ais_sigma_m": 30.0,
+    "sar_time_sigma_s": 15.0,
+    "ais_time_sigma_s": 5.0,
+    "speed_sigma_m_s": 1.0,
+    "course_sigma_deg": 10.0,
+    "acceleration_sigma_m_s2": 0.01,
+    "gate_squared": 9.21,
+    "max_distance_m": 2000.0,
+    "abstention_cost": 20.0
+  },
+  "reviewed_validation_cases": 0,
+  "validation_cases": [
+    {
+      "id": "bonavista_coast",
+      "acquisition_group": "S1D_004171_007A29",
+      "geographic_group": "bonavista",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarizations": [
+        "vv",
+        "vh"
+      ],
+      "targets": 2,
+      "candidate_pool": {
+        "scope": "scene-time-aligned NL identities; full report histories retained",
+        "count": 0,
+        "mmsis": []
+      },
+      "aligned_ais": 0,
+      "aligned_ais_in_roi": 0,
+      "ais_diagnostics": {
+        "input_records": 0,
+        "aligned_vessels": 0,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "reason": "AIS schema lacks MMSI, position, or timestamp"
+      },
+      "measured": false,
+      "geometric": null,
+      "uncertainty": null,
+      "descriptive_assignments": {
+        "geometric": 0,
+        "uncertainty": 0
+      },
+      "assignments": [
+        {
+          "target_id": "bonavista_coast_001",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "bonavista_coast_002",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        }
+      ],
+      "uncertainty_edges": []
+    },
+    {
+      "id": "bonavista_offshore",
+      "acquisition_group": "S1D_004171_007A29",
+      "geographic_group": "bonavista",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "polarizations": [
+        "vv",
+        "vh"
+      ],
+      "targets": 0,
+      "candidate_pool": {
+        "scope": "scene-time-aligned NL identities; full report histories retained",
+        "count": 0,
+        "mmsis": []
+      },
+      "aligned_ais": 0,
+      "aligned_ais_in_roi": 0,
+      "ais_diagnostics": {
+        "input_records": 0,
+        "aligned_vessels": 0,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "reason": "AIS schema lacks MMSI, position, or timestamp"
+      },
+      "measured": false,
+      "geometric": null,
+      "uncertainty": null,
+      "descriptive_assignments": {
+        "geometric": 0,
+        "uncertainty": 0
+      },
+      "assignments": [],
+      "uncertainty_edges": []
+    },
+    {
+      "id": "lewisporte_coast",
+      "acquisition_group": "S1D_004769_008EFD",
+      "geographic_group": "bay_of_exploits",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarizations": [
+        "vv",
+        "vh"
+      ],
+      "targets": 3,
+      "candidate_pool": {
+        "scope": "scene-time-aligned NL identities; full report histories retained",
+        "count": 26,
+        "mmsis": [
+          "244693000",
+          "245347000",
+          "255806393",
+          "316001067",
+          "316001288",
+          "316001340",
+          "316001380",
+          "316002590",
+          "316003000",
+          "316004070",
+          "316004890",
+          "316005402",
+          "316009908",
+          "316013000",
+          "316014210",
+          "316018710",
+          "316020186",
+          "316021844",
+          "316031783",
+          "316038993",
+          "316041123",
+          "316041841",
+          "316050726",
+          "316054877",
+          "331168000",
+          "352006537"
+        ]
+      },
+      "aligned_ais": 26,
+      "aligned_ais_in_roi": 0,
+      "ais_diagnostics": {
+        "input_records": 86,
+        "aligned_vessels": 26,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 7
+      },
+      "measured": false,
+      "geometric": null,
+      "uncertainty": null,
+      "descriptive_assignments": {
+        "geometric": 0,
+        "uncertainty": 0
+      },
+      "assignments": [
+        {
+          "target_id": "lewisporte_coast_001",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "lewisporte_coast_002",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "lewisporte_coast_003",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        }
+      ],
+      "uncertainty_edges": []
+    },
+    {
+      "id": "bay_of_exploits_water",
+      "acquisition_group": "S1D_004769_008EFD",
+      "geographic_group": "bay_of_exploits",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarizations": [
+        "vv",
+        "vh"
+      ],
+      "targets": 5,
+      "candidate_pool": {
+        "scope": "scene-time-aligned NL identities; full report histories retained",
+        "count": 26,
+        "mmsis": [
+          "244693000",
+          "245347000",
+          "255806393",
+          "316001067",
+          "316001288",
+          "316001340",
+          "316001380",
+          "316002590",
+          "316003000",
+          "316004070",
+          "316004890",
+          "316005402",
+          "316009908",
+          "316013000",
+          "316014210",
+          "316018710",
+          "316020186",
+          "316021844",
+          "316031783",
+          "316038993",
+          "316041123",
+          "316041841",
+          "316050726",
+          "316054877",
+          "331168000",
+          "352006537"
+        ]
+      },
+      "aligned_ais": 26,
+      "aligned_ais_in_roi": 0,
+      "ais_diagnostics": {
+        "input_records": 86,
+        "aligned_vessels": 26,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 7
+      },
+      "measured": false,
+      "geometric": null,
+      "uncertainty": null,
+      "descriptive_assignments": {
+        "geometric": 0,
+        "uncertainty": 0
+      },
+      "assignments": [
+        {
+          "target_id": "bay_of_exploits_water_001",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "bay_of_exploits_water_002",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "bay_of_exploits_water_003",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "bay_of_exploits_water_004",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "bay_of_exploits_water_005",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        }
+      ],
+      "uncertainty_edges": []
+    },
+    {
+      "id": "makkovik_coast",
+      "acquisition_group": "S1C_008421_010A93",
+      "geographic_group": "makkovik",
+      "region": "Labrador",
+      "regime": "coastal",
+      "polarizations": [
+        "hh",
+        "hv"
+      ],
+      "targets": 2,
+      "candidate_pool": {
+        "scope": "scene-time-aligned NL identities; full report histories retained",
+        "count": 0,
+        "mmsis": []
+      },
+      "aligned_ais": 0,
+      "aligned_ais_in_roi": 0,
+      "ais_diagnostics": {
+        "input_records": 0,
+        "aligned_vessels": 0,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "reason": "AIS schema lacks MMSI, position, or timestamp"
+      },
+      "measured": false,
+      "geometric": null,
+      "uncertainty": null,
+      "descriptive_assignments": {
+        "geometric": 0,
+        "uncertainty": 0
+      },
+      "assignments": [
+        {
+          "target_id": "makkovik_coast_001",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        },
+        {
+          "target_id": "makkovik_coast_002",
+          "geometric_mmsi": null,
+          "geometric_ambiguous": false,
+          "uncertainty_mmsi": null,
+          "uncertainty_ambiguous": false
+        }
+      ],
+      "uncertainty_edges": []
+    },
+    {
+      "id": "makkovik_offshore",
+      "acquisition_group": "S1C_008421_010A93",
+      "geographic_group": "makkovik",
+      "region": "Labrador",
+      "regime": "offshore",
+      "polarizations": [
+        "hh",
+        "hv"
+      ],
+      "targets": 0,
+      "candidate_pool": {
+        "scope": "scene-time-aligned NL identities; full report histories retained",
+        "count": 0,
+        "mmsis": []
+      },
+      "aligned_ais": 0,
+      "aligned_ais_in_roi": 0,
+      "ais_diagnostics": {
+        "input_records": 0,
+        "aligned_vessels": 0,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "reason": "AIS schema lacks MMSI, position, or timestamp"
+      },
+      "measured": false,
+      "geometric": null,
+      "uncertainty": null,
+      "descriptive_assignments": {
+        "geometric": 0,
+        "uncertainty": 0
+      },
+      "assignments": [],
+      "uncertainty_edges": []
+    }
+  ],
+  "error_rate_intervals": {
+    "geometric": {
+      "method": "paired connected acquisition/geography block percentile bootstrap",
+      "blocks": 0,
+      "seed": 20261005,
+      "resamples": 2000,
+      "interval": null,
+      "reason": "insufficient independent blocks"
+    },
+    "uncertainty": {
+      "method": "paired connected acquisition/geography block percentile bootstrap",
+      "blocks": 0,
+      "seed": 20261005,
+      "resamples": 2000,
+      "interval": null,
+      "reason": "insufficient independent blocks"
+    }
+  },
+  "paired_error_reduction": {
+    "interval": null,
+    "blocks": 0,
+    "seed": 20261006,
+    "resamples": 2000,
+    "reason": "At least five independent acquisition/geography blocks required"
+  },
+  "paired_error_reduction_by_polarization": {
+    "VV/VH": {
+      "interval": null,
+      "blocks": 0,
+      "seed": 20261006,
+      "resamples": 2000,
+      "reason": "At least five independent acquisition/geography blocks required"
+    },
+    "HH/HV": {
+      "interval": null,
+      "blocks": 0,
+      "seed": 20261006,
+      "resamples": 2000,
+      "reason": "At least five independent acquisition/geography blocks required"
+    }
+  },
+  "polarization_case_ids": {
+    "VV/VH": [
+      "bonavista_coast",
+      "bonavista_offshore",
+      "lewisporte_coast",
+      "bay_of_exploits_water"
+    ],
+    "HH/HV": [
+      "makkovik_coast",
+      "makkovik_offshore"
+    ]
+  },
+  "learned_ranker": {
+    "implemented": false,
+    "training_readiness": false,
+    "reviewed_training_targets": 0,
+    "reviewed_training_pairs": {
+      "positive": 0,
+      "negative": 0,
+      "total": 0
+    },
+    "provisional_minima": {
+      "pairs": 500,
+      "positive_pairs": 50,
+      "negative_pairs": 50,
+      "acquisitions": 5,
+      "geographic_groups": 5
+    }
+  },
+  "reason": "No reviewed validation identities; no improvement measurement",
+  "bundle_file_sha256": "1ff7e0398bd7ba3894cb5c3827c3bb90ed817e6fa619a30d8b67933a393d0fe9",
+  "runtime": {
+    "python": "3.13.7",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.14.1",
+    "pyproj": "3.7.2",
+    "shapely": "2.1.2"
+  },
+  "code_sha256": {
+    "association.py": "b4962bcc44f51b182f0dcc9b345bb97b8dab8e39fc170075cce9f281d8e66584",
+    "association_study.py": "7cf44f23a0ecdc4451831751a0b9772340b03d953244fd60b20972fcfad35514",
+    "uncertainty_association.py": "69a9aa09725e0d8799cc717566eb353cd3303ebe2422b28b43538a868fcd22ee"
+  }
+}

@@ -67,6 +67,8 @@ from agents.ais_validation import (
     utc_string,
     valid_mmsi,
 )
+from agents.artifacts import write_json
+from agents.recorder_health import HEARTBEAT_INTERVAL_S, HEARTBEAT_MAX_AGE_S
 from agents.region import contains_points, load_region, validate_aoi
 
 try:
@@ -290,6 +292,10 @@ async def record(
         "FilterMessageTypes": list(POSITION_TYPES),
     }
     row_count = 0
+    connected = False
+    last_received_at: Optional[str] = None
+    last_observed_at: Optional[str] = None
+    gaps: List[Dict[str, Any]] = []
     journal_name = (
         f"coverage_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}_"
         f"{uuid.uuid4().hex[:8]}.jsonl"
@@ -318,8 +324,47 @@ async def record(
         limitation="Subscription and connection do not establish receiver coverage",
     )
 
+    def write_status() -> None:
+        write_json(
+            os.path.join(output_dir, "recorder_status.json"),
+            {
+                "session_id": journal_name,
+                "heartbeat_at": utc_string(datetime.now(timezone.utc)),
+                "connected": connected,
+                "last_received_at": last_received_at,
+                "last_observed_at": last_observed_at,
+                "observations": row_count,
+                "gaps": gaps[-24:],
+                "coverage_complete": False,
+            },
+        )
+
+    async def heartbeat() -> None:
+        previous = datetime.now(timezone.utc)
+        while True:
+            instant = datetime.now(timezone.utc)
+            elapsed = (instant - previous).total_seconds()
+            if elapsed > HEARTBEAT_MAX_AGE_S:
+                gap = {
+                    "start": utc_string(previous),
+                    "end": utc_string(instant),
+                    "seconds": elapsed,
+                    "gap_type": "heartbeat_gap",
+                }
+                gaps.append(gap)
+                event("heartbeat_gap", **gap)
+            previous = instant
+            write_status()
+            event(
+                "heartbeat",
+                connected=connected,
+                last_received_at=last_received_at,
+                last_observed_at=last_observed_at,
+            )
+            await asyncio.sleep(HEARTBEAT_INTERVAL_S)
+
     async def consume() -> None:
-        nonlocal row_count
+        nonlocal row_count, connected, last_received_at, last_observed_at
         backoff = RECONNECT_MIN_S
         while True:
             # Backoff resets only once data actually arrives on a connection,
@@ -344,6 +389,8 @@ async def record(
                         file=sys.stderr,
                     )
                     event("subscribed")
+                    connected = True
+                    write_status()
 
                     async for raw in ws:
                         try:
@@ -363,6 +410,32 @@ async def record(
                                 event("first_observation", timestamp=row["timestamp"])
                             writer.write(row)
                             row_count += 1
+                            prior_receipt = parse_utc(last_received_at)
+                            current_receipt = parse_utc(row["received_at"])
+                            if (
+                                prior_receipt is not None
+                                and current_receipt is not None
+                            ):
+                                elapsed = (
+                                    current_receipt - prior_receipt
+                                ).total_seconds()
+                                if elapsed > 600:
+                                    gap = {
+                                        "start": last_received_at,
+                                        "end": row["received_at"],
+                                        "seconds": elapsed,
+                                        "gap_type": "observation_gap",
+                                    }
+                                    gaps.append(gap)
+                                    event("observation_gap", **gap)
+                            last_received_at = row["received_at"]
+                            prior_observation = parse_utc(last_observed_at)
+                            current_observation = parse_utc(row["timestamp"])
+                            if current_observation is not None and (
+                                prior_observation is None
+                                or current_observation > prior_observation
+                            ):
+                                last_observed_at = row["timestamp"]
                             if row_count % 500 == 0:
                                 print(
                                     f"{row_count} position reports recorded",
@@ -379,6 +452,7 @@ async def record(
                     else "server closed the connection without sending any data"
                 )
             except asyncio.CancelledError:
+                connected = False
                 event("disconnected", reason="duration_or_cancelled")
                 raise
             except Exception as e:
@@ -387,6 +461,8 @@ async def record(
 
             if received_any:
                 backoff = RECONNECT_MIN_S
+            connected = False
+            write_status()
             event("disconnected", reason=disconnect_reason, retry_delay_s=backoff)
             print(
                 f"Connection lost ({disconnect_reason}); retrying in {backoff:.0f}s",
@@ -395,6 +471,7 @@ async def record(
             await asyncio.sleep(backoff)
             backoff = min(backoff * 2, RECONNECT_MAX_S)
 
+    heartbeat_task = asyncio.create_task(heartbeat())
     try:
         if duration_s is None:
             await consume()
@@ -405,6 +482,13 @@ async def record(
             except asyncio.TimeoutError:
                 pass
     finally:
+        heartbeat_task.cancel()
+        try:
+            await heartbeat_task
+        except asyncio.CancelledError:
+            pass
+        connected = False
+        write_status()
         writer.close()
         event("session_stop", observations=row_count)
         journal.close()

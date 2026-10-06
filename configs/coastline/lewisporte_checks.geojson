@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "name": "lewisporte_harbour_checks_v1",
+  "reference": {
+    "source": "Esri World Imagery / Vantor Vivid",
+    "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "reviewed_on": "2026-10-05",
+    "source_date_at_image_centre": "2025-06-04",
+    "image_sha256": "605432f512d6ae5600e9f4908552ec37620eabfed17fdf3e99f7d18fbe0cc449",
+    "image_extent_wgs84": [-55.0712,49.233,-55.0408,49.252],
+    "image_size": [1600,1000],
+    "local_provenance": "data/reference/regional/lewisporte/provenance.json",
+    "method": "Visual inspection of downloaded image; pixel x/y converted using export extent, longitude first. Not surveyed points or vessel labels.",
+    "scope": "Lewisporte marina, neighbouring bay and land only",
+    "limitation": "Centre citation does not date every pixel. Sparse development checks do not establish current tidal waterline or accuracy between points. Basemap imagery not redistributed."
+  },
+  "features": [
+    {"type":"Feature","properties":{"id":"lewisporte_marina_water","expected":"water","image_pixel_xy":[790,470]},"geometry":{"type":"Point","coordinates":[-55.05619,49.24307]}},
+    {"type":"Feature","properties":{"id":"lewisporte_bay_water","expected":"water","image_pixel_xy":[1280,650]},"geometry":{"type":"Point","coordinates":[-55.04688,49.23965]}},
+    {"type":"Feature","properties":{"id":"lewisporte_south_water","expected":"water","image_pixel_xy":[850,720]},"geometry":{"type":"Point","coordinates":[-55.05505,49.23832]}},
+    {"type":"Feature","properties":{"id":"lewisporte_town_land","expected":"land","image_pixel_xy":[430,520]},"geometry":{"type":"Point","coordinates":[-55.06303,49.24212]}},
+    {"type":"Feature","properties":{"id":"lewisporte_tanks_land","expected":"land","image_pixel_xy":[705,185]},"geometry":{"type":"Point","coordinates":[-55.057805,49.248485]}}
+  ]
+}
