@@ -18,9 +18,13 @@ from agents.ais_validation import finite_number, parse_utc, utc_string
 from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.pipeline import run_pipeline
 from agents.recorder_health import recorder_health
+from agents.region import validate_aoi
 from agents.run_versions import acquisition_versions as acquisition_versions
 from agents.run_versions import digest, processing_versions
 from agents.scene_watch import ais_rows_near, assess, search_acquisitions
+
+# Failed attempts allowed per version key before the scene stops retrying.
+MAX_FAILED_ATTEMPTS = 3
 
 PipelineRunner = Callable[..., dict[str, Any]]
 
@@ -128,7 +132,11 @@ def run_check(
     if not aoi or Path(aoi).name != aoi or aoi in (".", ".."):
         raise ValueError("AOI must be a filename under configs/aois")
     rows = assess(products, archive_dir, cache_dir)
-    health = recorder_health(archive_dir, now=instant)
+    # Read health at the moment of reading, not at `instant`: assessment above
+    # can take minutes, during which the recorder keeps writing heartbeats, so
+    # a pre-assessment timestamp made a healthy recorder look -60 s+ "from the
+    # future" and report heartbeat_stale. Tests still inject a fixed clock.
+    health = recorder_health(archive_dir, now=None if now is None else instant)
     candidates: list[tuple[Path, dict[str, Any], dict[str, Any], dict[str, Any]]] = []
     for product, row in zip(products, rows):
         if row["product_id"] is None:
@@ -161,9 +169,16 @@ def run_check(
             if attempt["version_key"] == revision["version_key"]
         ]
         latest = previous[-1] if previous else None
+        failures = sum(1 for attempt in previous if attempt["state"] == "failed")
         if row["eligible"]:
             if latest and latest["state"] in ("processed", "measured"):
                 record["state"] = latest["state"]
+            elif failures >= MAX_FAILED_ATTEMPTS:
+                # A deterministic failure after inference would otherwise burn
+                # ~16 min of GPU every hour indefinitely. Changed code, model,
+                # config or data yields a new version key and reopens the scene.
+                record["state"] = "failed"
+                record["retry_exhausted"] = True
             else:
                 retry_at = parse_utc(latest.get("finished_at")) if latest else None
                 retry_due = (
@@ -308,7 +323,9 @@ def main() -> None:
 
     load_dotenv()
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--aoi", default="eastern_newfoundland")
+    # The whole study polygon: every eligible scene in the first week of
+    # October fell outside the 1.5-degree eastern_newfoundland box.
+    parser.add_argument("--aoi", default="newfoundland_labrador")
     parser.add_argument("--days", type=int, default=12)
     parser.add_argument("--check-only", action="store_true")
     parser.add_argument(
@@ -324,6 +341,12 @@ def main() -> None:
         / (args.aoi if args.aoi.endswith(".geojson") else args.aoi + ".geojson")
     )
     try:
+        # Same guard ingest applies. Without it the watcher discovered
+        # "eligible" products under nl_shelf (a recording envelope, wider than
+        # the study polygon) that ingest rejects every time -- each attempt a
+        # guaranteed failure.
+        aoi_feature = json.loads(aoi_path.read_text(encoding="utf-8"))["features"][0]
+        validate_aoi(aoi_feature["geometry"])
         with watch_lock(REPO_ROOT / "data/watch"):
             products = search_acquisitions(str(aoi_path), days=args.days)
             result = run_check(

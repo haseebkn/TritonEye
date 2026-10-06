@@ -361,3 +361,117 @@ def test_interrupted_ais_write_is_never_published_and_can_retry(
     evidence = {path: path.read_bytes() for path in snapshot.iterdir()}
     watch.snapshot_ais(setup["record_dir"], setup["archive_dir"], row, revision)
     assert all(path.read_bytes() == content for path, content in evidence.items())
+
+
+# --- regressions for the four defects found by the 2026-10-06 verification ---
+
+
+def test_ais_the_evaluator_cannot_align_is_not_eligible(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    """
+    Defect 1. Product 2e0f5ee7 (2026-10-02) was marked eligible on two vessels
+    whose only reports came 167-258 s AFTER acquisition. The evaluator cannot
+    interpolate (nothing before) or propagate (>120 s), so a full download and
+    126-tile run ended "no valid, sufficiently recent AIS positions".
+    """
+    monkeypatch.setattr(scene_watch, "water_eligible", lambda p, _: len(p))
+    path = tmp_path / "late"
+    path.mkdir()
+    with open(path / "ais_stream_2026-09-27_v2.csv", "w", newline="") as stream:
+        writer = csv.DictWriter(stream, ["mmsi", "lon", "lat", "timestamp"])
+        writer.writeheader()
+        writer.writerow(
+            {
+                "mmsi": "316006413",
+                "lon": -50,
+                "lat": 47,
+                "timestamp": "2026-09-27T21:33:30Z",
+            }  # +187 s, one-sided, no kinematics
+        )
+    row = scene_watch.assess([product(FIRST)], str(path), str(tmp_path))[0]
+    assert row["eligible"] is False
+    assert "time-align" in row["reason"]
+
+
+def test_recorder_health_is_read_at_real_time_in_production(
+    setup: dict[str, Any], monkeypatch: Any
+) -> None:
+    """
+    Defect 2. Health was evaluated at the pre-assessment timestamp, so a
+    heartbeat written during a multi-minute assessment looked >60 s "in the
+    future" and a healthy recorder reported heartbeat_stale.
+    """
+    seen: list[Any] = []
+
+    def capture(archive_dir: str, *, now: Any = None) -> dict[str, Any]:
+        seen.append(now)
+        return {"status": "fresh", "healthy": True}
+
+    monkeypatch.setattr(watch, "recorder_health", capture)
+    production = {**setup, "now": None}
+    watch.run_check([product(FIRST)], check_only=True, **production)
+    watch.run_check([product(FIRST)], check_only=True, **setup)
+    assert seen == [None, NOW]
+
+
+def test_failed_attempts_stop_after_cap_until_versions_change(
+    setup: dict[str, Any],
+) -> None:
+    """
+    Defect 3. Failures retried hourly with no cap; a scene failing after
+    inference would burn GPU every hour forever.
+    """
+    calls: list[str] = []
+
+    def failing(**kwargs: Any) -> dict[str, Any]:
+        calls.append(kwargs["env"]["TARGET_PRODUCT_ID"])
+        raise RuntimeError("deterministic failure")
+
+    for hour in range(watch.MAX_FAILED_ATTEMPTS + 2):
+        watch.run_check(
+            [product(FIRST)],
+            **{**setup, "runner": failing, "now": NOW + timedelta(hours=hour)},
+        )
+    assert len(calls) == watch.MAX_FAILED_ATTEMPTS
+    saved = record(setup)
+    assert saved["state"] == "failed"
+    assert saved.get("retry_exhausted") is True
+
+    changed = {**setup["versions"], "code": {"agents/pipeline.py": "version-two"}}
+    watch.run_check(
+        [product(FIRST)],
+        **{
+            **setup,
+            "runner": failing,
+            "versions": changed,
+            "now": NOW + timedelta(hours=10),
+        },
+    )
+    assert len(calls) == watch.MAX_FAILED_ATTEMPTS + 1
+
+
+def test_aoi_outside_the_study_area_is_rejected_before_discovery(
+    monkeypatch: Any,
+) -> None:
+    """
+    Defect 4. The watcher discovered "eligible" products under nl_shelf, a
+    recording envelope wider than the study polygon, which ingest rejects on
+    every attempt.
+    """
+    import sys
+
+    def must_not_search(*_: Any, **__: Any) -> list[dict[str, Any]]:
+        raise AssertionError("catalogue queried for an out-of-scope AOI")
+
+    monkeypatch.setattr(watch, "search_acquisitions", must_not_search)
+    monkeypatch.setattr(sys, "argv", ["watch", "--aoi", "nl_shelf", "--check-only"])
+    with pytest.raises(SystemExit) as exit_info:
+        watch.main()
+    assert exit_info.value.code == 1
+
+
+def test_default_watch_aoi_is_the_study_polygon() -> None:
+    import inspect
+
+    assert 'default="newfoundland_labrador"' in inspect.getsource(watch.main)
