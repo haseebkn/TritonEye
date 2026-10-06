@@ -6,7 +6,7 @@ set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO" || exit 1
-AOI="${TRITONEYE_WATCH_AOI:-eastern_newfoundland}"
+AOI="${TRITONEYE_WATCH_AOI:-newfoundland_labrador}"
 DAYS="${TRITONEYE_WATCH_DAYS:-12}"
 LOG_DIR="$REPO/data/watch"
 mkdir -p "$LOG_DIR"
