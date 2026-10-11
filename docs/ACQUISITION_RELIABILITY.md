@@ -3,12 +3,22 @@
 Discovery follows catalogue pagination and counts physical SAR slices, not
 original/COG catalogue variants. Recognized native slice names (satellite, mode,
 product, polarization, start/end, orbit and datatake), complete UTC intervals
-and footprint metadata must agree before variants are collapsed. Original SAFE
-is preferred over COG; UUID breaks ties deterministically. Alias UUIDs/names
+and footprint metadata must agree before variants are collapsed. Footprints must
+be valid, nonempty Polygon or MultiPolygon geometries with complete closed rings;
+empty, malformed or nonpolygonal footprints cannot establish alias identity.
+Original SAFE is preferred over COG; UUID breaks ties deterministically. Alias UUIDs/names
 remain in the selected catalogue record. Different same-day/adjacent slices,
 polarizations, unknown names, incomplete or conflicting metadata remain
 separate. Historical alias records are retained, not deleted or relabelled;
 only future discovery counts/queues use the deduplicated selection.
+
+Missing, null or invalid acquisition start times remain separate UUID records
+and sort deterministically after dated products. Assessment records `acquired: null`,
+marks them ineligible and reports that acquisition time is unavailable. Their
+original catalogue metadata remains in the watcher record and its content hash;
+the version's AIS window has zero rows because no acquisition window can be
+established. They are not processed or assigned a fabricated time, and do not
+prevent valid products from being assessed and scheduled.
 
 An offline replay on 2026-10-11 of the frozen 2026-10-06 NL catalogue snapshot
 returned 811 slices from 1,622 original/COG entries, selecting 811 original
