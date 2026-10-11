@@ -77,14 +77,20 @@ are published. A public checkout can recompute the interval and inspect the
 summary, but cannot independently reproduce the matches without authorized
 local inputs. Hashes establish which artifacts were inspected, not ground truth.
 
-From the project root, verify the retained local payload hashes against the ledger:
+From the running checkout's project root, verify the retained local payload hashes
+against its public ledger. `$aisSubsetEvidenceRoot` defaults to `E:/TritonEye`
+for this retained local evidence; change it to your authorized evidence location
+if needed. The example reads evidence without copying or modifying it. Missing
+inputs fail verification.
 
 ```powershell
-$ledger = Get-Content docs/evidence/ais_subset_20261011.json -Raw | ConvertFrom-Json
+$aisSubsetEvidenceRoot = 'E:/TritonEye'
+$ledger = Get-Content docs/evidence/ais_subset_20261011.json -Raw -ErrorAction Stop | ConvertFrom-Json
 foreach ($scene in $ledger.scenes) {
-    $hash = (Get-FileHash -LiteralPath $scene.local_evaluation -Algorithm SHA256).Hash.ToLower()
+    $evaluationPath = Join-Path -Path $aisSubsetEvidenceRoot -ChildPath $scene.local_evaluation
+    $hash = (Get-FileHash -LiteralPath $evaluationPath -Algorithm SHA256 -ErrorAction Stop).Hash.ToLower()
     if ($hash -ne $scene.evaluation_sha256) { throw "Evaluation hash mismatch" }
-    $saved = Get-Content -LiteralPath $scene.local_evaluation -Raw | ConvertFrom-Json
+    $saved = Get-Content -LiteralPath $evaluationPath -Raw -ErrorAction Stop | ConvertFrom-Json
     if (-not $saved.processing.complete -or -not $saved.evaluation.scored) { throw "Not measured" }
     if ($saved.selected_product_id -ne $scene.product_id -or
         $saved.processing.sar_product_id -ne $scene.product_id -or
