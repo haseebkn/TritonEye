@@ -10,8 +10,8 @@ Independent review remains unavailable, as disclosed in the benchmark.
 
 | Approach | Actual status | What the evidence supports |
 | --- | --- | --- |
-| Existing pretrained xView3 ensemble | Historical bounded replay in [NL_BASELINE.md](NL_BASELINE.md) | Processing and descriptive returns, not measured vessel accuracy |
-| Fine-tuned detector | Not run; no trainer implemented | Zero confirmed training vessels in either polarization branch |
+| Existing pretrained xView3 ensemble | Historical bounded replay in [NL_BASELINE.md](NL_BASELINE.md), plus [saved full-scene AIS comparisons](AIS_SUBSET_RESULT.md) | Supporting proximity evidence, not overall vessel accuracy or improvement. |
+| Fine-tuned detector | Not run; no trainer implemented | Frozen v0.1.0 pilot has zero confirmed training vessel labels in either polarization branch; later AIS proximity observations are not adopted training labels. |
 | CROMA frozen radar features | Executed on six VV/VH development areas | Checkpoint compatibility, finite features, full selected-pixel coverage and repeatability |
 | Frozen-feature vessel head or encoder adaptation | Not run | No usable training vessel labels or validated head to justify adaptation |
 | HH/HV model comparison | Not run | Existing models have no validated HH/HV compatibility; labels also remain unresolved |
@@ -131,7 +131,9 @@ The repository publishes an Apache-2.0 licence. A separate annotation-data
 grant and complete-area annotation protocol have not been verified locally.
 These candidates are **not yet adopted for fitting or scoring**. They replace
 any assumption that suitable public NL vessel points are universally absent,
-but do not resolve the benchmark's current zero-confirmed-vessel limitation.
+but do not resolve the frozen v0.1.0 pilot's lack of confirmed training vessel
+labels. The later [AIS-subset proximity result](AIS_SUBSET_RESULT.md) is
+supporting evidence, not independent image annotation or usable training truth.
 
 Reproduce the candidate screen without opening imagery or model weights:
 

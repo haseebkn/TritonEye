@@ -13,6 +13,9 @@ reports raw and water-eligible **AIS-subset proximity recall** when valid co-tem
 observations exist. This is neither a lower nor an upper bound on overall recall.
 One-to-one matches may still be accidental; labels are needed to assess correctness.
 
+For measured supporting evidence from saved full-scene evaluations, see
+[the AIS-subset result, interval, counting rules and hashed evidence](docs/AIS_SUBSET_RESULT.md).
+
 A versioned historical [NL SAR annotation pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md)
 now separates acquisition/geographic splits and retains complete selected review
 areas, source hashes, licence provenance and decisions. It is **provisional,

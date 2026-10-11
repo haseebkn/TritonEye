@@ -6,6 +6,11 @@ false-alarm density or association correctness: no independent SAR reviewer is
 available, and its machine-assisted labels remain provisional. No operating
 threshold has been selected and automatic operational alerts remain disabled.
 
+The separate [saved full-scene AIS-subset result](AIS_SUBSET_RESULT.md) uses a
+different proximity rule from this protocol's selected-area metric; they must
+not be pooled. It does not change the frozen pilot's missing labels, null
+accuracy metrics or blocked threshold selection.
+
 This is relevant engineering evidence for C-CORE's maritime AI role, not a claim
 of operational readiness, C-CORE approval or compliance with an unnamed maritime
 standard. The benchmark remains confined to Newfoundland and Labrador.
@@ -145,8 +150,9 @@ returns and six reference-relative land returns, with no open-water eligible
 returns or abstentions. **This is not ten false positives, nor evidence of perfect
 filtering.** Without reviewed truth, vessel counts, detector misses, policy misses,
 precision, recall and false-alarm density remain unavailable. Zero offshore returns
-cannot distinguish correct rejection from missed vessels. All areas have zero
-aligned AIS positions in their selected imagery, so AIS subset proximity recall
+cannot distinguish correct rejection from missed vessels. All areas in this
+historical selected-area replay have zero aligned AIS positions in their imagery,
+so AIS subset proximity recall
 and association ambiguity/correctness are also unmeasured.
 
 Model loading took 8.56 seconds. Replay wall time was 170.46 seconds excluding

@@ -7,6 +7,11 @@ SAR–AIS matching examples and no measured improvement**. A learned ranker is n
 implemented or trained. These are prerequisites for a defensible C-CORE portfolio
 claim, not C-CORE operational requirements or certification.
 
+The separate [saved full-scene AIS-subset result](AIS_SUBSET_RESULT.md) does not
+establish adjudicated identity correctness or improvement over the geometric
+matcher. The zero reviewed-case counts below refer to the frozen association
+pilot, not all AIS observations.
+
 ## Current evidence
 
 The detector-blind association pilot references ten development areas from five

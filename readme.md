@@ -26,6 +26,9 @@ stage stops the mission; failed model tiles never silently become a complete sca
 A target without an AIS match is **not proof of a dark vessel or intent**.
 Automatic operational alerts are disabled pending regional validation.
 
+Saved real-scene AIS comparisons provide supporting proximity evidence;
+see [the observed result, interval, hashed evidence and limitations](docs/AIS_SUBSET_RESULT.md).
+
 Regional shoreline controls, coastal/open-water replay counts and remaining
 label/coverage gaps: [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
 
