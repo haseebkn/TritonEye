@@ -1,0 +1,12 @@
+{
+  "archive_bundle": "data/research/ais_sar_overlap_20261011_final_v01",
+  "buffers_m": [0, 100, 300, 500, 1000],
+  "scenes": [
+    {"product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3", "ais_only": true, "setting": "Eastern Newfoundland harbour/coastal slice; AIS policy only"},
+    {"product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4", "ais_only": true, "setting": "Eastern Newfoundland harbour/coastal slice; AIS policy only"},
+    {"product_id": "42286d3d-cd80-4dc7-9aec-1613992b8256", "payload": "missions/execution_20260923T021738_062002Z/evaluate.json", "setting": "Northeastern Newfoundland coastal/offshore slice"},
+    {"product_id": "66d3167d-240a-459a-8066-75b9d2a458f2", "payload": "missions/execution_20261005T215016_210457Z/evaluate.json", "setting": "Lewisporte and Bay of Exploits coastal/offshore slice"},
+    {"product_id": "4f6115d9-c1d8-45bc-b5da-0d37aeaa85f9", "payload": "missions/execution_20261006T061925_457964Z/evaluate.json", "setting": "Northern Newfoundland open-water slice"},
+    {"product_id": "423801d3-499e-4058-870d-143bfb4b1ca1", "payload": "missions/execution_20261006T042439_138385Z/evaluate.json", "setting": "Northern/western Newfoundland coastal/offshore slice"}
+  ]
+}

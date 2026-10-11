@@ -11,6 +11,11 @@ different proximity rule from this protocol's selected-area metric; they must
 not be pooled. It does not change the frozen pilot's missing labels, null
 accuracy metrics or blocked threshold selection.
 
+The [AIS-supported buffer study](AIS_COASTAL_ANALYSIS.md) reports reference-water
+exclusions and cached 500 m proximity matches separately. It supplies no
+independent vessel labels, false-alarm density or selected operating point for
+this benchmark.
+
 This is relevant engineering evidence for C-CORE's maritime AI role, not a claim
 of operational readiness, C-CORE approval or compliance with an unnamed maritime
 standard. The benchmark remains confined to Newfoundland and Labrador.

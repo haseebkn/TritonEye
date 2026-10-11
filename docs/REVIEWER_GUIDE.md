@@ -16,6 +16,11 @@ For the subsequent archive refresh and local image-only handoff, see the
 counts are separate from the measured results below; independent labels and
 correlation improvement are still blocked.
 
+The subsequent [AIS-supported coastal-buffer analysis](AIS_COASTAL_ANALYSIS.md)
+measures exclusions within two observed coastal AIS samples and replays policy
+effects on cached detector proximity matches. It provides supporting sensitivity
+evidence; complete-area false alarms and missed vessels remain unavailable.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:
