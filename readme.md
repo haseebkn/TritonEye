@@ -1,6 +1,9 @@
 # TritonEye
 Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 
+**Start here: [Reviewer guide — built and verified, measured, and blocked](docs/REVIEWER_GUIDE.md).**
+One entry point for evidence, limitations and a short review walkthrough.
+
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a
 C-CORE product. Vessel precision and false-alarm rate are not yet measured.**
