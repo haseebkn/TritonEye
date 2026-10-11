@@ -116,9 +116,14 @@ histories are aligned before spatial filtering; conflicting and stale reports
 follow the existing bounded aligner. Raw DN zero padding, masks and nonfinite
 values in either polarization reject a position/return. The current 300 m default
 and original inference artifacts are preserved. Test identities, datatakes and
-buffered test geography are checked before SAR access; locked test images are
-not used. Source files are verified against the frozen archive and recorded
-inference input hashes. AIS-only scenes record fresh native measurement hashes.
+buffered test geography are checked before SAR access, including an independent
+check of the full evaluated catalogue footprint even when a narrower study ROI
+is supplied; locked test images are not used. Payload timestamps must fall in
+the catalogue start's UTC second, preserving whole-second cached timestamps.
+Consumed AIS CSVs and coverage journals must be listed in the frozen snapshot
+manifest; unlisted inputs and hash mismatches are rejected. Native bands are
+verified against recorded inference input hashes; AIS-only scenes record fresh
+native measurement hashes.
 
 ## Limits and interpretation
 
