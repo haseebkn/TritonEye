@@ -1,0 +1,436 @@
+{
+  "dataset_version": "0.2.0",
+  "annotator": "codex_primary_machine_assisted",
+  "qualifications": "AI image inspection; not a human SAR expert or independent reviewer.",
+  "areas": [
+    {
+      "roi_id": "scene_01_area_01",
+      "source_chip_sha256": "f7fd99cb92a960ba18135ed1713e373d8254f7296d05d1376111adbc0e88621f",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Full native VV/VH inspection across all four cells. Dark harbour basin and approach, bright urban scattering and shore-connected clusters. Individual hulls cannot be separated from quays/land returns; cluster counts are not vessel counts. Small targets may have been missed. Dense background structures are contextual.",
+      "objects": [
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            221,
+            247,
+            280,
+            309
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            281,
+            251,
+            316,
+            287
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            336,
+            285,
+            358,
+            319
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            363,
+            347,
+            388,
+            389
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            271,
+            310,
+            291,
+            335
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "clutter",
+          "kind": "area",
+          "bbox_px": [
+            0,
+            0,
+            220,
+            245
+          ],
+          "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_01_area_02",
+      "source_chip_sha256": "c5a938964a99468745fd34bf8801419c601162aeff9f1beba37c977911fd07d9",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native VV/VH inspection of all four cells. One isolated elongated central return in both bands over diffuse water-like background. Other cells have weak texture without a confidently identifiable target. Vessel interpretation is provisional before telemetry; no exhaustive empty-water assertion.",
+      "objects": [
+        {
+          "class": "vessel",
+          "kind": "object",
+          "bbox_px": [
+            249,
+            226,
+            265,
+            266
+          ],
+          "confidence": "provisional",
+          "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_02_area_01",
+      "source_chip_sha256": "7cb641b7e497babc415893c6d3b00a5902e6f1b976a67485b844a736f6ce9b53",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native VV/VH pass. Dark harbour basin and southern elongated basin, with bright settlement and shoreline clusters. Shore-connected returns cannot establish vessel/structure identities. All four cells inspected; small targets may have been missed.",
+      "objects": [
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            135,
+            150,
+            176,
+            188
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            168,
+            129,
+            188,
+            153
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            200,
+            168,
+            240,
+            198
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            184,
+            213,
+            205,
+            233
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            213,
+            245,
+            240,
+            265
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "clutter",
+          "kind": "area",
+          "bbox_px": [
+            0,
+            0,
+            130,
+            512
+          ],
+          "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_03_area_01",
+      "source_chip_sha256": "22a85b640babe2db6208f47f01c3b871cb468ece5498e75cb3f76a0bedc3bd90",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native HH/HV pass across all four cells. Harbour is rotated in this radar geometry, with dark water and bright shore-connected clusters. Vessel/quay/land alternatives unresolved. Unsupported HH/HV detector compatibility remains a separate experiment.",
+      "objects": [
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            201,
+            251,
+            220,
+            280
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            275,
+            300,
+            297,
+            328
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            296,
+            312,
+            318,
+            337
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            307,
+            350,
+            331,
+            378
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "clutter",
+          "kind": "area",
+          "bbox_px": [
+            350,
+            0,
+            512,
+            512
+          ],
+          "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_03_area_02",
+      "source_chip_sha256": "d131333fb5437bd431fbc6344b5b8dc274a39069ecacf222d2db1c245f4b0c4a",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "All native HH/HV cells inspected. Isolated central compact return with vertical extension in both bands against diffuse water-like background, with no visible shoreline. Provisional vessel morphology interpretation precedes telemetry; faint small targets elsewhere may have been missed.",
+      "objects": [
+        {
+          "class": "vessel",
+          "kind": "object",
+          "bbox_px": [
+            244,
+            217,
+            261,
+            247
+          ],
+          "confidence": "provisional",
+          "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_05_area_01",
+      "source_chip_sha256": "8142e2fdf8ad9a7c8a672d573875e214af34bdf3c42e7f72c8ab8a86e62c74d3",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native HH/HV inspection. One isolated compact core has elongated morphology and a weaker long azimuth-like streak in both bands. The box describes the core, not the full streak or surveyed hull. No shoreline visible despite coastal selection-intent tag; all other cells inspected. Vessel interpretation is provisional before telemetry.",
+      "objects": [
+        {
+          "class": "vessel",
+          "kind": "object",
+          "bbox_px": [
+            245,
+            288,
+            271,
+            311
+          ],
+          "confidence": "provisional",
+          "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_05_area_02",
+      "source_chip_sha256": "100e2c561794711dc26580831a9acefe0011198a9f1bc98541f731442e70f887",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native HH/HV inspection of all cells. Dark inlet/channels, textured land and island-like features, with bright shore-connected clusters. No confidently separable vessel. Potential quay/rock/berthed objects retained unresolved; small targets could be missed.",
+      "objects": [
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            231,
+            225,
+            256,
+            269
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            294,
+            234,
+            318,
+            257
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            208,
+            210,
+            225,
+            229
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "unresolved",
+          "kind": "object",
+          "bbox_px": [
+            142,
+            66,
+            166,
+            98
+          ],
+          "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown."
+        },
+        {
+          "class": "clutter",
+          "kind": "area",
+          "bbox_px": [
+            0,
+            100,
+            200,
+            512
+          ],
+          "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_06_area_01",
+      "source_chip_sha256": "63287bb5336c5d952dd958b9bc812c5536518b17aef9a26955254f7a6a22616b",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native VV/VH inspection. One isolated horizontally elongated return in both bands against streaked co-pol texture and dark cross-pol background. Vessel morphology interpretation precedes AIS and remains provisional. Background streaks do not establish sea state or a wake; all four cells considered.",
+      "objects": [
+        {
+          "class": "vessel",
+          "kind": "object",
+          "bbox_px": [
+            244,
+            210,
+            274,
+            234
+          ],
+          "confidence": "provisional",
+          "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established."
+        }
+      ]
+    },
+    {
+      "roi_id": "scene_06_area_02",
+      "source_chip_sha256": "7caab9882e1ab064083236ead8fea39ae050aef3604e4381a6a2f98edcd39be9",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "complete": true,
+      "notes": "Complete native VV/VH pass across four cells. One isolated horizontally elongated central return supported by both bands over diffuse mottled background. No other confidently identifiable object. Provisional vessel interpretation precedes telemetry; no independently established target absence.",
+      "objects": [
+        {
+          "class": "vessel",
+          "kind": "object",
+          "bbox_px": [
+            243,
+            212,
+            272,
+            238
+          ],
+          "confidence": "provisional",
+          "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established."
+        }
+      ]
+    }
+  ],
+  "independent_review": "unavailable_confirmed_by_owner"
+}

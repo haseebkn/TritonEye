@@ -1,0 +1,25 @@
+{
+  "dataset_version": "0.2.0",
+  "status": "provisional_not_independently_reviewed",
+  "created_at": "2026-10-11T13:24:29.460929+00:00",
+  "finalization_method": {
+    "path": "agents/benchmark_revision.py",
+    "sha256": "b1f0b04381837435a01fe16e8fe9fced7596cb5f4c214a63ca5bf8646cec1f06"
+  },
+  "files": {
+    "selection.json": "b387941dd4e6b70faa654bb39c220ceacfbf7f2f8da588ad5ccd60f9dee18765",
+    "split_lock.json": "19e80ff908b7ad74ae4827db4ff1c350c5cf155c7dacd6758592b4addd957598",
+    "manifest.json": "b0f4761605a2b0a8ceb14e2256655f911e003c54e6cc8c01e140ff131a261c8d",
+    "annotation_decisions.json": "df5d4e38d3f18cb37f68f0f9d026268cb12e3882e206a0f15fcd3bf50b3c4911",
+    "annotations.json": "c3e63b8b6d66b194601500335276214ac94fa8091efca036fbe638c4436d01da",
+    "review_history.json": "cc675079026c5702f70107bb7d552476af96ccbcf4d0cc45f367bbdd5f5ef908",
+    "status.json": "77acb0496f3b536d784d077e760af9738142af595b6ef260c3a9197febf1b4a2",
+    "ais_support.json": "6ce4fdf4026ce704a1c9a912a0bcc8854507e3c20663c38d845427ebb61ca134",
+    "ANNOTATION_GUIDE.md": "242f81300d65d664728b1445fe0c84681173a147db619bd391efa23b39bd32db",
+    "DATASET_CARD.md": "5769486bc3b0237c6d630fa45e7bcd3861a4fdb663cf0f24d7b83925a28856b9"
+  },
+  "review_bundle": {
+    "path": "data/benchmarks/nl/0.2.0/review_bundle.html",
+    "sha256": "38b93033646265cf07a05df09f5d79f6e13bd7889965c9a981c63d3b5e0d7d3b"
+  }
+}

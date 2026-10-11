@@ -1,0 +1,294 @@
+{
+  "dataset_version": "0.2.0",
+  "selection_digest": "12ee9a451a699240b909974d5b7e2d882f52b76ee8909da2b76290228d04d25e",
+  "assignments": [
+    {
+      "name": "S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE",
+      "split": "train",
+      "acquisition_group": "S1A_057278_070BF3",
+      "rois": [
+        {
+          "id": "ferryland_coast",
+          "group": "southern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.885,
+            47.025
+          ],
+          "size": 512
+        },
+        {
+          "id": "southern_avalon_offshore",
+          "group": "southern_avalon",
+          "regime": "offshore",
+          "center": [
+            -52.4,
+            46.8
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260829T212145_20260829T212210_004346_008054_0D9E_COG.SAFE",
+      "split": "train",
+      "acquisition_group": "S1D_004346_008054",
+      "rois": [
+        {
+          "id": "st_johns_harbour",
+          "group": "eastern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.704,
+            47.563
+          ],
+          "size": 512
+        },
+        {
+          "id": "eastern_avalon_offshore",
+          "group": "eastern_avalon",
+          "regime": "offshore",
+          "center": [
+            -52.4,
+            47.55
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1D_004171_007A29",
+      "rois": [
+        {
+          "id": "bonavista_coast",
+          "group": "bonavista",
+          "regime": "coastal",
+          "center": [
+            -53.114,
+            48.651
+          ],
+          "size": 512
+        },
+        {
+          "id": "bonavista_offshore",
+          "group": "bonavista",
+          "regime": "offshore",
+          "center": [
+            -52.9,
+            48.8
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1D_004769_008EFD",
+      "rois": [
+        {
+          "id": "lewisporte_coast",
+          "group": "bay_of_exploits",
+          "regime": "coastal",
+          "center": [
+            -55.045,
+            49.246
+          ],
+          "size": 512
+        },
+        {
+          "id": "bay_of_exploits_water",
+          "group": "bay_of_exploits",
+          "regime": "coastal",
+          "center": [
+            -55.14,
+            49.27
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1C_008421_010A93",
+      "rois": [
+        {
+          "id": "makkovik_coast",
+          "group": "makkovik",
+          "regime": "coastal",
+          "center": [
+            -59.15,
+            55.07
+          ],
+          "size": 512
+        },
+        {
+          "id": "makkovik_offshore",
+          "group": "makkovik",
+          "regime": "offshore",
+          "center": [
+            -58.7,
+            55.12
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1A_IW_GRDH_1SDV_20260209T214114_20260209T214138_063148_07ED3C_31D6_COG.SAFE",
+      "split": "test",
+      "acquisition_group": "S1A_063148_07ED3C",
+      "rois": [
+        {
+          "id": "hopedale_coast",
+          "group": "hopedale",
+          "regime": "coastal",
+          "center": [
+            -60.22,
+            55.45
+          ],
+          "size": 512
+        },
+        {
+          "id": "hopedale_offshore",
+          "group": "hopedale",
+          "regime": "offshore",
+          "center": [
+            -57.8,
+            55.6
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260922T212146_20260922T212211_004696_008C71_FF43.SAFE",
+      "split": "train",
+      "acquisition_group": "S1D_004696_008C71",
+      "rois": [
+        {
+          "id": "scene_01_area_01",
+          "group": "eastern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.70876729172787,
+            47.55664500000002
+          ],
+          "size": 512
+        },
+        {
+          "id": "scene_01_area_02",
+          "group": "eastern_avalon",
+          "regime": "offshore",
+          "center": [
+            -52.57599290947021,
+            47.54265549772912
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20261004T212146_20261004T212211_004871_00928B_EF7F.SAFE",
+      "split": "train",
+      "acquisition_group": "S1D_004871_00928B",
+      "rois": [
+        {
+          "id": "scene_02_area_01",
+          "group": "eastern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.69669455080532,
+            47.569273105692915
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE",
+      "split": "train",
+      "acquisition_group": "S1C_009704_013539",
+      "rois": [
+        {
+          "id": "scene_03_area_01",
+          "group": "eastern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.70000827624163,
+            47.56859730386587
+          ],
+          "size": 512
+        },
+        {
+          "id": "scene_03_area_02",
+          "group": "eastern_avalon",
+          "regime": "offshore",
+          "center": [
+            -52.21618931612319,
+            47.5020960066595
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1C_009500_012E71",
+      "rois": [
+        {
+          "id": "scene_05_area_01",
+          "group": "northern_newfoundland",
+          "regime": "coastal",
+          "center": [
+            -56.49945688345931,
+            51.47740365123778
+          ],
+          "size": 512
+        },
+        {
+          "id": "scene_05_area_02",
+          "group": "northern_newfoundland",
+          "regime": "coastal",
+          "center": [
+            -57.35157,
+            50.70602999999999
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260927T213113_20260927T213138_004769_008EFD_6C9A.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1D_004769_008EFD",
+      "rois": [
+        {
+          "id": "scene_06_area_01",
+          "group": "northern_newfoundland",
+          "regime": "offshore",
+          "center": [
+            -57.260859970265464,
+            51.16645902956592
+          ],
+          "size": 512
+        },
+        {
+          "id": "scene_06_area_02",
+          "group": "northern_newfoundland",
+          "regime": "offshore",
+          "center": [
+            -57.44834011749896,
+            51.08411037707392
+          ],
+          "size": 512
+        }
+      ]
+    }
+  ],
+  "test_policy": "No tuning, buffer comparison or training export; final evaluation requires a separate versioned release protocol."
+}

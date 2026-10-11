@@ -37,9 +37,11 @@ see [the observed result, interval, hashed evidence and limitations](docs/AIS_SU
 Regional shoreline controls, coastal/open-water replay counts and remaining
 label/coverage gaps: [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
 
-Historical SAR annotation now has a [versioned NL review pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md),
-with complete selected windows, acquisition/geographic split locks and hashed
-provenance. Independent review is unavailable; this is not measured vessel truth.
+SAR annotation now has a [versioned NL benchmark draft](datasets/nl_benchmark/v0.2.0/DATASET_CARD.md),
+with 21 complete selected areas, acquisition/geographic split locks and hashed
+provenance. The [Step 3 expansion report](docs/NL_BENCHMARK_V020.md) documents nine
+new image-first passes and five provisional vessel interpretations with AIS
+support. Independent review is unavailable; accuracy remains unmeasured.
 
 The [NL baseline and operating-point protocol](docs/NL_BASELINE.md) separates
 processing coverage, resource use and descriptive returns from unavailable

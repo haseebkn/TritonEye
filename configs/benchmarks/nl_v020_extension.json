@@ -1,0 +1,16 @@
+{
+  "dataset_version": "0.2.0",
+  "parent": "datasets/nl_benchmark/v0.1.0",
+  "bundle": "data/research/ais_sar_overlap_20261011_final_v01",
+  "assignments": {
+    "scene_01_area_01": {"split": "train", "group": "eastern_avalon", "regime": "coastal", "region": "Newfoundland"},
+    "scene_01_area_02": {"split": "train", "group": "eastern_avalon", "regime": "offshore", "region": "Newfoundland"},
+    "scene_02_area_01": {"split": "train", "group": "eastern_avalon", "regime": "coastal", "region": "Newfoundland"},
+    "scene_03_area_01": {"split": "train", "group": "eastern_avalon", "regime": "coastal", "region": "Newfoundland"},
+    "scene_03_area_02": {"split": "train", "group": "eastern_avalon", "regime": "offshore", "region": "Newfoundland"},
+    "scene_05_area_01": {"split": "validation", "group": "northern_newfoundland", "regime": "coastal", "region": "Newfoundland"},
+    "scene_05_area_02": {"split": "validation", "group": "northern_newfoundland", "regime": "coastal", "region": "Newfoundland"},
+    "scene_06_area_01": {"split": "validation", "group": "northern_newfoundland", "regime": "offshore", "region": "Newfoundland"},
+    "scene_06_area_02": {"split": "validation", "group": "northern_newfoundland", "regime": "offshore", "region": "Newfoundland"}
+  }
+}
