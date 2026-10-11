@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "name": "st_johns_shoreline_checks_v1",
+  "reference": {
+    "source": "City of St. John's Imagery2022",
+    "url": "https://map.stjohns.ca/mapsrv/rest/services/Imagery/Imagery2022/MapServer",
+    "reviewed_on": "2026-10-05",
+    "method": "Water/land control locations visually inspected against the municipal aerial image. These are shoreline checks, not vessel labels or surveyed positions.",
+    "image_crs": "EPSG:32181",
+    "scope": "St. John's harbour and immediate approaches only",
+    "limitation": "2022 imagery cannot establish the current shoreline, tidal waterline, or accuracy between control locations. Coastal eligibility remains a separate policy."
+  },
+  "features": [
+    {"type":"Feature","properties":{"id":"basin_centre","expected":"water","image_xy_m":[327300,5269670]},"geometry":{"type":"Point","coordinates":[-52.70096403166377,47.56582777569589]}},
+    {"type":"Feature","properties":{"id":"narrows_channel","expected":"water","image_xy_m":[328790,5269740]},"geometry":{"type":"Point","coordinates":[-52.68115769052795,47.56640409090994]}},
+    {"type":"Feature","properties":{"id":"entrance_water","expected":"water","image_xy_m":[329100,5269660]},"geometry":{"type":"Point","coordinates":[-52.677042084316646,47.56567296180644]}},
+    {"type":"Feature","properties":{"id":"open_water","expected":"water","image_xy_m":[329700,5269700]},"geometry":{"type":"Point","coordinates":[-52.66906568401565,47.56601003279634]}},
+    {"type":"Feature","properties":{"id":"north_quay","expected":"land","image_xy_m":[327600,5270140]},"geometry":{"type":"Point","coordinates":[-52.69695255730004,47.570044981458366]}},
+    {"type":"Feature","properties":{"id":"downtown_land","expected":"land","image_xy_m":[327190,5270110]},"geometry":{"type":"Point","coordinates":[-52.702403546858115,47.56978939848744]}},
+    {"type":"Feature","properties":{"id":"south_industrial_land","expected":"land","image_xy_m":[326900,5268600]},"geometry":{"type":"Point","coordinates":[-52.706333944823776,47.55621679718119]}},
+    {"type":"Feature","properties":{"id":"signal_hill_land","expected":"land","image_xy_m":[328400,5270350]},"geometry":{"type":"Point","coordinates":[-52.68630819551009,47.57190535135743]}}
+  ]
+}

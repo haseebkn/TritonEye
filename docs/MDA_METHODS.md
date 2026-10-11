@@ -79,8 +79,9 @@ not be presented as proof that a return is a fixed platform.
 
 ## Evidence needed to claim low false-positive performance
 
-The acceptance target is to be chosen on labelled Newfoundland/Labrador scenes,
-not by choosing a high score threshold and claiming success. Required evaluation:
+The [baseline protocol](NL_BASELINE.md#provisional-operating-objective) defines
+provisional research targets and validation-only operating-point selection.
+These are not operational acceptance criteria. Required evaluation:
 
 1. Independently label vessels, icebergs, clutter and uncertain objects using
    image chips and time-matched corroborating evidence. Record reviewer, source,

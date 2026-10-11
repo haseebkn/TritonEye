@@ -91,6 +91,13 @@ def aligned_ais(
         nearest = group.loc[group["dt_s"].abs().idxmin()]
         lon, lat = float(nearest.lon), float(nearest.lat)
         age = abs(float(nearest.dt_s))
+        speed, course = float(nearest.speed_knots), float(nearest.course_deg)
+        motion_known = bool(
+            np.isfinite(speed)
+            and 0 <= speed <= MAX_PLAUSIBLE_SPEED_KNOTS
+            and np.isfinite(course)
+            and 0 <= course < 360
+        )
         method = "observed" if age == 0 else "nearest"
         before = group[group["dt_s"] < 0]
         after = group[group["dt_s"] > 0]
@@ -105,6 +112,9 @@ def aligned_ais(
             lon, lat, _ = GEOD.fwd(left.lon, left.lat, azimuth, distance * fraction)
             method = "interpolated"
             age = max(abs(float(left.dt_s)), abs(float(right.dt_s)))
+            speed = distance / interval / KNOT_M_S
+            course = azimuth % 360
+            motion_known = True
         elif age:
             speed, course = float(nearest.speed_knots), float(nearest.course_deg)
             kinematics = (
@@ -129,6 +139,11 @@ def aligned_ais(
                 "length": float(nearest.length),
                 "report_age_s": age,
                 "alignment_method": method,
+                # Motion metadata for experimental covariance models. The legacy
+                # positions, gates and production assignment remain unchanged.
+                "speed_m_s": speed * KNOT_M_S if motion_known else None,
+                "course_deg": course if motion_known else None,
+                "motion_known": motion_known,
                 "uncertainty_m": BASE_UNCERTAINTY_M + age * UNCERTAINTY_GROWTH_M_S,
                 "geometry": Point(lon, lat),
             }

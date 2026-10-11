@@ -1,0 +1,26 @@
+{
+  "verification_date": "2026-10-05",
+  "evidence_kind": "cached real Sentinel-1 processing replay",
+  "selected_product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+  "processed_product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+  "inference_product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+  "evaluation_product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+  "pipeline_status": "completed",
+  "processing_complete": true,
+  "evaluation_scored": false,
+  "evaluation_reason": "no real AIS observations (coverage=none)",
+  "metric_scope": "observed AIS subset proximity recall",
+  "vessel_precision": null,
+  "false_positive_rate": null,
+  "inference_seconds": 963.69,
+  "weights_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+  "config_sha256": "415584d816a43b45a24fff996a56b84db23fe891fed7647feecd8514dac19387",
+  "sar_input_sha256": {
+    "VV": "27a20063989a770c14b47f14fc2e1bd0df67acacd8ffdce616b4689f50096785",
+    "VH": "4aef07d020e3930ccae07e0db288bd7373b2df7f6e35659e1b42c30f3f9f26a7"
+  },
+  "run_version_key": "4f7007e0e3e260f309a7deccb5a6a1607c0663cde0bde2befb6e93485ec20273",
+  "full_local_payload": "data/watch/replay-66d3167d.json",
+  "execution_artifacts": "missions/execution_20261005T215016_210457Z",
+  "limitation": "Identity and processing verification only; no measured detection benchmark. Full payload retains Windows working-tree source hashes."
+}

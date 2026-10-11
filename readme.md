@@ -13,7 +13,9 @@ C-CORE product. Vessel precision and false-alarm rate are not yet measured.**
   No generic detector fallback and no invented vessel-type labels.
 - UTC AIS validation, bounded motion alignment and geodesic one-to-one target
   assignment, retaining ambiguous matches and missing-coverage states.
-- Auditable land/coastal exclusions and provisional fixed-infrastructure
+- Separate physical land/water classification and coastal eligibility policy,
+  preserving coastal research returns independently of open-water candidates.
+- Auditable policy exclusions and provisional fixed-infrastructure
   proximity flags. Nominal mobile FPSO positions are not permanent masks.
 - Per-mission input/model hashes, processing parameters, stage logs, MLflow
   experiment/model provenance, unit tests, and Docker/CI configuration.
@@ -23,6 +25,29 @@ The pipeline is **ingest → inference → correlate → evaluate → report**. 
 stage stops the mission; failed model tiles never silently become a complete scan.
 A target without an AIS match is **not proof of a dark vessel or intent**.
 Automatic operational alerts are disabled pending regional validation.
+
+Regional shoreline controls, coastal/open-water replay counts and remaining
+label/coverage gaps: [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
+
+Historical SAR annotation now has a [versioned NL review pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md),
+with complete selected windows, acquisition/geographic split locks and hashed
+provenance. Independent review is unavailable; this is not measured vessel truth.
+
+The [NL baseline and operating-point protocol](docs/NL_BASELINE.md) separates
+processing coverage, resource use and descriptive returns from unavailable
+accuracy. Validation-only threshold selection requires useful recall and coverage
+as well as a low false-alarm bound; it cannot succeed by withholding everything.
+
+The [model development status](docs/MODEL_DEVELOPMENT.md) includes a real frozen
+CROMA radar-feature experiment on NL VV/VH development imagery. Features are
+not vessel predictions: detector fine-tuning and a controlled improvement
+comparison remain blocked by missing usable vessel labels. HH/HV remains separate
+and unsupported by the current models; locked test imagery is not encoded.
+
+The [target correlation study](docs/TARGET_CORRELATION.md) adds detector-blind
+identity review bundles and an experimental uncertainty-aware comparison. No
+independently reviewed SAR–AIS identities or measured improvement are available;
+the production geometric method is unchanged and no learned ranker is trained.
 
 ## Offline synthetic demonstration
 
@@ -44,46 +69,66 @@ It proves workflow behavior, not vessel detection accuracy. The demo uses
 deterministic NL imagery/AIS; missing coastline data stays explicitly unverified.
 Paths to each stage's JSON and log are under `missions/execution_*/`.
 
-## Finding a scene that can actually be scored
+## Finding acquisitions eligible for evaluation
 
 ```bash
 python -m agents.scene_watch --days 12 --aoi eastern_newfoundland
 ```
 
-A scene is only scorable if three things hold at once, and a source product is
-~1.7 GB, so this checks the free ones first rather than recommending a download
-that cannot yield a measurement:
+Discovery checks metadata and recorded observations before downloading a product
+(often about 1.7 GB). Eligibility requires:
 
 1. **VV/VH** — the detector cannot use HH/HV, and over parts of this region
    HH/HV is all that is acquired ([DATA_SOURCES.md](docs/DATA_SOURCES.md))
-2. **Recorded AIS in the ±5 min window** — no historical archive covers these
-   waters, so coverage exists only where the recorder was running
-3. **Those AIS positions in alert-eligible water** — vessels berthed in a
-   harbour cannot contribute to recall, because the pipeline excludes those
-   positions by design
+2. **Recorded AIS in the ±5 min window and actual product footprint**, inside
+   the NL study region. The integrated live feed cannot backfill gaps.
+3. **Open-water reference observations** under the current coastal policy.
+   Harbour AIS can support a separate coastal/raw-detection experiment.
 
-The third gate exists because of a real near-miss. A 2026-09-03 acquisition
-reported 75 AIS observations from 18 vessels and looked scorable, but every
-position lay inside the coastline in St. John's harbour. Scoring it would have
-produced a recall of zero **by construction** and read like a detector result.
+This is a preliminary selection check. Measurement still requires aligned AIS
+on valid SAR pixels. The legacy JSON field `scorable` is an eligibility alias;
+it does not mean an evaluation has been produced.
+
+Harbour observations require particular care: physical water inside the 300 m
+coastal band is not eligible under the current policy. The earlier claim that
+the OSM polygon closed St. John's harbour was incorrect. A 2026-10-05 comparison
+with municipal aerial imagery confirms an open basin and entrance. Eight
+imagery controls now guard against harbour closure and obvious land leakage;
+CanVec was evaluated but not adopted because it misses a quay control.
+See [shoreline evidence and reproduction](docs/ST_JOHNS_SHORELINE.md).
 
 Exit status is 0 when something is scorable and 3 when nothing is, so a
 scheduled job can branch on it without parsing text.
 
 ### Catching one unattended
 
-A qualifying scene cannot be arranged, only caught — it needs a VV/VH pass over
-open water while the recorder happens to be running. `scripts/watch_and_score.sh`
-checks and, if one qualifies, processes it:
+`scripts/watch_and_score.sh` supervises the recorder and runs the Python watcher.
+It checks heartbeat and observation freshness, discovers eligible products and
+processes at most one pending product per invocation. Both default to the whole
+`newfoundland_labrador` study polygon. Override the Python watcher's area with
+`--aoi`, or the launcher's default with `TRITONEYE_WATCH_AOI`:
 
 ```bash
-scripts/watch_and_score.sh              # check, and score if possible
-scripts/watch_and_score.sh --check-only # never download, just report
+scripts/watch_and_score.sh              # discover and process an eligible product
+scripts/watch_and_score.sh --check-only # update discovery without processing
+python -m agents.watch --check-only     # discovery without Docker supervision
 ```
 
-Safe to run repeatedly: the common case costs one catalogue query. A scene is
-only downloaded (~1.7 GB) and processed (~17 min GPU) when all three gates pass,
-and a stamp file in `data/watch/` stops the same acquisition being reprocessed.
+Product UUIDs select downloads and survive every pipeline stage. JSON records
+under `data/watch/records/<aoi>/<product-id>.json` distinguish discovered,
+eligible, processed, measured and failed outcomes. Content hashes cover code,
+model, configuration, shoreline and the acquisition's AIS window. Identical
+completed versions are skipped; changed versions can be evaluated again.
+Legacy date stamps remain on disk but no longer control scheduling. Attempts
+use frozen AIS snapshots and separate execution artifacts. OS locks prevent
+overlapping watchers. See the [per-version retry policy](docs/ACQUISITION_RELIABILITY.md#product-records)
+for retry delays, exhaustion and retained attempt history.
+
+The recorder publishes a heartbeat every 60 seconds. A heartbeat older than
+180 seconds, observations/receipts older than 600 seconds, and recorded gaps are
+reported independently of Docker running state. Freshness does not establish
+complete AIS coverage. An old recorder image must be rebuilt and restarted to
+publish this evidence. See [reliability and replay](docs/ACQUISITION_RELIABILITY.md).
 
 Register it on Windows so it runs without supervision:
 
@@ -106,9 +151,10 @@ python -m agents.landmask --fetch --source osm
 python -m agents.pipeline --date 2026-08-17 --aoi eastern_newfoundland
 ```
 
-Imaging AOIs: `grand_banks` (default), `eastern_newfoundland`,
-`st_johns_offshore`, `labrador_shelf`. Dates are UTC; if no compatible VV/VH
-scene is found for the requested date, ingestion fails rather than changing it.
+Imaging AOIs: `grand_banks` (pipeline default), `eastern_newfoundland`,
+`st_johns_offshore`, `labrador_shelf`, `newfoundland_labrador`. Dates are UTC;
+if no compatible VV/VH scene is found for the requested date, ingestion fails
+rather than changing it.
 
 The `newfoundland_labrador.geojson` polygon is a hand-defined **study area**,
 not an EEZ, provincial jurisdiction boundary, or navigation chart.

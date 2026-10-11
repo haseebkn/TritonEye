@@ -26,7 +26,7 @@ inference:
 landmask:
   enabled: true
   source: osm
-  coastal_buffer_m: 300  # conservative review band, not a measured accuracy claim
+  coastal_buffer_m: 300  # operating policy only; physical land/water is separate
   cache_dir: null
 infrastructure:
   enabled: true

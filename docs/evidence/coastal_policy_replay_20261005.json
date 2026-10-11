@@ -1,0 +1,265 @@
+{
+  "generated_on": "2026-10-05",
+  "status": "prebenchmark_unmeasured",
+  "inventory_sha256": "ea94ed9854e7b1b3033f3c01416bf28de3b068a131a90bff040a775fef6a3459",
+  "configuration_sha256": "30cb86a5e1009b1d1215f664a77902f0583d873d9b9989a84be0e60248bd3793",
+  "code_sha256": {
+    "coastal_replay.py": "fa8144c752e406fd8c059da20a3ef4731fa86e1b443a8c4e56184f18c30d841c",
+    "coastal_policy.py": "ed8f28c0d08e4a9ba2f8b24185a3486f848ee5f506434e443d15b72c0aa50e8e",
+    "coastal_benchmark.py": "bd0ebf1feb43f629c1668310fe8631bec533ce35d297eda373cd1bd68ffc10d5",
+    "landmask.py": "c73b9aab0b015c6fdc960f69aeb872d2a9ec98883dbc76fe7a7a27682283a2a5"
+  },
+  "scenes": [
+    {
+      "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+      "acquisition_time": "2026-08-17T21:22:09.815408Z",
+      "split": "development",
+      "source_payload_sha256": "c6b49f9ee2a3acde2a4b35c50f54dc876de739f3d3cdf69f4527eaf9c98c814e",
+      "source_detections_sha256": "82a4ffe6e00e4f86425e6ceccbfe853ddcdb8fd4aed5d9e806d033ef0a273ecf",
+      "derived_detections_sha256": "a09a99f438b7d06151e810a7d03aa64d058eb73c0ddf718b5362c8596864417f",
+      "valid_pixel_returns": 312,
+      "physical_counts": {
+        "water": 84,
+        "coastal": 0,
+        "land": 228
+      },
+      "shoreline_validation": {
+        "status": "passed",
+        "checked": 5,
+        "failed": 0,
+        "controls_sha256": "60cef933ebf27b6c32c4dc0539239d14d7811fa13feec98fa5009d54e289ba06"
+      },
+      "coverage": [
+        {
+          "location": "St. John's harbour",
+          "controls_total": 8,
+          "controls_on_valid_scene_pixels": 0,
+          "controls_sha256": "e8e062c2be86fe8359f5400892daad6b22b529abfcf63f569e281742bfa546df"
+        },
+        {
+          "location": "Bonavista harbour",
+          "controls_total": 5,
+          "controls_on_valid_scene_pixels": 5,
+          "controls_sha256": "0b1e1079adb7eb7a4be1286152b5090a973d864d017072edbae6ae3fa75a4d71"
+        },
+        {
+          "location": "Lewisporte harbour",
+          "controls_total": 5,
+          "controls_on_valid_scene_pixels": 0,
+          "controls_sha256": "b1d62ddcbff93608d5def7e43e9e57d5dfa6dec386671583b7ea43a2e6620eb4"
+        }
+      ],
+      "buffer_trials": [
+        {
+          "buffer_m": 0,
+          "open_water_eligible_returns": 84,
+          "harbour_coastal_returns": 0,
+          "retained_returns": 312,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 100,
+          "open_water_eligible_returns": 27,
+          "harbour_coastal_returns": 57,
+          "retained_returns": 312,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 300,
+          "open_water_eligible_returns": 17,
+          "harbour_coastal_returns": 67,
+          "retained_returns": 312,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 500,
+          "open_water_eligible_returns": 10,
+          "harbour_coastal_returns": 74,
+          "retained_returns": 312,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 1000,
+          "open_water_eligible_returns": 6,
+          "harbour_coastal_returns": 78,
+          "retained_returns": 312,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        }
+      ],
+      "ais_evaluation": {
+        "scored": false,
+        "reason": "no real AIS observations (coverage=none)",
+        "precision": null,
+        "false_positive_rate": null
+      },
+      "correlation_summary": {
+        "states": {
+          "excluded_land": 228,
+          "excluded_coastal": 67,
+          "unassessable": 17
+        },
+        "raw_detections": 312,
+        "eligible_detections": 17,
+        "review_candidates": 0,
+        "coastal_research_returns": 67,
+        "ais_positions": 0,
+        "ais_diagnostics": {
+          "input_records": 0,
+          "aligned_vessels": 0,
+          "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+          "uncertainty_model": "heuristic allowance; not a calibrated probability",
+          "invalid_records": 0,
+          "stale_records": 0,
+          "rejected_tracks": 0,
+          "reason": "no valid, sufficiently recent AIS positions"
+        },
+        "operational_alerts": 0,
+        "precision": null,
+        "note": "Analyst-review research outputs; no confirmed dark vessels. No validated precision or false-alarm rate. Automatic alerts disabled."
+      }
+    },
+    {
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "acquisition_time": "2026-09-27T21:30:23.883299Z",
+      "split": "development",
+      "source_payload_sha256": "3db55d294aa3e24a06786c75c57fc072dc2c7144daebcf8f8aaa4af7248cdecc",
+      "source_detections_sha256": "382d730ba4d398a9bbad6c58d06b4e4cac0118c3a321abc94892f86b44402beb",
+      "derived_detections_sha256": "633d89d647882d79a58209e29329c0bbd4cf434a3c1b3855fa5e2e1240a25d2e",
+      "valid_pixel_returns": 1032,
+      "physical_counts": {
+        "water": 144,
+        "coastal": 0,
+        "land": 888
+      },
+      "shoreline_validation": {
+        "status": "passed",
+        "checked": 5,
+        "failed": 0,
+        "controls_sha256": "60cef933ebf27b6c32c4dc0539239d14d7811fa13feec98fa5009d54e289ba06"
+      },
+      "coverage": [
+        {
+          "location": "St. John's harbour",
+          "controls_total": 8,
+          "controls_on_valid_scene_pixels": 0,
+          "controls_sha256": "e8e062c2be86fe8359f5400892daad6b22b529abfcf63f569e281742bfa546df"
+        },
+        {
+          "location": "Bonavista harbour",
+          "controls_total": 5,
+          "controls_on_valid_scene_pixels": 0,
+          "controls_sha256": "0b1e1079adb7eb7a4be1286152b5090a973d864d017072edbae6ae3fa75a4d71"
+        },
+        {
+          "location": "Lewisporte harbour",
+          "controls_total": 5,
+          "controls_on_valid_scene_pixels": 5,
+          "controls_sha256": "b1d62ddcbff93608d5def7e43e9e57d5dfa6dec386671583b7ea43a2e6620eb4"
+        }
+      ],
+      "buffer_trials": [
+        {
+          "buffer_m": 0,
+          "open_water_eligible_returns": 144,
+          "harbour_coastal_returns": 0,
+          "retained_returns": 1032,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 100,
+          "open_water_eligible_returns": 32,
+          "harbour_coastal_returns": 112,
+          "retained_returns": 1032,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 300,
+          "open_water_eligible_returns": 12,
+          "harbour_coastal_returns": 132,
+          "retained_returns": 1032,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 500,
+          "open_water_eligible_returns": 6,
+          "harbour_coastal_returns": 138,
+          "retained_returns": 1032,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        },
+        {
+          "buffer_m": 1000,
+          "open_water_eligible_returns": 3,
+          "harbour_coastal_returns": 141,
+          "retained_returns": 1032,
+          "measured": false,
+          "false_alarms": null,
+          "missed_vessels": null
+        }
+      ],
+      "ais_evaluation": {
+        "scored": false,
+        "reason": "no real AIS observations (coverage=none)",
+        "precision": null,
+        "false_positive_rate": null
+      },
+      "correlation_summary": {
+        "states": {
+          "excluded_land": 888,
+          "excluded_coastal": 132,
+          "unassessable": 12
+        },
+        "raw_detections": 1032,
+        "eligible_detections": 12,
+        "review_candidates": 0,
+        "coastal_research_returns": 132,
+        "ais_positions": 0,
+        "ais_diagnostics": {
+          "input_records": 0,
+          "aligned_vessels": 0,
+          "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+          "uncertainty_model": "heuristic allowance; not a calibrated probability",
+          "invalid_records": 0,
+          "stale_records": 0,
+          "rejected_tracks": 0,
+          "reason": "no valid, sufficiently recent AIS positions"
+        },
+        "operational_alerts": 0,
+        "precision": null,
+        "note": "Analyst-review research outputs; no confirmed dark vessels. No validated precision or false-alarm rate. Automatic alerts disabled."
+      }
+    }
+  ],
+  "not_covered": [
+    {
+      "region": "Labrador",
+      "reason": "No cached eligible real scene or imagery controls in this inventory"
+    },
+    {
+      "region": "Western and southern Newfoundland",
+      "reason": "Not represented by these two cached scenes"
+    },
+    {
+      "region": "Other shoreline segments within the swaths",
+      "reason": "Unverified between sparse control locations"
+    }
+  ],
+  "limitation": "No province-wide validation; no buffer selected or promoted from unlabelled returns"
+}

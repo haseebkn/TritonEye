@@ -17,6 +17,7 @@ from agents.association import (  # noqa: E402
     one_to_one_matches,
     real_ais_source,
 )
+from agents.coastal_policy import eligible as policy_eligible  # noqa: E402
 from agents.region import contains_points, load_region  # noqa: E402
 from agents.tracking import RunTracker  # noqa: E402
 
@@ -76,6 +77,7 @@ def correlate_targets(
         "ais_coverage": ais_coverage,
         "ais_coverage_completeness": "unverified",
         "association_eligible": False,
+        "coastal_review_required": False,
     }
     for key, value in defaults.items():
         targets[key] = pd.Series([value] * len(targets), dtype="object")
@@ -90,7 +92,7 @@ def correlate_targets(
             state, reason = "excluded_invalid_geometry", "Invalid or absent geometry"
         elif not region.covers(geometry):
             state, reason = "excluded_outside_region", "Outside the NL study area"
-        elif row["surface"] != "water":
+        elif not policy_eligible(row):
             surface = row["surface"]
             if surface in {"land", "coastal"}:
                 state = f"excluded_{surface}"
@@ -99,6 +101,13 @@ def correlate_targets(
             else:
                 state = "excluded_unknown_surface"
             reason = f"Surface={surface}; open-water eligibility not established"
+            targets.at[index, "coastal_review_required"] = bool(
+                surface == "coastal"
+                or (
+                    row.get("physical_surface") == "water"
+                    and row.get("coastal_zone") is True
+                )
+            )
         else:
             eligible.append(index)
             targets.at[index, "association_eligible"] = True
@@ -168,6 +177,8 @@ def summarize_correlation(targets: gpd.GeoDataFrame) -> dict[str, Any]:
         "raw_detections": len(targets),
         "eligible_detections": int(targets.association_eligible.sum()),
         "review_candidates": int(targets.review_required.sum()),
+        "unassociated_candidates": states.get("uncorrelated_candidate", 0),
+        "coastal_research_returns": int(targets.coastal_review_required.sum()),
         "ais_positions": targets.attrs.get("ais_positions", 0),
         "ais_diagnostics": targets.attrs.get("ais_diagnostics", {}),
         "operational_alerts": 0,
@@ -196,12 +207,17 @@ def main() -> None:
     directory = os.path.dirname(os.path.abspath(detections))
     all_path = os.path.join(directory, "correlation.geojson")
     candidates_path = os.path.join(directory, "review_candidates.geojson")
+    coastal_path = os.path.join(directory, "coastal_research.geojson")
     targets.to_file(all_path, driver="GeoJSON")
     targets.loc[targets.review_required.astype(bool)].to_file(
         candidates_path, driver="GeoJSON"
     )
+    targets.loc[targets.coastal_review_required.astype(bool)].to_file(
+        coastal_path, driver="GeoJSON"
+    )
     payload["correlation_geojson"] = all_path
     payload["candidates_geojson"] = candidates_path
+    payload["coastal_research_geojson"] = coastal_path
     # Compatibility pointer only: no artifact or classification claims darkness.
     payload["dark_vessels_geojson"] = candidates_path
     payload["deprecated_fields"] = list(

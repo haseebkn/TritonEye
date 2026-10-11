@@ -2,8 +2,8 @@
 """
 TritonEye Land Mask
 
-Classifies detections as water, coastal, or land against an open coastline
-dataset, so that terrain returns do not enter the dark-vessel alert list.
+Classifies physical land/water and coastal operating zones against a reference
+coastline. Eligibility and validation limits are owned by docs/COASTAL_POLICY.md.
 
 WHY THIS EXISTS: the 2026-08-17 eastern Newfoundland scene produced 298
 detections, the majority clustered over the Newfoundland landmass rather than
@@ -23,8 +23,9 @@ TWO DESIGN DECISIONS ARE LOAD-BEARING:
 
 2. FLAG, DO NOT DROP. Detections are annotated with `surface` and
    `distance_to_shore_m`, never deleted. Only water-classified detections are
-   eligible for AIS association and analyst review. Counts remain auditable; this
-   itself the evidence that a false-alarm mode was found and fixed -- and avoids
+   eligible for open-water AIS association. Coastal returns remain available for
+   separate research and analyst review. Counts make policy suppression
+   auditable, not a measured precision improvement. Retention avoids
    silently discarding genuine harbour traffic on the strength of georeferencing
    that carries known residual error.
 
@@ -35,20 +36,15 @@ Coastline sources, all open, none paid:
           Newfoundland's interior is full of ponds and this is the behaviour we
           want. https://osmdata.openstreetmap.de/data/land-polygons.html
 
-          KNOWN GAP: this generalisation does not resolve narrow harbour
-          entrances. St. John's classifies as berths -39 m (land), mid-basin
-          +122 m (coastal), The Narrows entrance -220 m (land) -- so the port
-          and its approaches sit outside coverage, and harbour AIS cannot be
-          used as ground truth. CanVec resolves such channels better. See
-          EVALUATION.md.
   gshhg   GSHHG 2.3.7, GNU Lesser General Public License.
           https://www.soest.hawaii.edu/pwessel/gshhg/
 
-CanVec (Open Government Licence - Canada) is the intended refinement for
-Canadian waters but is packaged per NTS tile and needs tile-selection logic; it
-is not wired up here.
+Local OSM/CanVec comparison evidence is in docs/ST_JOHNS_SHORELINE.md;
+the expanded imagery-control inventory is in docs/COASTAL_POLICY.md.
 """
 
+import hashlib
+import json
 import os
 import sys
 import zipfile
@@ -61,9 +57,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 FloatArray = np.ndarray[Any, Any]
 
-# Surface classes. `coastal` is deliberately a third class rather than a
-# water/land binary: real nearshore vessels and land bleed both occupy that
-# band, and forcing a binary would misreport one of them.
+# Legacy operating zones. Physical land/water is returned separately by
+# classify_physical(); coastal is physically water, not a third material.
 SURFACE_WATER = "water"
 SURFACE_COASTAL = "coastal"
 SURFACE_LAND = "land"
@@ -71,6 +66,12 @@ SURFACE_LAND = "land"
 # Detections within this distance of shore are `coastal`. ~30 px at 10 m ground
 # spacing, comfortably above the measured gcp_tps georeferencing residual.
 DEFAULT_COASTAL_BUFFER_M = 300.0
+DEFAULT_SHORELINE_CONTROLS = str(
+    Path(__file__).resolve().parents[1]
+    / "configs"
+    / "coastline"
+    / "regional_controls.json"
+)
 
 SOURCES: Dict[str, Dict[str, str]] = {
     "osm": {
@@ -85,8 +86,8 @@ SOURCES: Dict[str, Dict[str, str]] = {
         "url": "https://www.soest.hawaii.edu/pwessel/gshhg/gshhg-shp-2.3.7.zip",
         "archive": "gshhg-shp-2.3.7.zip",
         # L1 = continental land. Lakes (L2) are deliberately NOT subtracted:
-        # an inland pond is not navigable water for our purposes, and a
-        # detection on one is a false positive either way.
+        # inland water remains outside this marine research scope regardless
+        # of whether a return there is a vessel.
         "shapefile": "GSHHS_shp/f/GSHHS_f_L1.shp",
         "licence": "GNU LGPL - GSHHG 2.3.7",
     },
@@ -124,7 +125,9 @@ def local_aeqd_crs(bounds: Sequence[float]) -> Any:
 
 def resolve_cache_dir(base_dir: str, cache_dir: Optional[str] = None) -> str:
     """Returns the coastline cache directory, creating it if absent."""
-    path = cache_dir or os.path.join(base_dir, "data", "reference")
+    path = os.path.abspath(
+        os.path.join(base_dir, cache_dir or os.path.join("data", "reference"))
+    )
     os.makedirs(path, exist_ok=True)
     return path
 
@@ -218,6 +221,7 @@ class LandMask:
         self.licence = licence
         self.shapefile = shapefile
         self.crs = crs
+        self.validation: Dict[str, Any] = {"status": "not_checked"}
         self._geoms = list(land_geoms)
         # A prepared union answers contains() far faster than iterating parts,
         # and the boundary is what distance-to-shore is measured against. Both
@@ -231,6 +235,28 @@ class LandMask:
     def is_empty(self) -> bool:
         """True when no land intersects the footprint - an all-ocean scene."""
         return self._union is None
+
+    def water_geometry(self, geographic_roi: Any, buffer_m: float = 0.0) -> Any:
+        """Physical water or buffered open water in WGS84; no detection filtering.
+
+        This is conditional on the source polygon, not independent shoreline
+        truth. The caller must supply valid imagery geometry in this footprint.
+        """
+        import math
+
+        from pyproj import Transformer
+        from shapely.ops import transform
+
+        if not math.isfinite(buffer_m) or buffer_m < 0:
+            raise ValueError("Finite nonnegative buffer required")
+        if geographic_roi.is_empty or not geographic_roi.is_valid:
+            raise ValueError("Valid ROI required")
+        forward = Transformer.from_crs("EPSG:4326", self.crs, always_xy=True)
+        inverse = Transformer.from_crs(self.crs, "EPSG:4326", always_xy=True)
+        projected = transform(forward.transform, geographic_roi)
+        if self._union is not None:
+            projected = projected.difference(self._union.buffer(buffer_m))
+        return transform(inverse.transform, projected)
 
     def _require_land(self) -> Tuple[Any, Any]:
         """
@@ -254,6 +280,7 @@ class LandMask:
         source: str = "osm",
         cache_dir: str = ".",
         shapefile: Optional[str] = None,
+        controls_path: Optional[str] = DEFAULT_SHORELINE_CONTROLS,
     ) -> "LandMask":
         """
         Loads coastline polygons intersecting `bounds` (min_lon, min_lat,
@@ -286,13 +313,176 @@ class LandMask:
         crs = local_aeqd_crs(bounds)
         if len(gdf):
             gdf = gdf.to_crs(crs)
-        return cls(
+        mask = cls(
             list(gdf.geometry),
             crs,
             source,
             spec.get("licence", "unknown"),
             shapefile=path,
         )
+        if controls_path is not None:
+            mask.validate_controls(bounds, controls_path)
+        return mask
+
+    def validate_controls(self, bounds: Sequence[float], path: str) -> None:
+        """Check physical land/water at imagery controls inside this footprint.
+
+        Water in the coastal buffer is still physically water. These controls
+        never narrow that buffer or promote a coastal target to alert eligibility.
+        A failed check makes the mask unavailable instead of silently accepting a
+        harbour closure or an outdated shoreline that includes a known quay.
+        """
+        from shapely.geometry import Point, box
+
+        try:
+            raw = Path(path).read_bytes()
+            document = json.loads(raw)
+            if (
+                isinstance(document, dict)
+                and document.get("type") == "ShorelineControlRegistry"
+            ):
+                collections = document.get("collections")
+                if not isinstance(collections, list) or not collections:
+                    raise ValueError("Control registry requires collections")
+                results = []
+                locations = set()
+                paths = set()
+                for collection in collections:
+                    location = collection["location"]
+                    if (
+                        not isinstance(location, str)
+                        or not location
+                        or location in locations
+                    ):
+                        raise ValueError("Unique named control locations required")
+                    locations.add(location)
+                    child = (Path(path).parent / collection["path"]).resolve()
+                    if child in paths:
+                        raise ValueError("Duplicate control collection")
+                    paths.add(child)
+                    if not child.is_relative_to(Path(path).parent.resolve()):
+                        raise ValueError(
+                            "Control collection outside registry directory"
+                        )
+                    child_document = json.loads(child.read_bytes())
+                    if (
+                        not isinstance(child_document, dict)
+                        or child_document.get("type") != "FeatureCollection"
+                    ):
+                        raise ValueError(
+                            "Registry collections must be FeatureCollections"
+                        )
+                    self.validation = {"status": "not_checked"}
+                    try:
+                        self.validate_controls(bounds, str(child))
+                    except LandMaskUnavailable:
+                        # Keep the failed collection in the aggregate audit record.
+                        if self.validation.get("status") != "failed":
+                            raise
+                    results.append(
+                        {"location": collection["location"], **self.validation}
+                    )
+                checks = [check for result in results for check in result["checks"]]
+                failures = [check for check in checks if not check["passed"]]
+                self.validation = {
+                    "status": (
+                        "failed"
+                        if failures
+                        else "passed" if checks else "outside_scope"
+                    ),
+                    "registry_sha256": hashlib.sha256(raw).hexdigest(),
+                    "controls_sha256": hashlib.sha256(
+                        raw
+                        + json.dumps([r["controls_sha256"] for r in results]).encode()
+                    ).hexdigest(),
+                    "collections": results,
+                    "checks": checks,
+                    "checked": len(checks),
+                    "failed": len(failures),
+                    "scope": (
+                        "Sparse imagery controls only; not province-wide validation"
+                    ),
+                }
+                if failures:
+                    raise LandMaskUnavailable(
+                        "Shoreline imagery controls failed: "
+                        + ", ".join(c["id"] for c in failures)
+                    )
+                return
+            if (
+                not isinstance(document, dict)
+                or document.get("type") != "FeatureCollection"
+                or not isinstance(document.get("features"), list)
+                or not document["features"]
+            ):
+                raise ValueError("Controls must be a GeoJSON FeatureCollection")
+            declared_crs = document.get("crs")
+            if declared_crs and (
+                not isinstance(declared_crs, dict)
+                or not isinstance(declared_crs.get("properties"), dict)
+                or declared_crs["properties"].get("name")
+                not in ("EPSG:4326", "urn:ogc:def:crs:OGC:1.3:CRS84")
+            ):
+                raise ValueError("Shoreline controls must use WGS84 longitude/latitude")
+            selected = []
+            ids = set()
+            footprint = box(*bounds)
+            for feature in document["features"]:
+                geometry = feature["geometry"]
+                properties = feature["properties"]
+                identifier = properties["id"]
+                expected = properties["expected"]
+                coordinates = geometry["coordinates"]
+                if (
+                    geometry["type"] != "Point"
+                    or expected not in (SURFACE_WATER, SURFACE_LAND)
+                    or not isinstance(identifier, str)
+                    or not identifier
+                    or identifier in ids
+                    or len(coordinates) != 2
+                    or not all(np.isfinite(x) for x in coordinates)
+                    or not -180 <= coordinates[0] <= 180
+                    or not -90 <= coordinates[1] <= 90
+                ):
+                    raise ValueError("Invalid or duplicate shoreline control")
+                ids.add(identifier)
+                if footprint.covers(Point(coordinates)):
+                    selected.append(feature)
+            surfaces, distances = self.classify_physical(
+                [f["geometry"]["coordinates"][0] for f in selected],
+                [f["geometry"]["coordinates"][1] for f in selected],
+            )
+            checks = [
+                {
+                    "id": f["properties"]["id"],
+                    "expected": f["properties"]["expected"],
+                    "actual": surfaces[i],
+                    "distance_to_shore_m": (
+                        float(distances[i]) if np.isfinite(distances[i]) else None
+                    ),
+                    "passed": surfaces[i] == f["properties"]["expected"],
+                }
+                for i, f in enumerate(selected)
+            ]
+            failures = [check["id"] for check in checks if not check["passed"]]
+            self.validation = {
+                "status": (
+                    "failed" if failures else "passed" if checks else "outside_scope"
+                ),
+                "controls_sha256": hashlib.sha256(raw).hexdigest(),
+                "reference": document.get("reference", {}),
+                "checks": checks,
+                "checked": len(checks),
+                "failed": len(failures),
+            }
+            if failures:
+                raise LandMaskUnavailable(
+                    "Shoreline imagery controls failed: " + ", ".join(failures)
+                )
+        except (OSError, ValueError, KeyError, TypeError) as e:
+            raise LandMaskUnavailable(
+                f"Invalid shoreline controls at {path!r}: {e}"
+            ) from e
 
     def classify(
         self,
@@ -307,14 +497,36 @@ class LandMask:
         offshore, negative inland, and measured to the nearest coastline, so a
         detection 1 km out to sea returns ~1000.0 and one 1 km inland ~-1000.0.
         """
+        if not np.isfinite(coastal_buffer_m) or coastal_buffer_m < 0:
+            raise ValueError("Coastal buffer must be finite and nonnegative")
+        physical, signed = self.classify_physical(lons, lats)
+        return [
+            (
+                SURFACE_LAND
+                if p == SURFACE_LAND
+                else SURFACE_COASTAL if d <= coastal_buffer_m else SURFACE_WATER
+            )
+            for p, d in zip(physical, signed)
+        ], signed
+
+    def classify_physical(
+        self, lons: Sequence[float], lats: Sequence[float]
+    ) -> Tuple[List[str], FloatArray]:
+        """Physical land/water independent of buffer or infrastructure policy.
+
+        Boundary points are conservatively land. Results describe the reference
+        polygon, not a surveyed waterline or verified vessel position.
+        """
         from pyproj import Transformer
         from shapely import points as shapely_points
 
         n = len(lons)
-        if not np.isfinite(coastal_buffer_m) or coastal_buffer_m < 0:
-            raise ValueError("Coastal buffer must be finite and nonnegative")
         if n != len(lats):
             raise ValueError(f"lons/lats length mismatch: {n} != {len(lats)}")
+        if not all(np.isfinite(v) and -180 <= v <= 180 for v in lons) or not all(
+            np.isfinite(v) and -90 <= v <= 90 for v in lats
+        ):
+            raise ValueError("Coordinates must be finite WGS84 longitude/latitude")
         if n == 0:
             return [], np.zeros(0, dtype="float64")
 
@@ -338,18 +550,11 @@ class LandMask:
 
         # shapely 2.x vectorises both of these over arrays; do not loop.
         union, boundary = self._require_land()
-        inland = union.contains(pts)
+        inland = union.covers(pts)
         dist = boundary.distance(pts)
 
         signed = np.where(inland, -dist, dist).astype("float64")
-        surfaces = [
-            (
-                SURFACE_LAND
-                if signed[i] < 0.0
-                else SURFACE_COASTAL if signed[i] <= coastal_buffer_m else SURFACE_WATER
-            )
-            for i in range(n)
-        ]
+        surfaces = [SURFACE_LAND if inside else SURFACE_WATER for inside in inland]
         return surfaces, signed
 
 

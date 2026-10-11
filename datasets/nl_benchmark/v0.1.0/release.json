@@ -1,0 +1,20 @@
+{
+  "dataset_version": "0.1.0",
+  "status": "provisional_not_independently_reviewed",
+  "created_at": "2026-10-05T23:46:30.314905+00:00",
+  "files": {
+    "selection.json": "eb8fe91af57fb6861a79074714a2cdb5f76efdacf6bb4760235378fe1ea5c8d5",
+    "split_lock.json": "82336dbf7469c77b5e7ba8c7b5b1ffd92d42c2b42bb4d6125b0339364cf0510d",
+    "manifest.json": "7da956e731409d6bb8827d0881a7d7bf2497c1e97c6fe28fb0ae2e4a99fc08d2",
+    "annotation_decisions.json": "b0739f9d55c99704894080738163a99099512887f019bacd04cc232a8ec3fc3e",
+    "annotations.json": "77e7b9d8c8c075429b196edbae1dcc1b8deab428360051fe04b73b40e42e2125",
+    "review_history.json": "4a76112b80ec0931dc5aecbed868f864e637e6b6f0b8da9c9a4a1fa069d63ef1",
+    "status.json": "65407b3583a8e87a986607f885eface7e61039fd24bf2d3cfaa7393ed08a9d77",
+    "ANNOTATION_GUIDE.md": "7c6a1b83ab7544aef66f6a29e307628da7afc0d6438f523a03385a7b8760f68b",
+    "DATASET_CARD.md": "07661604520924f7d683e68018899c44f7778ddc941d110e22ac5d22e5d62e61"
+  },
+  "review_bundle": {
+    "path": "data/benchmarks/nl/0.1.0/review_bundle.html",
+    "sha256": "a5586a583b42d38cc570b9d9d56a05d601c8cb8e21037ebca3ff0adf67fd6abd"
+  }
+}

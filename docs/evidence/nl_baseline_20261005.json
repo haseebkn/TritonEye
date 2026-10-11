@@ -1,0 +1,850 @@
+{
+  "schema_version": 1,
+  "purpose": "NL research baseline, not operational certification or C-CORE requirements",
+  "full_report_path": "data/benchmarks/nl_baseline/20261005_replay_02/baseline.json",
+  "full_report_sha256": "0ec887c77cd177b8225e036728fa00df8c9da0d873c5f2e3ceeeae4b9ca88ad0",
+  "provenance": {
+    "processing_versions": {
+      "git_commit": "5e9fd4d546649c677e12aca879724c208203ecde",
+      "code": {
+        "agents/__init__.py": "78425415927ad1671ac36ecac27a3fb0f995afcdae7b62449247169e4b69844b",
+        "agents/acquisition.py": "e2ee38627cc16f41588871081732f255dce2ab7c306fc55cfc6fc82ad60b6563",
+        "agents/ais_recorder.py": "2de0f04aff565b3a0752253a041845d16fdb7cf838c742a5e5f006f24d851ee5",
+        "agents/ais_validation.py": "8c1db14f034a65d37b522068a20d58e346df03b972bcd1f447aea4c89b249639",
+        "agents/artifacts.py": "18a7b3e4fd780f6b09e258460276c7b2ef5ae8e7a926d4b6ba3ce3410fdb3f75",
+        "agents/assets.py": "b8455218f4c965418607f9d6949a8b4f5873480de9e740d7ea56157424c8d691",
+        "agents/association.py": "395ae1059d99f0543727b03701a07b7cc755a5c7de9f875ef04ca1d3fcd97aa0",
+        "agents/baseline.py": "335de56285ea8e8070e25df153b10db07bbf6bd05cc45c286336ea4bcb5b89ab",
+        "agents/baseline_association.py": "847e1d4940ad1dead6f7661f9d00bb42a41c8a35daeee20012970ab7eb726512",
+        "agents/baseline_context.py": "e32f7df34d15b1a8f7ff4f4ae605df8c67d4996cbf9a2125948f98e018a7ef56",
+        "agents/baseline_metrics.py": "2d6eb1f87c8f5f36f65e9d8120bebdc7eefdebfc280ed9a1daa74173bd694cf1",
+        "agents/baseline_report.py": "c71c664ecd5e15cf9fcec26664c18e5599f4883cdafaf7b5839596248a5634fc",
+        "agents/baseline_statistics.py": "a37c91255ace0b8555e25fa6474ddcb00714c56af3e6c3ef1e0bf0906b2f3940",
+        "agents/calibration.py": "34b5b58738966b16cb540e78eb4b72004969d02bf3a74a55393ff4e9cd477fd4",
+        "agents/coastal_benchmark.py": "dc84367010e2aae6be984cad9aef02d47dd4fa2b0c6043a32297c2e59e31d9e9",
+        "agents/coastal_policy.py": "50aeaef2a2f732d5843ea38ad06ddd6d203fbf53edff0bea4d0bda63f9392f29",
+        "agents/coastal_replay.py": "47a6a8b19030bca0b2249bf25390b85b8e6e7566404d969f654caf3318be26cd",
+        "agents/correlation/__init__.py": "47820aa88f223b95f410181dfd8afd67a4b5b7c6000eba85616ddc9566f9981c",
+        "agents/correlation/correlation_agent.py": "f40a13ff3134c8fc6cfa5672d27714b62b911b456b1a6afa7f033f6060af114b",
+        "agents/evaluate/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "agents/evaluate/evaluate_agent.py": "3721d1750eaee4c31548e89483d5bd8453e79ef4258472cc452691659d630926",
+        "agents/geo.py": "5bd3bd7cdfae03073656b426453f3b3fef10e862e788b6c07f7306ccd8ede039",
+        "agents/inference/__init__.py": "aae016e531ec780e41d763d12b616a45d02a8a56227a090b0da0918def97d6a0",
+        "agents/inference/inference_agent.py": "13be9b1193c49e4888bb413a183ca251fa005d749db6e0703d06e7070a2c0f3e",
+        "agents/infrastructure.py": "48f70956c4331e31425933abbf57aa526d0a02a72363ded5eb102b811244ef64",
+        "agents/ingest/__init__.py": "8d0420da15684ffc202299c89240e56ca2991399523468b4da81952d971f6012",
+        "agents/ingest/ingest_agent.py": "e60ad8049896e9b8c8aae4e26bb57228744f0410de162f1cdb2b5c8f37e0f713",
+        "agents/landmask.py": "fae77053c8bf1fbff76cf6482f8bc77c7f669fa5d30d49d29c2fa37adea622c6",
+        "agents/nl_benchmark.py": "fe3ec567ab93bb5cb94cfdbdf61dc2216b0aa88cbf8cc190cbcc4903142327bb",
+        "agents/pipeline.py": "4a4e5a56db57ed204e121c6682439153e907da40e54f475552150b82a08cb364",
+        "agents/recorder_health.py": "5706dc71ed2c34dd9ea6c7ceb502b9f635e09c880205706a1752d2bd2343b657",
+        "agents/region.py": "8a0d8bc74802585a53cfc6187c99345a07ab32ff96f4ced60e9c52ee159403de",
+        "agents/report/__init__.py": "9d7c44fe3e2b0f445e7941c1ea09f3465d19f6fa32f8022221ffd3687c53e820",
+        "agents/report/report_agent.py": "fb27f634b06a1b94180ad80dce188f2ba562c824b3afd72fe840a4bdd551ba5b",
+        "agents/run_versions.py": "4263fefbe297a9a2c9521beec90b5cd3c0cf9898399d0ed598ee9f9d0744eff1",
+        "agents/scene_watch.py": "746f97579abe4b08b5cddf3d4b2f98e5e4a8176a0aab3925b66be90c3999c5e8",
+        "agents/tracking.py": "f333ff61ba7dea599881cdd0c8d9b5fa589ef715c478be42ef2f01e71e2c4ecd",
+        "agents/watch.py": "62c9e9117e1fb763c67201068ec7626c6b8bce019c0b97a4c528328bffcf379b",
+        "agents/xview3_detector.py": "dc2d7e0c1e2ae63f7240689e473c231d84303ff25eb6a1857a9bd34666b5d1c0",
+        "scripts/watch_and_score.sh": "0510f775f095125d905db5d219eab6b7142038daad4f27228dc9bad1c3fc5284"
+      },
+      "configuration": {
+        "configs/aois/eastern_newfoundland.geojson": "2225175ae62b9a4fd482e10220c36461b3b78351dd26155189db87a1b2f26eaa",
+        "configs/aois/grand_banks.geojson": "3b8b7c04bd746ff2caaa960d0435c1d6c86ac6211ca77288b51bf8b4ce5cd59c",
+        "configs/aois/labrador_shelf.geojson": "4ee2d42bfc3f11cf35a7108be09e423f366dc4419c99fcd71d6be7f10cc0354c",
+        "configs/aois/newfoundland_labrador.geojson": "2137c35c509588a4ee58d8b4196ec3127d9ebbd79c0131ea002096d60e4692fa",
+        "configs/aois/nl_shelf.geojson": "a7cd16305653965b77b5107472f4454870816a5a583a0053b02785548f46393f",
+        "configs/aois/st_johns_offshore.geojson": "89827da61aa678bd16ffb76a8a15eff17cf011e7c624e61e627bfccae36baf84",
+        "configs/benchmarks/nl_coastal_inventory.json": "ea94ed9854e7b1b3033f3c01416bf28de3b068a131a90bff040a775fef6a3459",
+        "configs/coastline/bonavista_checks.geojson": "0b1e1079adb7eb7a4be1286152b5090a973d864d017072edbae6ae3fa75a4d71",
+        "configs/coastline/lewisporte_checks.geojson": "b1d62ddcbff93608d5def7e43e9e57d5dfa6dec386671583b7ea43a2e6620eb4",
+        "configs/coastline/regional_controls.json": "f457797c129c3ad7dc29d59fdb45d4eac5fdaf8cb5e6a8106a2528dbe2cdfeb5",
+        "configs/coastline/st_johns_checks.geojson": "e8e062c2be86fe8359f5400892daad6b22b529abfcf63f569e281742bfa546df",
+        "configs/coastline/twillingate_checks.geojson": "71acb7dfe937a2ba54ca40ee36011e41f82f3ecc8fad549e5f04001c65c450c5",
+        "configs/model.yaml": "ed6f8341523071b94c1755438f9af3f1bddc57307e1d3c563e765fa0757fa707",
+        "pyproject.toml": "077ffe5b896a8efcc1776a10e61a20b7f0422f1c087397cf74b32d9c1358ca09",
+        "requirements.txt": "e79c06c8d9b921ec4e559f465d659a0e1b25338e07c07103b0e4307a5347df42"
+      },
+      "model": {
+        "detector": "xview3",
+        "expected_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+        "actual_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38"
+      },
+      "overrides": {},
+      "software": {
+        "python": "3.13.7",
+        "torch": "2.6.0+cu124",
+        "rasterio": "1.5.0",
+        "geopandas": "1.1.4",
+        "shapely": "2.1.2",
+        "numpy": "2.2.6",
+        "scipy": "1.14.1"
+      },
+      "shoreline": {
+        "source": "osm",
+        "files_sha256": {
+          "land_polygons.shp": "aa13c07469a82836f9fafc7547e8aede7cb2b167b3826a094816fcea0b5bc996",
+          "land_polygons.shx": "66f8a36e37382acd71bdd45180dfb7406ad72de2c1365522e379ef8501f0a3c3",
+          "land_polygons.dbf": "95f05abb264e04feeda1ba2c46bad54dafaa295825de59e634d8eaf9537d4eac",
+          "land_polygons.prj": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+        }
+      }
+    },
+    "baseline_configuration_sha256": "860b8215d5bb229e8270997d865f53424956c26c1180c195c3e2c0fae6bbe47d",
+    "dataset_version": "0.1.0",
+    "release_sha256": "675aaad14d2c1c6933b95c3caca6585d46346c19e983aa8a9cddcdfec150e618",
+    "model_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+    "model_load_seconds": 8.55730039998889,
+    "device": "cuda",
+    "precision": "CUDA autocast float16; CPU float32",
+    "python": "3.13.7",
+    "torch": "2.6.0+cu124",
+    "source_hashes": {
+      "e6533595-47e6-472e-9850-4f066bf6ac69": [
+        {
+          "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/manifest.safe",
+          "sha256": "9222e46282c4b5771ac85373777de186940ab7f7fb8ac4b1973cacb985025ca6"
+        },
+        {
+          "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/measurement/s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.tiff",
+          "sha256": "eb98d929c3dede3b12ecd501bdc4ce8cf2ea42d37fa4a9cf71b11868878f2d2f"
+        },
+        {
+          "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/measurement/s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.tiff",
+          "sha256": "48a0fd3896e679e00482519402ee7d04fb712085d7c4a65fbbd8364c51cc8f63"
+        }
+      ],
+      "976d8adb-fa03-4669-a466-a49fba723699": [
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260829T212145_20260829T212210_004346_008054_0D9E_COG.SAFE/manifest.safe",
+          "sha256": "4827daf45d19d6c365bf77872ca1266d669d96e033f09f70fc20c8cd49316684"
+        },
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260829T212145_20260829T212210_004346_008054_0D9E_COG.SAFE/measurement/s1d-iw-grd-vv-20260829t212145-20260829t212210-004346-008054-001-cog.tiff",
+          "sha256": "53bbdad7e325bf0fcbb2f337a03f45084a1a4786635c37d4ed99969675789a4a"
+        },
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260829T212145_20260829T212210_004346_008054_0D9E_COG.SAFE/measurement/s1d-iw-grd-vh-20260829t212145-20260829t212210-004346-008054-002-cog.tiff",
+          "sha256": "6f86c71de05acf7d430fa5ccd938239bf4139d885413a4b398d38009a4866e5a"
+        }
+      ],
+      "9d86c0e9-f457-4948-bb09-3f7d00b22d04": [
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4.SAFE/manifest.safe",
+          "sha256": "1af6df39dd6f5dbd0142c81a1928d7878c3cf157053395d3861531f03fb2ac86"
+        },
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4.SAFE/measurement/s1d-iw-grd-vv-20260817t212209-20260817t212234-004171-007a29-001.tiff",
+          "sha256": "f67c7139a942dcfbdbb803dbcd0c34cce12216208c78f5dc0b0b5c0dd3ee394a"
+        },
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4.SAFE/measurement/s1d-iw-grd-vh-20260817t212209-20260817t212234-004171-007a29-002.tiff",
+          "sha256": "ec31be88ded92fcf4d5a6fc1ac25ecf6451362a9ad7098f780aff790abd74f32"
+        }
+      ],
+      "66d3167d-240a-459a-8066-75b9d2a458f2": [
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE/manifest.safe",
+          "sha256": "707391fd4c9c86a9eb2ee12eba8910edb4c47192bb6bb58f225607b035b487cf"
+        },
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE/measurement/s1d-iw-grd-vv-20260927t213023-20260927t213048-004769-008efd-001.tiff",
+          "sha256": "27a20063989a770c14b47f14fc2e1bd0df67acacd8ffdce616b4689f50096785"
+        },
+        {
+          "path": "data/raw/S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE/measurement/s1d-iw-grd-vh-20260927t213023-20260927t213048-004769-008efd-002.tiff",
+          "sha256": "4aef07d020e3930ccae07e0db288bd7373b2df7f6e35659e1b42c30f3f9f26a7"
+        }
+      ],
+      "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917": [
+        {
+          "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/manifest.safe",
+          "sha256": "39d9d71c43c287247185c47a3a6f95f2ad002b3f17329c16747558490c12e10e"
+        },
+        {
+          "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/measurement/s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.tiff",
+          "sha256": "2e3be3895df3d906d32702d39ebc9a20936fa7b3e8d4a35284d9fcc240e66004"
+        },
+        {
+          "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/measurement/s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.tiff",
+          "sha256": "3334adccee641e77fe1cd407756dfb804f67fc32c56a262830e15bcf759ab1ee"
+        }
+      ]
+    },
+    "git_head": "5e9fd4d546649c677e12aca879724c208203ecde",
+    "wall_seconds_excluding_integrity_check": 170.45637909998186,
+    "threshold_score_semantics": "Uncalibrated objectness; strict > threshold, cached floor 0.05"
+  },
+  "validation_baseline": {
+    "threshold": 0.15,
+    "areas": 6,
+    "measured_areas": 0,
+    "coverage": {
+      "water_km2": 88.70590099093226,
+      "processing": 0.6539553335413838,
+      "measured": 0
+    },
+    "raw": null,
+    "post_policy": null,
+    "scope": "reviewed, complete validation ROIs only; not province-wide",
+    "returns": 10,
+    "coastal_exclusions": 4,
+    "abstentions": 0,
+    "policy_added_misses": null,
+    "detector_missed_vessels": null,
+    "independent_blocks": 0,
+    "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+  },
+  "stratified_validation": {
+    "region": {
+      "Labrador": {
+        "threshold": 0.15,
+        "areas": 2,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 30.696203921318187,
+          "processing": 0,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 0,
+        "coastal_exclusions": 0,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      },
+      "Newfoundland": {
+        "threshold": 0.15,
+        "areas": 4,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 58.00969706961408,
+          "processing": 1,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 10,
+        "coastal_exclusions": 4,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      }
+    },
+    "regime": {
+      "coastal": {
+        "threshold": 0.15,
+        "areas": 4,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 35.56370512422411,
+          "processing": 0.8844996784889353,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 10,
+        "coastal_exclusions": 4,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      },
+      "offshore": {
+        "threshold": 0.15,
+        "areas": 2,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 53.142195866708164,
+          "processing": 0.4996709467550911,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 0,
+        "coastal_exclusions": 0,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      }
+    },
+    "polarization": {
+      "hh/hv": {
+        "threshold": 0.15,
+        "areas": 2,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 30.696203921318187,
+          "processing": 0,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 0,
+        "coastal_exclusions": 0,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      },
+      "vv/vh": {
+        "threshold": 0.15,
+        "areas": 4,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 58.00969706961408,
+          "processing": 1,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 10,
+        "coastal_exclusions": 4,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      }
+    },
+    "season": {
+      "autumn": {
+        "threshold": 0.15,
+        "areas": 2,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 21.36001424224269,
+          "processing": 1,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 6,
+        "coastal_exclusions": 3,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      },
+      "summer": {
+        "threshold": 0.15,
+        "areas": 4,
+        "measured_areas": 0,
+        "coverage": {
+          "water_km2": 67.34588674868958,
+          "processing": 0.5442007611264323,
+          "measured": 0
+        },
+        "raw": null,
+        "post_policy": null,
+        "scope": "reviewed, complete validation ROIs only; not province-wide",
+        "returns": 4,
+        "coastal_exclusions": 1,
+        "abstentions": 0,
+        "policy_added_misses": null,
+        "detector_missed_vessels": null,
+        "independent_blocks": 0,
+        "reason": "No complete independently reviewed areas; no accuracy or false-alarm measurement"
+      }
+    }
+  },
+  "threshold_selection": {
+    "status": "blocked",
+    "selected_threshold": null,
+    "targets": {
+      "status": "provisional research targets, not C-CORE requirements",
+      "max_false_alarms_per_km2": 0.1,
+      "min_recall": 0.7,
+      "min_coverage": 0.9,
+      "min_vessels": 30,
+      "min_independent_blocks": 5,
+      "family_alpha": 0.05
+    },
+    "configuration_changed": false,
+    "operational_alerts_enabled": false,
+    "blockers": [
+      "processing water coverage below research target",
+      "measured water coverage below research target",
+      "Insufficient region coverage: Labrador",
+      "Insufficient region coverage: Newfoundland",
+      "Insufficient regime coverage: coastal",
+      "Insufficient regime coverage: offshore",
+      "Insufficient polarization coverage: hh/hv",
+      "Insufficient polarization coverage: vv/vh",
+      "Independent resolved complete-area labels unavailable"
+    ]
+  },
+  "cases": [
+    {
+      "roi_id": "ferryland_coast",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "acquisition_time": "2025-01-03T09:42:20.920719Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarization": "hh/hv",
+      "season": "winter",
+      "state": "unsupported_polarization",
+      "reason": "Pinned detector requires VV/VH; HH/HV is not relabelled or omitted from coverage",
+      "processing_complete": false,
+      "metric_ready": false,
+      "water_area_km2": 14.79193381014396,
+      "open_water_area_km2": 8.066570296227045,
+      "observed_returns": null,
+      "coastal_exclusions": null,
+      "eligible_returns": null,
+      "land_returns": null,
+      "abstentions": null,
+      "resources": null,
+      "detections_sha256": null,
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "031cad732f58fbc400d9e334d061c20a1140d5afafe0813347ccb46c65d4c185",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "southern_avalon_offshore",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "acquisition_time": "2025-01-03T09:42:20.920719Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "polarization": "hh/hv",
+      "season": "winter",
+      "state": "unsupported_polarization",
+      "reason": "Pinned detector requires VV/VH; HH/HV is not relabelled or omitted from coverage",
+      "processing_complete": false,
+      "metric_ready": false,
+      "water_area_km2": 26.641453412604154,
+      "open_water_area_km2": 26.641453412604154,
+      "observed_returns": null,
+      "coastal_exclusions": null,
+      "eligible_returns": null,
+      "land_returns": null,
+      "abstentions": null,
+      "resources": null,
+      "detections_sha256": null,
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "031cad732f58fbc400d9e334d061c20a1140d5afafe0813347ccb46c65d4c185",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "st_johns_harbour",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "acquisition_time": "2026-08-29T21:21:45.545302Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarization": "vv/vh",
+      "season": "summer",
+      "state": "processed_unmeasured",
+      "reason": null,
+      "processing_complete": true,
+      "metric_ready": false,
+      "water_area_km2": 4.6261556105491,
+      "open_water_area_km2": 1.8582963218347532,
+      "observed_returns": 1,
+      "coastal_exclusions": 0,
+      "eligible_returns": 1,
+      "land_returns": 0,
+      "abstentions": 0,
+      "resources": {
+        "wall_seconds": 41.588971099990886,
+        "rss_sampled_peak_bytes": 2834231296,
+        "rss_sampling_seconds": 0.1,
+        "native_contexts": 1,
+        "cuda_peak_allocated_bytes": 6907705344,
+        "cuda_peak_reserved_bytes": 7054819328
+      },
+      "detections_sha256": "846363e2ec1e7dbaf0443716aab8cb00cd7ea1194d6787c8ce8261e39cc822fa",
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "passed"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "21d9ddd7cfb1d97c94327bff0581f12b8130b58ad70c1e89ae6724582b986c41",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "eastern_avalon_offshore",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "acquisition_time": "2026-08-29T21:21:45.545302Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "polarization": "vv/vh",
+      "season": "summer",
+      "state": "processed_unmeasured",
+      "reason": null,
+      "processing_complete": true,
+      "metric_ready": false,
+      "water_area_km2": 26.610540787281273,
+      "open_water_area_km2": 26.610540787281273,
+      "observed_returns": 0,
+      "coastal_exclusions": 0,
+      "eligible_returns": 0,
+      "land_returns": 0,
+      "abstentions": 0,
+      "resources": {
+        "wall_seconds": 14.728104499983601,
+        "rss_sampled_peak_bytes": 2862665728,
+        "rss_sampling_seconds": 0.1,
+        "native_contexts": 2,
+        "cuda_peak_allocated_bytes": 3165724672,
+        "cuda_peak_reserved_bytes": 6517948416
+      },
+      "detections_sha256": "74cb87d906e5ab6ec836e48c52bb60f951cbce8a52c797c0c99e9b90395a2974",
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "21d9ddd7cfb1d97c94327bff0581f12b8130b58ad70c1e89ae6724582b986c41",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "bonavista_coast",
+      "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+      "acquisition_time": "2026-08-17T21:22:09.815408Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarization": "vv/vh",
+      "season": "summer",
+      "state": "processed_unmeasured",
+      "reason": null,
+      "processing_complete": true,
+      "metric_ready": false,
+      "water_area_km2": 10.096071506008832,
+      "open_water_area_km2": 6.71265412952667,
+      "observed_returns": 4,
+      "coastal_exclusions": 1,
+      "eligible_returns": 0,
+      "land_returns": 3,
+      "abstentions": 0,
+      "resources": {
+        "wall_seconds": 7.856789599987678,
+        "rss_sampled_peak_bytes": 3198144512,
+        "rss_sampling_seconds": 0.1,
+        "native_contexts": 1,
+        "cuda_peak_allocated_bytes": 3165724672,
+        "cuda_peak_reserved_bytes": 6517948416
+      },
+      "detections_sha256": "1af53a05cf03b048a7b9a53d0466f510a6d98a9607dcccc26546d9eca18009d7",
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "passed"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "9e7bd00b01608e715960625b812e277d51d942d6d283c8ae18cb936b68038490",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "bonavista_offshore",
+      "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+      "acquisition_time": "2026-08-17T21:22:09.815408Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "polarization": "vv/vh",
+      "season": "summer",
+      "state": "processed_unmeasured",
+      "reason": null,
+      "processing_complete": true,
+      "metric_ready": false,
+      "water_area_km2": 26.553611321362556,
+      "open_water_area_km2": 26.553611321362556,
+      "observed_returns": 0,
+      "coastal_exclusions": 0,
+      "eligible_returns": 0,
+      "land_returns": 0,
+      "abstentions": 0,
+      "resources": {
+        "wall_seconds": 14.797989099984989,
+        "rss_sampled_peak_bytes": 3356319744,
+        "rss_sampling_seconds": 0.1,
+        "native_contexts": 2,
+        "cuda_peak_allocated_bytes": 3165724672,
+        "cuda_peak_reserved_bytes": 6517948416
+      },
+      "detections_sha256": "ccdcca07b68ba8ec2aaddf3004dce7868a832878011669977f19a841cad97169",
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "9e7bd00b01608e715960625b812e277d51d942d6d283c8ae18cb936b68038490",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "lewisporte_coast",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "acquisition_time": "2026-09-27T21:30:23.883299Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarization": "vv/vh",
+      "season": "autumn",
+      "state": "processed_unmeasured",
+      "reason": null,
+      "processing_complete": true,
+      "metric_ready": false,
+      "water_area_km2": 8.257106386157917,
+      "open_water_area_km2": 3.2692415605970253,
+      "observed_returns": 4,
+      "coastal_exclusions": 3,
+      "eligible_returns": 0,
+      "land_returns": 1,
+      "abstentions": 0,
+      "resources": {
+        "wall_seconds": 15.714854999969248,
+        "rss_sampled_peak_bytes": 3369619456,
+        "rss_sampling_seconds": 0.1,
+        "native_contexts": 2,
+        "cuda_peak_allocated_bytes": 3165724672,
+        "cuda_peak_reserved_bytes": 6517948416
+      },
+      "detections_sha256": "70feafa34e7db15a21b98089921e78d3609ae64dcb7b4bd86e2ff2de895eb905",
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "passed"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "6337cddeeeb448b66805b2bd77580c9636ede050549ce493c5cb75e1d4dee675",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "bay_of_exploits_water",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "acquisition_time": "2026-09-27T21:30:23.883299Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "polarization": "vv/vh",
+      "season": "autumn",
+      "state": "processed_unmeasured",
+      "reason": null,
+      "processing_complete": true,
+      "metric_ready": false,
+      "water_area_km2": 13.102907856084776,
+      "open_water_area_km2": 7.107274765127583,
+      "observed_returns": 2,
+      "coastal_exclusions": 0,
+      "eligible_returns": 0,
+      "land_returns": 2,
+      "abstentions": 0,
+      "resources": {
+        "wall_seconds": 29.49176790000638,
+        "rss_sampled_peak_bytes": 3402260480,
+        "rss_sampling_seconds": 0.1,
+        "native_contexts": 4,
+        "cuda_peak_allocated_bytes": 3165724672,
+        "cuda_peak_reserved_bytes": 6517948416
+      },
+      "detections_sha256": "304c16ae10b02223861470c2689117093b52f75eb05d57e2ccbba8b20b23985e",
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "6337cddeeeb448b66805b2bd77580c9636ede050549ce493c5cb75e1d4dee675",
+      "prior_development_exposure": true
+    },
+    {
+      "roi_id": "makkovik_coast",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "acquisition_time": "2026-07-06T10:11:53.952492Z",
+      "split": "validation",
+      "region": "Labrador",
+      "regime": "coastal",
+      "polarization": "hh/hv",
+      "season": "summer",
+      "state": "unsupported_polarization",
+      "reason": "Pinned detector requires VV/VH; HH/HV is not relabelled or omitted from coverage",
+      "processing_complete": false,
+      "metric_ready": false,
+      "water_area_km2": 4.1076193759725825,
+      "open_water_area_km2": 1.3335366994779085,
+      "observed_returns": null,
+      "coastal_exclusions": null,
+      "eligible_returns": null,
+      "land_returns": null,
+      "abstentions": null,
+      "resources": null,
+      "detections_sha256": null,
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "6850138d799c2910864c07db90f0ea774eec80b70e605e04b073c671a961a77e",
+      "prior_development_exposure": false
+    },
+    {
+      "roi_id": "makkovik_offshore",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "acquisition_time": "2026-07-06T10:11:53.952492Z",
+      "split": "validation",
+      "region": "Labrador",
+      "regime": "offshore",
+      "polarization": "hh/hv",
+      "season": "summer",
+      "state": "unsupported_polarization",
+      "reason": "Pinned detector requires VV/VH; HH/HV is not relabelled or omitted from coverage",
+      "processing_complete": false,
+      "metric_ready": false,
+      "water_area_km2": 26.588584545345604,
+      "open_water_area_km2": 26.588584545345604,
+      "observed_returns": null,
+      "coastal_exclusions": null,
+      "eligible_returns": null,
+      "land_returns": null,
+      "abstentions": null,
+      "resources": null,
+      "detections_sha256": null,
+      "shoreline": {
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "controls_status": "outside_scope"
+      },
+      "association": {
+        "aligned_ais_in_roi": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "ais_subset_proximity_recall_post_policy": null,
+        "association_correctness": null,
+        "ambiguous_assignments": null,
+        "correctness_reason": "Independent vessel-identity adjudication unavailable",
+        "supporting_only": true,
+        "reason": "Processing incomplete or no co-temporal AIS in selected ROI"
+      },
+      "ais_snapshot_sha256": "6850138d799c2910864c07db90f0ea774eec80b70e605e04b073c671a961a77e",
+      "prior_development_exposure": false
+    }
+  ],
+  "limits": [
+    "No independent SAR reviewer available; released labels remain provisional",
+    "AIS subset proximity recall is supporting evidence, never detector recall or association correctness",
+    "Geometric assignment correctness requires independent vessel identity adjudication",
+    "Conditional intervals do not account for shoreline error, label error or purposive sample selection",
+    "Winter, ice, sea state and incidence-angle generalization are unverified; season is only an acquisition-time descriptor",
+    "Sparse shoreline controls are not province-wide or full-area shoreline validation",
+    "Test acquisitions remain locked; processing coverage refers to selected ROIs, not entire satellite swaths",
+    "Native 2048-pixel production-aligned contexts, bounded selected-ROI inference, not full-scene runtime",
+    "Context-only deduplication may differ at edges from a full-swath run; cross-split contexts are refused",
+    "Processing is conditional on frozen valid-pixel checks and OSM physical-water polygons"
+  ]
+}

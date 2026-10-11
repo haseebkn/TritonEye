@@ -30,6 +30,7 @@ try:
     # ultralytics does not declare an explicit __all__ re-export for YOLO
     from ultralytics import YOLO
 
+    from agents.acquisition import native_acquisition_group
     from agents.artifacts import mission_directory, sha256_file, write_json
     from agents.geo import Georeferencer
     from agents.region import REGION_NAME, contains_points, load_region
@@ -544,6 +545,7 @@ def classify_surfaces(
             scene_bounds, source=source, cache_dir=cache_dir
         )
         surfaces, dist = mask.classify(lons, lats, coastal_buffer_m=buffer_m)
+        physical, _ = mask.classify_physical(lons, lats)
     except lm.LandMaskUnavailable as e:
         print(
             f"WARNING: land mask unavailable, detections unmasked: {e}", file=sys.stderr
@@ -553,6 +555,7 @@ def classify_surfaces(
     # Proximity to a provisional fixed reference is an uncertain review flag,
     # not proof that the detection is the installation rather than a vessel.
     infra_meta: Dict[str, Any] = {"enabled": False}
+    is_infra = [False] * len(lons)
     infra_cfg = config.get("infrastructure", {}) or {}
     if infra_cfg.get("enabled", False):
         from agents import infrastructure as infra
@@ -588,7 +591,13 @@ def classify_surfaces(
         "status": "ok",
         "source": source,
         "licence": mask.licence,
+        "cache_dir": cache_dir,
         "coastal_buffer_m": buffer_m,
+        "physical_surfaces": physical,
+        "infrastructure_flags": is_infra,
+        "physical_counts": lm.summarize(physical),
+        "surface_field_meaning": "operating zone, not physical land/water",
+        "shoreline_validation": mask.validation,
         "counts": {**counts, "infrastructure": infra_n},
         "infrastructure": infra_meta,
     }
@@ -607,6 +616,16 @@ def main() -> None:
     # 1. Parse arguments and configuration
     args = parse_arguments()
     payload = get_payload(args)
+    payload["acquisition_group"] = native_acquisition_group(payload.get("sar_product"))
+    identity = {
+        key: payload.get(key)
+        for key in (
+            "sar_product_id",
+            "sar_product",
+            "acquisition_group",
+            "acquisition_time",
+        )
+    }
 
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     config_path = os.path.join(base_dir, "configs", "model.yaml")
@@ -733,6 +752,10 @@ def main() -> None:
     surfaces, shore_dist, landmask_meta = classify_surfaces(
         centroid_lons, centroid_lats, scene_bounds, base_dir, config
     )
+    from agents.coastal_policy import annotations
+
+    physical = landmask_meta.pop("physical_surfaces", [])
+    infrastructure_flags = landmask_meta.pop("infrastructure_flags", [])
     within_region = contains_points(centroid_lons, centroid_lats, region)
 
     features: List[Dict[str, Any]] = []
@@ -753,18 +776,25 @@ def main() -> None:
             "target_id": f"TRITON-{idx:03d}",
             "class_id": UNKNOWN_CLASS_ID,
             "class_name": "unknown",
-            "confidence": round(score, 3),
+            "confidence": float(score),  # retain precision for operating-point replay
             "score_kind": "uncalibrated_objectness",
             "in_study_area": within_region[idx],
             "surface": "unknown",
+            "physical_surface": "unknown",
+            "alert_eligible": False,
+            "research_retained": True,
             "ice_discrimination": "unvalidated",
             "geometry_kind": "nominal_display_marker" if use_xview3 else "detector_box",
         }
         if surfaces is not None:
-            properties["surface"] = surfaces[idx]
             d = float(shore_dist[idx])
-            properties["distance_to_shore_m"] = (
-                None if not np.isfinite(d) else round(d, 1)
+            properties.update(
+                annotations(
+                    physical[idx],
+                    d,
+                    landmask_meta["coastal_buffer_m"],
+                    bool(infrastructure_flags[idx]),
+                )
             )
 
         feature = {
@@ -775,15 +805,22 @@ def main() -> None:
         }
         (features if within_region[idx] else outside_features).append(feature)
 
-    geojson = {"type": "FeatureCollection", "features": features}
+    from shapely.geometry import mapping
+
+    geojson = {
+        "type": "FeatureCollection",
+        "features": features,
+        **identity,
+        # Conservative geographic scope survives even an empty detection list.
+        "scene_footprint": mapping(box(*scene_bounds)),
+        "shoreline_status": landmask_meta.get("status", "unavailable"),
+    }
 
     # 6. Save the resulting GeoJSON
     geojson_path = str(mission_dir / "detections.geojson")
     write_json(geojson_path, geojson)
     excluded_path = str(mission_dir / "outside_study_area.geojson")
-    write_json(
-        excluded_path, {"type": "FeatureCollection", "features": outside_features}
-    )
+    write_json(excluded_path, {**geojson, "features": outside_features})
 
     # 7. Update payload and print to stdout. The scene footprint measured off the
     #    raster itself supersedes whatever bounds the AOI search produced.
@@ -792,8 +829,6 @@ def main() -> None:
     spatial_bounds["georeferencing"] = geo.method
     spatial_bounds["crs"] = "EPSG:4326"
     spatial_bounds["scene_bbox"] = scene_bounds
-    from shapely.geometry import mapping
-
     spatial_bounds["analysis_region"] = mapping(region)
     spatial_bounds["region_name"] = REGION_NAME
     payload["outside_study_area_geojson"] = excluded_path
@@ -804,6 +839,7 @@ def main() -> None:
     # so it belongs in the mission record rather than only in stderr.
     payload["landmask"] = landmask_meta
     processing = {
+        **identity,
         "software_versions": {
             name: version(name)
             for name in ("torch", "rasterio", "numpy", "geopandas", "scipy")

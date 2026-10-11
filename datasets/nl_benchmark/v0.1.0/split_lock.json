@@ -1,0 +1,169 @@
+{
+  "dataset_version": "0.1.0",
+  "selection_digest": "dea5676eacb0db77c4d6674d36eb45bfffa296bd3e687abf4af9e715060cb53d",
+  "assignments": [
+    {
+      "name": "S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE",
+      "split": "train",
+      "acquisition_group": "S1A_057278_070BF3",
+      "rois": [
+        {
+          "id": "ferryland_coast",
+          "group": "southern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.885,
+            47.025
+          ],
+          "size": 512
+        },
+        {
+          "id": "southern_avalon_offshore",
+          "group": "southern_avalon",
+          "regime": "offshore",
+          "center": [
+            -52.4,
+            46.8
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260829T212145_20260829T212210_004346_008054_0D9E_COG.SAFE",
+      "split": "train",
+      "acquisition_group": "S1D_004346_008054",
+      "rois": [
+        {
+          "id": "st_johns_harbour",
+          "group": "eastern_avalon",
+          "regime": "coastal",
+          "center": [
+            -52.704,
+            47.563
+          ],
+          "size": 512
+        },
+        {
+          "id": "eastern_avalon_offshore",
+          "group": "eastern_avalon",
+          "regime": "offshore",
+          "center": [
+            -52.4,
+            47.55
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260817T212209_20260817T212234_004171_007A29_97C4.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1D_004171_007A29",
+      "rois": [
+        {
+          "id": "bonavista_coast",
+          "group": "bonavista",
+          "regime": "coastal",
+          "center": [
+            -53.114,
+            48.651
+          ],
+          "size": 512
+        },
+        {
+          "id": "bonavista_offshore",
+          "group": "bonavista",
+          "regime": "offshore",
+          "center": [
+            -52.9,
+            48.8
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1D_004769_008EFD",
+      "rois": [
+        {
+          "id": "lewisporte_coast",
+          "group": "bay_of_exploits",
+          "regime": "coastal",
+          "center": [
+            -55.045,
+            49.246
+          ],
+          "size": 512
+        },
+        {
+          "id": "bay_of_exploits_water",
+          "group": "bay_of_exploits",
+          "regime": "coastal",
+          "center": [
+            -55.14,
+            49.27
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE",
+      "split": "validation",
+      "acquisition_group": "S1C_008421_010A93",
+      "rois": [
+        {
+          "id": "makkovik_coast",
+          "group": "makkovik",
+          "regime": "coastal",
+          "center": [
+            -59.15,
+            55.07
+          ],
+          "size": 512
+        },
+        {
+          "id": "makkovik_offshore",
+          "group": "makkovik",
+          "regime": "offshore",
+          "center": [
+            -58.7,
+            55.12
+          ],
+          "size": 512
+        }
+      ]
+    },
+    {
+      "name": "S1A_IW_GRDH_1SDV_20260209T214114_20260209T214138_063148_07ED3C_31D6_COG.SAFE",
+      "split": "test",
+      "acquisition_group": "S1A_063148_07ED3C",
+      "rois": [
+        {
+          "id": "hopedale_coast",
+          "group": "hopedale",
+          "regime": "coastal",
+          "center": [
+            -60.22,
+            55.45
+          ],
+          "size": 512
+        },
+        {
+          "id": "hopedale_offshore",
+          "group": "hopedale",
+          "regime": "offshore",
+          "center": [
+            -57.8,
+            55.6
+          ],
+          "size": 512
+        }
+      ]
+    }
+  ],
+  "test_policy": "No tuning, buffer comparison or training export; final evaluation requires a separate versioned release protocol."
+}

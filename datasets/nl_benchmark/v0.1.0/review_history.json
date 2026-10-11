@@ -1,0 +1,246 @@
+{
+  "dataset_version": "0.1.0",
+  "events": [
+    {
+      "id": "selection_locked",
+      "kind": "selection_locked",
+      "timestamp": "2026-10-05T23:35:17.858317+00:00",
+      "notes": "Recorded before first image inspection; assignment is immutable."
+    },
+    {
+      "id": "ferryland_coast_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "ferryland_coast",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "4f88d72c0bf370377cacd1f47e0452771baf010b5412f4ed4c5c200ff03cba08",
+      "annotation_digest": "cbd70c9c0c432b9ab32218ec65475c5e603cd32c6361e979a710d8ff9d7f24a1",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in HH/HV at native resolution. Banded water-like returns and broad land-like texture; compact/elongated near-shore returns cannot be separated confidently from rock, fixed structure or vessel. Offshore-looking streaks may be imaging artefacts. Not expert exhaustive vessel truth. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "southern_avalon_offshore_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "southern_avalon_offshore",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "bb259eba3fe360ffcee031dfc36a1d3bfe83e7909bafcffd6e520b0f80801ead",
+      "annotation_digest": "bccd750848ef554c4799e4e6ab0ca57de1468a016c3244ea316799a008fac84b",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in HH/HV at native resolution. Diffuse, banded co-pol texture, subdued cross-pol; no confidently identified compact vessel, structure or ice target. This is not proof of absence. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "st_johns_harbour_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "st_johns_harbour",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "80cb313d42d5522e62827d37ad06f4bfb05d9f27a2dc55e7c13488e8ceed133f",
+      "annotation_digest": "a4cd4b558627395c6ee5224ce5c606019511c0888d75ba9fae84fb421416b6c2",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in VV/VH at native resolution. Open dark harbour basin and approach are visible; bright quayside clusters are retained as unresolved rather than excluded as land or declared vessels. Many distributed urban returns are context, not individually verified non-vessels. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "eastern_avalon_offshore_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "eastern_avalon_offshore",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "0afd9ec2862bb857906af61c78402e5a60b14106639d817e206bfa8f8cd67e60",
+      "annotation_digest": "7bca203a5729d2d5697b18aed0ee1cd28afa5ed4eeba2c2a86e31570bded303c",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in VV/VH at native resolution. Diffuse streaked co-pol surface, dark cross-pol. No confidently identifiable compact target at the inspected display; expert review may find missed small targets. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "bonavista_coast_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "bonavista_coast",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "43eaee73616ae734857f80206cb04a3b8152227daba38489c94f6f12e0cf937c",
+      "annotation_digest": "ecdb1503175806b568ce6ca4a9c8dcebdacafbeadd6bd76420c62fc7d8a59aac",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in VV/VH at native resolution. Land-like texture and harbour/coastal returns are visible. Bright connected features at shore may be rocks/wharf/vessels; no individual target identity established. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "bonavista_offshore_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "bonavista_offshore",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "10901285fabcbcd213e334114d5380c4a9bc321c69de3653eb1566144646f571",
+      "annotation_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in VV/VH at native resolution. Low-contrast diffuse background; no confidently identified compact vessel or ice target. No vessel-free declaration. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "lewisporte_coast_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "lewisporte_coast",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "e978ce349ae769159588a5bc1a1815d240903ca5b968f1031709d6605185b5bc",
+      "annotation_digest": "3abe6ef6f5ce43135a02d252aefdd99f8e93e9a196e82117a3761268923b88e3",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in VV/VH at native resolution. Dark channel/water-like areas and distributed settlement returns; compact shoreline returns retained for review. No detector/AIS seeds used. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "bay_of_exploits_water_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "bay_of_exploits_water",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "9b64d59da0eef8b93cc2a5afcb56b4414a64c7beb1c942f4a4811691d3c8e57c",
+      "annotation_digest": "3d4eb4d940a0d16388078439712fd79914da79ac87ba9ffda78e06133e74ea5e",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in VV/VH at native resolution. Broad water-like channel with several island/rock-like isolated returns visible in both bands. Their shape suggests non-vessel land features but no independent reference is used to force that interpretation. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "makkovik_coast_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "makkovik_coast",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "df9094e92bfd20244e9bf683297165ea033d24421ccfb44a674ebc23fba7288f",
+      "annotation_digest": "872b8abd08ccc60c97d4767c13ddc3ce0f5a0a1e48aa41ecdda5d1f129a1b2cf",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in HH/HV at native resolution. Land-like texture, inlet-like dark regions and localized bright shore returns. Retained as research context; unsupported HH/HV is not passed to the VV/VH detector. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "makkovik_offshore_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "makkovik_offshore",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "365027a207201cccd30acbca1f6dc8dd27a851cdea5ae79dc8bd122d22c15462",
+      "annotation_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decision": "complete_first_pass",
+      "notes": "All four cells inspected in HH/HV at native resolution. Diffuse co-pol texture and very dark cross-pol; no confidently identified compact targets. No proof of absence and no ice-free assertion. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "hopedale_coast_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "hopedale_coast",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "3ad1cddc22d9086f8188966eebcc15f8988e9d1d1c7b2beb204efa7e3d610e7d",
+      "annotation_digest": "2f02a4532921e8433ce1d4de32867e2902e4b8e39afb88b732bb566be74129e2",
+      "decision": "complete_first_pass",
+      "notes": "Locked test annotation/QA only: all four cells inspected in VV/VH at native resolution, no detector inference or tuning. Winter coastal texture has subdued boundaries; possible ice-covered water cannot be distinguished reliably from other surfaces in this first pass. Do not label ice solely from season. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "hopedale_offshore_first_pass",
+      "kind": "first_pass",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "roi_id": "hopedale_offshore",
+      "reviewer": "codex_primary_machine_assisted",
+      "independent": false,
+      "qualifications": "AI first-pass inspection, not a human SAR expert; not independent of project implementation.",
+      "cells_reviewed": [
+        "0_0",
+        "1_0",
+        "0_1",
+        "1_1"
+      ],
+      "source_chip_sha256": "acab531c1b7902fae4156414f7721a6171f45f2db624e826bfd101d30d45e5a4",
+      "annotation_digest": "2ae47f6e433ef2ad71eb2535ab9b34c01332917bf5773ddd1a83f807fb3ecdff",
+      "decision": "complete_first_pass",
+      "notes": "Locked test annotation/QA only: all four cells inspected in VV/VH at native resolution. Co-pol shows strong banding with low cross-pol; no confidently identified compact target. No empty-water or ice-free ground-truth claim. Timestamp records entry, not an exact inspection start."
+    },
+    {
+      "id": "independent_review_unavailable",
+      "kind": "review_limitation",
+      "timestamp": "2026-10-05T23:46:30.314905+00:00",
+      "decision": "unavailable",
+      "notes": "Owner explicitly confirmed no independent reviewer available on 2026-10-05. No human expert or independent AI review is claimed."
+    }
+  ]
+}
