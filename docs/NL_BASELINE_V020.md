@@ -129,6 +129,16 @@ the fixed-threshold buffer trials, and provisional accuracy/threshold outputs
 remain unavailable. Isolated review and CI verify software separately from the
 real project replay and independent scientific review.
 
+An additional test-only follow-up restricts optional real calibration/GCP checks
+to source measurements explicitly assigned to development in the frozen
+releases, excluding held-out native groups before raster opening. The old GCP
+test scanned held-out raster metadata; it did not score the locked selected areas
+or read their annotation chips. The baseline itself excluded test assets throughout.
+Production replay code and the saved report remain unchanged by this follow-up.
+The final local suite passed 540 tests (two slow tests deselected); Ruff/Black
+and strict Mypy passed across 94 files. Every recorded production source hash
+still matches the saved replay after the test-only change.
+
 ## Method and evidence boundary
 
 Protocol 3 uses native 2048-pixel production-aligned contexts, joint VV/VH

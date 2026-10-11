@@ -1,7 +1,7 @@
-import glob
 import math
 import os
 import sys
+from pathlib import Path
 from typing import Any, Iterator
 
 import numpy as np
@@ -15,6 +15,7 @@ from rasterio.transform import from_bounds
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from agents.geo import Georeferencer, GeoreferencingError
+from tests.unit.development_data import measurements
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -168,11 +169,8 @@ def test_footprint_covers_all_control_points(gcp_raster: Any) -> None:
 
 
 def real_grd_products() -> list[str]:
-    pattern = os.path.join(
-        REPO_ROOT, "data", "raw", "S1*.SAFE", "measurement", "*.tif*"
-    )
     found = []
-    for path in sorted(glob.glob(pattern)):
+    for path in measurements(Path(REPO_ROOT)):
         try:
             with rasterio.open(path) as src:
                 if src.crs is None and src.gcps[0]:
