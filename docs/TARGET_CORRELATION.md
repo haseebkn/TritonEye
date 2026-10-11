@@ -12,6 +12,11 @@ establish adjudicated identity correctness or improvement over the geometric
 matcher. The zero reviewed-case counts below refer to the frozen association
 pilot, not all AIS observations.
 
+The [11 October archive refresh](OVERLAP_REVIEW.md) adds a ranked, source-bound
+development queue and local detector-blind imagery with separate competing-track
+support. It does not add independently reviewed matching labels or measured
+improvement, and does not change this frozen comparison's metrics or split locks.
+
 ## Current evidence
 
 The detector-blind association pilot references ten development areas from five

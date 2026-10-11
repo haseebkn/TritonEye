@@ -11,6 +11,11 @@ Evidence reviewed: **11 October 2026**, against main baseline
 not a new inference, annotation or training experiment. Historical results below
 retain their own acquisition dates, execution versions and source hashes.
 
+For the subsequent archive refresh and local image-only handoff, see the
+[ranked SAR–AIS overlap audit and review bundle](OVERLAP_REVIEW.md). Its preparation
+counts are separate from the measured results below; independent labels and
+correlation improvement are still blocked.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:
