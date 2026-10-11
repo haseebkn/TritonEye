@@ -9,8 +9,8 @@
     "input_rows": 198447,
     "legacy_naive_utc_reports": 19621,
     "valid_unique_reports": 198447,
-    "first_utc": "2026-08-18T17:38:37-02:30",
-    "last_utc": "2026-10-11T07:15:29.661491-02:30",
+    "first_utc": "2026-08-18T20:08:37+00:00",
+    "last_utc": "2026-10-11T09:45:29.661491+00:00",
     "dates_present": [
       "2026-08-18",
       "2026-08-19",
@@ -75,7 +75,7 @@
       "acquisition_time": "2026-09-22T21:21:46.168299Z",
       "catalogue_interval": {
         "Start": "2026-09-22T21:21:46.168299Z",
-        "End": "2026-09-22T21:22:11.16703Z"
+        "End": "2026-09-22T21:22:11.167030Z"
       },
       "setting": "Eastern Newfoundland harbour/coastal slice; AIS policy only",
       "polarization": "VV/VH",
@@ -1464,9 +1464,9 @@
       "product_id": "4f6115d9-c1d8-45bc-b5da-0d37aeaa85f9",
       "product_name": "S1D_IW_GRDH_1SDV_20260927T213113_20260927T213138_004769_008EFD_61A8_COG.SAFE",
       "acquisition_group": "S1D_004769_008EFD",
-      "acquisition_time": "2026-09-27T21:31:13.88389Z",
+      "acquisition_time": "2026-09-27T21:31:13.883890Z",
       "catalogue_interval": {
-        "Start": "2026-09-27T21:31:13.88389Z",
+        "Start": "2026-09-27T21:31:13.883890Z",
         "End": "2026-09-27T21:31:38.881938Z"
       },
       "setting": "Northern Newfoundland open-water slice",
