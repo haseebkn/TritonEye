@@ -411,12 +411,60 @@ def test_slice_deduplication_keeps_distinct_or_unverified_products(
         assert {p["Id"] for p in selected} == {first["Id"], second["Id"]}
 
 
-def test_slice_alias_selection_is_order_independent_and_preserves_exact_uuid() -> None:
+@pytest.mark.parametrize(
+    "footprint",
+    [
+        None,
+        {},
+        {"type": "Polygon", "coordinates": []},
+        {"type": "Polygon", "coordinates": [[]]},
+        {"type": "MultiPolygon", "coordinates": []},
+        {"type": "MultiPolygon", "coordinates": [[], []]},
+        {"type": "Polygon"},
+        {"type": "Polygon", "coordinates": "malformed"},
+        {"type": "Polygon", "coordinates": [[[0, 0], [1, 0], [0, 1]]]},
+        {
+            "type": "Polygon",
+            "coordinates": [[[0, 0], [1, 1], [0, 1], [1, 0], [0, 0]]],
+        },
+        {"type": "Point", "coordinates": [-55, 48.5]},
+        {"type": "LineString", "coordinates": [[0, 0], [1, 1]]},
+    ],
+)
+def test_slice_deduplication_preserves_invalid_footprint_metadata(
+    footprint: Any,
+) -> None:
+    from agents.acquisition import unique_acquisitions
+
+    original = product(VV + ".SAFE", "2026-09-03T21:30:23Z")
+    original["ContentDate"]["End"] = "2026-09-03T21:30:48Z"
+    original["GeoFootprint"] = footprint
+    cog = {
+        **original,
+        "Id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+        "Name": VV.replace("1234", "ABCD") + "_COG.SAFE",
+    }
+    for products in ([original, cog], [cog, original]):
+        selected = unique_acquisitions(products)
+        assert {p["Id"] for p in selected} == {original["Id"], cog["Id"]}
+        assert all(p["GeoFootprint"] == footprint for p in selected)
+        assert all("catalogue_aliases" not in p for p in selected)
+
+
+@pytest.mark.parametrize("multipolygon", [False, True])
+def test_slice_alias_selection_is_order_independent_and_preserves_exact_uuid(
+    multipolygon: bool,
+) -> None:
     from agents.acquisition import unique_acquisitions
 
     original = product(VV + ".SAFE", "2026-09-03T21:30:23Z")
     original["ContentDate"]["End"] = "2026-09-03T21:30:48Z"
     original["GeoFootprint"] = covering(-55, 48.5)
+    if multipolygon:
+        original["GeoFootprint"] = {
+            "type": "MultiPolygon",
+            "coordinates": [original["GeoFootprint"]["coordinates"]],
+        }
     cog = {
         **original,
         "Id": "66d3167d-240a-459a-8066-75b9d2a458f2",

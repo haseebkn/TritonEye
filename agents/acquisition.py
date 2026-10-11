@@ -6,7 +6,31 @@ from collections.abc import Sequence
 from typing import Any
 from uuid import UUID
 
+from shapely.errors import GEOSException
+from shapely.geometry import shape
+
 from agents.ais_validation import parse_utc
+
+
+def _complete_footprint(footprint: Any) -> bool:
+    if not isinstance(footprint, dict) or footprint.get("type") not in (
+        "Polygon",
+        "MultiPolygon",
+    ):
+        return False
+    try:
+        coordinates = footprint["coordinates"]
+        polygons = [coordinates] if footprint["type"] == "Polygon" else coordinates
+        if not polygons or any(not polygon for polygon in polygons):
+            return False
+        for polygon in polygons:
+            for ring in polygon:
+                if len(ring) < 4 or ring[0] != ring[-1]:
+                    return False
+        geometry = shape(footprint)
+        return bool(not geometry.is_empty and geometry.is_valid)
+    except (GEOSException, ValueError, TypeError, KeyError, IndexError, AttributeError):
+        return False
 
 
 def unique_acquisitions(products: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -30,7 +54,7 @@ def unique_acquisitions(products: Sequence[dict[str, Any]]) -> list[dict[str, An
         start, end = parse_utc(dates.get("Start")), parse_utc(dates.get("End"))
         footprint = p.get("GeoFootprint")
         key: tuple[str, ...] = ("uuid", identity)
-        if match and start and end and start < end and footprint:
+        if match and start and end and start < end and _complete_footprint(footprint):
             key = (
                 "slice",
                 match.group(1),
