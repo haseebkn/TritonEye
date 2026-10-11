@@ -89,6 +89,12 @@ band, shoreline-component and method hashes. It omits verbose local shoreline
 control details, while retaining their hashes and check summaries. Private MMSIs,
 AIS positions, credentials, raw satellite imagery and basemap pixels are absent.
 
+The public dependency hashes use the committed LF source bytes, pinned by
+`.gitattributes` for reproducible checkouts. The original local full report and
+its `local_full_report_sha256` remain unchanged; its historical dependency
+hashes recorded CRLF execution bytes. This byte-contract correction changes
+no measurements or original inference artifacts.
+
 Original/COG aliases are rejected as duplicate physical slices. Full temporal
 histories are aligned before spatial filtering; conflicting and stale reports
 follow the existing bounded aligner. Raw DN zero padding, masks and nonfinite
