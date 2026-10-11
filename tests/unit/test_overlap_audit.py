@@ -1,6 +1,7 @@
 """Executable screening, isolation and private-output contracts."""
 
 import json
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
@@ -330,7 +331,7 @@ def test_unknown_size_or_insufficient_disk_prevents_download(
     scenes, _ = screen(
         [{**product(), "ContentLength": size}], [report("2026-10-02T21:39:07")]
     )
-    monkeypatch.setattr(audit.shutil, "disk_usage", lambda _: SimpleNamespace(free=0))
+    monkeypatch.setattr(shutil, "disk_usage", lambda _: SimpleNamespace(free=0))
 
     def forbidden(*args: Any, **kwargs: Any) -> Path:
         raise AssertionError("Must not start a download without space/size evidence")
