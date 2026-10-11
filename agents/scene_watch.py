@@ -31,7 +31,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 from urllib.parse import urlparse
 
-from agents.acquisition import product_id
+from agents.acquisition import product_id, unique_acquisitions
 from agents.ais_validation import finite_number, parse_utc, valid_mmsi
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -122,8 +122,8 @@ def search_acquisitions(
     if r.status_code != 200:
         raise SceneWatchUnavailable(f"Catalogue query failed: HTTP {r.status_code}")
 
-    # Each slice has its own footprint and identity. Never collapse products
-    # merely because their names or acquisition dates share a prefix.
+    # Each physical slice has its own footprint and identity. Preserve adjacent
+    # slices/same-day passes, but do not count original/COG aliases twice.
     page = r.json()
     products = list(page.get("value", []))
     visited: set[str] = set()
@@ -147,10 +147,7 @@ def search_acquisitions(
             )
         page = response.json()
         products.extend(page.get("value", []))
-    seen: Dict[str, Dict[str, Any]] = {}
-    for p in products:
-        seen.setdefault(product_id(p["Id"]), p)
-    return sorted(seen.values(), key=lambda p: p["ContentDate"]["Start"], reverse=True)
+    return unique_acquisitions(products)
 
 
 def ais_rows_near(

@@ -1,7 +1,24 @@
 # Acquisition identity and scoring reliability
 
-Discovery retains distinct Copernicus UUIDs, including slices on the same date,
-and follows catalogue pagination. AIS comes from legacy and `_v2` daily CSVs,
+Discovery follows catalogue pagination and counts physical SAR slices, not
+original/COG catalogue variants. Recognized native slice names (satellite, mode,
+product, polarization, start/end, orbit and datatake), complete UTC intervals
+and footprint metadata must agree before variants are collapsed. Original SAFE
+is preferred over COG; UUID breaks ties deterministically. Alias UUIDs/names
+remain in the selected catalogue record. Different same-day/adjacent slices,
+polarizations, unknown names, incomplete or conflicting metadata remain
+separate. Historical alias records are retained, not deleted or relabelled;
+only future discovery counts/queues use the deduplicated selection.
+
+An offline replay on 2026-10-11 of the frozen 2026-10-06 NL catalogue snapshot
+returned 811 slices from 1,622 original/COG entries, selecting 811 original
+UUIDs and retaining all 1,622 UUID/name aliases. Reversing catalogue order
+produced identical selections. This verifies acquisition accounting, not
+811 independent passes, usable pixel coverage or measured detection quality.
+Regression tests cover pagination, adjacent same-day slices, polarization/orbit
+differences, conflicting intervals/footprints and incomplete identity evidence.
+
+AIS comes from legacy and `_v2` daily CSVs,
 including UTC day boundaries. Invalid identities/coordinates, missing or invalid
 footprints, and observations outside the footprint/NL area cannot establish
 eligibility. Shoreline controls and the current coastal policy select an

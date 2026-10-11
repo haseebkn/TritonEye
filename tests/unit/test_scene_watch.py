@@ -5,12 +5,15 @@ The point of this module is to refuse scenes that cannot yield a measurement,
 so the tests concentrate on the three ways a scene looks usable and is not.
 """
 
+import copy
 import csv
 import os
 import sys
 from pathlib import Path
 from typing import Any, Dict, List
 from uuid import NAMESPACE_URL, uuid5
+
+import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
@@ -298,7 +301,11 @@ def test_catalogue_preserves_same_prefix_products_and_reads_next_page(
     import agents.scene_watch as sw
 
     first = product(VV, "2026-09-03T21:30:23Z")
-    second = {**first, "Id": "66d3167d-240a-459a-8066-75b9d2a458f2"}
+    second = {
+        **first,
+        "Id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+        "Name": VV.replace("213023_20260903T213048", "213048_20260903T213113"),
+    }
     next_link = sw.CATALOGUE + "?$skip=200"
     pages = [
         {"value": [first], "@odata.nextLink": next_link},
@@ -318,3 +325,105 @@ def test_catalogue_preserves_same_prefix_products_and_reads_next_page(
     products = sw.search_acquisitions("unused", token="test")
     assert {row["Id"] for row in products} == {first["Id"], second["Id"]}
     assert calls == [sw.CATALOGUE, next_link]
+
+
+def test_catalogue_counts_original_and_cog_slice_once_across_pages(
+    monkeypatch: Any,
+) -> None:
+    from types import SimpleNamespace
+
+    import requests
+
+    import agents.scene_watch as sw
+
+    original = product(VV + ".SAFE", "2026-09-03T21:30:23Z")
+    original["ContentDate"]["End"] = "2026-09-03T21:30:48Z"
+    original["GeoFootprint"] = covering(-55, 48.5)
+    cog = {
+        **original,
+        "Id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+        "Name": VV.replace("1234", "ABCD") + "_COG.SAFE",
+    }
+    pages = [
+        {"value": [cog], "@odata.nextLink": sw.CATALOGUE + "?$skip=200"},
+        {"value": [original, cog]},
+    ]
+    monkeypatch.setattr(sw, "_footprint_wkt", lambda _: "POLYGON EMPTY")
+    monkeypatch.setattr(
+        requests,
+        "get",
+        lambda *a, **kw: SimpleNamespace(status_code=200, json=lambda: pages.pop(0)),
+    )
+    products = sw.search_acquisitions("unused", token="test")
+    assert len(products) == 1
+    assert products[0]["Id"] == original["Id"]
+    assert {a["Id"] for a in products[0]["catalogue_aliases"]} == {
+        original["Id"],
+        cog["Id"],
+    }
+
+
+@pytest.mark.parametrize(
+    "difference",
+    [
+        "adjacent",
+        "polarization",
+        "orbit",
+        "interval",
+        "footprint",
+        "unknown",
+        "missing",
+    ],
+)
+def test_slice_deduplication_keeps_distinct_or_unverified_products(
+    difference: str,
+) -> None:
+    from agents.acquisition import unique_acquisitions
+
+    first = product(VV + ".SAFE", "2026-09-03T21:30:23Z")
+    first["ContentDate"]["End"] = "2026-09-03T21:30:48Z"
+    first["GeoFootprint"] = covering(-55, 48.5)
+    second = copy.deepcopy(first)
+    second["Id"] = "66d3167d-240a-459a-8066-75b9d2a458f2"
+    second["Name"] = VV.replace("1234", "ABCD") + "_COG.SAFE"
+    if difference == "adjacent":
+        second["Name"] = second["Name"].replace(
+            "213023_20260903T213048", "213048_20260903T213113"
+        )
+        second["ContentDate"] = {
+            "Start": "2026-09-03T21:30:48Z",
+            "End": "2026-09-03T21:31:13Z",
+        }
+    elif difference == "polarization":
+        second["Name"] = second["Name"].replace("1SDV", "1SDH")
+    elif difference == "orbit":
+        second["Name"] = second["Name"].replace("004420", "004421")
+    elif difference == "interval":
+        second["ContentDate"]["Start"] = "2026-09-03T21:30:23.001Z"
+    elif difference == "footprint":
+        second["GeoFootprint"] = covering(-54, 48.5)
+    elif difference == "unknown":
+        second["Name"] = "unrecognized_COG.SAFE"
+    else:
+        del second["ContentDate"]["End"]
+    for products in ([first, second], [second, first]):
+        selected = unique_acquisitions(products)
+        assert {p["Id"] for p in selected} == {first["Id"], second["Id"]}
+
+
+def test_slice_alias_selection_is_order_independent_and_preserves_exact_uuid() -> None:
+    from agents.acquisition import unique_acquisitions
+
+    original = product(VV + ".SAFE", "2026-09-03T21:30:23Z")
+    original["ContentDate"]["End"] = "2026-09-03T21:30:48Z"
+    original["GeoFootprint"] = covering(-55, 48.5)
+    cog = {
+        **original,
+        "Id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+        "Name": VV.replace("1234", "ABCD") + "_COG.SAFE",
+    }
+    selected = unique_acquisitions([original, cog])
+    assert selected == unique_acquisitions([cog, original, original])
+    assert selected[0]["Id"] == original["Id"]
+    assert "catalogue_aliases" not in original  # Input provenance is not mutated.
+    assert unique_acquisitions([cog])[0]["Id"] == cog["Id"]
