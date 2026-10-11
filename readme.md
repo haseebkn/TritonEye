@@ -4,6 +4,7 @@ Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 **Start here: [Reviewer guide — built and verified, measured, and blocked](docs/REVIEWER_GUIDE.md).**
 One entry point for evidence, limitations and a short review walkthrough.
 Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle](docs/OVERLAP_REVIEW.md).
+Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a

@@ -4,6 +4,11 @@ Implemented 2026-10-05. St. John's harbour and The Narrows remain open water in
 the existing OSM geometry. The eight municipal-imagery controls and their source
 provenance are unchanged. No replacement shoreline or buffer reduction was adopted.
 
+Updated 2026-10-11: development shoreline coverage now includes Ferryland,
+Bay of Exploits and Makkovik in Labrador. **Step 2 remains measurement-blocked,
+not complete:** independent complete-area validation labels are unavailable,
+so false alarms and missed vessels cannot yet justify a buffer choice.
+
 ## Separate physical classification from operating policy
 
 `physical_surface` is land, water or unknown **relative to the reference polygon**.
@@ -41,6 +46,54 @@ Replay separately tests **actual valid SAR pixels**. A bounding box alone does
 not prove that a site was imaged. Mismatches and missing or malformed controls
 make the mask unavailable; unknown shoreline detections do not become eligible.
 
+### Current frozen-pilot development coverage (11 October)
+
+`python -m agents.shoreline_coverage` checks exact selected image areas, verifies
+chip hashes, requires finite unmasked pixels in **both** calibrated bands, and
+compares control classifications without changing coastal policy. Zero dB is a
+valid calibrated sample, not zero-DN padding. Registered optical image hashes
+and image-pixel/geographic coordinates are verified where recorded. The older
+St. John's controls have no recorded optical-image hash; that absence is disclosed.
+
+| Selected coastal area | Region / split | Controls on joint-valid selected pixels | Result |
+| --- | --- | ---: | --- |
+| Ferryland | Newfoundland / training | 5 | Sparse land/water checks pass |
+| St. John's harbour | Newfoundland / training | 7 of 8 registered | Sparse land/water checks pass; one control outside selected area |
+| Bonavista | Newfoundland / validation | 5 | Sparse land/water checks pass |
+| Lewisporte | Newfoundland / validation | 5 | Sparse land/water checks pass |
+| Bay of Exploits | Newfoundland / validation | 5 | Sparse land/water checks pass |
+| Makkovik | Labrador / validation, HH/HV | 5 | Sparse land/water checks pass; not evidence of compatible detector coverage |
+
+All six development coastal areas have both land and water sample checks.
+There are **33 registered controls, 32 inside those selected coastal areas**.
+The four development offshore areas contain no registered controls and report
+insufficient local checks, not independently verified open ocean. The two locked
+Hopedale test areas were **not opened, hashed, classified or scored** by this audit.
+Manifest metadata is read to skip them before resolving image paths.
+
+Ferryland's optical image-centre citation is 2025-06-04; Makkovik's is 2024-09-30.
+Bay of Exploits has a mosaic seam with snowy/icy pixels east of the clear-water
+controls; its 2025-06-04 centre citation does not date every control pixel.
+New controls are AI-assisted visual development checks, **not independent expert
+review**. Optical images and comparison overlays stay in
+`data/reference/regional/`; no basemap pixels are redistributed in Git.
+
+OSM and CanVec each pass the five controls in each of these three new local
+comparisons. This sparse agreement does not validate complete boundaries,
+quays, tides or vessel false alarms. CanVec remains comparison-only. The export
+comparison now uses the actual ArcGIS image extent, which may exceed the
+requested rectangle; local comparison-source hashes record that geometry scope.
+
+[Current machine-readable coverage evidence](evidence/shoreline_coverage_20261011.json)
+records exact products, selected-area checks, source/reference hashes, excluded
+test areas, and `step_2_complete: false`. **33 controls are not province-wide
+validation.** Unchecked shoreline between points remains unchecked.
+
+### Historical two-scene replay coverage (5 October)
+
+The table below describes the original replay inventory only, not current
+frozen-pilot coverage. Its original mission outputs and evidence are preserved.
+
 | Location | Controls | Reference | Selected real-scene coverage |
 | --- | ---: | --- | --- |
 | St. John's basin/Narrows/approaches | 8 | City Imagery2022 | Neither selected scene; retained context/regressions |
@@ -68,8 +121,9 @@ registry or benchmark coverage. They were not adopted based on rectangular bound
 These are visual development checks, not independent expert adjudication or
 surveyed geolocation. Dates are citations at image centres, not every pixel.
 Older imagery cannot prove a 2026 tidal waterline. Other swath shoreline
-segments and western/southern Newfoundland remain unchecked.
-**18 registered controls are not province-wide validation.**
+segments and most western/southern Newfoundland remain unchecked, aside from
+the later sparse Ferryland checks. The historical registry had 18 controls;
+neither that registry nor today's 33 controls establishes province-wide validation.
 
 ## Real buffer replay: counts, not accuracy
 
@@ -102,6 +156,12 @@ the payload's `landmask` metadata; a relative cache path is repository-relative.
 If the physical reference cannot be loaded, strata remain unmeasured.
 
 ## Independent validation-label contract
+
+The [11 October AIS-supported buffer analysis](AIS_COASTAL_ANALYSIS.md) adds
+observed coastal exclusion counts and cached proximity comparisons. That study
+owns the measured counts and matching protocol. These observations do not
+measure false alarms or overall missed vessels, select a buffer, or complete
+Step 2.
 
 `python -m agents.coastal_benchmark` compares fixed physically annotated returns
 against an **exhaustively reviewed valid-imagery ROI**. A label GeoJSON
@@ -160,7 +220,7 @@ Synthetic tests establish accounting behavior, **not regional performance**.
 No buffer/configuration/model is automatically selected or promoted.
 
 Remaining measurement work: independently reviewed labels for untouched NL
-validation scenes and Labrador coastal-policy replays/imagery controls, then
+validation scenes, including Labrador coastal-policy evaluation, then
 buffer selection under an explicit false-alarm constraint while reporting misses.
 Use locked holdout groups from the [historical review pilot](NL_BENCHMARK.md).
 Public training datasets cannot replace labels of the 2026 acquisitions.
@@ -178,6 +238,12 @@ python scripts/inspect_regional_reference.py --fetch --site lewisporte
 python scripts/inspect_regional_reference.py --compare --site bonavista
 python scripts/inspect_regional_reference.py --compare --site lewisporte
 python -m agents.coastal_replay --output-dir data/validation/coastal_policy_replay
+# Current selected-area shoreline checks; locked test rasters remain unopened.
+python -m agents.shoreline_coverage --output data/validation/shoreline_coverage_fresh.json
+# New local comparisons (images already cached; --fetch only for missing imagery).
+python scripts/inspect_regional_reference.py --compare --site ferryland
+python scripts/inspect_regional_reference.py --compare --site makkovik
+python scripts/inspect_regional_reference.py --compare --site bay_of_exploits
 pytest tests/unit/test_coastal_policy.py tests/unit/test_coastal_replay.py -q
 ```
 

@@ -1,0 +1,2173 @@
+{
+  "status": "supporting_analysis_only",
+  "validated_lf_replay_sha256": "5fc1bbdff608add22328b2a0ba8a5a51dda37f5c64e8b450963c053ab0b5a43b",
+  "validated_lf_replay_same_comparisons": true,
+  "selected_buffer_m": null,
+  "step_2_complete": false,
+  "manifest_sha256": "2884616448feb6b8466cca706065afd000cea722683449b7debed1012d25943d",
+  "snapshot_manifest_sha256": "01bf139cae12c83e07e69b279a933905309c55dd12bc004131f49f1eeb07d8fd",
+  "catalogue_sha256": "5a11215adadc6e50498c23f69a6df246ed8739712868d71ca80c979a4f3c7fec",
+  "archive": {
+    "input_rows": 198447,
+    "legacy_naive_utc_reports": 19621,
+    "valid_unique_reports": 198447,
+    "first_utc": "2026-08-18T20:08:37+00:00",
+    "last_utc": "2026-10-11T09:45:29.661491+00:00",
+    "dates_present": [
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-10",
+      "2026-10-11"
+    ]
+  },
+  "configuration_sha256": "30cb86a5e1009b1d1215f664a77902f0583d873d9b9989a84be0e60248bd3793",
+  "shoreline_source_files_sha256": {
+    "land_polygons.shp": "aa13c07469a82836f9fafc7547e8aede7cb2b167b3826a094816fcea0b5bc996",
+    "land_polygons.shx": "66f8a36e37382acd71bdd45180dfb7406ad72de2c1365522e379ef8501f0a3c3",
+    "land_polygons.dbf": "95f05abb264e04feeda1ba2c46bad54dafaa295825de59e634d8eaf9537d4eac",
+    "land_polygons.prj": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+  },
+  "method_sha256": "374c40adeda29e6f7a72524bde26919ef86d120655fd3eb1b96e15feffb08c6a",
+  "dependencies_sha256": {
+    "agents/association.py": "b4962bcc44f51b182f0dcc9b345bb97b8dab8e39fc170075cce9f281d8e66584",
+    "agents/coastal_policy.py": "ca66d89e26fc37a925ad09b03bb2f8dff30a276834837a41d5de65f5bb6ea1bf",
+    "agents/evaluate/evaluate_agent.py": "010c6950c2764402e1d2ae906ff71e610f0acd3f5efa9fda420ad7de1bf6991f",
+    "agents/landmask.py": "80b7fcfe4df0b705c2848282cc0e8369ca4be645272db8c882f8691d0a8ef81a",
+    "agents/inference/inference_agent.py": "6d2b3e766b5b1682fe64d78715a1ffb084c02c185484122771c536ed72e3ea61",
+    "agents/overlap_audit.py": "b36bc30009ae6a8a40581529800bfebf0699175eaf8a0eb51b63d8e661053ea3"
+  },
+  "scenes": [
+    {
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "product_name": "S1D_IW_GRDH_1SDV_20260922T212146_20260922T212211_004696_008C71_FF43.SAFE",
+      "acquisition_group": "S1D_004696_008C71",
+      "acquisition_time": "2026-09-22T21:21:46.168299Z",
+      "catalogue_interval": {
+        "Start": "2026-09-22T21:21:46.168299Z",
+        "End": "2026-09-22T21:22:11.167030Z"
+      },
+      "setting": "Eastern Newfoundland harbour/coastal slice; AIS policy only",
+      "polarization": "VV/VH",
+      "payload_sha256": null,
+      "detections_sha256": null,
+      "detections_available": false,
+      "input_band_sha256": {
+        "VV": "be6e323d1fdf147569099706ea85399ccd9dae35cc43645b214af4fc76c5d1d5",
+        "VH": "a1d01dba0a2ae60f26a0381e4a2e9829466ec79a162ac609a9ef2b2645e3e645"
+      },
+      "detector": {
+        "detector": null,
+        "weights_sha256": null,
+        "threshold": null,
+        "config_sha256": null,
+        "complete": null
+      },
+      "alignment": {
+        "input_records": 146,
+        "aligned_vessels": 38,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 4
+      },
+      "archive_recording": {
+        "status": "gap_or_unknown",
+        "sessions": [],
+        "area_wide_reception_proven": false
+      },
+      "ais_inside_nl_and_catalogue": 32,
+      "ais_outside_joint_valid_pixels": 0,
+      "returns_outside_scope_or_valid_pixels": null,
+      "landmask": {
+        "status": "ok",
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "coastal_buffer_m": 300,
+        "physical_counts": {
+          "water": 25,
+          "coastal": 0,
+          "land": 7
+        },
+        "counts": {
+          "water": 4,
+          "coastal": 21,
+          "land": 7,
+          "infrastructure": 0
+        },
+        "shoreline_validation": {
+          "status": "passed",
+          "checked": 13,
+          "failed": 0,
+          "scope": "Sparse imagery controls only; not province-wide validation",
+          "registry_sha256": "21d19953172c3c01dc99038610a5f408d9bb11b1153c0528aa11b003a215846a",
+          "controls_sha256": "3cac45abd181b0f87286b187263df083f86526784a62e0dbf03a3855052c4c17",
+          "collections": [
+            {
+              "location": "St. John's harbour",
+              "checked": 8,
+              "failed": 0,
+              "controls_sha256": "bf95bca46b67a8aa10597b47ba5cad6c36221132260b2871691c236cfb44ed9a"
+            },
+            {
+              "location": "Bonavista harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "5b7409807e00adc94fe417c2553eba2c3d85da16a9f63a28b6aa23c8f0d820ba"
+            },
+            {
+              "location": "Lewisporte harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "a88b216f1dd4c55051da85732df354c760a651258d8c119a807b03f814209f81"
+            },
+            {
+              "location": "Ferryland coast",
+              "checked": 5,
+              "failed": 0,
+              "controls_sha256": "f531c10527e92cfc6dadb99c76f87959544e548f4766f33a7c95bac9ad35e494"
+            },
+            {
+              "location": "Makkovik harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "2aa5ee728ade4a97d0ef6f1b8f83cbea5363ca642b9e5874afd1ae93f3e37c2d"
+            },
+            {
+              "location": "Bay of Exploits",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "86eb0b13a5833d5d4f538129556104707f501fd3d5e634636387c3b10d23d35f"
+            }
+          ]
+        }
+      },
+      "physical_reference_sha256": "6936ac84fb82fd24900453bcbc6902b24b5862181282129d23f0254cd0a93d13",
+      "comparison": {
+        "status": "ais_policy_only_no_detector_output",
+        "observed_ais_denominator": 32,
+        "retained_returns": null,
+        "matched_raw": null,
+        "raw_ambiguous_returns": null,
+        "ais_subset_proximity_recall_raw": null,
+        "match_radius_m": 500,
+        "trials": [
+          {
+            "buffer_m": 0,
+            "observed_ais_denominator": 32,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 25,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 25,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 7,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 100,
+            "observed_ais_denominator": 32,
+            "coastal_ais_withheld": 21,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 4,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 21,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 4,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 7,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 300,
+            "observed_ais_denominator": 32,
+            "coastal_ais_withheld": 21,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 4,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 21,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 4,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 7,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 500,
+            "observed_ais_denominator": 32,
+            "coastal_ais_withheld": 21,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 4,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 21,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 4,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 7,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 1000,
+            "observed_ais_denominator": 32,
+            "coastal_ais_withheld": 21,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 4,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 21,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 4,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 7,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          }
+        ]
+      }
+    },
+    {
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "product_name": "S1D_IW_GRDH_1SDV_20261004T212146_20261004T212211_004871_00928B_EF7F.SAFE",
+      "acquisition_group": "S1D_004871_00928B",
+      "acquisition_time": "2026-10-04T21:21:46.236911Z",
+      "catalogue_interval": {
+        "Start": "2026-10-04T21:21:46.236911Z",
+        "End": "2026-10-04T21:22:11.235698Z"
+      },
+      "setting": "Eastern Newfoundland harbour/coastal slice; AIS policy only",
+      "polarization": "VV/VH",
+      "payload_sha256": null,
+      "detections_sha256": null,
+      "detections_available": false,
+      "input_band_sha256": {
+        "VV": "49cf6bd428610b62a17e82469f159a371f60228a6ccc177c59aeb84ac5431c61",
+        "VH": "7a595e143dad3e835921e9384a52412f3af286d6c45fc8415c054a3345cd4ee7"
+      },
+      "detector": {
+        "detector": null,
+        "weights_sha256": null,
+        "threshold": null,
+        "config_sha256": null,
+        "complete": null
+      },
+      "alignment": {
+        "input_records": 108,
+        "aligned_vessels": 28,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 7
+      },
+      "archive_recording": {
+        "status": "gap_or_unknown",
+        "sessions": [],
+        "area_wide_reception_proven": false
+      },
+      "ais_inside_nl_and_catalogue": 23,
+      "ais_outside_joint_valid_pixels": 0,
+      "returns_outside_scope_or_valid_pixels": null,
+      "landmask": {
+        "status": "ok",
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "coastal_buffer_m": 300,
+        "physical_counts": {
+          "water": 18,
+          "coastal": 0,
+          "land": 5
+        },
+        "counts": {
+          "water": 0,
+          "coastal": 18,
+          "land": 5,
+          "infrastructure": 0
+        },
+        "shoreline_validation": {
+          "status": "passed",
+          "checked": 13,
+          "failed": 0,
+          "scope": "Sparse imagery controls only; not province-wide validation",
+          "registry_sha256": "21d19953172c3c01dc99038610a5f408d9bb11b1153c0528aa11b003a215846a",
+          "controls_sha256": "3cac45abd181b0f87286b187263df083f86526784a62e0dbf03a3855052c4c17",
+          "collections": [
+            {
+              "location": "St. John's harbour",
+              "checked": 8,
+              "failed": 0,
+              "controls_sha256": "bf95bca46b67a8aa10597b47ba5cad6c36221132260b2871691c236cfb44ed9a"
+            },
+            {
+              "location": "Bonavista harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "5b7409807e00adc94fe417c2553eba2c3d85da16a9f63a28b6aa23c8f0d820ba"
+            },
+            {
+              "location": "Lewisporte harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "a88b216f1dd4c55051da85732df354c760a651258d8c119a807b03f814209f81"
+            },
+            {
+              "location": "Ferryland coast",
+              "checked": 5,
+              "failed": 0,
+              "controls_sha256": "f531c10527e92cfc6dadb99c76f87959544e548f4766f33a7c95bac9ad35e494"
+            },
+            {
+              "location": "Makkovik harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "2aa5ee728ade4a97d0ef6f1b8f83cbea5363ca642b9e5874afd1ae93f3e37c2d"
+            },
+            {
+              "location": "Bay of Exploits",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "86eb0b13a5833d5d4f538129556104707f501fd3d5e634636387c3b10d23d35f"
+            }
+          ]
+        }
+      },
+      "physical_reference_sha256": "6936ac84fb82fd24900453bcbc6902b24b5862181282129d23f0254cd0a93d13",
+      "comparison": {
+        "status": "ais_policy_only_no_detector_output",
+        "observed_ais_denominator": 23,
+        "retained_returns": null,
+        "matched_raw": null,
+        "raw_ambiguous_returns": null,
+        "ais_subset_proximity_recall_raw": null,
+        "match_radius_m": 500,
+        "trials": [
+          {
+            "buffer_m": 0,
+            "observed_ais_denominator": 23,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 18,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 18,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 5,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 100,
+            "observed_ais_denominator": 23,
+            "coastal_ais_withheld": 18,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 0,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 18,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 5,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 300,
+            "observed_ais_denominator": 23,
+            "coastal_ais_withheld": 18,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 0,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 18,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 5,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 500,
+            "observed_ais_denominator": 23,
+            "coastal_ais_withheld": 18,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 0,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 18,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 5,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 1000,
+            "observed_ais_denominator": 23,
+            "coastal_ais_withheld": 18,
+            "coastal_ais_with_raw_match": null,
+            "ais_policy_eligible": 0,
+            "eligible_returns": null,
+            "coastal_returns_retained": null,
+            "matched_eligible": null,
+            "raw_matched_without_eligible_match": null,
+            "eligible_matched_without_raw_match": null,
+            "eligible_ambiguous_returns": null,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 18,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "land_mismatch": {
+                "observed_ais": 5,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": null,
+                "matched_eligible": null,
+                "unmatched_raw": null,
+                "unmatched_eligible": null
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          }
+        ]
+      }
+    },
+    {
+      "product_id": "42286d3d-cd80-4dc7-9aec-1613992b8256",
+      "product_name": "S1D_IW_GRDH_1SDV_20260922T212211_20260922T212236_004696_008C71_1CA3_COG.SAFE",
+      "acquisition_group": "S1D_004696_008C71",
+      "acquisition_time": "2026-09-22T21:22:11.168529Z",
+      "catalogue_interval": {
+        "Start": "2026-09-22T21:22:11.168529Z",
+        "End": "2026-09-22T21:22:36.167259Z"
+      },
+      "setting": "Northeastern Newfoundland coastal/offshore slice",
+      "polarization": "VV/VH",
+      "payload_sha256": "8e54c8d72e9abaa57c17fd67f8cd5bb24132c59ce4cd7a656ca0b9f4096eab85",
+      "detections_sha256": "bc53b995dece5b980a8a42eb562b70bce7c88f577b914d67d73df3c32b0a2948",
+      "detections_available": true,
+      "input_band_sha256": {
+        "VV": "e4468105ccf8272db0ccb41d86cfa2b0f4a6ebfc641429c2a7322408c541bdda",
+        "VH": "a3a8cb5ee24ab423ab3fc7dba6a62a7952c6cf5c91ce369656a29137e3121bf4"
+      },
+      "detector": {
+        "detector": "xview3",
+        "weights_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+        "threshold": 0.15,
+        "config_sha256": "415584d816a43b45a24fff996a56b84db23fe891fed7647feecd8514dac19387",
+        "complete": true
+      },
+      "alignment": {
+        "input_records": 151,
+        "aligned_vessels": 37,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 7
+      },
+      "archive_recording": {
+        "status": "gap_or_unknown",
+        "sessions": [],
+        "area_wide_reception_proven": false
+      },
+      "ais_inside_nl_and_catalogue": 0,
+      "ais_outside_joint_valid_pixels": 0,
+      "returns_outside_scope_or_valid_pixels": 3,
+      "landmask": {
+        "status": "ok",
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "coastal_buffer_m": 300,
+        "physical_counts": {
+          "water": 102,
+          "coastal": 0,
+          "land": 199
+        },
+        "counts": {
+          "water": 41,
+          "coastal": 61,
+          "land": 199,
+          "infrastructure": 0
+        },
+        "shoreline_validation": {
+          "status": "passed",
+          "checked": 5,
+          "failed": 0,
+          "scope": "Sparse imagery controls only; not province-wide validation",
+          "registry_sha256": "21d19953172c3c01dc99038610a5f408d9bb11b1153c0528aa11b003a215846a",
+          "controls_sha256": "3cac45abd181b0f87286b187263df083f86526784a62e0dbf03a3855052c4c17",
+          "collections": [
+            {
+              "location": "St. John's harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "bf95bca46b67a8aa10597b47ba5cad6c36221132260b2871691c236cfb44ed9a"
+            },
+            {
+              "location": "Bonavista harbour",
+              "checked": 5,
+              "failed": 0,
+              "controls_sha256": "5b7409807e00adc94fe417c2553eba2c3d85da16a9f63a28b6aa23c8f0d820ba"
+            },
+            {
+              "location": "Lewisporte harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "a88b216f1dd4c55051da85732df354c760a651258d8c119a807b03f814209f81"
+            },
+            {
+              "location": "Ferryland coast",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "f531c10527e92cfc6dadb99c76f87959544e548f4766f33a7c95bac9ad35e494"
+            },
+            {
+              "location": "Makkovik harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "2aa5ee728ade4a97d0ef6f1b8f83cbea5363ca642b9e5874afd1ae93f3e37c2d"
+            },
+            {
+              "location": "Bay of Exploits",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "86eb0b13a5833d5d4f538129556104707f501fd3d5e634636387c3b10d23d35f"
+            }
+          ]
+        }
+      },
+      "physical_reference_sha256": "6936ac84fb82fd24900453bcbc6902b24b5862181282129d23f0254cd0a93d13",
+      "comparison": {
+        "status": "no_observed_overlap",
+        "observed_ais_denominator": 0,
+        "retained_returns": 301,
+        "matched_raw": 0,
+        "raw_ambiguous_returns": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "match_radius_m": 500,
+        "trials": [
+          {
+            "buffer_m": 0,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 102,
+            "coastal_returns_retained": 0,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 100,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 46,
+            "coastal_returns_retained": 56,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 300,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 41,
+            "coastal_returns_retained": 61,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 500,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 38,
+            "coastal_returns_retained": 64,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 1000,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 35,
+            "coastal_returns_retained": 67,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          }
+        ]
+      }
+    },
+    {
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "product_name": "S1D_IW_GRDH_1SDV_20260927T213023_20260927T213048_004769_008EFD_5767.SAFE",
+      "acquisition_group": "S1D_004769_008EFD",
+      "acquisition_time": "2026-09-27T21:30:23.883299Z",
+      "catalogue_interval": {
+        "Start": "2026-09-27T21:30:23.883299Z",
+        "End": "2026-09-27T21:30:48.882846Z"
+      },
+      "setting": "Lewisporte and Bay of Exploits coastal/offshore slice",
+      "polarization": "VV/VH",
+      "payload_sha256": "3db55d294aa3e24a06786c75c57fc072dc2c7144daebcf8f8aaa4af7248cdecc",
+      "detections_sha256": "382d730ba4d398a9bbad6c58d06b4e4cac0118c3a321abc94892f86b44402beb",
+      "detections_available": true,
+      "input_band_sha256": {
+        "VV": "27a20063989a770c14b47f14fc2e1bd0df67acacd8ffdce616b4689f50096785",
+        "VH": "4aef07d020e3930ccae07e0db288bd7373b2df7f6e35659e1b42c30f3f9f26a7"
+      },
+      "detector": {
+        "detector": "xview3",
+        "weights_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+        "threshold": 0.15,
+        "config_sha256": "415584d816a43b45a24fff996a56b84db23fe891fed7647feecd8514dac19387",
+        "complete": true
+      },
+      "alignment": {
+        "input_records": 86,
+        "aligned_vessels": 26,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 7
+      },
+      "archive_recording": {
+        "status": "gap_or_unknown",
+        "sessions": [],
+        "area_wide_reception_proven": false
+      },
+      "ais_inside_nl_and_catalogue": 0,
+      "ais_outside_joint_valid_pixels": 0,
+      "returns_outside_scope_or_valid_pixels": 4,
+      "landmask": {
+        "status": "ok",
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "coastal_buffer_m": 300,
+        "physical_counts": {
+          "water": 141,
+          "coastal": 0,
+          "land": 887
+        },
+        "counts": {
+          "water": 12,
+          "coastal": 129,
+          "land": 887,
+          "infrastructure": 0
+        },
+        "shoreline_validation": {
+          "status": "passed",
+          "checked": 10,
+          "failed": 0,
+          "scope": "Sparse imagery controls only; not province-wide validation",
+          "registry_sha256": "21d19953172c3c01dc99038610a5f408d9bb11b1153c0528aa11b003a215846a",
+          "controls_sha256": "3cac45abd181b0f87286b187263df083f86526784a62e0dbf03a3855052c4c17",
+          "collections": [
+            {
+              "location": "St. John's harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "bf95bca46b67a8aa10597b47ba5cad6c36221132260b2871691c236cfb44ed9a"
+            },
+            {
+              "location": "Bonavista harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "5b7409807e00adc94fe417c2553eba2c3d85da16a9f63a28b6aa23c8f0d820ba"
+            },
+            {
+              "location": "Lewisporte harbour",
+              "checked": 5,
+              "failed": 0,
+              "controls_sha256": "a88b216f1dd4c55051da85732df354c760a651258d8c119a807b03f814209f81"
+            },
+            {
+              "location": "Ferryland coast",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "f531c10527e92cfc6dadb99c76f87959544e548f4766f33a7c95bac9ad35e494"
+            },
+            {
+              "location": "Makkovik harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "2aa5ee728ade4a97d0ef6f1b8f83cbea5363ca642b9e5874afd1ae93f3e37c2d"
+            },
+            {
+              "location": "Bay of Exploits",
+              "checked": 5,
+              "failed": 0,
+              "controls_sha256": "86eb0b13a5833d5d4f538129556104707f501fd3d5e634636387c3b10d23d35f"
+            }
+          ]
+        }
+      },
+      "physical_reference_sha256": "6936ac84fb82fd24900453bcbc6902b24b5862181282129d23f0254cd0a93d13",
+      "comparison": {
+        "status": "no_observed_overlap",
+        "observed_ais_denominator": 0,
+        "retained_returns": 1028,
+        "matched_raw": 0,
+        "raw_ambiguous_returns": 0,
+        "ais_subset_proximity_recall_raw": null,
+        "match_radius_m": 500,
+        "trials": [
+          {
+            "buffer_m": 0,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 141,
+            "coastal_returns_retained": 0,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 100,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 31,
+            "coastal_returns_retained": 110,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 300,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 12,
+            "coastal_returns_retained": 129,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 500,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 6,
+            "coastal_returns_retained": 135,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 1000,
+            "observed_ais_denominator": 0,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 3,
+            "coastal_returns_retained": 138,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": null,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          }
+        ]
+      }
+    },
+    {
+      "product_id": "4f6115d9-c1d8-45bc-b5da-0d37aeaa85f9",
+      "product_name": "S1D_IW_GRDH_1SDV_20260927T213113_20260927T213138_004769_008EFD_61A8_COG.SAFE",
+      "acquisition_group": "S1D_004769_008EFD",
+      "acquisition_time": "2026-09-27T21:31:13.883890Z",
+      "catalogue_interval": {
+        "Start": "2026-09-27T21:31:13.883890Z",
+        "End": "2026-09-27T21:31:38.881938Z"
+      },
+      "setting": "Northern Newfoundland open-water slice",
+      "polarization": "VV/VH",
+      "payload_sha256": "f3f43c1a3f9c2f0ce7b4c4aff640535c2ad7352ccd505b7f46e4c13dba882223",
+      "detections_sha256": "aa6327ff9383bae7ad3854ebe22803e4a2e9714e36a8945432db6dc7dc794e39",
+      "detections_available": true,
+      "input_band_sha256": {
+        "VV": "34ffa12826c0b45c23162f44df670819db5b7063915a8b3a930d92d6bb800bec",
+        "VH": "d7f7b6ffa76cb0081a613e1103523a22208966dc2941be5ee64456e9377fb73b"
+      },
+      "detector": {
+        "detector": "xview3",
+        "weights_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+        "threshold": 0.15,
+        "config_sha256": "ed6f8341523071b94c1755438f9af3f1bddc57307e1d3c563e765fa0757fa707",
+        "complete": true
+      },
+      "alignment": {
+        "input_records": 83,
+        "aligned_vessels": 28,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 4
+      },
+      "archive_recording": {
+        "status": "gap_or_unknown",
+        "sessions": [],
+        "area_wide_reception_proven": false
+      },
+      "ais_inside_nl_and_catalogue": 2,
+      "ais_outside_joint_valid_pixels": 0,
+      "returns_outside_scope_or_valid_pixels": 0,
+      "landmask": {
+        "status": "ok",
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "coastal_buffer_m": 300,
+        "physical_counts": {
+          "water": 77,
+          "coastal": 0,
+          "land": 189
+        },
+        "counts": {
+          "water": 18,
+          "coastal": 59,
+          "land": 189,
+          "infrastructure": 0
+        },
+        "shoreline_validation": {
+          "status": "outside_scope",
+          "checked": 0,
+          "failed": 0,
+          "scope": "Sparse imagery controls only; not province-wide validation",
+          "registry_sha256": "21d19953172c3c01dc99038610a5f408d9bb11b1153c0528aa11b003a215846a",
+          "controls_sha256": "3cac45abd181b0f87286b187263df083f86526784a62e0dbf03a3855052c4c17",
+          "collections": [
+            {
+              "location": "St. John's harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "bf95bca46b67a8aa10597b47ba5cad6c36221132260b2871691c236cfb44ed9a"
+            },
+            {
+              "location": "Bonavista harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "5b7409807e00adc94fe417c2553eba2c3d85da16a9f63a28b6aa23c8f0d820ba"
+            },
+            {
+              "location": "Lewisporte harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "a88b216f1dd4c55051da85732df354c760a651258d8c119a807b03f814209f81"
+            },
+            {
+              "location": "Ferryland coast",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "f531c10527e92cfc6dadb99c76f87959544e548f4766f33a7c95bac9ad35e494"
+            },
+            {
+              "location": "Makkovik harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "2aa5ee728ade4a97d0ef6f1b8f83cbea5363ca642b9e5874afd1ae93f3e37c2d"
+            },
+            {
+              "location": "Bay of Exploits",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "86eb0b13a5833d5d4f538129556104707f501fd3d5e634636387c3b10d23d35f"
+            }
+          ]
+        }
+      },
+      "physical_reference_sha256": "6936ac84fb82fd24900453bcbc6902b24b5862181282129d23f0254cd0a93d13",
+      "comparison": {
+        "status": "observed_ais_subset_only",
+        "observed_ais_denominator": 2,
+        "retained_returns": 264,
+        "matched_raw": 2,
+        "raw_ambiguous_returns": 0,
+        "ais_subset_proximity_recall_raw": 1,
+        "match_radius_m": 500,
+        "trials": [
+          {
+            "buffer_m": 0,
+            "observed_ais_denominator": 2,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 2,
+            "eligible_returns": 75,
+            "coastal_returns_retained": 0,
+            "matched_eligible": 2,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 2,
+                "matched_raw": 2,
+                "matched_eligible": 2,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 100,
+            "observed_ais_denominator": 2,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 2,
+            "eligible_returns": 29,
+            "coastal_returns_retained": 46,
+            "matched_eligible": 2,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 2,
+                "matched_raw": 2,
+                "matched_eligible": 2,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 300,
+            "observed_ais_denominator": 2,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 2,
+            "eligible_returns": 16,
+            "coastal_returns_retained": 59,
+            "matched_eligible": 2,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 2,
+                "matched_raw": 2,
+                "matched_eligible": 2,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 500,
+            "observed_ais_denominator": 2,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 2,
+            "eligible_returns": 12,
+            "coastal_returns_retained": 63,
+            "matched_eligible": 2,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 2,
+                "matched_raw": 2,
+                "matched_eligible": 2,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 1000,
+            "observed_ais_denominator": 2,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 2,
+            "eligible_returns": 12,
+            "coastal_returns_retained": 63,
+            "matched_eligible": 2,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 2,
+                "matched_raw": 2,
+                "matched_eligible": 2,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          }
+        ]
+      }
+    },
+    {
+      "product_id": "423801d3-499e-4058-870d-143bfb4b1ca1",
+      "product_name": "S1D_IW_GRDH_1SDV_20261002T213855_20261002T213920_004842_00919B_6BFD_COG.SAFE",
+      "acquisition_group": "S1D_004842_00919B",
+      "acquisition_time": "2026-10-02T21:38:55.020771Z",
+      "catalogue_interval": {
+        "Start": "2026-10-02T21:38:55.020771Z",
+        "End": "2026-10-02T21:39:20.018692Z"
+      },
+      "setting": "Northern/western Newfoundland coastal/offshore slice",
+      "polarization": "VV/VH",
+      "payload_sha256": "e22086b8fab489973da7f1486ac7ddaed3e10432ff9048df13e1424d312bb1cb",
+      "detections_sha256": "647826f9d7b096970bc79276560b33965fe423d1860a88824b36f6b27a9be127",
+      "detections_available": true,
+      "input_band_sha256": {
+        "VV": "8f3614cd6e1f96428d9c13e257c83958711174f7b2d8f138520cd79a106166df",
+        "VH": "572cb2f606d0df55e5d5444d44c9f1c8e964afd0951018171cbe888dd6a668f9"
+      },
+      "detector": {
+        "detector": "xview3",
+        "weights_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+        "threshold": 0.15,
+        "config_sha256": "ed6f8341523071b94c1755438f9af3f1bddc57307e1d3c563e765fa0757fa707",
+        "complete": true
+      },
+      "alignment": {
+        "input_records": 96,
+        "aligned_vessels": 28,
+        "timestamp_policy": "timezone-aware UTC; naive legacy values assumed UTC",
+        "uncertainty_model": "heuristic allowance; not a calibrated probability",
+        "invalid_records": 0,
+        "stale_records": 0,
+        "rejected_tracks": 9
+      },
+      "archive_recording": {
+        "status": "gap_or_unknown",
+        "sessions": [],
+        "area_wide_reception_proven": false
+      },
+      "ais_inside_nl_and_catalogue": 1,
+      "ais_outside_joint_valid_pixels": 0,
+      "returns_outside_scope_or_valid_pixels": 3,
+      "landmask": {
+        "status": "ok",
+        "source": "osm",
+        "licence": "ODbL - (c) OpenStreetMap contributors",
+        "coastal_buffer_m": 300,
+        "physical_counts": {
+          "water": 65,
+          "coastal": 0,
+          "land": 361
+        },
+        "counts": {
+          "water": 16,
+          "coastal": 49,
+          "land": 361,
+          "infrastructure": 0
+        },
+        "shoreline_validation": {
+          "status": "outside_scope",
+          "checked": 0,
+          "failed": 0,
+          "scope": "Sparse imagery controls only; not province-wide validation",
+          "registry_sha256": "21d19953172c3c01dc99038610a5f408d9bb11b1153c0528aa11b003a215846a",
+          "controls_sha256": "3cac45abd181b0f87286b187263df083f86526784a62e0dbf03a3855052c4c17",
+          "collections": [
+            {
+              "location": "St. John's harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "bf95bca46b67a8aa10597b47ba5cad6c36221132260b2871691c236cfb44ed9a"
+            },
+            {
+              "location": "Bonavista harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "5b7409807e00adc94fe417c2553eba2c3d85da16a9f63a28b6aa23c8f0d820ba"
+            },
+            {
+              "location": "Lewisporte harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "a88b216f1dd4c55051da85732df354c760a651258d8c119a807b03f814209f81"
+            },
+            {
+              "location": "Ferryland coast",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "f531c10527e92cfc6dadb99c76f87959544e548f4766f33a7c95bac9ad35e494"
+            },
+            {
+              "location": "Makkovik harbour",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "2aa5ee728ade4a97d0ef6f1b8f83cbea5363ca642b9e5874afd1ae93f3e37c2d"
+            },
+            {
+              "location": "Bay of Exploits",
+              "checked": 0,
+              "failed": 0,
+              "controls_sha256": "86eb0b13a5833d5d4f538129556104707f501fd3d5e634636387c3b10d23d35f"
+            }
+          ]
+        }
+      },
+      "physical_reference_sha256": "6936ac84fb82fd24900453bcbc6902b24b5862181282129d23f0254cd0a93d13",
+      "comparison": {
+        "status": "observed_ais_subset_only",
+        "observed_ais_denominator": 1,
+        "retained_returns": 425,
+        "matched_raw": 1,
+        "raw_ambiguous_returns": 0,
+        "ais_subset_proximity_recall_raw": 1,
+        "match_radius_m": 500,
+        "trials": [
+          {
+            "buffer_m": 0,
+            "observed_ais_denominator": 1,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 1,
+            "eligible_returns": 64,
+            "coastal_returns_retained": 0,
+            "matched_eligible": 1,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 1,
+                "matched_raw": 1,
+                "matched_eligible": 1,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 100,
+            "observed_ais_denominator": 1,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 1,
+            "eligible_returns": 24,
+            "coastal_returns_retained": 40,
+            "matched_eligible": 1,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 1,
+                "matched_raw": 1,
+                "matched_eligible": 1,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 300,
+            "observed_ais_denominator": 1,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 1,
+            "eligible_returns": 15,
+            "coastal_returns_retained": 49,
+            "matched_eligible": 1,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 1,
+                "matched_raw": 1,
+                "matched_eligible": 1,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 500,
+            "observed_ais_denominator": 1,
+            "coastal_ais_withheld": 0,
+            "coastal_ais_with_raw_match": 0,
+            "ais_policy_eligible": 1,
+            "eligible_returns": 12,
+            "coastal_returns_retained": 52,
+            "matched_eligible": 1,
+            "raw_matched_without_eligible_match": 0,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 1,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "open_water": {
+                "observed_ais": 1,
+                "matched_raw": 1,
+                "matched_eligible": 1,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          },
+          {
+            "buffer_m": 1000,
+            "observed_ais_denominator": 1,
+            "coastal_ais_withheld": 1,
+            "coastal_ais_with_raw_match": 1,
+            "ais_policy_eligible": 0,
+            "eligible_returns": 10,
+            "coastal_returns_retained": 54,
+            "matched_eligible": 0,
+            "raw_matched_without_eligible_match": 1,
+            "eligible_matched_without_raw_match": 0,
+            "eligible_ambiguous_returns": 0,
+            "ais_subset_proximity_recall_eligible": 0,
+            "strata": {
+              "coastal_water": {
+                "observed_ais": 1,
+                "matched_raw": 1,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 1
+              },
+              "open_water": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "land_mismatch": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              },
+              "unknown": {
+                "observed_ais": 0,
+                "matched_raw": 0,
+                "matched_eligible": 0,
+                "unmatched_raw": 0,
+                "unmatched_eligible": 0
+              }
+            },
+            "false_alarms": null,
+            "total_missed_vessels": null
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "AIS-selected convenience sample; incomplete self-reported reception.",
+    "Scene start to whole seconds; per-pixel radar times are unavailable.",
+    "500 m one-to-one proximity is not reviewed identity correctness.",
+    "A withheld AIS position is not an established SAR-visible missed vessel.",
+    "Reference land may indicate berths, shoreline or alignment error.",
+    "Sparse shoreline controls do not validate the complete imaged coastline.",
+    "Adjacent slices share acquisitions; rows are not independent trials.",
+    "No independent labels, false-alarm measurement or operating-point choice."
+  ],
+  "local_full_report_sha256": "b0156275c2e3696323f8c206e5b7e6231285898d84cd044ac7f3d969160f177e"
+}

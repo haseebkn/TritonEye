@@ -1,10 +1,13 @@
 {
   "type": "ShorelineControlRegistry",
-  "version": 1,
+  "version": 2,
   "scope": "Sparse visual development checks, not province-wide validation",
   "collections": [
     {"location": "St. John's harbour", "path": "st_johns_checks.geojson"},
     {"location": "Bonavista harbour", "path": "bonavista_checks.geojson"},
-    {"location": "Lewisporte harbour", "path": "lewisporte_checks.geojson"}
+    {"location": "Lewisporte harbour", "path": "lewisporte_checks.geojson"},
+    {"location": "Ferryland coast", "path": "ferryland_checks.geojson"},
+    {"location": "Makkovik harbour", "path": "makkovik_checks.geojson"},
+    {"location": "Bay of Exploits", "path": "bay_of_exploits_checks.geojson"}
   ]
 }

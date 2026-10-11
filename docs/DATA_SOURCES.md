@@ -173,8 +173,9 @@ Only attributed OSM vector clips are committed as offline test fixtures.
 
 Bonavista and Lewisporte each have five physical shoreline controls on actual
 valid pixels in the two selected real-scene replays. Twillingate is not imaged
-by either selected scene and is not part of their benchmark coverage. Labrador
-has no controls/scenes in this inventory. CanVec remains comparison-only; sparse
+by either selected scene and is not part of their benchmark coverage. This is
+the historical 5 October inventory; see the [current coverage inventory](COASTAL_POLICY.md#current-frozen-pilot-development-coverage-11-october)
+for subsequent regional checks. CanVec remains comparison-only; sparse
 control agreement is not a province-wide accuracy ranking. See
 [COASTAL_POLICY.md](COASTAL_POLICY.md) for the rejected quay-edge candidate,
 coverage inventory, reference limitations and still-unmeasured buffer trials.

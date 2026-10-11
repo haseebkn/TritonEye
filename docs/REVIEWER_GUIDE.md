@@ -16,6 +16,11 @@ For the subsequent archive refresh and local image-only handoff, see the
 counts are separate from the measured results below; independent labels and
 correlation improvement are still blocked.
 
+The subsequent [AIS-supported coastal-buffer analysis](AIS_COASTAL_ANALYSIS.md)
+measures exclusions within two observed coastal AIS samples and replays policy
+effects on cached detector proximity matches. It provides supporting sensitivity
+evidence; complete-area false alarms and missed vessels remain unavailable.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:
@@ -63,9 +68,9 @@ and [the historical baseline](NL_BASELINE.md#real-replay-results), with
 [baseline evidence](evidence/nl_baseline_20261005.json).
 
 Sparse imagery controls and coastal-buffer replays are additional engineering
-observations, not measured vessel performance. **18 registered Newfoundland
-controls do not validate Newfoundland and Labrador province-wide**; Labrador has
-none in that control registry. [Scope and source provenance](COASTAL_POLICY.md#coverage-sparse-controls-not-certification).
+observations, not measured vessel performance or province-wide validation.
+See the authoritative [current coverage inventory, source provenance and
+remaining Step 2 blocker](COASTAL_POLICY.md#current-frozen-pilot-development-coverage-11-october).
 
 ## 3. Blocked or not implemented — why and what would resolve it
 
@@ -75,7 +80,7 @@ none in that control registry. [Scope and source provenance](COASTAL_POLICY.md#c
 | Correct SAR–AIS identities and measured correlation improvement | No independently reviewed association cases; sparse local AIS lacks sufficient competition/track context. A proximity match is not a correct-identity label. | Area-wide co-temporal tracks, supported identity decisions and a paired geometric/uncertainty comparison on held-out cases, including wrong identities, ambiguity, misses and coverage. [Association protocol](TARGET_CORRELATION.md) |
 | Supervised detector or foundation-model improvement | No usable adopted training vessel labels, implemented trainer or trained foundation-feature detection head. The frozen encoder probe is not a controlled detector comparison. | Compatible training recipe, reviewed development data and reproducible pretrained/fine-tuned/foundation comparisons under identical splits and operating constraints. [Model roadmap](MODEL_DEVELOPMENT.md#completing-the-controlled-comparison) |
 | Low-false-positive threshold and coastal buffer selection | Missing reviewed labels and sufficient independent validation blocks; partial/unsupported sensor coverage. No operating point has been selected from detector counts. | Validation under documented false-alarm **and minimum recall/coverage** constraints, then a separately frozen final-test protocol. These are provisional research targets, not C-CORE requirements. [Operating objective](NL_BASELINE.md#provisional-operating-objective) |
-| General NL offshore/HH/HV capability and shoreline correctness | The current detector and feature model have no validated HH/HV compatibility; sparse shoreline controls leave large regions unchecked. Historical annotation coverage is not detector support. | Separate labelled HH/HV model/input experiments and broader regional imagery checks, including Labrador. [Polarization limits](DATA_SOURCES.md#polarization-availability-constrains-what-can-be-processed) |
+| General NL offshore/HH/HV capability and shoreline correctness | The current detector and feature model have no validated HH/HV compatibility; sparse shoreline controls, now including Makkovik, leave large regions unchecked. Historical annotation coverage is not detector support. | Separate labelled HH/HV model/input experiments and broader regional imagery checks beyond these sparse points. [Polarization limits](DATA_SOURCES.md#polarization-availability-constrains-what-can-be-processed) |
 | Optical/RF fusion, retraining and operational MLOps | Not implemented: optical/RF fusion, automated retraining/promotion, monitored staged deployment, AWS training, DVC data versioning, the SQLite task bus and cloud commissioning. These are implementation gaps, not features merely awaiting credentials. | Authorized data, implemented pipelines and deployment/monitoring/rollback validation. The [agent-engine document](../agents.md) is explicitly a future blueprint, not delivery evidence. |
 
 Upstream detector-pretraining overlap must also be audited before claiming an
