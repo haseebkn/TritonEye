@@ -1,5 +1,9 @@
 # Historical NL benchmark implementation — 2026-10-05
 
+For the subsequent [0.2.0 expansion and current Step 3 status](NL_BENCHMARK_V020.md),
+see the new dataset card, nine-area first pass and supporting AIS ledger. The
+historical 0.1.0 release described below remains unchanged.
+
 ## Delivered boundary
 
 The [v0.1.0 dataset card](../datasets/nl_benchmark/v0.1.0/DATASET_CARD.md),

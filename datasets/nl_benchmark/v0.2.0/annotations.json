@@ -1,0 +1,1363 @@
+{
+  "dataset_version": "0.2.0",
+  "source_kind": "machine_assisted_sar_first_pass",
+  "objects": [
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        80,
+        75,
+        115,
+        115
+      ],
+      "decision": "Compact bright coastal cluster with azimuth-like streak; rock/land return, vessel and artefact alternatives remain.",
+      "id": "ferryland_coast_001",
+      "roi_id": "ferryland_coast",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.86051111711693,
+          47.03702860558602
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        65,
+        165,
+        100,
+        218
+      ],
+      "decision": "Elongated bright return by a land-like feature; extent may include sidelobes, not a hull measurement.",
+      "id": "ferryland_coast_002",
+      "roi_id": "ferryland_coast",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.86083515257204,
+          47.028119871159255
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        190,
+        350,
+        248,
+        388
+      ],
+      "decision": "Bright island-like cluster appears in both bands; no independently referenced fixed object identity.",
+      "id": "ferryland_coast_003",
+      "roi_id": "ferryland_coast",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.88281683738758,
+          47.01431283382999
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "decision": "Contextual diffuse/banded return area; may mix sea texture and processing effects. Not an exhaustive negative target label.",
+      "id": "southern_avalon_offshore_001",
+      "roi_id": "southern_avalon_offshore",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.39989900977041,
+          46.80001991336675
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        174,
+        175,
+        202,
+        204
+      ],
+      "decision": "Bright cluster on west/north harbour margin; vessel, quay and urban structure cannot be separated.",
+      "id": "st_johns_harbour_001",
+      "roi_id": "st_johns_harbour",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.711338805862795,
+          47.55594585004337
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        207,
+        175,
+        243,
+        203
+      ],
+      "decision": "Adjacent bright harbour-margin cluster, partly merged with surrounding returns; count of individual objects unknown.",
+      "id": "st_johns_harbour_002",
+      "roi_id": "st_johns_harbour",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.70654055077384,
+          47.556465064973196
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        274,
+        283,
+        301,
+        305
+      ],
+      "decision": "Bright southern harbour-edge return; potential berthed object or fixed structure, no co-temporal identity evidence.",
+      "id": "st_johns_harbour_003",
+      "roi_id": "st_johns_harbour",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.70086347642397,
+          47.56685421370761
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        302,
+        282,
+        329,
+        310
+      ],
+      "decision": "Neighbouring harbour-edge cluster; merged structure/vessel alternatives remain unresolved.",
+      "id": "st_johns_harbour_004",
+      "roi_id": "st_johns_harbour",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.697290271514476,
+          47.56746001070476
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        329,
+        301,
+        350,
+        324
+      ],
+      "decision": "Compact bright return at basin margin; not enough evidence to label a vessel or fixed structure.",
+      "id": "st_johns_harbour_005",
+      "roi_id": "st_johns_harbour",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.69456718396588,
+          47.569307930968264
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "decision": "Diffuse streaked background context, not independently established vessel-free water.",
+      "id": "eastern_avalon_offshore_001",
+      "roi_id": "eastern_avalon_offshore",
+      "product_id": "976d8adb-fa03-4669-a466-a49fba723699",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.400110600130226,
+          47.54997806882225
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        230,
+        226,
+        256,
+        254
+      ],
+      "decision": "Bright connected shoreline cluster by a dark inlet; fixed structure, rock and vessel alternatives unresolved.",
+      "id": "bonavista_coast_001",
+      "roi_id": "bonavista_coast",
+      "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.11547414755148,
+          48.64930812474067
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        148,
+        279,
+        181,
+        304
+      ],
+      "decision": "Elongated coastal return near an inlet/land-like projection; do not infer a vessel from brightness.",
+      "id": "bonavista_coast_002",
+      "roi_id": "bonavista_coast",
+      "product_id": "9d86c0e9-f457-4948-bb09-3f7d00b22d04",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -53.12730082591261,
+          48.65269751897477
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        178,
+        92,
+        195,
+        113
+      ],
+      "decision": "Compact bright shoreline return; may be land/structure or berthed target, not independently identified.",
+      "id": "lewisporte_coast_001",
+      "roi_id": "lewisporte_coast",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.050726103384285,
+          49.23114916132308
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        107,
+        246,
+        142,
+        265
+      ],
+      "decision": "Bright connected coastal cluster in both bands; fixed structure versus other target not adjudicated.",
+      "id": "lewisporte_coast_002",
+      "roi_id": "lewisporte_coast",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.06288236607623,
+          49.24392325288759
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        199,
+        277,
+        235,
+        302
+      ],
+      "decision": "Linear shoreline feature with bright tip; structure/land versus vessel alternatives unresolved.",
+      "id": "lewisporte_coast_003",
+      "roi_id": "lewisporte_coast",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.051158109720376,
+          49.24839123977387
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        244,
+        294,
+        261,
+        317
+      ],
+      "decision": "Isolated shoreline-adjacent bright return; rock/island, structure and vessel alternatives remain.",
+      "id": "bay_of_exploits_water_001",
+      "roi_id": "bay_of_exploits_water",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.14171525052817,
+          49.27429818015736
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        407,
+        357,
+        429,
+        391
+      ],
+      "decision": "Elongated isolated return in both bands, likely island/rock-like but not independently adjudicated.",
+      "id": "bay_of_exploits_water_002",
+      "roi_id": "bay_of_exploits_water",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.12092178999499,
+          49.28299260989975
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        407,
+        404,
+        429,
+        436
+      ],
+      "decision": "Another isolated return south of previous; no verified stationary identity.",
+      "id": "bay_of_exploits_water_003",
+      "roi_id": "bay_of_exploits_water",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.122048442577835,
+          49.28711927065116
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        311,
+        418,
+        327,
+        438
+      ],
+      "decision": "Small compact isolated return in both bands; retain rather than label vessel from brightness.",
+      "id": "bay_of_exploits_water_004",
+      "roi_id": "bay_of_exploits_water",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.13568783923366,
+          49.286312680855886
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        386,
+        442,
+        409,
+        481
+      ],
+      "decision": "Connected isolated bright return/cluster; object count and physical identity unresolved.",
+      "id": "bay_of_exploits_water_005",
+      "roi_id": "bay_of_exploits_water",
+      "product_id": "66d3167d-240a-459a-8066-75b9d2a458f2",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.12584902260459,
+          49.290526715097045
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        417,
+        108,
+        443,
+        144
+      ],
+      "decision": "Compact bright shoreline cluster; quay/rock/berthed vessel alternatives cannot be independently distinguished.",
+      "id": "makkovik_coast_001",
+      "roi_id": "makkovik_coast",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.17292524556269,
+          55.084375961720085
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        386,
+        190,
+        408,
+        221
+      ],
+      "decision": "Bright inlet-edge return partly connected to surrounding land-like texture; unresolved physical identity.",
+      "id": "makkovik_coast_002",
+      "roi_id": "makkovik_coast",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.17018551817551,
+          55.07675330701223
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "decision": "Coastal winter context with possible frozen-water/land/rough-surface mixture; ice identity and individual targets not established. Area is not a target-count label.",
+      "id": "hopedale_coast_001",
+      "roi_id": "hopedale_coast",
+      "product_id": "2b13a301-59dd-4441-b9df-351737081b4a",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.220021338449904,
+          55.44993060167315
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        327,
+        316,
+        356,
+        346
+      ],
+      "decision": "Localized brighter cluster amid winter coastal texture; fixed structure, land/rock, ice and vessel alternatives remain unadjudicated.",
+      "id": "hopedale_coast_002",
+      "roi_id": "hopedale_coast",
+      "product_id": "2b13a301-59dd-4441-b9df-351737081b4a",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.20916753720828,
+          55.458103829230744
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "decision": "Strong diffuse banding context, potentially surface texture or imaging effects; neither a verified sea-state diagnosis nor exhaustive vessel-free truth.",
+      "id": "hopedale_offshore_001",
+      "roi_id": "hopedale_offshore",
+      "product_id": "2b13a301-59dd-4441-b9df-351737081b4a",
+      "annotator": "codex_primary_machine_assisted",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.80008742220956,
+          55.5999480618456
+        ]
+      },
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Image-first native co-pol and cross-pol inspection; no detector overlay."
+      ]
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        221,
+        247,
+        280,
+        309
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_01_area_01_001",
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.71005134644798,
+          47.55850801155652
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        281,
+        251,
+        316,
+        287
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_01_area_01_002",
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.70363753569233,
+          47.5584305822785
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        336,
+        285,
+        358,
+        319
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_01_area_01_003",
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.698123938581816,
+          47.562134919491086
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        363,
+        347,
+        388,
+        389
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_01_area_01_004",
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.69595306210925,
+          47.56850027924125
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        271,
+        310,
+        291,
+        335
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_01_area_01_005",
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.70712573758294,
+          47.5629724786157
+        ]
+      }
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        0,
+        220,
+        245
+      ],
+      "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence.",
+      "id": "scene_01_area_01_006",
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.72467586803291,
+          47.54238630782946
+        ]
+      }
+    },
+    {
+      "class": "vessel",
+      "kind": "object",
+      "bbox_px": [
+        249,
+        226,
+        265,
+        266
+      ],
+      "confidence": "provisional",
+      "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established.",
+      "id": "scene_01_area_02_001",
+      "roi_id": "scene_01_area_02",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.57564632978446,
+          47.5416967191547
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        135,
+        150,
+        176,
+        188
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_02_area_01_001",
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.707717077729306,
+          47.55987719818202
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        168,
+        129,
+        188,
+        153
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_02_area_01_002",
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.704166452222445,
+          47.557703409715856
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        200,
+        168,
+        240,
+        198
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_02_area_01_003",
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.69969923335202,
+          47.56211777314621
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        184,
+        213,
+        205,
+        233
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_02_area_01_004",
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.7039116008278,
+          47.56532466493097
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        213,
+        245,
+        240,
+        265
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_02_area_01_005",
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.700508866651006,
+          47.56868776545271
+        ]
+      }
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        0,
+        130,
+        512
+      ],
+      "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence.",
+      "id": "scene_02_area_01_006",
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.72142544306191,
+          47.56631563381305
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        201,
+        251,
+        220,
+        280
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_03_area_01_001",
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.694147039856766,
+          47.56710276004457
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        275,
+        300,
+        297,
+        328
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_03_area_01_002",
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.705311770496735,
+          47.56394139343893
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        296,
+        312,
+        318,
+        337
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_03_area_01_003",
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.708343702028515,
+          47.56333044845588
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        307,
+        350,
+        331,
+        378
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_03_area_01_004",
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.71088485619878,
+          47.55997126010446
+        ]
+      }
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        350,
+        0,
+        512,
+        512
+      ],
+      "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence.",
+      "id": "scene_03_area_01_005",
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.72307711405726,
+          47.571444789311286
+        ]
+      }
+    },
+    {
+      "class": "vessel",
+      "kind": "object",
+      "bbox_px": [
+        244,
+        217,
+        261,
+        247
+      ],
+      "confidence": "provisional",
+      "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established.",
+      "id": "scene_03_area_02_001",
+      "roi_id": "scene_03_area_02",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -52.21507594588582,
+          47.5042436251655
+        ]
+      }
+    },
+    {
+      "class": "vessel",
+      "kind": "object",
+      "bbox_px": [
+        245,
+        288,
+        271,
+        311
+      ],
+      "confidence": "provisional",
+      "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established.",
+      "id": "scene_05_area_01_001",
+      "roi_id": "scene_05_area_01",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.50075544219208,
+          51.47360591666189
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        231,
+        225,
+        256,
+        269
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_05_area_02_001",
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.34952340538364,
+          50.70665746712214
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        294,
+        234,
+        318,
+        257
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_05_area_02_002",
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.35819399950988,
+          50.70767387641736
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        208,
+        210,
+        225,
+        229
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_05_area_02_003",
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.34513147397424,
+          50.708746279348574
+        ]
+      }
+    },
+    {
+      "class": "unresolved",
+      "kind": "object",
+      "bbox_px": [
+        142,
+        66,
+        166,
+        98
+      ],
+      "decision": "Shore-connected or island-like compact/merged return: quay, rock, land and possible berthed-vessel alternatives. No independent stationary reference; individual object count unknown.",
+      "id": "scene_05_area_02_004",
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.333267282551724,
+          50.720213234563985
+        ]
+      }
+    },
+    {
+      "class": "clutter",
+      "kind": "area",
+      "bbox_px": [
+        0,
+        100,
+        200,
+        512
+      ],
+      "decision": "Distributed land/urban scattering context, including possible unseparated structures. Context extent is not target-centre negative truth or proof of vessel absence.",
+      "id": "scene_05_area_02_005",
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.330913459875795,
+          50.69933349195715
+        ]
+      }
+    },
+    {
+      "class": "vessel",
+      "kind": "object",
+      "bbox_px": [
+        244,
+        210,
+        274,
+        234
+      ],
+      "confidence": "provisional",
+      "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established.",
+      "id": "scene_06_area_01_001",
+      "roi_id": "scene_06_area_01",
+      "product_id": "bca72678-9f91-4322-97c8-c2021dead860",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.259554969854875,
+          51.16344393290566
+        ]
+      }
+    },
+    {
+      "class": "vessel",
+      "kind": "object",
+      "bbox_px": [
+        243,
+        212,
+        272,
+        238
+      ],
+      "confidence": "provisional",
+      "decision": "Isolated elongated compact return in both native bands, separated from visible land and consistent with a vessel. Sidelobes may enlarge the box. Fixed-target/artefact alternatives require expert corroboration; no independent identity or vessel truth established.",
+      "id": "scene_06_area_02_001",
+      "roi_id": "scene_06_area_02",
+      "product_id": "bca72678-9f91-4322-97c8-c2021dead860",
+      "annotator": "codex_primary_machine_assisted",
+      "ais_role": "supporting_only",
+      "evidence": [
+        "Native image-first inspection of both bands; detector output hidden."
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.447281381435786,
+          51.0813054037773
+        ]
+      }
+    }
+  ]
+}

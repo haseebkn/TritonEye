@@ -21,6 +21,12 @@ measures exclusions within two observed coastal AIS samples and replays policy
 effects on cached detector proximity matches. It provides supporting sensitivity
 evidence; complete-area false alarms and missed vessels remain unavailable.
 
+The subsequent [Step 3 benchmark expansion](NL_BENCHMARK_V020.md) freezes 21
+selected areas, including nine new complete image-first passes and five
+provisional vessel interpretations with supporting AIS proximity. Independent
+review is still unavailable; validation truth export and accuracy remain blocked.
+The frozen v0.1.0 statements below retain their historical scope.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:

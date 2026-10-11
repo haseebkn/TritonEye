@@ -1,0 +1,159 @@
+{
+  "dataset_version": "0.2.0",
+  "time_reference": "Frozen overlap-bundle catalogue midpoint alignment",
+  "truth_role": "supporting_only",
+  "independent_review_available": false,
+  "proximity_gate_m": 500,
+  "accuracy_measured": false,
+  "areas": [
+    {
+      "roi_id": "scene_01_area_01",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_01_area_01.json",
+        "sha256": "0dbae5d004b8acbeb1e2f1e0e47b25b55ea5b84c11232f8e783bf4c86c00bf88"
+      },
+      "scene_competitors": 32,
+      "tracks_in_selected_area": 28,
+      "vessel_interpretations": [],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_01_area_02",
+      "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_01_area_02.json",
+        "sha256": "cee0efecf96148742f3dc73ba1c4f26ad0874d4af18bc725c60449feec9ab207"
+      },
+      "scene_competitors": 32,
+      "tracks_in_selected_area": 1,
+      "vessel_interpretations": [
+        {
+          "annotation_id": "scene_01_area_02_001",
+          "supporting_tracks_within_500m": 1,
+          "nearest_track_distance_m": 109.7,
+          "identity_decision": "unreviewed"
+        }
+      ],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_02_area_01",
+      "product_id": "0b5ad75c-9a10-4f0c-8bcc-f145aa1738e4",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_02_area_01.json",
+        "sha256": "67f1244bb8c3fad11a2776a8e49c0863fff6c70d919805d6f715db463f4e1ecc"
+      },
+      "scene_competitors": 22,
+      "tracks_in_selected_area": 22,
+      "vessel_interpretations": [],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_03_area_01.json",
+        "sha256": "b58d682db856e750579041d65d7605ae68571cd0aada87ee5fce2c5386fea84f"
+      },
+      "scene_competitors": 19,
+      "tracks_in_selected_area": 18,
+      "vessel_interpretations": [],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_03_area_02",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_03_area_02.json",
+        "sha256": "b94e6f544de93ea1c074dcf8327276c695590cf681c2937a6f96a0f4537fd560"
+      },
+      "scene_competitors": 19,
+      "tracks_in_selected_area": 1,
+      "vessel_interpretations": [
+        {
+          "annotation_id": "scene_03_area_02_001",
+          "supporting_tracks_within_500m": 1,
+          "nearest_track_distance_m": 253.1,
+          "identity_decision": "unreviewed"
+        }
+      ],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_05_area_01",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_05_area_01.json",
+        "sha256": "536505c8bfa3d2b1d31b75703f56c9c633493ea3e22418b5c3d642f8c437194d"
+      },
+      "scene_competitors": 6,
+      "tracks_in_selected_area": 1,
+      "vessel_interpretations": [
+        {
+          "annotation_id": "scene_05_area_01_001",
+          "supporting_tracks_within_500m": 1,
+          "nearest_track_distance_m": 432.1,
+          "identity_decision": "unreviewed"
+        }
+      ],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_05_area_02.json",
+        "sha256": "3085ba853afde56cf0ca367c3dccf68ff5b5c5482f15bded465dc8ee4017c8e1"
+      },
+      "scene_competitors": 6,
+      "tracks_in_selected_area": 2,
+      "vessel_interpretations": [],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_06_area_01",
+      "product_id": "bca72678-9f91-4322-97c8-c2021dead860",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_06_area_01.json",
+        "sha256": "a008e5b312a6478cc0a5d109d36e7efa5f59dde05654da83cde846fdf6d93fab"
+      },
+      "scene_competitors": 2,
+      "tracks_in_selected_area": 1,
+      "vessel_interpretations": [
+        {
+          "annotation_id": "scene_06_area_01_001",
+          "supporting_tracks_within_500m": 1,
+          "nearest_track_distance_m": 347.6,
+          "identity_decision": "unreviewed"
+        }
+      ],
+      "reviewed_correct_identities": null
+    },
+    {
+      "roi_id": "scene_06_area_02",
+      "product_id": "bca72678-9f91-4322-97c8-c2021dead860",
+      "telemetry": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/telemetry_second_pass/scene_06_area_02.json",
+        "sha256": "7794b64f4dea92ee57db2f744d6eb76df92fb964032266210e1dd056ded5071b"
+      },
+      "scene_competitors": 2,
+      "tracks_in_selected_area": 1,
+      "vessel_interpretations": [
+        {
+          "annotation_id": "scene_06_area_02_001",
+          "supporting_tracks_within_500m": 1,
+          "nearest_track_distance_m": 320.8,
+          "identity_decision": "unreviewed"
+        }
+      ],
+      "reviewed_correct_identities": null
+    }
+  ],
+  "limits": [
+    "AIS-informed sampling; incomplete historical reception.",
+    "A nearby track does not establish correct object identity.",
+    "These counts are not detector recall, exhaustive truth or improvement."
+  ],
+  "first_pass_annotations_sha256": "c3e63b8b6d66b194601500335276214ac94fa8091efca036fbe638c4436d01da"
+}
