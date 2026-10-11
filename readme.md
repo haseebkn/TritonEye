@@ -5,6 +5,7 @@ Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 One entry point for evidence, limitations and a short review walkthrough.
 Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle](docs/OVERLAP_REVIEW.md).
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
+Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a
@@ -47,6 +48,8 @@ The [NL baseline and operating-point protocol](docs/NL_BASELINE.md) separates
 processing coverage, resource use and descriptive returns from unavailable
 accuracy. Validation-only threshold selection requires useful recall and coverage
 as well as a low false-alarm bound; it cannot succeed by withholding everything.
+The [v0.2.0 replay](docs/NL_BASELINE_V020.md) extends this accounting to the
+expanded development set; independent accuracy remains unavailable.
 
 The [model development status](docs/MODEL_DEVELOPMENT.md) includes a real frozen
 CROMA radar-feature experiment on NL VV/VH development imagery. Features are

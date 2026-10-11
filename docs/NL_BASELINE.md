@@ -6,6 +6,12 @@ false-alarm density or association correctness: no independent SAR reviewer is
 available, and its machine-assisted labels remain provisional. No operating
 threshold has been selected and automatic operational alerts remain disabled.
 
+The [current v0.2.0 development replay](NL_BASELINE_V020.md) applies protocol 3
+to the expanded dataset. The historical v0.1.0 results below remain frozen.
+Protocol 3 verifies development imagery without opening test chips or combined
+review HTML, reads frozen archive manifests as well as legacy AIS row snapshots,
+and compares coastal buffers at the fixed 0.15 baseline threshold.
+
 The separate [saved full-scene AIS-subset result](AIS_SUBSET_RESULT.md) uses a
 different proximity rule from this protocol's selected-area metric; they must
 not be pooled. It does not change the frozen pilot's missing labels, null

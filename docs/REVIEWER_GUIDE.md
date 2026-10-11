@@ -27,6 +27,11 @@ provisional vessel interpretations with supporting AIS proximity. Independent
 review is still unavailable; validation truth export and accuracy remain blocked.
 The frozen v0.1.0 statements below retain their historical scope.
 
+The [provisional v0.2.0 detector baseline](NL_BASELINE_V020.md) subsequently
+runs the expanded development set and records processing, resources, policy
+exclusions and AIS supporting proximity. Its accuracy metrics remain null and
+threshold selection remains blocked by review and coverage requirements.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:
