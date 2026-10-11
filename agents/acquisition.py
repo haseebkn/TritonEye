@@ -12,6 +12,12 @@ from shapely.geometry import shape
 from agents.ais_validation import parse_utc
 
 
+def acquisition_start(product: dict[str, Any]) -> str | None:
+    dates = product.get("ContentDate")
+    value = dates.get("Start") if isinstance(dates, dict) else None
+    return value if isinstance(value, str) and parse_utc(value) is not None else None
+
+
 def _complete_footprint(footprint: Any) -> bool:
     if not isinstance(footprint, dict) or footprint.get("type") not in (
         "Polygon",
@@ -74,7 +80,7 @@ def unique_acquisitions(products: Sequence[dict[str, Any]]) -> list[dict[str, An
         selected.append(choice)
     return sorted(
         selected,
-        key=lambda p: (p["ContentDate"]["Start"], product_id(p["Id"])),
+        key=lambda p: (acquisition_start(p) or "", product_id(p["Id"])),
         reverse=True,
     )
 

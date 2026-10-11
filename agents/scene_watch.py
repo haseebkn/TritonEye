@@ -31,7 +31,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 from urllib.parse import urlparse
 
-from agents.acquisition import product_id, unique_acquisitions
+from agents.acquisition import acquisition_start, product_id, unique_acquisitions
 from agents.ais_validation import finite_number, parse_utc, valid_mmsi
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -151,7 +151,9 @@ def search_acquisitions(
 
 
 def ais_rows_near(
-    archive_dir: str, acquisition_iso: str, window_minutes: int = AIS_WINDOW_MINUTES
+    archive_dir: str,
+    acquisition_iso: str | None,
+    window_minutes: int = AIS_WINDOW_MINUTES,
 ) -> List[Dict[str, str]]:
     """
     Returns valid archived rows, including legacy and expanded-schema files.
@@ -325,15 +327,17 @@ def assess(
     region = load_region()
     for p in products:
         name = p["Name"]
-        start = p["ContentDate"]["Start"]
+        start = acquisition_start(p)
         usable_pol = f"_{REQUIRED_POLARIZATION}_" in name
-        in_window = ais_observations_near(archive_dir, start) if usable_pol else []
+        in_window = (
+            ais_observations_near(archive_dir, start) if usable_pol and start else []
+        )
         # Eligibility must use the evaluator's own alignment rule. Counting raw
         # rows in the +/-5 min window accepted 2026-10-02 (product 2e0f5ee7)
         # on two vessels whose only reports came 167-258 s AFTER acquisition;
         # the evaluator cannot interpolate or propagate those, so a full
         # download and 126-tile run ended "no valid, sufficiently recent AIS".
-        aligned = aligned_positions(archive_dir, start) if in_window else []
+        aligned = aligned_positions(archive_dir, start) if in_window and start else []
         positions = within_footprint(aligned, p.get("GeoFootprint"))
         positions = [
             position for position in positions if region.covers(Point(*position))
@@ -346,6 +350,8 @@ def assess(
             selected_id = None
         if selected_id is None:
             reason = "missing or invalid satellite product ID"
+        elif start is None:
+            reason = "missing or invalid acquisition time; acquisition time unavailable"
         elif not usable_pol:
             reason = "HH/HV - detector requires VV/VH"
         elif not in_window:
@@ -380,8 +386,8 @@ def assess(
                 "ais_observations": len(in_window),
                 "ais_in_swath": len(positions),
                 "ais_in_water": eligible,
-                "eligible": bool(selected_id and usable_pol and eligible),
-                "scorable": bool(selected_id and usable_pol and eligible),
+                "eligible": bool(selected_id and start and usable_pol and eligible),
+                "scorable": bool(selected_id and start and usable_pol and eligible),
                 "reason": reason,
             }
         )

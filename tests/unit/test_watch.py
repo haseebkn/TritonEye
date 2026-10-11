@@ -13,6 +13,7 @@ import dotenv
 import pytest
 
 from agents import scene_watch, watch
+from agents.acquisition import unique_acquisitions
 from agents.artifacts import REPO_ROOT
 from agents.run_versions import processing_versions
 
@@ -118,6 +119,64 @@ def test_two_products_same_day_are_processed_independently(
     assert third["eligible_pending"] == 0
     assert record(setup)["attempts"][0]["processed_product_id"] == FIRST
     assert record(setup, SECOND)["attempts"][0]["processed_product_id"] == SECOND
+
+
+@pytest.mark.parametrize("missing_start", [True, False])
+@pytest.mark.parametrize("reverse", [True, False])
+def test_incomplete_start_is_retained_without_blocking_valid_processing(
+    setup: dict[str, Any], missing_start: bool, reverse: bool
+) -> None:
+    valid = product(FIRST)
+    valid["ContentDate"]["End"] = "2026-09-27T21:30:48Z"
+    original = product(SECOND)
+    original["ContentDate"] = {"End": "2026-09-27T21:30:48Z"}
+    if not missing_start:
+        original["ContentDate"]["Start"] = None
+    alias_id = "66d3167d-0000-4000-8000-000000000003"
+    cog = {
+        **original,
+        "Id": alias_id,
+        "Name": original["Name"].replace("1234", "ABCD") + "_COG.SAFE",
+    }
+    products = [original, valid, cog]
+    selected = unique_acquisitions(products[::-1] if reverse else products)
+    assert selected == unique_acquisitions(products)
+    assert len(selected) == 3
+    assert selected[0]["Id"] == FIRST
+    execute = Mock(side_effect=runner)
+    setup["runner"] = execute
+    outcome = watch.run_check(selected, **setup)
+    assert outcome["outcome"] == "processed"
+    assert outcome["product_id"] == FIRST
+    execute.assert_called_once()
+    assert execute.call_args.kwargs["env"]["TARGET_PRODUCT_ID"] == FIRST
+    assert record(setup)["state"] == "processed"
+    for identity in (SECOND, alias_id):
+        saved = record(setup, identity)
+        assert saved["state"] == "discovered"
+        assert saved["attempts"] == []
+        assert saved["acquisition"]["acquired"] is None
+        assert saved["acquisition"]["eligible"] is False
+        assert saved["acquisition"]["scorable"] is False
+        assert saved["acquisition"]["ais_observations"] == 0
+        assert saved["acquisition"]["reason"] == (
+            "missing or invalid acquisition time; acquisition time unavailable"
+        )
+        assert saved["catalogue"]["ContentDate"] == original["ContentDate"]
+        revision = watch.acquisition_versions(
+            setup["versions"], saved["catalogue"], setup["archive_dir"]
+        )
+        assert revision["dataset"]["ais_window_rows"] == 0
+        assert revision["version_key"] == saved["current_version_key"]
+        assert not (setup["record_dir"] / "inputs" / identity).exists()
+        snapshot = watch.snapshot_ais(
+            setup["record_dir"] / "diagnostics",
+            setup["archive_dir"],
+            saved["acquisition"],
+            revision,
+        )
+        assert list(snapshot.iterdir()) == []
+    assert scene_watch.ais_rows_near(setup["archive_dir"], None) == []
 
 
 def test_completed_without_measurement_is_only_processed(setup: dict[str, Any]) -> None:

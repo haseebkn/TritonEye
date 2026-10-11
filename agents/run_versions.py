@@ -10,6 +10,7 @@ from typing import Any
 
 import yaml
 
+from agents.acquisition import acquisition_start
 from agents.artifacts import sha256_file
 from agents.landmask import SOURCES
 from agents.scene_watch import ais_rows_near
@@ -128,7 +129,7 @@ def processing_versions(
 def acquisition_versions(
     processing: dict[str, Any], product: dict[str, Any], archive_dir: str
 ) -> dict[str, Any]:
-    rows = ais_rows_near(archive_dir, product["ContentDate"]["Start"])
+    rows = ais_rows_near(archive_dir, acquisition_start(product))
     dataset = {
         "catalogue_sha256": digest(
             {
