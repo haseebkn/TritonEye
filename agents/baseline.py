@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import platform
 import threading
 import time
@@ -28,6 +27,7 @@ from agents.baseline_context import (
 )
 from agents.baseline_metrics import score_roi
 from agents.baseline_report import DEFAULT_TARGETS, DEFAULT_THRESHOLDS, make_report
+from agents.baseline_support import load_support
 from agents.calibration import NODATA_DB, Calibrator
 from agents.coastal_benchmark import compare_buffers
 from agents.coastal_policy import annotations as policy_annotations
@@ -215,7 +215,10 @@ def run_baseline(
     dataset: Path, artifact_root: Path, output: Path, *, device: str = "cuda"
 ) -> dict[str, Any]:
     manifest, _, status = load_dataset(
-        dataset, verify_files=True, artifact_root=artifact_root
+        dataset,
+        verify_files=True,
+        artifact_root=artifact_root,
+        verify_development_only=True,
     )
     weights = artifact_root / "models/xview3/traced_ensemble.jit"
     if sha256_file(weights) != MODEL_SHA256:
@@ -257,13 +260,9 @@ def run_baseline(
     for scene in manifest["scenes"]:
         if scene["split"] == "test":
             continue
-        snapshot = json.loads(
-            bounded_path(artifact_root, scene["ais"]["snapshot"]["path"]).read_text(
-                encoding="utf-8"
-            )
-        )
+        rows, supporting_files = load_support(scene, artifact_root)
         positions, alignment = aligned_ais(
-            pd.DataFrame(snapshot["rows"]), scene["acquisition_time"]
+            pd.DataFrame(rows), scene["acquisition_time"]
         )
         for roi in scene["rois"]:
             reviewed = next(
@@ -381,8 +380,18 @@ def run_baseline(
                 for t in DEFAULT_THRESHOLDS
             ]
             case["coastal_buffer_trials"] = compare_buffers(
-                detections, labels, scene["product_id"]
+                {
+                    **detections,
+                    "features": [
+                        f
+                        for f in detections["features"]
+                        if f["properties"]["confidence"] > 0.15
+                    ],
+                },
+                labels,
+                scene["product_id"],
             )
+            case["coastal_buffer_trials"]["threshold"] = 0.15
             case["association"] = association_summary(
                 detections,
                 positions,
@@ -391,11 +400,24 @@ def run_baseline(
             )
             case["ais_snapshot_sha256"] = scene["ais"]["snapshot"]["sha256"]
             case["ais_alignment_counts"] = alignment
+            case["ais_supporting_files_sha256"] = supporting_files
             cases.append(case)
             print(f"{roi['id']}: {case['state']}", flush=True)
     report = make_report(cases, list(DEFAULT_THRESHOLDS), DEFAULT_TARGETS)
+    report["evidence_status"] = "provisional_pending_independent_review"
+    report["scope"] = {
+        "dataset_areas": sum(len(s["rois"]) for s in manifest["scenes"]),
+        "development_areas_attempted": len(cases),
+        "locked_test_areas_excluded": sum(
+            len(s["rois"]) for s in manifest["scenes"] if s["split"] == "test"
+        ),
+        "file_verification": (
+            "development source/derived files only; test metadata validated"
+        ),
+        "test_imagery_opened": False,
+    }
     report["provenance"] = {
-        "baseline_protocol_version": 2,
+        "baseline_protocol_version": 3,
         "processing_versions": versions,
         "assets": assets,
         "baseline_configuration_sha256": digest(
@@ -415,6 +437,14 @@ def run_baseline(
         "model_sha256": MODEL_SHA256,
         "model_load_seconds": model_load,
         "device": detector.device if detector else None,
+        "hardware": {
+            "platform": platform.platform(),
+            "gpu": (
+                detector._torch.cuda.get_device_name(detector.device)
+                if detector and detector.device.startswith("cuda")
+                else None
+            ),
+        },
         "precision": "CUDA autocast float16; CPU float32",
         "python": platform.python_version(),
         "torch": detector._torch.__version__ if detector else None,
@@ -444,6 +474,9 @@ def run_baseline(
             "cross-split contexts are refused",
             "Processing is conditional on frozen valid-pixel checks and "
             "OSM physical-water polygons",
+            "AIS-informed enrichment and prior development exposure limit "
+            "generalization; annotation classes are not used as detection truth "
+            "before independent review",
         ]
     )
     write_json(output / "baseline.json", report)

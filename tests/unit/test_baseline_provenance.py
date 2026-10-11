@@ -34,10 +34,15 @@ def baseline_inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     (tmp_path / "release.json").write_text("{}")
 
     def empty_dataset(
-        dataset: Path, *, verify_files: bool, artifact_root: Path
+        dataset: Path,
+        *,
+        verify_files: bool,
+        artifact_root: Path,
+        verify_development_only: bool,
     ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         assert dataset == tmp_path
         assert verify_files
+        assert verify_development_only
         assert artifact_root == assets
         return {"dataset_version": "synthetic", "scenes": []}, {}, {}
 
@@ -54,7 +59,7 @@ def test_alternate_assets_cannot_supply_executing_code_or_control_hashes(
     report = json.loads((output / "baseline.json").read_text())
     provenance = report["provenance"]
     versions = provenance["processing_versions"]
-    assert provenance["baseline_protocol_version"] == 2
+    assert provenance["baseline_protocol_version"] == 3
     for category, name in (
         ("code", "agents/baseline.py"),
         ("configuration", "configs/model.yaml"),

@@ -5,6 +5,7 @@ from typing import Any
 from shapely.geometry import shape
 
 from agents.association import one_to_one_matches
+from agents.baseline_statistics import binomial_interval
 from agents.coastal_policy import eligible
 from agents.correlation.correlation_agent import CORRELATION_RADIUS_M
 
@@ -26,10 +27,17 @@ def association_summary(
         "aligned_ais_in_roi": n,
         "ais_subset_proximity_recall_raw": None,
         "ais_subset_proximity_recall_post_policy": None,
+        "ais_subset_proximity_matches_raw": None,
+        "ais_subset_proximity_matches_post_policy": None,
+        "ais_subset_proximity_ci95_raw": None,
+        "ais_subset_proximity_ci95_post_policy": None,
         "association_correctness": None,
         "ambiguous_assignments": None,
         "correctness_reason": "Independent vessel-identity adjudication unavailable",
         "supporting_only": True,
+        "candidate_pool_scope": (
+            "Selected ROI only; outside-ROI competitors not evaluated"
+        ),
         "ais_proximity_radius_m": AIS_PROXIMITY_RADIUS_M,
         "association_base_radius_m": CORRELATION_RADIUS_M,
         "association_uncertainty": "Added heuristic AIS allowance, not calibrated",
@@ -49,6 +57,8 @@ def association_summary(
             points, list(positions.geometry), AIS_PROXIMITY_RADIUS_M
         )
         result[f"ais_subset_proximity_recall_{name}"] = len(pairs) / n
+        result[f"ais_subset_proximity_matches_{name}"] = len(pairs)
+        result[f"ais_subset_proximity_ci95_{name}"] = binomial_interval(len(pairs), n)
     points = [
         shape(f["geometry"]).centroid for f in returns if eligible(f["properties"])
     ]
