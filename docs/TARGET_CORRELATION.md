@@ -7,6 +7,12 @@ SAR–AIS matching examples and no measured improvement**. A learned ranker is n
 implemented or trained. These are prerequisites for a defensible C-CORE portfolio
 claim, not C-CORE operational requirements or certification.
 
+There is now a separate [3/3 observed AIS-subset proximity result](AIS_SUBSET_RESULT.md)
+at 500 m, n=3 across two saved full scenes (conditional exact 95% interval
+29.2%–100%). Proximity success is not adjudicated identity correctness and does
+not demonstrate improvement over the geometric matcher. The zero reviewed-case
+counts below refer to the frozen association pilot, not all AIS observations.
+
 ## Current evidence
 
 The detector-blind association pilot references ten development areas from five
