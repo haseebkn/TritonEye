@@ -6,11 +6,10 @@ false-alarm density or association correctness: no independent SAR reviewer is
 available, and its machine-assisted labels remain provisional. No operating
 threshold has been selected and automatic operational alerts remain disabled.
 
-Separate saved full-scene evaluations provide [3/3 observed AIS-supported
-proximity matches across two scenes](AIS_SUBSET_RESULT.md) (conditional exact
-95% interval 29.2%–100%). That result uses 500 m, not this protocol's 100 m
-selected-area AIS rule, and does not change the frozen pilot's missing labels,
-null accuracy metrics or blocked threshold selection.
+The separate [saved full-scene AIS-subset result](AIS_SUBSET_RESULT.md) uses a
+different proximity rule from this protocol's selected-area metric; they must
+not be pooled. It does not change the frozen pilot's missing labels, null
+accuracy metrics or blocked threshold selection.
 
 This is relevant engineering evidence for C-CORE's maritime AI role, not a claim
 of operational readiness, C-CORE approval or compliance with an unnamed maritime

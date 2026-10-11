@@ -15,13 +15,11 @@ image-first pass covers twelve selected areas, not all six full swaths or all
 objects in Newfoundland and Labrador. Known uncertainty is retained, including
 possible missed objects. In this frozen v0.1.0 release, there are no confidently
 confirmed vessel, structure or ice labels; 22 unresolved annotations include one
-context area, and three
-clutter labels are context areas. Counts are not vessel counts.
+context area, and three clutter labels are context areas. Counts are not vessel
+counts.
 
-Later saved full-scene evaluations provide [3/3 AIS-supported proximity matches
-across two scenes](AIS_SUBSET_RESULT.md), with a conditional exact 95% interval
-of 29.2%–100% at 500 m. They do not change this release's labels or selected-area
-AIS availability, and are not independently confirmed vessel identities.
+The later [saved full-scene AIS-subset result](AIS_SUBSET_RESULT.md) does not
+change this release's labels or selected-area AIS availability.
 
 Two historical Labrador products were downloaded into `data/raw/`, bringing
 real-image coverage to Makkovik (summer) and Hopedale (winter). Four real cached

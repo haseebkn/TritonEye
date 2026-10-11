@@ -13,14 +13,8 @@ reports raw and water-eligible **AIS-subset proximity recall** when valid co-tem
 observations exist. This is neither a lower nor an upper bound on overall recall.
 One-to-one matches may still be accidental; labels are needed to assess correctness.
 
-Two saved full-scene VV/VH evaluations now provide **3/3 observed AIS-supported
-vessel-scene proximity matches within 500 m**, across **two physical scenes**:
-2/2 on 27 September and 1/1 on 2 October 2026. Raw and open-water-eligible
-subset recall are both 100%; the conditional exact two-sided 95% binomial
-interval is **29.2%–100%**, assuming independent examples. Partial AIS, clustering,
-selection bias and unavailable independent review limit this result. It is not
-overall vessel recall or reviewed identity accuracy. Repeat runs and catalogue
-aliases are counted once. [Full scope and hashed evidence](docs/AIS_SUBSET_RESULT.md).
+For measured supporting evidence from saved full-scene evaluations, see
+[the AIS-subset result, interval, counting rules and hashed evidence](docs/AIS_SUBSET_RESULT.md).
 
 A versioned historical [NL SAR annotation pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md)
 now separates acquisition/geographic splits and retains complete selected review
