@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "name": "makkovik_shoreline_checks_v1",
+  "reference": {
+    "source": "Esri World Imagery / Vantor Vivid",
+    "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "reviewed_on": "2026-10-11",
+    "source_date_at_image_centre": "2024-09-30",
+    "image_sha256": "addd7ffb76dc83562470a23a9d8177452ad3538434107afbd5956509df85f25e",
+    "image_extent_wgs84": [-59.208, 55.040, -59.112, 55.100],
+    "image_size": [1600, 1000],
+    "local_provenance": "data/reference/regional/makkovik/provenance.json",
+    "method": "AI-assisted visual development inspection of downloaded optical imagery; pixel x/y converted using actual export extent, longitude first. Not independent expert review, surveyed positions or vessel truth. Ambiguous intertidal flats are excluded.",
+    "scope": "Makkovik harbour, nearby bay and clear upland only",
+    "limitation": "Sparse controls, older imagery and image-centre citation do not establish 2026 tidal waterline or intervening shoreline accuracy. Basemap pixels are not redistributed."
+  },
+  "features": [
+    {"type":"Feature","properties":{"id":"makkovik_harbour_north","expected":"water","image_pixel_xy":[680,170]},"geometry":{"type":"Point","coordinates":[-59.1672,55.0898]}},
+    {"type":"Feature","properties":{"id":"makkovik_harbour_basin","expected":"water","image_pixel_xy":[750,260]},"geometry":{"type":"Point","coordinates":[-59.163,55.0844]}},
+    {"type":"Feature","properties":{"id":"makkovik_east_bay","expected":"water","image_pixel_xy":[1560,365]},"geometry":{"type":"Point","coordinates":[-59.1144,55.0781]}},
+    {"type":"Feature","properties":{"id":"makkovik_town_land","expected":"land","image_pixel_xy":[450,290]},"geometry":{"type":"Point","coordinates":[-59.181,55.0826]}},
+    {"type":"Feature","properties":{"id":"makkovik_east_upland","expected":"land","image_pixel_xy":[1080,300]},"geometry":{"type":"Point","coordinates":[-59.1432,55.082]}}
+  ]
+}

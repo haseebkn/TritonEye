@@ -130,16 +130,31 @@ def test_actual_regional_controls_against_attributed_osm_snapshot(
     assert checked[0]["reference"]["scope"]
 
 
-def test_registry_cannot_claim_labrador_validation() -> None:
+def test_registry_cannot_claim_unchecked_labrador_validation() -> None:
     from agents.landmask import local_aeqd_crs
 
-    mask = LandMask([], local_aeqd_crs((-61, 55, -59, 57)), "test", "test")
+    # Makkovik now has controls; other Labrador shoreline still does not.
+    mask = LandMask([], local_aeqd_crs((-61, 56, -59, 57)), "test", "test")
     mask.validate_controls(
-        (-61, 55, -59, 57), str(ROOT / "configs/coastline/regional_controls.json")
+        (-61, 56, -59, 57), str(ROOT / "configs/coastline/regional_controls.json")
     )
     assert mask.validation["status"] == "outside_scope"
     assert mask.validation["checked"] == 0
     assert all(r["checked"] == 0 for r in mask.validation["collections"])
+
+
+def test_labrador_controls_reject_a_water_only_mask() -> None:
+    from agents.landmask import local_aeqd_crs
+
+    bounds = (-59.208, 55.04, -59.112, 55.1)
+    mask = LandMask([], local_aeqd_crs(bounds), "test", "test")
+    with pytest.raises(LandMaskUnavailable, match="makkovik_town_land"):
+        mask.validate_controls(
+            bounds, str(ROOT / "configs/coastline/regional_controls.json")
+        )
+    assert mask.validation["status"] == "failed"
+    assert mask.validation["checked"] == 5
+    assert mask.validation["failed"] == 2
 
 
 def test_closed_bonavista_fails_in_registry(tmp_path: Path) -> None:

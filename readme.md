@@ -35,6 +35,9 @@ see [the observed result, interval, hashed evidence and limitations](docs/AIS_SU
 
 Regional shoreline controls, coastal/open-water replay counts and remaining
 label/coverage gaps: [COASTAL_POLICY.md](docs/COASTAL_POLICY.md).
+The latest shoreline audit checks all six development coastal areas, including
+Makkovik in Labrador, with 33 registered controls. These are sparse development
+checks; buffer false alarms and missed vessels remain unmeasured.
 
 Historical SAR annotation now has a [versioned NL review pilot](datasets/nl_benchmark/v0.1.0/DATASET_CARD.md),
 with complete selected windows, acquisition/geographic split locks and hashed

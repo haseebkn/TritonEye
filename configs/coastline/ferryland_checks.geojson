@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "name": "ferryland_shoreline_checks_v1",
+  "reference": {
+    "source": "Esri World Imagery / Vantor Vivid",
+    "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "reviewed_on": "2026-10-11",
+    "source_date_at_image_centre": "2025-06-04",
+    "image_sha256": "b5067d06108cdb62e51907c9f8f057a0100a8ac3387ed7d3a28b2fe9abfa2472",
+    "image_extent_wgs84": [-52.9108, 47.007, -52.8612, 47.038],
+    "image_size": [1600, 1000],
+    "local_provenance": "data/reference/regional/ferryland/provenance.json",
+    "method": "AI-assisted visual development inspection of downloaded optical imagery; pixel x/y converted using actual export extent, longitude first. Not independent expert review, surveyed positions or vessel truth.",
+    "scope": "Ferryland bays and peninsula only",
+    "limitation": "Sparse controls, older imagery and image-centre citation do not establish 2026 tidal waterline or intervening shoreline accuracy. Basemap pixels are not redistributed."
+  },
+  "features": [
+    {"type":"Feature","properties":{"id":"ferryland_north_bay","expected":"water","image_pixel_xy":[1060,330]},"geometry":{"type":"Point","coordinates":[-52.87794,47.02777]}},
+    {"type":"Feature","properties":{"id":"ferryland_south_bay","expected":"water","image_pixel_xy":[1040,650]},"geometry":{"type":"Point","coordinates":[-52.87856,47.01785]}},
+    {"type":"Feature","properties":{"id":"ferryland_offshore_water","expected":"water","image_pixel_xy":[1430,840]},"geometry":{"type":"Point","coordinates":[-52.86647,47.01196]}},
+    {"type":"Feature","properties":{"id":"ferryland_town_land","expected":"land","image_pixel_xy":[725,310]},"geometry":{"type":"Point","coordinates":[-52.888325,47.02839]}},
+    {"type":"Feature","properties":{"id":"ferryland_peninsula_land","expected":"land","image_pixel_xy":[1240,520]},"geometry":{"type":"Point","coordinates":[-52.87236,47.02188]}}
+  ]
+}

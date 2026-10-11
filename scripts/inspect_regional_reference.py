@@ -7,17 +7,35 @@ pixels as open data. Saving an image is not visual review or benchmark labelling
 import argparse
 import hashlib
 import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 import requests
 
 URL = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
 SITES = {
+    "bay_of_exploits": [-55.170, 49.240, -55.110, 49.295],
+    "ferryland": [-52.905, 47.007, -52.867, 47.038],
+    "makkovik": [-59.200, 55.040, -59.120, 55.100],
     "bonavista": [-53.134, 48.645, -53.103, 48.665],
     "twillingate": [-54.782, 49.623, -54.750, 49.642],
     "lewisporte": [-55.070, 49.233, -55.042, 49.252],
 }
+
+
+def export_bounds(metadata: dict[str, Any]) -> list[float]:
+    """Use the actual displayed WGS84 export, not the requested rectangle."""
+    extent = metadata["extent"]
+    if extent.get("spatialReference", {}).get("wkid") != 4326:
+        raise ValueError("WGS84 imagery export required")
+    bounds = [float(extent[k]) for k in ("xmin", "ymin", "xmax", "ymax")]
+    if not all(math.isfinite(value) for value in bounds) or not (
+        -180 <= bounds[0] < bounds[2] <= 180 and -90 <= bounds[1] < bounds[3] <= 90
+    ):
+        raise ValueError("Valid imagery export bounds required")
+    return bounds
 
 
 def main() -> None:
@@ -43,6 +61,8 @@ def main() -> None:
             "f": "image",
         }
         if args.fetch:
+            if (directory / "imagery.png").exists():
+                raise ValueError("Existing imagery evidence cannot be overwritten")
             response = requests.get(URL + "/export", params=params, timeout=90)
             response.raise_for_status()
             if not response.content.startswith(b"\x89PNG"):
@@ -102,6 +122,11 @@ def main() -> None:
             import matplotlib.pyplot as plt
 
             project = root.parents[2]
+            metadata = json.loads((directory / "export.json").read_text())
+            extent = metadata["extent"]
+            # ArcGIS may expand the requested bounds to preserve image aspect.
+            # Geometry and controls must use the extent actually displayed.
+            bounds = export_bounds(metadata)
             osm = gpd.read_file(
                 project / "data/reference/land-polygons-split-4326/land_polygons.shp",
                 bbox=tuple(bounds),
@@ -118,8 +143,6 @@ def main() -> None:
             water = water.loc[water.definit == 85].to_crs(4326)
             water.geometry = water.geometry.intersection(box(*bounds))
             water.to_file(directory / "canvec_ocean.geojson", driver="GeoJSON")
-            metadata = json.loads((directory / "export.json").read_text())
-            extent = metadata["extent"]
             image = plt.imread(directory / "imagery.png")
             controls = gpd.read_file(
                 project / f"configs/coastline/{site}_checks.geojson"
@@ -154,6 +177,38 @@ def main() -> None:
                 checks[name] = mask.validation
             (directory / "verification.json").write_text(
                 json.dumps(checks, indent=2, allow_nan=False), encoding="utf-8"
+            )
+            (directory / "comparison_sources.json").write_text(
+                json.dumps(
+                    {
+                        "actual_image_bounds_wgs84": bounds,
+                        "imagery_sha256": hashlib.sha256(
+                            (directory / "imagery.png").read_bytes()
+                        ).hexdigest(),
+                        "controls_sha256": hashlib.sha256(
+                            (
+                                project / f"configs/coastline/{site}_checks.geojson"
+                            ).read_bytes()
+                        ).hexdigest(),
+                        "osm_local_comparison_sha256": hashlib.sha256(
+                            (directory / "osm_land.geojson").read_bytes()
+                        ).hexdigest(),
+                        "canvec_local_comparison_sha256": hashlib.sha256(
+                            (directory / "canvec_ocean.geojson").read_bytes()
+                        ).hexdigest(),
+                        "osm_source": "https://osmdata.openstreetmap.de/data/land-polygons.html",
+                        "osm_licence": "ODbL",
+                        "canvec_source": "https://open.canada.ca/data/en/dataset/9d96e8c9-22fe-4ad2-b5e8-94a6991b744b",
+                        "canvec_licence": "Open Government Licence - Canada",
+                        "scope": (
+                            "Local comparison only; no universal adoption "
+                            "or independent accuracy claim"
+                        ),
+                    },
+                    indent=2,
+                    allow_nan=False,
+                ),
+                encoding="utf-8",
             )
             print(json.dumps(checks, indent=2, allow_nan=False))
             fig, axes = plt.subplots(1, 2, figsize=(16, 7))
