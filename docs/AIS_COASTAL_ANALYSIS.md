@@ -95,6 +95,14 @@ its `local_full_report_sha256` remain unchanged; its historical dependency
 hashes recorded CRLF execution bytes. This byte-contract correction changes
 no measurements or original inference artifacts.
 
+The registry and three original control collections are pinned to their
+historical CRLF byte format; newer collections and dependency source files use
+LF. This preserves the original controls and recorded shoreline hashes across
+checkout settings. A subsequent replay with LF dependency sources is retained
+at `data/validation/ais_coastal_analysis_20261011_v03.json`. All six product
+comparisons match the original run exactly; its hash is recorded as
+`validated_lf_replay_sha256` in the public ledger.
+
 Original/COG aliases are rejected as duplicate physical slices. Full temporal
 histories are aligned before spatial filtering; conflicting and stale reports
 follow the existing bounded aligner. Raw DN zero padding, masks and nonfinite

@@ -1,5 +1,7 @@
 {
   "status": "supporting_analysis_only",
+  "validated_lf_replay_sha256": "5fc1bbdff608add22328b2a0ba8a5a51dda37f5c64e8b450963c053ab0b5a43b",
+  "validated_lf_replay_same_comparisons": true,
   "selected_buffer_m": null,
   "step_2_complete": false,
   "manifest_sha256": "2884616448feb6b8466cca706065afd000cea722683449b7debed1012d25943d",

@@ -20,3 +20,8 @@ agents/evaluate/evaluate_agent.py text eol=lf
 agents/landmask.py text eol=lf
 agents/inference/inference_agent.py text eol=lf
 agents/overlap_audit.py text eol=lf
+# Existing shoreline evidence records these exact CRLF input bytes.
+configs/coastline/regional_controls.json text eol=crlf
+configs/coastline/st_johns_checks.geojson text eol=crlf
+configs/coastline/bonavista_checks.geojson text eol=crlf
+configs/coastline/lewisporte_checks.geojson text eol=crlf
