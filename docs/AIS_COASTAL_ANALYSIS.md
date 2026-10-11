@@ -103,6 +103,14 @@ at `data/validation/ais_coastal_analysis_20261011_v03.json`. All six product
 comparisons match the original run exactly; its hash is recorded as
 `validated_lf_replay_sha256` in the public ledger.
 
+The measured v02/v03 replays were performed in the authorized project checkout.
+The isolated gate checkout lacks the private AIS archive, native SAR bands and
+cached mission outputs, so it cannot independently replay those measurements.
+Public hashes and aggregates can be verified here, and synthetic executable
+replays validate software behavior; neither independently reproduces the private
+measurements. This accepted data-access boundary does not authorize transferring
+or linking private inputs into the isolated checkout.
+
 Original/COG aliases are rejected as duplicate physical slices. Full temporal
 histories are aligned before spatial filtering; conflicting and stale reports
 follow the existing bounded aligner. Raw DN zero padding, masks and nonfinite

@@ -218,10 +218,18 @@ def run(root: Path, manifest_path: Path, output: Path) -> dict[str, Any]:
             payload,
             {"name": product["Name"], "scene_footprint": product["GeoFootprint"]},
         )
+        require_development_scene(
+            scene["product_id"],
+            {"name": product["Name"], "scene_footprint": product["GeoFootprint"]},
+        )
         acq, start = parse_utc(payload["acquisition_time"]), parse_utc(
             product["ContentDate"]["Start"]
         )
-        if acq is None or start is None or abs((acq - start).total_seconds()) >= 1:
+        if (
+            acq is None
+            or start is None
+            or acq.replace(microsecond=0) != start.replace(microsecond=0)
+        ):
             raise ValueError("Payload must use the catalogue scene start second")
         slice_key = product["Name"].split("_")[:8]
         slice_id = "_".join(slice_key)
@@ -257,11 +265,19 @@ def run(root: Path, manifest_path: Path, output: Path) -> dict[str, Any]:
             raise ValueError("This study requires compatible xView3 VV/VH output")
         selected.append((scene, payload_path, payload, product, footprint, acq))
 
+    archive = bundle / "archive_snapshot"
+    consumed = {
+        path.name
+        for pattern in ("ais_stream_*.csv", "coverage_*.jsonl")
+        for path in archive.glob(pattern)
+    }
+    if consumed - {record["file"] for record in snapshot["files"]}:
+        raise ValueError("Unlisted frozen archive input")
     for record in snapshot["files"]:
-        path = bundle / "archive_snapshot" / record["file"]
+        path = archive / record["file"]
         if sha256_file(path) != record["sha256"]:
             raise ValueError("Frozen archive hash mismatch")
-    reports, archive_stats = observations(bundle / "archive_snapshot")
+    reports, archive_stats = observations(archive)
     results = []
     shoreline_hashes: dict[str, str] = {}
     for scene, payload_path, payload, product, footprint, acq in selected:

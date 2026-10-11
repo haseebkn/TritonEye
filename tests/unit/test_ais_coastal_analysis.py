@@ -13,6 +13,7 @@ from shapely.geometry import Point, box, mapping
 from agents.ais_coastal_analysis import compare, run
 from agents.artifacts import sha256_file
 from agents.coastal_policy import annotations
+from agents.nl_benchmark import DEFAULT_DATASET
 
 
 def water(distance: float) -> dict[str, Any]:
@@ -276,6 +277,92 @@ def test_original_and_cog_alias_cannot_count_as_two_physical_slices(
     with pytest.raises(ValueError, match="Duplicate physical slice"):
         run(tmp_path, manifest, tmp_path / "report.json")
     assert not (tmp_path / "report.json").exists()
+
+
+@pytest.mark.parametrize("scope_source", ["scene", "payload"])
+def test_catalogue_locked_geography_refused_despite_safe_roi(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, scope_source: str
+) -> None:
+    manifest = fixture(tmp_path, monkeypatch)
+    benchmark = json.loads((DEFAULT_DATASET / "manifest.json").read_text())
+    held = next(scene for scene in benchmark["scenes"] if scene["split"] == "test")
+    catalogue_path = tmp_path / "bundle/catalogue_products.json"
+    catalogue = json.loads(catalogue_path.read_text())
+    safe_roi = catalogue[0]["GeoFootprint"]
+    catalogue[0]["GeoFootprint"] = held["rois"][0]["geometry"]
+    catalogue_path.write_text(json.dumps(catalogue))
+    path = manifest if scope_source == "scene" else tmp_path / "payload.json"
+    value = json.loads(path.read_text())
+    record = value["scenes"][0] if scope_source == "scene" else value
+    record["study_roi"] = safe_roi
+    path.write_text(json.dumps(value))
+
+    def guarded_hash(path: Any) -> str:
+        if Path(path).suffix == ".tif":
+            pytest.fail("hashed forbidden test raster")
+        return sha256_file(path)
+
+    monkeypatch.setattr("agents.ais_coastal_analysis.sha256_file", guarded_hash)
+    monkeypatch.setattr(
+        "agents.ais_coastal_analysis.valid_sar_points",
+        lambda *a: pytest.fail("opened forbidden test raster"),
+    )
+    with pytest.raises(ValueError, match="Held-out test geography"):
+        run(tmp_path, manifest, tmp_path / "report.json")
+    assert not (tmp_path / "report.json").exists()
+
+
+@pytest.mark.parametrize("filename", ["ais_stream_extra.csv", "coverage_extra.jsonl"])
+def test_unlisted_archive_inputs_refused(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, filename: str
+) -> None:
+    manifest = fixture(tmp_path, monkeypatch)
+    (tmp_path / "bundle/archive_snapshot" / filename).write_text(
+        "mmsi,lon,lat,timestamp\n123456786,-55.05,49.25,2026-09-27T21:30:23Z\n"
+        if filename.endswith(".csv")
+        else '{"event":"heartbeat","time":"2026-09-27T21:30:23Z","connected":true}\n'
+    )
+    monkeypatch.setattr(
+        "agents.ais_coastal_analysis.observations",
+        lambda *a: pytest.fail("consumed unverified archive"),
+    )
+    with pytest.raises(ValueError, match="Unlisted frozen archive input"):
+        run(tmp_path, manifest, tmp_path / "report.json")
+    assert not (tmp_path / "report.json").exists()
+
+
+@pytest.mark.parametrize(
+    "catalogue_start,payload_start,accepted",
+    [
+        ("2026-09-27T21:30:23.168299Z", TIME, True),
+        ("2026-09-27T21:30:23.168299Z", "2026-09-27T21:30:24Z", False),
+        (TIME, "2026-09-27T21:30:22.999999Z", False),
+    ],
+)
+def test_catalogue_start_requires_same_utc_second(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    catalogue_start: str,
+    payload_start: str,
+    accepted: bool,
+) -> None:
+    manifest = fixture(tmp_path, monkeypatch)
+    catalogue_path = tmp_path / "bundle/catalogue_products.json"
+    catalogue = json.loads(catalogue_path.read_text())
+    catalogue[0]["ContentDate"]["Start"] = catalogue_start
+    catalogue_path.write_text(json.dumps(catalogue))
+    payload_path = tmp_path / "payload.json"
+    payload = json.loads(payload_path.read_text())
+    payload["acquisition_time"] = payload_start
+    payload_path.write_text(json.dumps(payload))
+    output = tmp_path / "report.json"
+    if accepted:
+        result = run(tmp_path, manifest, output)
+        assert result["scenes"][0]["comparison"]["matched_raw"] == 1
+    else:
+        with pytest.raises(ValueError, match="catalogue scene start second"):
+            run(tmp_path, manifest, output)
+        assert not output.exists()
 
 
 @pytest.mark.parametrize(
