@@ -9,3 +9,7 @@ scripts/prepare_nl_review.py text eol=lf
 agents/association.py text eol=lf
 agents/association_study.py text eol=lf
 agents/uncertainty_association.py text eol=lf
+agents/shoreline_coverage.py text eol=lf
+configs/coastline/ferryland_checks.geojson text eol=lf
+configs/coastline/makkovik_checks.geojson text eol=lf
+configs/coastline/bay_of_exploits_checks.geojson text eol=lf
