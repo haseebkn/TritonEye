@@ -68,12 +68,9 @@ and [the historical baseline](NL_BASELINE.md#real-replay-results), with
 [baseline evidence](evidence/nl_baseline_20261005.json).
 
 Sparse imagery controls and coastal-buffer replays are additional engineering
-observations, not measured vessel performance. The current registry has **33
-controls across six locations, including Makkovik in Labrador**. All six
-development coastal areas have passing sparse land/water checks on valid pixels;
-offshore areas have no local controls and locked test images remain unopened.
-**This is not province-wide validation or a measured coastal-buffer choice.**
-[Scope, source provenance and remaining Step 2 blocker](COASTAL_POLICY.md#coverage-sparse-controls-not-certification).
+observations, not measured vessel performance or province-wide validation.
+See the authoritative [current coverage inventory, source provenance and
+remaining Step 2 blocker](COASTAL_POLICY.md#current-frozen-pilot-development-coverage-11-october).
 
 ## 3. Blocked or not implemented — why and what would resolve it
 

@@ -158,12 +158,10 @@ If the physical reference cannot be loaded, strata remain unmeasured.
 ## Independent validation-label contract
 
 The [11 October AIS-supported buffer analysis](AIS_COASTAL_ANALYSIS.md) adds
-observed coastal exclusion counts for two exact Newfoundland scenes and cached
-proximity comparisons for four others. At 300 m it withholds 21/25 and 18/18
-reference-water AIS positions in the two coastal samples; those scenes have no
-detector outputs. Three separate supporting proximity matches survive through
-500 m, with one lost at 1,000 m. These observations do not measure false alarms
-or overall missed vessels, select a buffer, or complete Step 2.
+observed coastal exclusion counts and cached proximity comparisons. That study
+owns the measured counts and matching protocol. These observations do not
+measure false alarms or overall missed vessels, select a buffer, or complete
+Step 2.
 
 `python -m agents.coastal_benchmark` compares fixed physically annotated returns
 against an **exhaustively reviewed valid-imagery ROI**. A label GeoJSON

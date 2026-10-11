@@ -55,13 +55,11 @@ scope. Scores are uncalibrated objectness values, not vessel probabilities.
 
 Physical-water area is a geodesic area derived from the frozen valid imagery and
 OSM land polygons. It is conditional on that shoreline source, not independently
-verified water truth. The original replay had sparse controls in St. John's,
-Bonavista and Lewisporte. The [11 October coverage audit](COASTAL_POLICY.md#current-frozen-pilot-development-coverage-11-october)
-adds Ferryland, Bay of Exploits and Makkovik in Labrador: all six development
-coastal areas have sparse land/water checks, not complete boundary validation.
-Locked test areas remain unopened. This does not retrospectively change the
-saved baseline or establish detector accuracy. CanVec remains a local comparison
-source, not a universal replacement.
+verified water truth. The [current shoreline coverage inventory](COASTAL_POLICY.md#current-frozen-pilot-development-coverage-11-october)
+records later sparse development checks, not complete boundary validation.
+These checks do not retrospectively change the saved baseline or establish
+detector accuracy. CanVec remains a local comparison source, not a universal
+replacement.
 
 Reports separate region, coastal/offshore setting, polarization and acquisition
 season. Season does not certify ice, sea state, weather or incidence angle: these

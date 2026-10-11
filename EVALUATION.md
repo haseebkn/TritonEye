@@ -31,11 +31,10 @@ blocks remain prerequisites; no numerical operating point is selected yet.
 
 Physical shoreline classification is now separate from coastal operating policy.
 Coastal returns are retained in dedicated research artifacts and HTML tables.
-Two real-scene replays compare 0/100/300/500/1,000 m buffers, but their false-alarm
-and missed-vessel metrics remain unavailable without independent labels. The
-18 registered imagery controls cover sparse St. John's/Bonavista/Lewisporte
-locations, **not the province or Labrador**. See
-[coverage, results and the validation-label contract](docs/COASTAL_POLICY.md).
+False-alarm and missed-vessel metrics remain unavailable without independent
+labels. See [current shoreline coverage, historical replay results and the
+validation-label contract](docs/COASTAL_POLICY.md), and the separate
+[AIS-supported buffer sensitivity study](docs/AIS_COASTAL_ANALYSIS.md).
 
 ## Verification evidence
 
