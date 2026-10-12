@@ -6,10 +6,18 @@ certified surveillance system or operational dark-vessel detector.** Internal
 C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
-Evidence reviewed: **11 October 2026**, against main baseline
-`04cc59b0f7322831199501c86e8c8271ad2776d5`. This guide is a documentation package,
-not a new inference, annotation or training experiment. Historical results below
-retain their own acquisition dates, execution versions and source hashes.
+Current summary refreshed **12 October 2026**, against main baseline
+`d92d371853fd872ebd736c5011c629a36db7b8c0` (PR #20). The current benchmark is
+v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
+AllenAI adoption checks. Independent accuracy and model improvement remain
+unmeasured. Historical results below retain their acquisition dates, execution
+versions and source hashes; this documentation refresh does not rerun inference.
+
+For a five-minute presentation, open the [real Newfoundland case](../examples/nl-real-case.html)
+and follow the [demonstration walkthrough](PORTFOLIO_DEMO.md). The separate
+[technical explanation and contribution notes](TECHNICAL_EXPLANATION.md) prepare
+the evidence questions and distinguish recorded AI assistance from the owner's
+personal implementation and understanding, which must be demonstrated by the owner.
 
 For the subsequent archive refresh and local image-only handoff, see the
 [ranked SAR–AIS overlap audit and review bundle](OVERLAP_REVIEW.md). Its preparation
@@ -69,11 +77,11 @@ replays and provenance checks establish behavior, **not maritime accuracy**.
 | Acquisition reliability | Product UUID propagation, versioned outcomes, recorder freshness/gaps and distinct processing/measurement states. Original SAFE/COG aliases do not create independent physical slices; malformed metadata is guarded. | [Reliability and reproduction](ACQUISITION_RELIABILITY.md), [watcher regressions](../tests/unit/test_scene_watch.py), [outcome regressions](../tests/unit/test_watch.py), [exact-ID replay evidence](evidence/acquisition_replay_20261005.json) |
 | Shoreline and coastal policy | Physical reference-land/water classification is separate from candidate eligibility; coastal returns are retained for research. St. John's basin and The Narrows are open water. CanVec is comparison-only, not a province-wide replacement. | [Coastal policy and coverage](COASTAL_POLICY.md), [St. John's checks](ST_JOHNS_SHORELINE.md), [policy regressions](../tests/unit/test_coastal_policy.py) |
 | SAR–AIS correlation | Bounded UTC/motion alignment, one-to-one geometric assignment and ambiguity handling. A separate uncertainty-aware research comparison and detector-blind identity review workflow exist; production matching is unchanged. | [Correlation study and review contract](TARGET_CORRELATION.md), [comparison regressions](../tests/unit/test_association_study.py) |
-| Benchmark and experiments | Frozen v0.1.0 SAR review pilot with source licences/hashes and acquisition/geographic split locks; baseline/threshold evaluation code; real frozen CROMA radar-feature integration. Independent annotation, fitting and model improvement are not delivered. | [Dataset card](../datasets/nl_benchmark/v0.1.0/DATASET_CARD.md), [baseline protocol](NL_BASELINE.md), [model development](MODEL_DEVELOPMENT.md) |
+| Benchmark and experiments | Frozen v0.2.0 pilot with 21 selected areas, source licences/hashes and acquisition/geographic split locks; expanded detector baseline; three limited xView3 bias fits and three frozen-CROMA token-head fits. Training used one provisional VV/VH vessel. Independent accuracy and useful model improvement remain unmeasured. | [Current dataset card](../datasets/nl_benchmark/v0.2.0/DATASET_CARD.md), [executed baseline](NL_BASELINE_V020.md), [six exploratory fits](DEVELOPMENT_EXPERIMENTS.md) |
 | Local model lifecycle | Paired validation shadow inference, reviewed promotion gates and transactional model/threshold rollback with operator history. Successful promotion is verified with synthetic fixtures; actual NL promotion remains blocked. | [Lifecycle commands and limits](MODEL_LIFECYCLE.md), [behavioral regressions](../tests/unit/test_model_lifecycle.py) |
-| Reproducibility and analyst handoff | Mission provenance, optional MLflow tracking, retained failure evidence, HTML reports, unit tests, lint/type checks and Docker/CI. This is not a complete production MLOps service. | [Synthetic report](../examples/nl-synthetic-report.html), [CI configuration](../.github/workflows/ci.yml), [software CI for the baseline commit](https://github.com/haseebkn/TritonEye/actions/runs/38126241155) |
+| Reproducibility and analyst handoff | Mission provenance, optional MLflow tracking, retained failure evidence, HTML reports, unit tests, lint/type checks and Docker/CI. This is not a complete production MLOps service. | [Real case presentation](../examples/nl-real-case.html), [synthetic report](../examples/nl-synthetic-report.html), [CI configuration](../.github/workflows/ci.yml), [PR #20 main CI](https://github.com/haseebkn/TritonEye/actions/runs/38227936504) |
 
-The linked baseline CI completed successfully for unit tests, lint/types and
+The linked PR #20 main CI completed successfully for unit tests, lint/types and
 Docker. It verifies that commit's software, not an independently labelled model
 benchmark. Use the commands below to check another checkout; do not assume an
 older green run certifies newer code.
@@ -85,6 +93,8 @@ older green run certifies newer code.
 | Full-scene SAR–AIS proximity comparison | **3/3 AIS-supported vessel-scene observations across two physical VV/VH scenes**, at **500 m**: 2/2 on 27 September and 1/1 on 2 October 2026. Raw and open-water-eligible subset recall are 100%; conditional exact two-sided **95% Clopper–Pearson interval: 29.2%–100%**. | Not three independently confirmed vessels, correct identities, overall recall, precision, false-alarm rate, improvement, coastal performance or province-wide/Labrador validation. |
 | Frozen CROMA radar-feature probe | Six VV/VH development areas from three Newfoundland acquisitions; 96 windows encoded completely, finite features and zero maximum repeated-window token difference on that run. | No vessel head, gradient update, fine-tuning or detection improvement. Cross-device bitwise repeatability is not promised. |
 | Historical selected-area detector baseline | Six supported VV/VH areas completed; four HH/HV areas were unsupported and two locked-test areas excluded. Selected validation water processing coverage was 65.40%, with 0% independently measured coverage. | Processing coverage and descriptive returns are not vessel accuracy or proof that empty offshore predictions were correct. |
+| Current v0.2.0 detector baseline | Eleven VV/VH development areas processed; eight HH/HV areas unsupported; two locked-test areas excluded. Validation water processing coverage was 62.23%, with 0% independently measured coverage. | The expanded selection changes the denominator; do not interpret its coverage difference as a detector regression or improvement. |
+| Exploratory development on v0.2.0 | Six fits and 176 frozen CROMA windows across eleven VV/VH areas. Bias fitting changed scores but retained 14 validation returns at >0.15. CROMA heads produced 2,487–2,601 validation returns. | One provisional training positive and no accepted negatives cannot establish useful generalization, accuracy or false-alarm reduction. |
 
 The SAR–AIS result comes from saved 6 October executions, inspected on 11 October.
 Its AIS coverage is **partial and self-reported**; matches can be accidental.
@@ -145,8 +155,11 @@ running AIS container do not establish low false positives or complete coverage.
 ## Reviewer walkthrough and access limits
 
 1. Read the three sections above, then the linked AIS result for its exact claim.
-2. Open the [offline synthetic report](../examples/nl-synthetic-report.html) to
-   inspect analyst handoff. It uses simulated targets and is not real evidence.
+2. Open the [offline real case](../examples/nl-real-case.html) and follow
+   [the short walkthrough](PORTFOLIO_DEMO.md). It reuses saved September 22 imagery
+   and October 11 inference; it is a selected training-area example, not a test.
+   The separate [synthetic report](../examples/nl-synthetic-report.html) uses
+   simulated targets to demonstrate the workflow.
 3. Inspect the dataset card, saved evidence ledgers and source/test links. Dates,
    versions and hashes distinguish historical experiments from current code.
 4. With Python 3.12/3.13 and the [README environment instructions](../readme.md#offline-synthetic-demonstration),
