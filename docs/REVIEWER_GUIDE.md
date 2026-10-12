@@ -32,6 +32,11 @@ runs the expanded development set and records processing, resources, policy
 exclusions and AIS supporting proximity. Its accuracy metrics remain null and
 threshold selection remains blocked by review and coverage requirements.
 
+The [exploratory development experiment protocol](DEVELOPMENT_EXPERIMENTS.md)
+adds limited xView3 head fitting and a frozen-CROMA token head. Provisional
+positive-only fits cannot establish false-alarm reduction or measured improvement.
+The independent-review guard and locked test assignments still apply.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:

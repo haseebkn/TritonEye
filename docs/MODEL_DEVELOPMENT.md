@@ -1,19 +1,21 @@
 # NL model development status
 
-Step 5 is **partially implemented, not complete**. The project now runs a real,
-frozen Sentinel-1 foundation encoder on NL development imagery. It has not
-fine-tuned a vessel detector, trained a foundation-feature vessel head, or
-demonstrated improved detection. Those experiments require usable vessel labels.
-Independent review remains unavailable, as disclosed in the benchmark.
+Step 5 is **partially implemented, not complete**. The latest
+[development experiment protocol](DEVELOPMENT_EXPERIMENTS.md) adds exploratory
+positive-only fitting of one existing xView3 objectness bias and a linear head
+on frozen CROMA radar tokens, using the provisional v0.2.0 training vessel.
+Independent review and measured improvement remain unavailable. The v0.1.0
+feature-only experiment and label-source screening below are historical evidence.
 
 ## Experiments and prerequisites
 
 | Approach | Actual status | What the evidence supports |
 | --- | --- | --- |
 | Existing pretrained xView3 ensemble | Historical bounded replay in [NL_BASELINE.md](NL_BASELINE.md), plus [saved full-scene AIS comparisons](AIS_SUBSET_RESULT.md) | Supporting proximity evidence, not overall vessel accuracy or improvement. |
-| Fine-tuned detector | Not run; no trainer implemented | Frozen v0.1.0 pilot has zero confirmed training vessel labels in either polarization branch; later AIS proximity observations are not adopted training labels. |
+| Limited xView3 head fine-tune | Exploratory v0.2.0 positive-only recipe | One existing member bias can be fitted; full detector fitting and reviewed improvement remain open. |
 | CROMA frozen radar features | Executed on six VV/VH development areas | Checkpoint compatibility, finite features, full selected-pixel coverage and repeatability |
-| Frozen-feature vessel head or encoder adaptation | Not run | No usable training vessel labels or validated head to justify adaptation |
+| Frozen-feature vessel head | Exploratory v0.2.0 positive-only recipe | Linear token head uses one provisional VV/VH training positive; no verified background supervision or accuracy. |
+| Encoder adaptation | Deferred | No validated frozen-head evidence justifies adaptation. |
 | HH/HV model comparison | Not run | Existing models have no validated HH/HV compatibility; labels also remain unresolved |
 
 A blocked fit is not an unsuccessful improvement experiment. The recorded GPU
