@@ -12,6 +12,7 @@ from agents.development_experiments import (
     feature_vector,
     fit_member_bias,
     fit_positive_head,
+    freeze_member,
     prediction_summary,
     training_examples,
 )
@@ -58,6 +59,17 @@ def test_bias_training_is_actual_existing_layer_update() -> None:
     torch.testing.assert_close(conv.weight, weight_before, atol=0, rtol=0)
     assert not torch.equal(conv.bias, bias_before)
     assert losses[-1] < losses[0]
+
+
+def test_freeze_real_scriptmodule_preserves_inference() -> None:
+    model = torch.jit.trace(
+        torch.nn.Conv2d(2, 1, 3, padding=1), torch.zeros(1, 2, 8, 8)
+    )
+    x = torch.randn(1, 2, 8, 8)
+    before = model(x).detach()
+    freeze_member(model, "cpu")
+    assert not any(p.requires_grad for p in model.parameters())
+    torch.testing.assert_close(model(x), before)
 
 
 def test_token_mapping_preserves_window_and_pixel_coordinates() -> None:

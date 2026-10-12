@@ -46,6 +46,14 @@ LEARNING_RATE = 0.001
 BIAS_NAME = "model.head.objectness.final.bias"
 
 
+def freeze_member(member: Any, device: str) -> Any:
+    """ScriptModules do not support nn.Module.requires_grad_; tensors do."""
+    member.eval().to(device)
+    for parameter in member.parameters():
+        parameter.requires_grad_(False)
+    return member
+
+
 def training_examples(
     manifest: dict[str, Any], annotation: dict[str, Any]
 ) -> list[dict[str, Any]]:
@@ -307,7 +315,7 @@ def run(dataset: Path, root: Path, output: Path, device: str) -> dict[str, Any]:
                 "Bias objective requires the pinned unit-temperature member"
             )
         del ensemble
-        member.eval().requires_grad_(False).to(device)
+        freeze_member(member, device)
         if device == "cuda":
             torch.cuda.reset_peak_memory_stats()
         before = parameter_digest(member)
