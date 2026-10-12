@@ -1,6 +1,7 @@
 """Executable archive, coordinate and quarantined-release contracts."""
 
 import io
+import json
 import sqlite3
 import tarfile
 from pathlib import Path
@@ -27,7 +28,7 @@ from agents.allenai_subset import (
 )
 from agents.artifacts import sha256_file, write_json
 from agents.nl_benchmark import load_dataset
-from scripts import build_allenai_subset
+from scripts import build_allenai_subset, publish_allenai_audit
 
 
 class MemoryReader:
@@ -375,3 +376,85 @@ def test_relative_output_normalized_and_released_versions_refused(
     write_json(tmp_path / "datasets/allenai_nl/v0.1.0/release.json", {})
     with pytest.raises(ValueError, match="immutable"):
         build_allenai_subset.fresh_output(Path("work/subset"))
+
+
+def test_publisher_accepts_relative_manifest_without_partial_release(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Use the committed serialized public interface as a fixture template;
+    # create every local source/artifact synthetically, without private data.
+    public = json.loads(
+        (
+            Path(__file__).resolve().parents[2]
+            / "datasets/allenai_nl/v0.1.0/manifest.json"
+        ).read_text()
+    )
+    base = tmp_path / "data/model_research/allenai_nl_v010"
+    target = tmp_path / "datasets/allenai_nl/v0.1.0"
+    artifact = base / "subset/qa.json"
+    write_json(artifact, {"fixture": True})
+    data = dict(public)
+    data.update(public["software"])
+    data.update(
+        {
+            "prepared_windows": 1,
+            "prepared_points": 1,
+            "metadata_sha256": public["source_metadata_sha256"],
+            "inventory_sha256": public["source_inventory_sha256"],
+            "archive_index_sha256": public["cc_archive"]["index_sha256"],
+            "cc_archive_crosswalk": public["cc_archive"]["crosswalk"],
+            "whole_nl_candidate_windows": 73,
+            "whole_nl_candidate_points": 39,
+            "original_source_revision": "synthetic-fixture",
+            "cases": [
+                {
+                    "publisher_previews": [{"valid_pixels": 1, "pixels": 1}],
+                    "alignment_checks": [
+                        {
+                            "source_label_id": 1,
+                            "visual_status": "unreviewed",
+                            "grid_vs_native_tps_displacement_m": 0.5,
+                            "point_px": [128, 128],
+                            "crop_center_edge_clamped": False,
+                            "patch": {"chip": {"sha256": sha256_file(artifact)}},
+                        }
+                    ],
+                }
+            ],
+            "artifacts": [
+                {
+                    "path": artifact.relative_to(tmp_path).as_posix(),
+                    "sha256": sha256_file(artifact),
+                }
+            ],
+        }
+    )
+    local = base / "subset/manifest.json"
+    write_json(local, data)
+    index = dict(public["cc_archive"])
+    index["members"] = []
+    write_json(base / "cc_archive_index.json", index)
+    write_json(base / "source_downloads.json", {"assets": []})
+    for name in (
+        "siv_README.md",
+        "siv_warp.py",
+        "siv_preprocess.py",
+        "siv_dataset.py",
+        "siv_download_imagery.py",
+        "siv_sentinel1.py",
+    ):
+        write_json(base / "sources" / name, {"synthetic": True})
+    monkeypatch.setattr(publish_allenai_audit, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(publish_allenai_audit, "BASE", base)
+    monkeypatch.setattr(publish_allenai_audit, "PUBLIC", target)
+    monkeypatch.chdir(tmp_path)
+    publish_allenai_audit.publish(local.relative_to(tmp_path))
+    descriptor = json.loads((target / "release.json").read_text())
+    assert (
+        descriptor["local_manifest"]["path"] == local.relative_to(tmp_path).as_posix()
+    )
+    assert descriptor["manifest_sha256"] == sha256_file(target / "manifest.json")
+    assert descriptor["local_manifest"]["sha256"] == sha256_file(local)
+    with pytest.raises(ValueError, match="immutable"):
+        publish_allenai_audit.publish(local.relative_to(tmp_path))

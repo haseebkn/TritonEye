@@ -153,10 +153,14 @@ project; isolated CI/validation worktrees use synthetic fixtures and committed
 public metadata, not copied private imagery or indirect data access.
 The [saved verification ledger](evidence/allenai_nl_verification_20261012.json)
 pins that completed replay to the public release and executing verifier hashes.
-Final local software validation: **565 passed, two heavyweight tests
+Preparation-commit local software validation: **565 passed, two heavyweight tests
 deselected**, plus Ruff, Black and strict mypy passing across agents/tests and
 the three audit scripts. Those counts are local evidence; data-dependent tests
 may skip in a clean CI checkout. CI certifies software, not annotation truth.
+Before shipping, the publication command's relative manifest path was also
+normalized and exercised with synthetic files through a successful immutable
+release. The audit regression suite then passed **18 tests**; the already
+published preparation manifests and derived imagery were not rewritten.
 
 ## What would make this usable for model training?
 

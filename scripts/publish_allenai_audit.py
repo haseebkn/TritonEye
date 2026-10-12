@@ -17,7 +17,8 @@ PUBLIC = REPO_ROOT / "datasets/allenai_nl/v0.1.0"
 
 
 def publish(local: Path) -> None:
-    if not local.resolve().is_relative_to(BASE.resolve()):
+    local = local.resolve()
+    if not local.is_relative_to(BASE.resolve()):
         raise ValueError("Expected a local alignment release")
     if (PUBLIC / "manifest.json").exists() or (PUBLIC / "release.json").exists():
         raise ValueError("Public release is immutable")
