@@ -151,4 +151,3 @@ conflicts, point-coordinate preservation, unresolved ignores, tampering,
 overwrite refusal, held-out scope rejection and blocked adoption purposes.
 Synthetic fixtures run without copying or accessing private imagery in CI.
 Software validation is not annotation truth or evidence of false-alarm reduction.
-
