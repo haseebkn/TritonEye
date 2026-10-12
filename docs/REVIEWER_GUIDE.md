@@ -37,6 +37,13 @@ records three limited xView3 fits and three frozen-CROMA token-head fits. Provis
 positive-only fits cannot establish false-alarm reduction or measured improvement.
 The independent-review guard and locked test assignments still apply.
 
+The subsequent [AllenAI NL source audit](ALLENAI_NL_AUDIT.md) prepares 31
+alignment-review windows and 23 point patches from three exact 2022 acquisitions.
+It verifies the separate CC BY archive's licence declaration but finds no NL
+source-window overlap there. Older NL annotation permission and completeness
+remain unresolved; this quarantined package is not adopted training data or
+independent benchmark truth.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "release_sha256": "8a6ce1502cd260581e3a5a0b9438c7279367c07f5ff8321cec554963aedd21fd",
+  "local_artifacts_hash_verified": 217,
+  "source_files_hash_verified": 15,
+  "publisher_band_windows_replayed": 62,
+  "native_patches_checked": 23,
+  "adoption_requests_blocked": [
+    "training",
+    "evaluation",
+    "threshold_selection"
+  ],
+  "locked_test_pixels_read": false,
+  "scope": "Software, geometry and pixel replay only; no vessel class or completeness certification",
+  "verifier_code_sha256": "a07c6a2e63895a1fceca7fd6415eba51ab8383de3360e38e9059a299c3d1e5d6",
+  "local_verification_path": "data/model_research/allenai_nl_v010/verification_01.json",
+  "local_verification_sha256": "f321192196dee4bbfa09b5641c7ed23a8bd9fceee47fa3bd39dcd9335c326ad2"
+}

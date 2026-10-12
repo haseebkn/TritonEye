@@ -1,0 +1,10 @@
+{
+  "version": "0.1.0",
+  "status": "quarantined_qa",
+  "manifest_sha256": "2da7c10d5f5db4bcc53dfe69b2681ca5ba77e0a89751315f2e4039d0c8fe87bf",
+  "source_evidence_sha256": "87f181b912c08e42da402187019c14761e8a2c33e2fdf983c9bdd90cfeed7c31",
+  "local_manifest": {
+    "path": "data/model_research/allenai_nl_v010/subset_05/manifest.json",
+    "sha256": "6fe4b5554b429e7d260c996a5d6b125c06caeee80c14a2125d0b5d73b72ccbfd"
+  }
+}
