@@ -32,6 +32,11 @@ runs the expanded development set and records processing, resources, policy
 exclusions and AIS supporting proximity. Its accuracy metrics remain null and
 threshold selection remains blocked by review and coverage requirements.
 
+The [exploratory development experiment protocol](DEVELOPMENT_EXPERIMENTS.md)
+records three limited xView3 fits and three frozen-CROMA token-head fits. Provisional
+positive-only fits cannot establish false-alarm reduction or measured improvement.
+The independent-review guard and locked test assignments still apply.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:
@@ -89,7 +94,7 @@ remaining Step 2 blocker](COASTAL_POLICY.md#current-frozen-pilot-development-cov
 | --- | --- | --- |
 | Vessel precision, overall recall and false alarms per water km² | No independently reviewed, complete-area vessel/non-vessel truth. Frozen v0.1.0 has zero confirmed training vessel labels; later AIS proximity matches do not change that release. | A new versioned, reviewed NL dataset including detector misses, clutter/ice uncertainty and acquisition/geographic holdouts. [Annotation boundary](NL_BENCHMARK.md) |
 | Correct SAR–AIS identities and measured correlation improvement | No independently reviewed association cases; sparse local AIS lacks sufficient competition/track context. A proximity match is not a correct-identity label. | Area-wide co-temporal tracks, supported identity decisions and a paired geometric/uncertainty comparison on held-out cases, including wrong identities, ambiguity, misses and coverage. [Association protocol](TARGET_CORRELATION.md) |
-| Supervised detector or foundation-model improvement | No usable adopted training vessel labels, implemented trainer or trained foundation-feature detection head. The frozen encoder probe is not a controlled detector comparison. | Compatible training recipe, reviewed development data and reproducible pretrained/fine-tuned/foundation comparisons under identical splits and operating constraints. [Model roadmap](MODEL_DEVELOPMENT.md#completing-the-controlled-comparison) |
+| Supervised detector or foundation-model improvement | Exploratory bias/token-head fits now use one provisional VV/VH training vessel. They demonstrate gradient updates, but lack legitimate negative supervision, independently reviewed accuracy and a useful operating-point comparison. | Reviewed, diverse development data, meaningful detector fine-tuning and reproducible comparisons under the same splits and operating constraints. [Executed development study](DEVELOPMENT_EXPERIMENTS.md) |
 | Low-false-positive threshold and coastal buffer selection | Missing reviewed labels and sufficient independent validation blocks; partial/unsupported sensor coverage. No operating point has been selected from detector counts. | Validation under documented false-alarm **and minimum recall/coverage** constraints, then a separately frozen final-test protocol. These are provisional research targets, not C-CORE requirements. [Operating objective](NL_BASELINE.md#provisional-operating-objective) |
 | General NL offshore/HH/HV capability and shoreline correctness | The current detector and feature model have no validated HH/HV compatibility; sparse shoreline controls, now including Makkovik, leave large regions unchecked. Historical annotation coverage is not detector support. | Separate labelled HH/HV model/input experiments and broader regional imagery checks beyond these sparse points. [Polarization limits](DATA_SOURCES.md#polarization-availability-constrains-what-can-be-processed) |
 | Optical/RF fusion, retraining and operational MLOps | Not implemented: optical/RF fusion, automated retraining/promotion, monitored staged deployment, AWS training, DVC data versioning, the SQLite task bus and cloud commissioning. These are implementation gaps, not features merely awaiting credentials. | Authorized data, implemented pipelines and deployment/monitoring/rollback validation. The [agent-engine document](../agents.md) is explicitly a future blueprint, not delivery evidence. |

@@ -6,6 +6,7 @@ One entry point for evidence, limitations and a short review walkthrough.
 Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle](docs/OVERLAP_REVIEW.md).
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
+Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).
 
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a
@@ -51,11 +52,11 @@ as well as a low false-alarm bound; it cannot succeed by withholding everything.
 The [v0.2.0 replay](docs/NL_BASELINE_V020.md) extends this accounting to the
 expanded development set; independent accuracy remains unavailable.
 
-The [model development status](docs/MODEL_DEVELOPMENT.md) includes a real frozen
-CROMA radar-feature experiment on NL VV/VH development imagery. Features are
-not vessel predictions: detector fine-tuning and a controlled improvement
-comparison remain blocked by missing usable vessel labels. HH/HV remains separate
-and unsupported by the current models; locked test imagery is not encoded.
+The [model development status](docs/MODEL_DEVELOPMENT.md) includes frozen CROMA
+radar features and an [exploratory positive-only training protocol](docs/DEVELOPMENT_EXPERIMENTS.md)
+for a limited xView3 head fine-tune and a CROMA token head. Reviewed accuracy and
+controlled improvement remain blocked by label and coverage gaps. HH/HV remains
+separate and unsupported; locked test imagery is excluded from development.
 
 The [target correlation study](docs/TARGET_CORRELATION.md) adds detector-blind
 identity review bundles and an experimental uncertainty-aware comparison. No

@@ -1,0 +1,9 @@
+{
+  "status": "failed_execution",
+  "reason": "requires_grad_ is not supported on ScriptModules",
+  "exception_type": "RuntimeError",
+  "seconds": 139.87544730000081,
+  "improvement": null,
+  "alerts_enabled": false,
+  "source_sha256": "76b9bfd347297d09703032afe8e2125e45a2ddfc13aa26ba5fb191980b986ae0"
+}

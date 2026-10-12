@@ -1,19 +1,21 @@
 # NL model development status
 
-Step 5 is **partially implemented, not complete**. The project now runs a real,
-frozen Sentinel-1 foundation encoder on NL development imagery. It has not
-fine-tuned a vessel detector, trained a foundation-feature vessel head, or
-demonstrated improved detection. Those experiments require usable vessel labels.
-Independent review remains unavailable, as disclosed in the benchmark.
+Step 5 is **partially implemented, not complete**. The latest
+[development experiment protocol](DEVELOPMENT_EXPERIMENTS.md) adds exploratory
+positive-only fitting of one existing xView3 objectness bias and a linear head
+on frozen CROMA radar tokens, using the provisional v0.2.0 training vessel.
+Independent review and measured improvement remain unavailable. The v0.1.0
+feature-only experiment and label-source screening below are historical evidence.
 
 ## Experiments and prerequisites
 
 | Approach | Actual status | What the evidence supports |
 | --- | --- | --- |
 | Existing pretrained xView3 ensemble | Historical bounded replay in [NL_BASELINE.md](NL_BASELINE.md), plus [saved full-scene AIS comparisons](AIS_SUBSET_RESULT.md) | Supporting proximity evidence, not overall vessel accuracy or improvement. |
-| Fine-tuned detector | Not run; no trainer implemented | Frozen v0.1.0 pilot has zero confirmed training vessel labels in either polarization branch; later AIS proximity observations are not adopted training labels. |
+| Limited xView3 head fine-tune | Executed, three exploratory positive-only fits | One existing member bias changed; full detector fitting and reviewed improvement remain open. |
 | CROMA frozen radar features | Executed on six VV/VH development areas | Checkpoint compatibility, finite features, full selected-pixel coverage and repeatability |
-| Frozen-feature vessel head or encoder adaptation | Not run | No usable training vessel labels or validated head to justify adaptation |
+| Frozen-feature vessel head | Executed, three exploratory positive-only fits on eleven VV/VH areas | Linear token head uses one provisional VV/VH training positive; low training loss accompanied thousands of returns, with accuracy unknown. |
+| Encoder adaptation | Deferred | No validated frozen-head evidence justifies adaptation. |
 | HH/HV model comparison | Not run | Existing models have no validated HH/HV compatibility; labels also remain unresolved |
 
 A blocked fit is not an unsuccessful improvement experiment. The recorded GPU
@@ -171,7 +173,8 @@ retains the experiment identities and findings.
 
 ## Completing the controlled comparison
 
-The following work is still required, not implemented training infrastructure:
+The exploratory bias/token-head fits are implemented. A useful controlled
+accuracy comparison and broader training infrastructure still require:
 
 1. Resolve training vessels and whole-area annotation decisions in a new
    versioned release; preserve the current frozen release and geographic locks.
@@ -184,8 +187,9 @@ The following work is still required, not implemented training infrastructure:
    ensemble does not by itself provide a reproducible fine-tuning recipe. Include
    a matching pretrained architecture control if fine-tuning a different model;
    do not attribute an architecture or ensemble change to fine-tuning alone.
-3. Implement and run the pretrained control, detector fine-tune and frozen
-   CROMA detection head on the same development splits. Record all seeds,
+3. Extend the limited bias-only fine-tune and positive-only token head into
+   detectors trained with legitimate background supervision, on the same
+   development splits as their pretrained controls. Record all seeds,
    optimizer settings, augmentations, epochs, selection decisions, weights,
    runtime, memory and failed or non-improving fits. Adapt the encoder only when
    frozen-head evidence justifies a predeclared additional experiment.

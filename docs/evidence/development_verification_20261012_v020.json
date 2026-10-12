@@ -1,0 +1,305 @@
+{
+  "status": "saved_artifacts_verified_accuracy_unmeasured",
+  "experiment_sha256": "cb8cbc214bf7c933a891fb58fceee28131439fa7e166d64b5cbd0fb330749956",
+  "dataset_release_sha256": "29ab2db4b0ec8d969db4200c3475dd67699bc2de1f7244d66643737bc05013c5",
+  "file_sha256": {
+    "pretrained_st_johns_harbour.json": "16cafccb113b672e62352bd4d6530d550d0a9df0c7155683fdc947af529e871c",
+    "pretrained_eastern_avalon_offshore.json": "451a17ff6651a343ad829ffbca7e62349ba0d0c4f71c610a2ca99ff5592dc5a2",
+    "pretrained_bonavista_coast.json": "477a8f5d6a179760176445ce30f3e9d8b06028bcec537103b9946d7b1088dfe0",
+    "pretrained_bonavista_offshore.json": "23d809f87453f6ac16181bf72a91dc75ba2c67d2795cf7cd4054df7e6af41910",
+    "pretrained_lewisporte_coast.json": "0cc744d6dce79b07fa9be71477fe31592ec8dfb7daa3aea443bd10df09ed9447",
+    "pretrained_bay_of_exploits_water.json": "3cef41451ab1e32def00b5c30214267bef109c5246bdee39566cf4be66a927c2",
+    "pretrained_scene_01_area_01.json": "7f3df1c239c6a60f4e80fad1b4d7f0abcaf155d6af4662bd34b8614d646c8024",
+    "pretrained_scene_01_area_02.json": "d7e68f82e2758315a990a4a4b6b3d195bbb47af1c132f4f8d394ab5d6579799a",
+    "pretrained_scene_02_area_01.json": "7387b97c8c062125029593fe0c417359a0486b07ccc1f3a633f2e150dd1694a3",
+    "pretrained_scene_06_area_01.json": "c7d13d34a0f11e8002af2851119679e49324cae2ab048bea8279689bbbc54da1",
+    "pretrained_scene_06_area_02.json": "3aac357f596216de4e0fbd7da8da8504f2aad169887ace07a7f3b0aea3c68b02",
+    "fine_20261012_st_johns_harbour.json": "68dae394e6a82f5e83df4a5bc8aab91dbe905aaeeec89237977fcb50e7752880",
+    "fine_20261012_eastern_avalon_offshore.json": "e1463d23117239e79a97651758c1719f5953a56db99fde73dc8bc5a976da8a2c",
+    "fine_20261012_bonavista_coast.json": "252b0fa6ec287766cae632c37a667edf9fbf556539d0a41c5e1973b629d11073",
+    "fine_20261012_bonavista_offshore.json": "392856336608634b97e623ab40faa86c6a44b5beb34260a606bbcc17de075ed6",
+    "fine_20261012_lewisporte_coast.json": "a6ff74d399dfda5539ebd441b9aad44e225c7146b67695268bdc218edf2c9b5b",
+    "fine_20261012_bay_of_exploits_water.json": "5332e29696fa4289d0a13306dd7d018b0384d48701fef1bda890198afdc30072",
+    "fine_20261012_scene_01_area_01.json": "a49ab87d97b505fb812631dbebb07f0777bd37d359ccaf2bb6df6016abb980a6",
+    "fine_20261012_scene_01_area_02.json": "7b2ff509a0f6998c3638bb72fd07a5d71540665469b282efd528f5d1ca06fb24",
+    "fine_20261012_scene_02_area_01.json": "d5e993fa57f0359e82a74dde4e3a1c350fdc8b90ddec1992883a6de44cd7fbab",
+    "fine_20261012_scene_06_area_01.json": "7757b2be4715ad8185f9a8a15569056bd2b7070489a87c74dfbe3e5dc62afcdb",
+    "fine_20261012_scene_06_area_02.json": "6226835c519a36f40fe6066ca420f80db3a27c130768085e9deb6d0682e50e6f",
+    "fine_20261013_st_johns_harbour.json": "68dae394e6a82f5e83df4a5bc8aab91dbe905aaeeec89237977fcb50e7752880",
+    "fine_20261013_eastern_avalon_offshore.json": "e1463d23117239e79a97651758c1719f5953a56db99fde73dc8bc5a976da8a2c",
+    "fine_20261013_bonavista_coast.json": "252b0fa6ec287766cae632c37a667edf9fbf556539d0a41c5e1973b629d11073",
+    "fine_20261013_bonavista_offshore.json": "392856336608634b97e623ab40faa86c6a44b5beb34260a606bbcc17de075ed6",
+    "fine_20261013_lewisporte_coast.json": "a6ff74d399dfda5539ebd441b9aad44e225c7146b67695268bdc218edf2c9b5b",
+    "fine_20261013_bay_of_exploits_water.json": "5332e29696fa4289d0a13306dd7d018b0384d48701fef1bda890198afdc30072",
+    "fine_20261013_scene_01_area_01.json": "a49ab87d97b505fb812631dbebb07f0777bd37d359ccaf2bb6df6016abb980a6",
+    "fine_20261013_scene_01_area_02.json": "7b2ff509a0f6998c3638bb72fd07a5d71540665469b282efd528f5d1ca06fb24",
+    "fine_20261013_scene_02_area_01.json": "d5e993fa57f0359e82a74dde4e3a1c350fdc8b90ddec1992883a6de44cd7fbab",
+    "fine_20261013_scene_06_area_01.json": "7757b2be4715ad8185f9a8a15569056bd2b7070489a87c74dfbe3e5dc62afcdb",
+    "fine_20261013_scene_06_area_02.json": "6226835c519a36f40fe6066ca420f80db3a27c130768085e9deb6d0682e50e6f",
+    "fine_20261014_st_johns_harbour.json": "68dae394e6a82f5e83df4a5bc8aab91dbe905aaeeec89237977fcb50e7752880",
+    "fine_20261014_eastern_avalon_offshore.json": "e1463d23117239e79a97651758c1719f5953a56db99fde73dc8bc5a976da8a2c",
+    "fine_20261014_bonavista_coast.json": "252b0fa6ec287766cae632c37a667edf9fbf556539d0a41c5e1973b629d11073",
+    "fine_20261014_bonavista_offshore.json": "392856336608634b97e623ab40faa86c6a44b5beb34260a606bbcc17de075ed6",
+    "fine_20261014_lewisporte_coast.json": "a6ff74d399dfda5539ebd441b9aad44e225c7146b67695268bdc218edf2c9b5b",
+    "fine_20261014_bay_of_exploits_water.json": "5332e29696fa4289d0a13306dd7d018b0384d48701fef1bda890198afdc30072",
+    "fine_20261014_scene_01_area_01.json": "a49ab87d97b505fb812631dbebb07f0777bd37d359ccaf2bb6df6016abb980a6",
+    "fine_20261014_scene_01_area_02.json": "7b2ff509a0f6998c3638bb72fd07a5d71540665469b282efd528f5d1ca06fb24",
+    "fine_20261014_scene_02_area_01.json": "d5e993fa57f0359e82a74dde4e3a1c350fdc8b90ddec1992883a6de44cd7fbab",
+    "fine_20261014_scene_06_area_01.json": "7757b2be4715ad8185f9a8a15569056bd2b7070489a87c74dfbe3e5dc62afcdb",
+    "fine_20261014_scene_06_area_02.json": "6226835c519a36f40fe6066ca420f80db3a27c130768085e9deb6d0682e50e6f",
+    "croma_20261012_st_johns_harbour.json": "43687e23fce4857fcc462701588114236efdc10bbeeeeae85806a90bde7137a2",
+    "croma_20261012_eastern_avalon_offshore.json": "88fef1c7ce2458d3eb5db8d8b0ad678df64e6c50310686f0b3014175ed0b7624",
+    "croma_20261012_bonavista_coast.json": "1a4ced5883ea811f278f3a1349d6cb602af21e7339b62db27c3692a5e7c1a36c",
+    "croma_20261012_bonavista_offshore.json": "2a187bfe42a64a54e237131bfb381b71f66daee221d6230df90a062c1373a596",
+    "croma_20261012_lewisporte_coast.json": "a75d0130322ded2c99004f943a988fb7932c1faae1e41053f8dcb7233bdb9571",
+    "croma_20261012_bay_of_exploits_water.json": "51a7dd9ee78a5a644852aff6678cc6b3727334d4d9dc3bea6aa76a0854574e2e",
+    "croma_20261012_scene_01_area_01.json": "93158da49bf4fe7c3a3d24bb3a7e11f83cee240f086b3560feeb647a3391f4d8",
+    "croma_20261012_scene_01_area_02.json": "22d17b9de30373a81db23812aef8d4321de4ad3691795f06451bbc4a9dddfa4e",
+    "croma_20261012_scene_02_area_01.json": "a0ef8b9658ca0f5d109fb46df1c13006f4d03b328895c3de6c4cc4f285dd0085",
+    "croma_20261012_scene_06_area_01.json": "157eb119a380b2416aa8b7cd0c2ef4b6baabb01ded772ff2e8780dbe24bddefd",
+    "croma_20261012_scene_06_area_02.json": "b627315e838a7d91182e90e30b69ba94b30497a7e177119d281c6424b1360c36",
+    "croma_20261013_st_johns_harbour.json": "cd58936f0b4505e92c502566db9b36627f816ca82b4d8cbbd6478629f7221f09",
+    "croma_20261013_eastern_avalon_offshore.json": "a3436ce2149afb1e9b05203f7d20ae60e16dcbb69dcebd6e3552bb2266d5aa66",
+    "croma_20261013_bonavista_coast.json": "cf13f82705f3234b8c7c5c39d3a843267ef70deb1e80df5ebb9a140a34bf830c",
+    "croma_20261013_bonavista_offshore.json": "3221fd56b33409ea3bd9ebb24129a70377e27df890fb4c3ee8d39a793d7b7f86",
+    "croma_20261013_lewisporte_coast.json": "a2728fea84c80c2e15361fffbfb237ab4efc6b2d8084c43c3462a9f28b32e1bc",
+    "croma_20261013_bay_of_exploits_water.json": "f6c8a9bd1aafa1166e14edf21f31a99460a7ecb195e3df97885e1e2e92cd552f",
+    "croma_20261013_scene_01_area_01.json": "c664c5a896a83ff8e33ae57dc8021140b50b4d171f81ceaf914a7ad9e438a57f",
+    "croma_20261013_scene_01_area_02.json": "619a7d8b6bc24e56ce5bac475478457938138f8f6c6a1123bd894d174f44c3ab",
+    "croma_20261013_scene_02_area_01.json": "447df355ad5e82438e5ffad054b7bf28aaf3a69b1d72b9f66c541b0b47b8ebbd",
+    "croma_20261013_scene_06_area_01.json": "dfde92755543ce24171a6e9d69a04421167301b0a6dd9585f6d9404cf0695bcd",
+    "croma_20261013_scene_06_area_02.json": "c056dc18f95356baec2514d508bf9900732e5460637d7c215019ed8968947ada",
+    "croma_20261014_st_johns_harbour.json": "bcee2192751d0e2a1bce800feea014c7e9b2d4520f361fd971fa2431a2382ab1",
+    "croma_20261014_eastern_avalon_offshore.json": "2fe2dcd3035c55c283693ef8cbfa72beb026d064907b8328f14c58b5132f41da",
+    "croma_20261014_bonavista_coast.json": "8a186dc0e6ba4edcb6037c807e242287c8dca548ca1f023b5aa7102ac3ccf158",
+    "croma_20261014_bonavista_offshore.json": "cd0dddcc95ce7826e28ea7620f88dc68532ed5f13bcabe94e30eebb70552a6e2",
+    "croma_20261014_lewisporte_coast.json": "eacb32009e2ad5bb6155e45975169e0ab21f2606c3dc85178189a20c2f0bdb13",
+    "croma_20261014_bay_of_exploits_water.json": "8b1bab8f946b7a63ea342358470677cf246d276af7075df4e5f50e26ebc7593e",
+    "croma_20261014_scene_01_area_01.json": "562c15d13f942358e81274a488993a2f8d37b0a12204af250d00418a9b10da79",
+    "croma_20261014_scene_01_area_02.json": "939788e7fbe622821f1f786a94eec52fa00578b53a94ed242cb7e2c00cac6184",
+    "croma_20261014_scene_02_area_01.json": "d49f0c5eec3f1dcd953202477d474b2efa56c25118189ed524202a8d7bfdaa74",
+    "croma_20261014_scene_06_area_01.json": "2e746c67b2b0e18a46ed29875cc106859bdf8164175bff4fc31a484c3bdb4e25",
+    "croma_20261014_scene_06_area_02.json": "f65e00c0f6434b8586f91ed5ce290c1a0bba27caaf9ae9ff5e0f38571a533bf1",
+    "member_bias_20261012.pt": "1c739d5da48f23b5de0690a7deca37028e2d795f5b33b4955ddb414b3b76c6f1",
+    "member_bias_20261013.pt": "36d86fee71207aab44c64a6d5877d73551874e313dc0a1f5cdf10e05843ecce6",
+    "member_bias_20261014.pt": "62213e2821d8c79e58860841d1bd4c447f5775caab5cc9fe581bd5b04662922e",
+    "croma_head_20261012.pt": "0307eb68275a3fc4132bc482592916e0494468f3d2194bd4c204b909a3ec9d28",
+    "croma_head_20261013.pt": "1dc5d3e6693779e3b3854424aefe0aa66ac94152bd380b415bb9a938e8d87cd1",
+    "croma_head_20261014.pt": "73dfd75db9489ebbb42cab743932ea626095cc1587ad92aded6b733583f9ce8f",
+    "croma_features/st_johns_harbour.npz": "1dada0aeceb23641d11131babbe0d9cf2172def574154c06b661f2ca5b62f7df",
+    "croma_features/eastern_avalon_offshore.npz": "8a50db5a7466dd8eb6fa8fb85abbc34a97479c4558210ed7ef0f252f785484bf",
+    "croma_features/bonavista_coast.npz": "00bd5aec019d07d9493a3cb1e65fca2e139c3644314389683568d3623514b6c0",
+    "croma_features/bonavista_offshore.npz": "383e672d83870dcad6c23ef748f1b2908eae274a396a7b1488d8c69b1edcc844",
+    "croma_features/lewisporte_coast.npz": "f3b09b0c5ab97c59bbc42f24039791ef075e9b6021a009b80dfe7315a49a9b77",
+    "croma_features/bay_of_exploits_water.npz": "25209198ee61ea06111bb3f7a8417d13f8fa7a306b07a2badcb40028f38b8eaa",
+    "croma_features/scene_01_area_01.npz": "137e96d19182bebb066f3ebb22743733a10c443942daab99f83eadc77c8e3ec0",
+    "croma_features/scene_01_area_02.npz": "28fed957e763fa48842d1481e69b448750ad573efbded95817c046456fc5ec95",
+    "croma_features/scene_02_area_01.npz": "9a8c35eba63d81f2a600f1fbea1534e8dcd1102687d3e82b16653789c067a471",
+    "croma_features/scene_06_area_01.npz": "df778662b72ce3cabc588ecfe402cb1dfc63be2654f72f9d0fb13d0e05e78bca",
+    "croma_features/scene_06_area_02.npz": "97abbf03b31f231a9cd48cfbcbc2d82646c9f384c8d2f4549eac6f00831719e4"
+  },
+  "member_probability_checks": [
+    {
+      "roi_id": "st_johns_harbour",
+      "seed": 20261012,
+      "shared_peaks": 20,
+      "max_probability_error": 2.285894343256878e-08
+    },
+    {
+      "roi_id": "eastern_avalon_offshore",
+      "seed": 20261012,
+      "shared_peaks": 2,
+      "max_probability_error": 3.773109109872497e-09
+    },
+    {
+      "roi_id": "bonavista_coast",
+      "seed": 20261012,
+      "shared_peaks": 13,
+      "max_probability_error": 1.4226446021226025e-08
+    },
+    {
+      "roi_id": "bonavista_offshore",
+      "seed": 20261012,
+      "shared_peaks": 0,
+      "max_probability_error": 0
+    },
+    {
+      "roi_id": "lewisporte_coast",
+      "seed": 20261012,
+      "shared_peaks": 16,
+      "max_probability_error": 2.417457373171672e-08
+    },
+    {
+      "roi_id": "bay_of_exploits_water",
+      "seed": 20261012,
+      "shared_peaks": 8,
+      "max_probability_error": 2.6405763076109423e-08
+    },
+    {
+      "roi_id": "scene_01_area_01",
+      "seed": 20261012,
+      "shared_peaks": 11,
+      "max_probability_error": 3.783011293112537e-08
+    },
+    {
+      "roi_id": "scene_01_area_02",
+      "seed": 20261012,
+      "shared_peaks": 2,
+      "max_probability_error": 3.990723290714371e-08
+    },
+    {
+      "roi_id": "scene_02_area_01",
+      "seed": 20261012,
+      "shared_peaks": 17,
+      "max_probability_error": 3.2020213924788266e-08
+    },
+    {
+      "roi_id": "scene_06_area_01",
+      "seed": 20261012,
+      "shared_peaks": 1,
+      "max_probability_error": 5.7063256897471604e-08
+    },
+    {
+      "roi_id": "scene_06_area_02",
+      "seed": 20261012,
+      "shared_peaks": 2,
+      "max_probability_error": 5.525763846492282e-09
+    },
+    {
+      "roi_id": "st_johns_harbour",
+      "seed": 20261013,
+      "shared_peaks": 20,
+      "max_probability_error": 2.285894343256878e-08
+    },
+    {
+      "roi_id": "eastern_avalon_offshore",
+      "seed": 20261013,
+      "shared_peaks": 2,
+      "max_probability_error": 3.773109109872497e-09
+    },
+    {
+      "roi_id": "bonavista_coast",
+      "seed": 20261013,
+      "shared_peaks": 13,
+      "max_probability_error": 1.4226446021226025e-08
+    },
+    {
+      "roi_id": "bonavista_offshore",
+      "seed": 20261013,
+      "shared_peaks": 0,
+      "max_probability_error": 0
+    },
+    {
+      "roi_id": "lewisporte_coast",
+      "seed": 20261013,
+      "shared_peaks": 16,
+      "max_probability_error": 2.417457373171672e-08
+    },
+    {
+      "roi_id": "bay_of_exploits_water",
+      "seed": 20261013,
+      "shared_peaks": 8,
+      "max_probability_error": 2.6405763076109423e-08
+    },
+    {
+      "roi_id": "scene_01_area_01",
+      "seed": 20261013,
+      "shared_peaks": 11,
+      "max_probability_error": 3.783011293112537e-08
+    },
+    {
+      "roi_id": "scene_01_area_02",
+      "seed": 20261013,
+      "shared_peaks": 2,
+      "max_probability_error": 3.990723290714371e-08
+    },
+    {
+      "roi_id": "scene_02_area_01",
+      "seed": 20261013,
+      "shared_peaks": 17,
+      "max_probability_error": 3.2020213924788266e-08
+    },
+    {
+      "roi_id": "scene_06_area_01",
+      "seed": 20261013,
+      "shared_peaks": 1,
+      "max_probability_error": 5.7063256897471604e-08
+    },
+    {
+      "roi_id": "scene_06_area_02",
+      "seed": 20261013,
+      "shared_peaks": 2,
+      "max_probability_error": 5.525763846492282e-09
+    },
+    {
+      "roi_id": "st_johns_harbour",
+      "seed": 20261014,
+      "shared_peaks": 20,
+      "max_probability_error": 2.285894343256878e-08
+    },
+    {
+      "roi_id": "eastern_avalon_offshore",
+      "seed": 20261014,
+      "shared_peaks": 2,
+      "max_probability_error": 3.773109109872497e-09
+    },
+    {
+      "roi_id": "bonavista_coast",
+      "seed": 20261014,
+      "shared_peaks": 13,
+      "max_probability_error": 1.4226446021226025e-08
+    },
+    {
+      "roi_id": "bonavista_offshore",
+      "seed": 20261014,
+      "shared_peaks": 0,
+      "max_probability_error": 0
+    },
+    {
+      "roi_id": "lewisporte_coast",
+      "seed": 20261014,
+      "shared_peaks": 16,
+      "max_probability_error": 2.417457373171672e-08
+    },
+    {
+      "roi_id": "bay_of_exploits_water",
+      "seed": 20261014,
+      "shared_peaks": 8,
+      "max_probability_error": 2.6405763076109423e-08
+    },
+    {
+      "roi_id": "scene_01_area_01",
+      "seed": 20261014,
+      "shared_peaks": 11,
+      "max_probability_error": 3.783011293112537e-08
+    },
+    {
+      "roi_id": "scene_01_area_02",
+      "seed": 20261014,
+      "shared_peaks": 2,
+      "max_probability_error": 3.990723290714371e-08
+    },
+    {
+      "roi_id": "scene_02_area_01",
+      "seed": 20261014,
+      "shared_peaks": 17,
+      "max_probability_error": 3.2020213924788266e-08
+    },
+    {
+      "roi_id": "scene_06_area_01",
+      "seed": 20261014,
+      "shared_peaks": 1,
+      "max_probability_error": 5.7063256897471604e-08
+    },
+    {
+      "roi_id": "scene_06_area_02",
+      "seed": 20261014,
+      "shared_peaks": 2,
+      "max_probability_error": 5.525763846492282e-09
+    }
+  ],
+  "validation_exports_blocked": 10,
+  "sar_imagery_opened_by_verifier": false,
+  "improvement": null,
+  "verifier_sha256": "b0c70a1be2326051b43520443eb0f12ca377ed9081b39d84db6787bd97400a24"
+}
