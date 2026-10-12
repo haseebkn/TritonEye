@@ -169,6 +169,10 @@ CRLF bytes were restored mechanically with no change to recorded hashes,
 parsed values or source data, and a regression test now checks the real
 committed release (not a `tmp_path` fixture) against the pinned verification
 ledger on every run. The audit regression suite now passes **19 tests**.
+The regression's private-data stage is explicitly isolated to an empty temporary
+root, so it never reads the local SAR archive and works in both data-present
+and data-absent checkouts. Docker includes the public documentation/verification
+ledger used by that regression; no private data are added to the image.
 
 ## What would make this usable for model training?
 

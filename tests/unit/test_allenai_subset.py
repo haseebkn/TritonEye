@@ -297,7 +297,9 @@ def test_release_loader_integrity_and_no_training(
         allenai_subset.load_alignment_subset(release)
 
 
-def test_committed_public_release_matches_recorded_and_pinned_hashes() -> None:
+def test_committed_public_release_matches_recorded_and_pinned_hashes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     """The real published release (not a tmp_path fixture) must satisfy its
     own recorded hashes and the pinned verification evidence, so the one
     public deliverable this project ships is actually loadable as documented.
@@ -321,8 +323,10 @@ def test_committed_public_release_matches_recorded_and_pinned_hashes() -> None:
     assert sha256_file(release) == verification["release_sha256"]
 
     # The public-integrity stage of the real consumer must accept these
-    # committed bytes; only the private, locally-held manifest (absent in
-    # this checkout) is expected to fail past that point.
+    # committed bytes. Explicitly isolate the private-data root so this test
+    # remains valid when the original workspace or a container has real data.
+    # This also prevents the regression from reading actual private artifacts.
+    monkeypatch.setattr(allenai_subset, "REPO_ROOT", tmp_path)
     with pytest.raises(FileNotFoundError):
         allenai_subset.load_alignment_subset(release)
 
