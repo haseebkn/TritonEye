@@ -32,6 +32,7 @@ COPY agents/ /app/agents/
 COPY scripts/ /app/scripts/
 COPY tests/ /app/tests/
 COPY datasets/ /app/datasets/
+COPY docs/ /app/docs/
 COPY pyproject.toml /app/
 
 # Create mount points for data, models, reports, mission outputs and the MLflow
