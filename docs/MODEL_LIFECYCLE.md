@@ -146,6 +146,20 @@ claim of detector accuracy.
 
 ## Verification and current limits
 
+The [12 October real-data replay](evidence/model_lifecycle_20261012.json) compared
+the pinned reference against itself. Each branch retained all ten validation
+areas, processed six VV/VH areas, recorded four HH/HV areas as unsupported and
+had zero processing failures. The paired prediction files were identical.
+Processing covered 62.23% of selected validation water; independently measured
+coverage was 0%. Each branch produced 12 returns above the provisional 0.15
+threshold. These are descriptive returns, not confirmed vessels or false alarms.
+
+The actual promotion request was refused, with the reference revision and journal
+unchanged. No threshold was selected. Bounded inference took 122.26 seconds in
+the reference branch and 99.42 seconds in the second branch; warm-up, execution
+order and system load prevent interpreting that difference as model improvement.
+The isolated store and full report remain under `state/`, outside Git.
+
 [Lifecycle regressions](../tests/unit/test_model_lifecycle.py) execute registration,
 paired shadow processing, real release/review validation, real chip hash and
 geolocation checks, metric computation, threshold selection, promotion, restart
