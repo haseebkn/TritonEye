@@ -2,6 +2,7 @@
 
 import copy
 import json
+import sqlite3
 from pathlib import Path
 from typing import Any
 
@@ -347,6 +348,54 @@ def test_stale_and_unknown_rollback_are_atomic(
     assert (
         store.resolve()["model_id"] == candidate and len(store.status()["events"]) == 2
     )
+
+
+def test_rollback_history_write_failure_preserves_selection_after_restart(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store, reference, candidate, result = rehearsal(tmp_path, monkeypatch)
+    store.promote(result["shadow_id"], actor="operator", reason="simulation")
+    before_status = store.status()
+    before_selection = store.resolve()
+    assert before_selection["model_id"] == candidate
+
+    # FAIL aborts only the history insert, leaving the preceding pointer update
+    # pending. The lifecycle transaction must undo that update as well.
+    with store.transaction() as db:
+        db.execute(
+            "CREATE TRIGGER fail_rollback_history BEFORE INSERT ON events "
+            "WHEN json_extract(NEW.body, '$.action') = 'rollback' BEGIN "
+            "SELECT CASE WHEN "
+            "(SELECT champion_id FROM state) = json_extract(NEW.body, '$.model') "
+            "AND (SELECT revision FROM state) = NEW.revision "
+            "AND (SELECT threshold FROM state) IS NULL "
+            "THEN RAISE(FAIL, 'simulated decision history failure after selection') "
+            "ELSE RAISE(FAIL, 'selection was not updated before history') END; END"
+        )
+
+    with pytest.raises(
+        sqlite3.IntegrityError,
+        match="simulated decision history failure after selection",
+    ):
+        store.rollback(
+            reference, expected_revision=2, actor="operator", reason="simulation"
+        )
+
+    restarted = Lifecycle(store.path)
+    assert restarted.resolve() == before_selection
+    assert restarted.status() == before_status
+
+    # A failed transaction must also leave the store usable for a later retry.
+    with restarted.transaction() as db:
+        db.execute("DROP TRIGGER fail_rollback_history")
+    event = restarted.rollback(
+        reference, expected_revision=2, actor="operator", reason="retry simulation"
+    )
+    after = Lifecycle(store.path)
+    assert after.resolve()["model_id"] == reference
+    assert after.resolve()["threshold"] is None
+    assert after.status()["events"] == before_status["events"] + [event]
+    assert after.status()["revision"] == 3
 
 
 def test_real_release_stays_unreviewed_and_test_scope_is_rejected() -> None:
