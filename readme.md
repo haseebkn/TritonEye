@@ -3,6 +3,8 @@ Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 
 **Start here: [Reviewer guide — built and verified, measured, and blocked](docs/REVIEWER_GUIDE.md).**
 One entry point for evidence, limitations and a short review walkthrough.
+Local model operations: [promotion, paired shadow evaluation and rollback](docs/MODEL_LIFECYCLE.md).
+Promotion remains blocked by the current independent-review and coverage gaps.
 Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle](docs/OVERLAP_REVIEW.md).
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
@@ -216,8 +218,10 @@ mount, not a nonexistent database-file mount.
 This project emphasizes the role's ML/data-fusion core rather than a frontend:
 SAR preprocessing, target association, operationally meaningful uncertainty,
 reproducible experiments and analyst handoff. The xView3 detector is a supervised
-SAR model, **not a geospatial foundation model**. MLflow records provenance; it
-does not implement automatic champion promotion or monitored staged deployment.
+SAR model, **not a geospatial foundation model**. MLflow records provenance. A
+separate local research lifecycle implements guarded manual promotion, paired
+shadow evaluation and rollback; no real candidate is approved. Automatic
+production promotion and monitored cloud deployment are not implemented.
 
 Not implemented/validated: RF or optical fusion, regional iceberg/vessel
 classification, learned target correlation, a geospatial foundation-model
