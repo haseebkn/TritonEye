@@ -12,9 +12,9 @@ feature-only experiment and label-source screening below are historical evidence
 | Approach | Actual status | What the evidence supports |
 | --- | --- | --- |
 | Existing pretrained xView3 ensemble | Historical bounded replay in [NL_BASELINE.md](NL_BASELINE.md), plus [saved full-scene AIS comparisons](AIS_SUBSET_RESULT.md) | Supporting proximity evidence, not overall vessel accuracy or improvement. |
-| Limited xView3 head fine-tune | Exploratory v0.2.0 positive-only recipe | One existing member bias can be fitted; full detector fitting and reviewed improvement remain open. |
+| Limited xView3 head fine-tune | Executed, three exploratory positive-only fits | One existing member bias changed; full detector fitting and reviewed improvement remain open. |
 | CROMA frozen radar features | Executed on six VV/VH development areas | Checkpoint compatibility, finite features, full selected-pixel coverage and repeatability |
-| Frozen-feature vessel head | Exploratory v0.2.0 positive-only recipe | Linear token head uses one provisional VV/VH training positive; no verified background supervision or accuracy. |
+| Frozen-feature vessel head | Executed, three exploratory positive-only fits on eleven VV/VH areas | Linear token head uses one provisional VV/VH training positive; low training loss accompanied thousands of returns, with accuracy unknown. |
 | Encoder adaptation | Deferred | No validated frozen-head evidence justifies adaptation. |
 | HH/HV model comparison | Not run | Existing models have no validated HH/HV compatibility; labels also remain unresolved |
 
@@ -173,7 +173,8 @@ retains the experiment identities and findings.
 
 ## Completing the controlled comparison
 
-The following work is still required, not implemented training infrastructure:
+The exploratory bias/token-head fits are implemented. A useful controlled
+accuracy comparison and broader training infrastructure still require:
 
 1. Resolve training vessels and whole-area annotation decisions in a new
    versioned release; preserve the current frozen release and geographic locks.
@@ -186,8 +187,9 @@ The following work is still required, not implemented training infrastructure:
    ensemble does not by itself provide a reproducible fine-tuning recipe. Include
    a matching pretrained architecture control if fine-tuning a different model;
    do not attribute an architecture or ensemble change to fine-tuning alone.
-3. Implement and run the pretrained control, detector fine-tune and frozen
-   CROMA detection head on the same development splits. Record all seeds,
+3. Extend the limited bias-only fine-tune and positive-only token head into
+   detectors trained with legitimate background supervision, on the same
+   development splits as their pretrained controls. Record all seeds,
    optimizer settings, augmentations, epochs, selection decisions, weights,
    runtime, memory and failed or non-improving fits. Adapt the encoder only when
    frozen-head evidence justifies a predeclared additional experiment.

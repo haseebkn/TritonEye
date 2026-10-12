@@ -5,6 +5,94 @@ This study uses the frozen v0.2.0 development assignments. Results are
 set remains excluded. No performance improvement, selected operating threshold
 or completed Step 5 is claimed.
 
+## Executed results — 12 October 2026 UTC
+
+The successful local run is
+`data/model_research/development_20261012_v020_03/`, executing revision
+`971bec6`. [Public experiment evidence](evidence/development_20261012_v020.json)
+retains the complete settings, six fits, loss histories, per-area score trials,
+review rejections and provenance. The frozen release SHA256 is
+`29ab2db4b0ec8d969db4200c3475dd67699bc2de1f7244d66643737bc05013c5`.
+
+One pretrained member control and six fitted runs produced **77 area/model
+records across eleven distinct VV/VH development areas**: five train and six
+validation. Eight HH/HV development areas remained unsupported; two locked
+test areas were excluded. These are repeated experiments on the same areas,
+not 77 independent acquisitions. All ten validation truth exports remained
+blocked by the scientific review guard. No test images or combined review HTML
+were opened by this study, and frozen dataset files were unchanged.
+
+The bias-only fits reduced recorded training loss from **1.714714 to 1.666663**.
+All three seeds produced the same parameter digest and bias increase,
+**0.0599117279**. This objective has no stochastic initialization, so these
+identical runs provide no independent uncertainty estimate. Native replay
+probabilities actually increased: the
+[saved-artifact verifier](evidence/development_verification_20261012_v020.json)
+checks every retained control peak against its expected sigmoid/logit shift.
+It also binds all 77 prediction files, six parameter artifacts and eleven
+frozen feature archives to their hashes and checks the published return counts.
+
+CROMA encoded **176 windows**, covering all eleven selected chips. Its encoder
+state digest stayed unchanged. The 769-parameter heads reduced their recorded
+training losses as follows:
+
+| Seed | First recorded training loss | Last recorded training loss |
+| --- | ---: | ---: |
+| 20261012 | 0.569503 | 0.000362 |
+| 20261013 | 0.316859 | 0.000231 |
+| 20261014 | 0.897621 | 0.000485 |
+
+At strict score **>0.15**, across the six processed validation areas and
+111.283 km² of reference-relative water:
+
+| Approach | Raw returns | Open-water eligible | Coastal withheld | Reference land |
+| --- | ---: | ---: | ---: | ---: |
+| Pretrained member zero | 14 | 2 | 7 | 5 |
+| Bias-fitted member zero, each seed | 14 | 2 | 7 | 5 |
+| Frozen CROMA head, seed 20261012 | 2,601 | 1,671 | 174 | 756 |
+| Frozen CROMA head, seed 20261013 | 2,487 | 1,585 | 143 | 759 |
+| Frozen CROMA head, seed 20261014 | 2,574 | 1,639 | 154 | 781 |
+
+These are **descriptive returns, not false alarms or confirmed vessels**.
+The bias fit changed scores but did not change counts at this threshold.
+CROMA's very low one-example training loss accompanied a large candidate load;
+its positive-only head lacks evidence of useful background rejection. Scores
+are not calibrated between architectures, so these counts cannot rank accuracy
+or estimate false-alarm improvement. Neither experimental fit is promoted.
+The earlier production ensemble returned twelve validation detections at this
+threshold; comparing that different ensemble with this member is not a
+fine-tuning effect.
+
+The measured compute block took **189.79 seconds**, including model loading,
+all 77 area/model passes, fitting, feature extraction and serialization. Initial
+source integrity checks and shoreline-mask preparation are outside that block.
+Sampled process RSS peaked at **2.31 GiB**. The member phase took 166.03 seconds
+and peaked at **5.58 GiB CUDA allocation**; the separately recorded CROMA feature
+phase took 14.48 seconds and peaked near **230.08 MiB**. This is one execution
+on an RTX 4070 Laptop GPU, Python 3.13.7 and Torch 2.6.0+cu124; it provides no
+runtime uncertainty or full-swath throughput estimate.
+
+Two earlier execution attempts are retained:
+
+- [Attempt 1](evidence/development_failure_20261012_01.json) stopped before
+  detector inference because TorchScript does not support module-level
+  `requires_grad_`. Parameter-level freezing fixed it; an actual ScriptModule
+  regression verifies freezing and preserved inference.
+- [Attempt 2](evidence/development_failure_20261012_02.json) was stopped before
+  training after the individual member tuple was incorrectly interpreted in
+  ensemble order. Its partial fishing-head predictions are invalid and excluded.
+  A runtime head-identity regression now exercises the corrected mapping.
+
+These failures are software execution history, not accuracy comparisons.
+Current evidence demonstrates limited gradient training and reproducible
+foundation-head experimentation. Completing Step 5 still requires reviewed,
+diverse training/validation data with legitimate negatives, meaningful detector
+fine-tuning and an operating-point comparison meeting the Step 4 requirements.
+
+Local verification: **548 tests passed**, two heavy tests deselected. Ruff,
+Black and strict Mypy passed across 97 source/test files. Scientific independent
+review remains unavailable; software verification does not supply image truth.
+
 ## Protocol declared before execution
 
 The available VV/VH training supervision consists of one provisional vessel
@@ -76,6 +164,7 @@ Use the existing calibrated development data and pinned local model assets:
 
 ```sh
 python -m agents.development_experiments --dataset datasets/nl_benchmark/v0.2.0 --output data/model_research/new_development_run --device cuda --publish docs/evidence/new_development_run.json
+python -m agents.development_evidence --experiment data/model_research/new_development_run --output docs/evidence/new_development_verification.json
 ```
 
 CPU is supported but native detector inference can be much slower. Whole

@@ -8,6 +8,7 @@ import numpy as np
 import pytest
 import torch
 
+from agents.development_evidence import verify_bias_predictions
 from agents.development_experiments import (
     MemberDetector,
     feature_vector,
@@ -110,3 +111,26 @@ def test_counts_never_emit_accuracy_and_threshold_is_strict() -> None:
     assert trial["eligible_returns"] == 0
     assert trial["precision"] is trial["recall"] is None
     assert trial["measured"] is False
+
+
+def test_verifier_detects_unchanged_inference_after_claimed_bias_fit() -> None:
+    old = {
+        "features": [
+            {
+                "properties": {
+                    "source_row": 10.0,
+                    "source_col": 20.0,
+                    "confidence": 0.5,
+                }
+            }
+        ]
+    }
+    with pytest.raises(ValueError, match="trained bias"):
+        verify_bias_predictions(old, old, 0.1)
+    new = copy.deepcopy(old)
+    new["features"][0]["properties"]["confidence"] = 1 / (1 + np.exp(-0.1))
+    result = verify_bias_predictions(old, new, 0.1)
+    assert result["shared_peaks"] == 1
+    assert result["max_probability_error"] < 1e-10
+    with pytest.raises(ValueError, match="lost"):
+        verify_bias_predictions(old, {"features": []}, 0.1)

@@ -18,6 +18,7 @@ agents/baseline_evidence.py text eol=lf
 agents/baseline_support.py text eol=lf
 agents/nl_benchmark.py text eol=lf
 agents/development_experiments.py text eol=lf
+agents/development_evidence.py text eol=lf
 configs/benchmarks/nl_v020_extension.json text eol=lf
 configs/benchmarks/ais_coastal_analysis.json text eol=lf
 configs/coastline/ferryland_checks.geojson text eol=lf
