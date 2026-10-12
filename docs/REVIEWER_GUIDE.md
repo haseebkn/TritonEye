@@ -46,7 +46,11 @@ independent benchmark truth.
 
 The [AllenAI image-first curation workflow](ALLENAI_CURATION.md) subsequently
 prepares those 31 whole areas without publisher points or detector/AIS overlays.
-All pixels initially remain ignored; no real first-pass annotations are completed.
+All pixels initially remain ignored. The subsequent
+[AI-only first pass](ALLENAI_FIRST_PASS.md) inspects all 31 areas, discloses prior
+label exposure and freezes five provisional vessel-like interpretations with
+explicit uncertain/nodata ignores. It is not independent truth or usable training
+data, and no publisher-point alignment pass has been performed.
 Hash-bound sequential review, provisional class/ignore masks and an
 [unsent licence/completeness clarification request](ALLENAI_CLARIFICATION_REQUEST.md)
 are implemented. The original quarantine, independent-review guard and locked

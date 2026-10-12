@@ -11,6 +11,7 @@ from pyproj import Transformer
 from shapely.geometry import box, mapping
 
 from agents import allenai_curation as cur
+from agents import allenai_first_pass
 from agents.allenai_subset import RESOLUTION, WORLD_M
 from agents.artifacts import sha256_file
 
@@ -277,3 +278,154 @@ def test_review_boolean_cannot_be_flipped(prepared: Path) -> None:
     cur.save(path, data)
     with pytest.raises(ValueError, match="adoption"):
         cur.load_workspace(prepared)
+
+
+@pytest.fixture
+def frozen_pass(prepared: Path) -> tuple[Path, Path]:
+    path = decisions(prepared, vessel=True)
+    data = json.loads(path.read_text())
+    data["cases"][0]["inspection"] = {
+        "bands": ["vv", "vh"],
+        "resolution": [8, 8],
+        "observations": "Synthetic fixture only, not an inspection of real SAR",
+        "source_labels_displayed": False,
+        "detector_outputs_displayed": False,
+        "ais_displayed": False,
+        "independent": False,
+    }
+    cur.save(path, data)
+    output = cur.ROOT / "frozen_audit"
+    cur.freeze_first_pass(prepared, path, output)
+    return prepared, output
+
+
+def test_first_pass_replay_counts_and_guard(frozen_pass: tuple[Path, Path]) -> None:
+    report = allenai_first_pass.audit(*frozen_pass)
+    assert report["first_pass_completed_areas"] == 1
+    assert report["class_ignore_masks_replayed"] == 2
+    assert report["valid_pixels"] == 56
+    assert report["nodata_pixels"] == 8
+    assert report["pixel_counts"] == {
+        "ignore": 8,
+        "vessel": 9,
+        "background": 47,
+        "fixed_structure": 0,
+        "clutter": 0,
+        "ice": 0,
+    }
+    assert report["prior_label_exposure"] is True
+    assert report["independent_review"] is False
+    assert report["training_allowed"] is False
+    assert report["evaluation_allowed"] is False
+    assert report["publisher_points_revealed_in_current_pass"] == 0
+    assert len(report["cases"]) == 1
+
+
+@pytest.mark.parametrize("kind", ["classes", "ignore"])
+def test_rehashing_a_wrong_mask_cannot_pass_replay(
+    frozen_pass: tuple[Path, Path], kind: str
+) -> None:
+    workspace, frozen = frozen_pass
+    path = frozen / f"area_001_{kind}.png"
+    Image.fromarray(np.zeros((8, 8), dtype="uint8")).save(path)
+    seal = json.loads((frozen / "seal.json").read_text())
+    for item in seal["artifacts"]:
+        if item["path"] == path.name:
+            item["sha256"] = sha256_file(path)
+    cur.save(frozen / "seal.json", seal)
+    with pytest.raises(ValueError, match="Masks disagree"):
+        allenai_first_pass.audit(workspace, frozen)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("source_labels_displayed", True),
+        ("detector_outputs_displayed", True),
+        ("ais_displayed", True),
+        ("independent", True),
+        ("resolution", [9, 9]),
+        ("observations", ""),
+    ],
+)
+def test_current_display_declaration_cannot_hide_exposure(
+    frozen_pass: tuple[Path, Path], field: str, value: Any
+) -> None:
+    workspace, frozen = frozen_pass
+    data = json.loads((frozen / "decisions.json").read_text())
+    data["cases"][0]["inspection"][field] = value
+    cur.save(frozen / "decisions.json", data)
+    seal = json.loads((frozen / "seal.json").read_text())
+    seal["decisions"]["sha256"] = sha256_file(frozen / "decisions.json")
+    cur.save(frozen / "seal.json", seal)
+    with pytest.raises(ValueError, match="inspection"):
+        allenai_first_pass.audit(workspace, frozen)
+
+
+def test_frozen_count_edit_rejected(frozen_pass: tuple[Path, Path]) -> None:
+    workspace, frozen = frozen_pass
+    seal = json.loads((frozen / "seal.json").read_text())
+    seal["pixel_counts"]["background"] += 1
+    cur.save(frozen / "seal.json", seal)
+    with pytest.raises(ValueError, match="aggregate"):
+        allenai_first_pass.audit(workspace, frozen)
+
+
+def test_extra_mask_reference_rejected(frozen_pass: tuple[Path, Path]) -> None:
+    workspace, frozen = frozen_pass
+    seal = json.loads((frozen / "seal.json").read_text())
+    seal["artifacts"].append(seal["artifacts"][0])
+    cur.save(frozen / "seal.json", seal)
+    with pytest.raises(ValueError, match="mask pair"):
+        allenai_first_pass.audit(workspace, frozen)
+
+
+@pytest.mark.parametrize(
+    "purpose", ["training", "evaluation", "threshold_selection", "promotion"]
+)
+def test_first_pass_adoption_guard_precedes_file_access(purpose: str) -> None:
+    with pytest.raises(ValueError, match="quarantine"):
+        allenai_first_pass.audit(
+            Path("absent_workspace"), Path("absent_pass"), purpose=purpose
+        )
+
+
+def test_audit_cli_writes_only_fresh_unfrozen_output(
+    frozen_pass: tuple[Path, Path], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    workspace, frozen = frozen_pass
+    monkeypatch.setattr(allenai_first_pass, "REPO_ROOT", workspace.parent.parent)
+    output = workspace.parent.parent / "audit.json"
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "audit",
+            "--workspace",
+            str(workspace),
+            "--first-pass",
+            str(frozen),
+            "--output",
+            str(output),
+        ],
+    )
+    allenai_first_pass.main()
+    assert json.loads(output.read_text())["pixel_counts"]["vessel"] == 9
+    before = sha256_file(output)
+    with pytest.raises(ValueError, match="Fresh"):
+        allenai_first_pass.main()
+    assert sha256_file(output) == before
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "audit",
+            "--workspace",
+            str(workspace),
+            "--first-pass",
+            str(frozen),
+            "--output",
+            str(frozen / "extra.json"),
+        ],
+    )
+    with pytest.raises(ValueError, match="frozen inputs"):
+        allenai_first_pass.main()
+    assert not (frozen / "extra.json").exists()

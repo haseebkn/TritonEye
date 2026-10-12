@@ -181,6 +181,11 @@ The separate [image-first curation and ignore-mask workflow](ALLENAI_CURATION.md
 prepares whole-window review without revealing publisher points. It does not
 modify this release or approve training/evaluation adoption.
 
+The subsequent [AI-only first pass](ALLENAI_FIRST_PASS.md) completes whole-area
+inspection of all 31 cached windows, with declared prior label exposure and
+provisional vessel-like/background/ignore regions. It does not review or adopt
+the original 23 point annotations; their alignment/class review remains pending.
+
 Request clarification from AllenAI, without representing this portfolio as
 C-CORE or claiming organizational affiliation:
 
