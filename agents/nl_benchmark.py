@@ -448,6 +448,7 @@ def load_dataset(
     *,
     verify_files: bool = False,
     artifact_root: Path = REPO_ROOT,
+    verify_development_only: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     """Verify versioned small artifacts, optionally rehash all local SAR bytes."""
 
@@ -487,7 +488,12 @@ def load_dataset(
                 "sha256": manifest["licence"]["sha256"],
             }
         ]
-        for scene in manifest["scenes"]:
+        verified_scenes = [
+            s
+            for s in manifest["scenes"]
+            if not verify_development_only or s["split"] != "test"
+        ]
+        for scene in verified_scenes:
             entries.extend(
                 scene["sources"] + [scene["catalogue"], scene["ais"]["snapshot"]]
             )
@@ -502,16 +508,22 @@ def load_dataset(
                 raise ValueError(
                     f"Source/derived artifact hash mismatch: {item['path']}"
                 )
-        for scene in manifest["scenes"]:
+        for scene in verified_scenes:
             for roi in scene["rois"]:
                 verify_chip(
                     bounded_path(artifact_root, roi["chip"]["path"]),
                     roi,
                     [o for o in annotations["objects"] if o["roi_id"] == roi["id"]],
                 )
-        bundle = release["review_bundle"]
-        if sha256_file(bounded_path(artifact_root, bundle["path"])) != bundle["sha256"]:
-            raise ValueError("Review bundle hash mismatch")
+        # A combined review HTML may embed locked test pixels. Development
+        # verification checks each permitted image, without opening that bundle.
+        if not verify_development_only:
+            bundle = release["review_bundle"]
+            if (
+                sha256_file(bounded_path(artifact_root, bundle["path"]))
+                != bundle["sha256"]
+            ):
+                raise ValueError("Review bundle hash mismatch")
     return manifest, annotations, status
 
 
@@ -531,7 +543,12 @@ def validation_labels(
             "Independent complete-area review and resolved annotations required; "
             "accuracy remains unmeasured"
         )
-    load_dataset(directory, verify_files=True, artifact_root=artifact_root)
+    load_dataset(
+        directory,
+        verify_files=True,
+        artifact_root=artifact_root,
+        verify_development_only=True,
+    )
     scene = next(
         s for s in manifest["scenes"] if any(r["id"] == roi_id for r in s["rois"])
     )

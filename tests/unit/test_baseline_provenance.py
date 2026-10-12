@@ -7,9 +7,11 @@ from types import SimpleNamespace
 from typing import Any
 
 import pytest
+from shapely.geometry import Point, mapping
 
 from agents import baseline
 from agents.artifacts import REPO_ROOT, sha256_file
+from agents.coastal_policy import annotations
 from agents.landmask import SOURCES, LandMask
 from agents.nl_benchmark import load_dataset
 
@@ -34,10 +36,15 @@ def baseline_inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     (tmp_path / "release.json").write_text("{}")
 
     def empty_dataset(
-        dataset: Path, *, verify_files: bool, artifact_root: Path
+        dataset: Path,
+        *,
+        verify_files: bool,
+        artifact_root: Path,
+        verify_development_only: bool,
     ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         assert dataset == tmp_path
         assert verify_files
+        assert verify_development_only
         assert artifact_root == assets
         return {"dataset_version": "synthetic", "scenes": []}, {}, {}
 
@@ -54,7 +61,7 @@ def test_alternate_assets_cannot_supply_executing_code_or_control_hashes(
     report = json.loads((output / "baseline.json").read_text())
     provenance = report["provenance"]
     versions = provenance["processing_versions"]
-    assert provenance["baseline_protocol_version"] == 2
+    assert provenance["baseline_protocol_version"] == 3
     for category, name in (
         ("code", "agents/baseline.py"),
         ("configuration", "configs/model.yaml"),
@@ -188,13 +195,24 @@ def test_mixed_sensor_report_keeps_unmeasured_coverage_and_test_lock(
                 "sar_product": scene["name"],
                 "acquisition_time": scene["acquisition_time"],
                 "study_roi": roi["geometry"],
-                "features": [],
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": mapping(Point(*roi["center"])),
+                        "properties": {
+                            "detection_id": f"{roi['id']}_{i}",
+                            "confidence": score,
+                            **annotations("water", 50),
+                        },
+                    }
+                    for i, score in enumerate([0.10, 0.80])
+                ],
             },
             [],
         )
 
     def annotate_empty(collection: dict[str, Any], *args: Any, **kwargs: Any) -> None:
-        assert collection["features"] == []
+        assert len(collection["features"]) == 2
 
     monkeypatch.setattr(baseline, "infer_roi", synthetic_inference)
     monkeypatch.setattr(baseline, "annotate", annotate_empty)
@@ -219,3 +237,16 @@ def test_mixed_sensor_report_keeps_unmeasured_coverage_and_test_lock(
     assert all(
         c["association"]["association_correctness"] is None for c in report["cases"]
     )
+    for case in report["cases"]:
+        if case["processing_complete"]:
+            assert case["coastal_buffer_trials"]["threshold"] == 0.15
+            assert (
+                case["coastal_buffer_trials"]["trials"][3]["harbour_coastal_returns"]
+                == 1
+            )
+            assert (
+                next(s for s in case["scores"] if s["threshold"] == 0.15)["returns"]
+                == 1
+            )
+    assert report["evidence_status"] == "provisional_pending_independent_review"
+    assert report["scope"]["locked_test_areas_excluded"] == 2

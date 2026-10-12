@@ -309,11 +309,14 @@ def test_ais_proximity_is_not_identity_correctness() -> None:
         detections, positions, threshold=0.15, processing_complete=True
     )
     assert result["ais_subset_proximity_recall_raw"] == 1
+    assert result["ais_subset_proximity_matches_raw"] == 1
+    assert result["ais_subset_proximity_ci95_raw"] == pytest.approx([0.025, 1.0])
     assert result["association_correctness"] is None
     empty = association_summary(
         detections, positions.iloc[:0], threshold=0.15, processing_complete=True
     )
     assert empty["ais_subset_proximity_recall_raw"] is None
+    assert empty["ais_subset_proximity_ci95_raw"] is None
     assert empty["ambiguous_assignments"] is None
 
 

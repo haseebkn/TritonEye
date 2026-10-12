@@ -1,4 +1,3 @@
-import glob
 import math
 import os
 import sys
@@ -18,6 +17,7 @@ from agents.calibration import (
     interpolate_lut,
     read_sigma_nought_lut,
 )
+from tests.unit.development_data import measurements
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -156,10 +156,11 @@ def test_missing_calibration_returns_none(tmp_path: Path) -> None:
 
 
 def real_products() -> List[str]:
-    pattern = os.path.join(
-        REPO_ROOT, "data", "raw", "S1*.SAFE", "measurement", "*vv*.tif*"
-    )
-    return [p for p in sorted(glob.glob(pattern)) if find_calibration_xml(p)]
+    return [
+        p
+        for p in measurements(Path(REPO_ROOT))
+        if "-grd-vv-" in Path(p).name and find_calibration_xml(p)
+    ]
 
 
 @pytest.mark.skipif(

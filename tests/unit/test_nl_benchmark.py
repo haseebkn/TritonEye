@@ -305,6 +305,102 @@ def test_real_test_export_and_unreviewed_validation_export_blocked() -> None:
         validation_labels(DEFAULT_DATASET, "bonavista_coast")
 
 
+def test_development_verification_does_not_open_test_assets(
+    tmp_path: Path,
+) -> None:
+    """Test assets and mixed review HTML are absent; real development chips verify."""
+    manifest, selection, lock, annotation, history = fixture()
+    manifest["selection_sha256"] = ""
+    licence = tmp_path / "licence.html"
+    licence.write_text("synthetic licence")
+    manifest["licence"] = {"snapshot": licence.name, "sha256": sha256_file(licence)}
+    for scene in manifest["scenes"]:
+        roi = scene["rois"][0]
+        path = tmp_path / f"{scene['split']}.tif"
+        if scene["split"] != "test":
+            lon, lat = roi["center"]
+            with rasterio.open(
+                path,
+                "w",
+                driver="GTiff",
+                width=256,
+                height=256,
+                count=2,
+                dtype="float32",
+                crs="EPSG:4326",
+                transform=from_origin(lon - 0.01, lat + 0.01, 0.02 / 256, 0.02 / 256),
+            ) as out:
+                out.write(np.ones((2, 256, 256), dtype="float32"))
+            checksum = sha256_file(path)
+            obj = next(o for o in annotation["objects"] if o["roi_id"] == roi["id"])
+            obj["geometry"] = mapping(
+                Point(lon - 0.01 + 105 * 0.02 / 256, lat + 0.01 - 105 * 0.02 / 256)
+            )
+        else:
+            checksum = "1" * 64
+        item = {"path": path.name, "sha256": checksum}
+        scene.update({"sources": [item], "catalogue": item})
+        scene["ais"]["snapshot"] = item
+        roi.update(
+            {
+                "chip": item,
+                "calibration": [item],
+                "previews": [item],
+                "review_grid": item,
+            }
+        )
+        event = next(e for e in history["events"] if e["roi_id"] == roi["id"])
+        event.update(
+            {
+                "source_chip_sha256": checksum,
+                "annotation_digest": objects_digest(
+                    [o for o in annotation["objects"] if o["roi_id"] == roi["id"]]
+                ),
+            }
+        )
+    write_json(tmp_path / "selection.json", selection)
+    manifest["selection_sha256"] = sha256_file(tmp_path / "selection.json")
+    artifacts = {
+        "manifest.json": manifest,
+        "split_lock.json": lock,
+        "annotations.json": annotation,
+        "review_history.json": history,
+    }
+    for name, value in artifacts.items():
+        write_json(tmp_path / name, value)
+    for name in ("ANNOTATION_GUIDE.md", "DATASET_CARD.md"):
+        (tmp_path / name).write_text("synthetic")
+    names = ["selection.json", *artifacts, "ANNOTATION_GUIDE.md", "DATASET_CARD.md"]
+    write_json(
+        tmp_path / "release.json",
+        {
+            "dataset_version": "test",
+            "files": {n: sha256_file(tmp_path / n) for n in names},
+            "review_bundle": {
+                "path": "absent_mixed_test_bundle.html",
+                "sha256": "1" * 64,
+            },
+        },
+    )
+    _, _, status = load_dataset(
+        tmp_path,
+        verify_files=True,
+        artifact_root=tmp_path,
+        verify_development_only=True,
+    )
+    assert status["areas"] == 3 and not status["accuracy_measured"]
+    with pytest.raises(FileNotFoundError):
+        load_dataset(tmp_path, verify_files=True, artifact_root=tmp_path)
+    (tmp_path / "train.tif").write_bytes(b"changed development imagery")
+    with pytest.raises(ValueError, match="artifact hash mismatch"):
+        load_dataset(
+            tmp_path,
+            verify_files=True,
+            artifact_root=tmp_path,
+            verify_development_only=True,
+        )
+
+
 def test_previously_exposed_test_is_rejected() -> None:
     args = fixture()
     args[0]["scenes"][2]["prior_development_exposure"] = True
