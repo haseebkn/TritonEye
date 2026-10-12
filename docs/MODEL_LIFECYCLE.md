@@ -167,6 +167,11 @@ and rollback with synthetic imagery and invented review declarations. Successful
 promotion in those tests proves the state machine; it adds no NL measurement or
 independent review. Failure cases exercise unreviewed labels, changed predictions,
 weights and releases, stale state, failed comparisons and quarantined lineage.
+The rollback history-write regression uses a temporary synthetic database and a
+SQLite `BEFORE INSERT` trigger that checks the selection update is visible before
+raising `FAIL`. Reopening the database confirms the complete selection and status,
+including decision history, remain unchanged; removing the trigger permits a
+successful retry.
 
 The public NL v0.2.0 metadata is also checked through the lifecycle's validation
 scope: its labels remain unreviewed and the test boundary remains enforced.
