@@ -3,6 +3,9 @@ Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 
 **Start here: [Reviewer guide — built and verified, measured, and blocked](docs/REVIEWER_GUIDE.md).**
 One entry point for evidence, limitations and a short review walkthrough.
+Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),
+[walkthrough and lifecycle rehearsal](docs/PORTFOLIO_DEMO.md), and
+[technical explanation and contribution notes](docs/TECHNICAL_EXPLANATION.md).
 Local model operations: [promotion, paired shadow evaluation and rollback](docs/MODEL_LIFECYCLE.md).
 Promotion remains blocked by the current independent-review and coverage gaps.
 Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle](docs/OVERLAP_REVIEW.md).

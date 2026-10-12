@@ -1,0 +1,95 @@
+{
+  "product_id": "bae55045-b7cb-46f5-8ed9-f504e42650b3",
+  "native_product": "S1D_IW_GRDH_1SDV_20260922T212146_20260922T212211_004696_008C71_FF43.SAFE",
+  "acquisition_time": "2026-09-22T21:21:46.168299Z",
+  "roi_id": "scene_01_area_01",
+  "split": "train",
+  "accuracy_measured": false,
+  "returns": [
+    {
+      "confidence": 0.40136051177978516,
+      "source_row": 10632.38037109375,
+      "source_col": 13118.39013671875,
+      "surface": "water",
+      "distance_to_shore_m": 490.3793824347689,
+      "alert_eligible": true
+    },
+    {
+      "confidence": 0.2865903973579407,
+      "source_row": 10778.123107910156,
+      "source_col": 12948.40087890625,
+      "surface": "coastal",
+      "distance_to_shore_m": 199.34732356179182,
+      "alert_eligible": false
+    },
+    {
+      "confidence": 0.20969778299331665,
+      "source_row": 10802.2607421875,
+      "source_col": 12950.31787109375,
+      "surface": "coastal",
+      "distance_to_shore_m": 109.29595510497889,
+      "alert_eligible": false
+    },
+    {
+      "confidence": 0.17432798445224762,
+      "source_row": 10770.34130859375,
+      "source_col": 12984.40185546875,
+      "surface": "land",
+      "distance_to_shore_m": -40.513841041538015,
+      "alert_eligible": false
+    },
+    {
+      "confidence": 0.1523105800151825,
+      "source_row": 10848.298583984375,
+      "source_col": 13020.367431640625,
+      "surface": "coastal",
+      "distance_to_shore_m": 18.931482607985625,
+      "alert_eligible": false
+    }
+  ],
+  "policy_counts": {
+    "returns": 5,
+    "coastal_exclusions": 3,
+    "physical_land_returns": 1,
+    "eligible_returns": 1
+  },
+  "ais_support": {
+    "aligned_ais_in_roi": 28,
+    "ais_subset_proximity_matches_raw": 1,
+    "ais_subset_proximity_matches_post_policy": 0,
+    "ais_proximity_radius_m": 100.0,
+    "geometric_assignments": 0,
+    "ambiguous_assignments": 0,
+    "association_correctness": null
+  },
+  "window": [
+    12639,
+    10471,
+    512,
+    512
+  ],
+  "calibration_max_abs_error_db": 0.0,
+  "baseline_report_sha256": "49cedf985a9929d848b86ee3ef0e3a3442313c9d4824f6f5e04d1588da7ac8ec",
+  "dataset_release_sha256": "29ab2db4b0ec8d969db4200c3475dd67699bc2de1f7244d66643737bc05013c5",
+  "chip_sha256": "f7fd99cb92a960ba18135ed1713e373d8254f7296d05d1376111adbc0e88621f",
+  "preview_sha256": [
+    "ca6bc30f6723f37ecb8c987839f0a1268820b0fb52f8fd0298271815aa35d9e4",
+    "3473d25edd592ee3fc17aec267fb6e38f31738b0969701990d3f2839cdba26ef"
+  ],
+  "source_measurements_sha256": [
+    "be6e323d1fdf147569099706ea85399ccd9dae35cc43645b214af4fc76c5d1d5",
+    "a1d01dba0a2ae60f26a0381e4a2e9829466ec79a162ac609a9ef2b2645e3e645"
+  ],
+  "calibration_sha256": [
+    "5eeca67d68186a0386339c391525160e71d26d877bb9a7edd6e7662e7c865d97",
+    "6fd6ef21ab96e78b2075d7076fba10439526627e993faf9a632eedd43d9c46fe"
+  ],
+  "licence_snapshot_sha256": "0630faedea72d653ef8c22f4c00826cf81c10ff71643cca8a37ceb86db90bd1f",
+  "model_sha256": "c21d6b4204e2803b56014c9780d8d62190ed81d9c2ec56d0cbf437b439307d38",
+  "inference_commit": "d66d3a6aeb63a39edf9fb4cf98b16afac37e7ef9",
+  "lifecycle_ledger_sha256": "c325d2f650f5c1eedb9131970869c76fe6c1712b93f219e57dda8fb38428a0aa",
+  "presentation_builder_sha256": "d7c045d045fb3b1a16d36dab67aa04b384952764aafec40b653016a87e1d259b",
+  "locked_test_pixels_read": false,
+  "ais_tracks_exported": false,
+  "html_sha256": "3383c57f5789b9590bc6d40fcfcffe457860f2b492fcd951fc4bbedf29f36bdc"
+}
