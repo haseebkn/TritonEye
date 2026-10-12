@@ -2,6 +2,7 @@
 
 import copy
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -386,3 +387,74 @@ def test_aggregate_evidence_retains_quarantine_and_has_no_point_coordinates(
     cur.save(inputs, data)
     with pytest.raises(ValueError, match="quarantined input"):
         adoption.evidence(workspace, first, second, inputs)
+
+
+def test_cli_input_check_and_publish_preserve_quarantine(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Exercise the operator CLI and its persisted aggregate-output contract."""
+    workspace, first, _ = native_inputs(frozen_pass, monkeypatch)
+    second = second_pass(frozen_pass, usable=True)
+    frozen_hash = sha256_file(first / "seal.json")
+    release = workspace.parent.parent / "release.json"
+    release_hash = sha256_file(release)
+
+    def invoke(action: str, output: Path, *extra: str) -> dict[str, Any]:
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "allenai_adoption",
+                action,
+                "--workspace",
+                str(workspace),
+                "--first-pass",
+                str(first),
+                "--output",
+                str(output),
+                *extra,
+            ],
+        )
+        adoption.main()
+        return json.loads(capsys.readouterr().out)
+
+    inputs = workspace.parent / "cli_inputs"
+    diagnostic = invoke("inputs", inputs)
+    assert diagnostic["native_patch_radiometry_replayed"] == 1
+    assert not diagnostic["publisher_pngs_directly_compatible"]
+    assert json.loads((inputs / "audit.json").read_text())["status"] == (
+        "quarantined_input_diagnostic"
+    )
+    checked = workspace.parent / "cli_check"
+    review = invoke("check", checked, "--second-pass", str(second))
+    assert review["mask_pairs_replayed"] == 1
+    assert review == json.loads((checked / "audit.json").read_text())
+    output = adoption.REPO_ROOT / "docs/evidence/synthetic_adoption.json"
+    extra = ("--second-pass", str(second), "--input-audit", str(inputs / "audit.json"))
+    published = invoke("publish", output, *extra)
+    assert published == json.loads(output.read_text())
+    assert published["status"] == "adoption_blocked_after_provisional_qa"
+    assert published["calibration_max_abs_error_db"] == 0
+    assert published["native_model_contexts_prepared"] == 0
+    assert all(
+        published[key] is False
+        for key in (
+            "training_allowed",
+            "evaluation_allowed",
+            "threshold_selection_allowed",
+            "promotion_allowed",
+            "independent_review",
+            "locked_test_pixels_read",
+        )
+    )
+    assert "native_calibration_patches" not in published
+    assert "publisher_previews" not in published
+    published_hash = sha256_file(output)
+    with pytest.raises(SystemExit) as error:
+        invoke("publish", output, *extra)
+    assert error.value.code == 2
+    assert sha256_file(output) == published_hash
+    assert sha256_file(first / "seal.json") == frozen_hash
+    assert sha256_file(release) == release_hash

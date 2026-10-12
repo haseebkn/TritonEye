@@ -16,7 +16,8 @@ from shapely.geometry import Point, box, mapping, shape
 
 from agents import allenai_curation as cur
 from agents.allenai_first_pass import audit, read_image
-from agents.artifacts import REPO_ROOT, sha256_file
+from agents.artifacts import REPO_ROOT as REPO_ROOT
+from agents.artifacts import sha256_file
 from agents.calibration import Calibrator
 from agents.nl_benchmark import require_development_scene
 from agents.xview3_detector import TILE_SIZE, normalize_db

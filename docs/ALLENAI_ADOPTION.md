@@ -109,8 +109,9 @@ review guard, quarantine, locked test set and production configuration remain
 unchanged. For the C-CORE portfolio, these are data-adoption and preprocessing
 checks; no detector improvement or operational qualification is claimed.
 
-Local validation passed 637 tests with two heavy tests deselected, plus Ruff,
-Black and strict Mypy across 108 files. The 18 new adoption regressions exercise
+Before the source-verification optimization, local validation passed 637 tests
+with two heavy tests deselected, plus Ruff, Black and strict Mypy across 108 files.
+The original 18 adoption regressions exercise
 calibration replay, input ordering, rehashed point/mask corruption, exposure
 declarations, conservative uncertainty, aggregate output and the held-out guard.
 Software validation does not establish scientific label correctness.

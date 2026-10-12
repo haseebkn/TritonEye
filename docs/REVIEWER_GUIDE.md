@@ -50,9 +50,8 @@ All pixels initially remain ignored. The subsequent
 [AI-only first pass](ALLENAI_FIRST_PASS.md) inspects all 31 areas, discloses prior
 label exposure and freezes five provisional vessel-like interpretations with
 explicit uncertain/nodata ignores. It is not independent truth or usable training
-data. Subsequent [adoption checks](ALLENAI_ADOPTION.md) record 23 AI-only
-publisher-point decisions and native calibration replay. Five provisional
-consistencies and eighteen unresolved points do not authorize training adoption.
+data. See the subsequent [adoption checks](ALLENAI_ADOPTION.md) for AI-only
+publisher-point decisions, native calibration replay and remaining adoption blockers.
 Hash-bound sequential review, provisional class/ignore masks and an
 [unsent licence/completeness clarification request](ALLENAI_CLARIFICATION_REQUEST.md)
 are implemented. The original quarantine, independent-review guard and locked

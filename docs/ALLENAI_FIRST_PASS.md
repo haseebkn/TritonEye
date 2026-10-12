@@ -100,10 +100,9 @@ review is not an independent review of SAR annotations.
 ## Adoption remains blocked
 
 This first pass did not reveal or decide publisher points. The subsequent
-[adoption checks](ALLENAI_ADOPTION.md) record AI-only second-pass decisions for
-all 23 points: five provisional consistencies, four unresolved alignments and
-fourteen unresolved classes. Original coordinates and this first pass remain
-unchanged. Independent class/alignment review is still unavailable. The
+[adoption checks](ALLENAI_ADOPTION.md#publisher-point-decisions) own the AI-only
+second-pass decisions and their limitations. Original coordinates and this first
+pass remain unchanged. Independent class/alignment review is still unavailable. The
 [clarification request](ALLENAI_CLARIFICATION_REQUEST.md) remains unsent and
 licence/completeness questions remain unresolved.
 
