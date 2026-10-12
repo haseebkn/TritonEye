@@ -1,7 +1,10 @@
 # AllenAI annotation clarification request draft
 
-Draft only, not sent. Choose a verified AllenAI or Skylight contact before sending;
-no recipient address or organizational affiliation is assumed.
+Draft only, not sent. Routing contact: **support@skylight.global**, published on
+[Skylight's official support page](https://support.skylight.global/en_US/user-basics/access-to-skylight)
+and checked 12 October 2026. Ask support to route this to the Sentinel-1 dataset
+maintainers; this address is not itself proof of authority to grant annotation
+permission. No organizational affiliation is assumed.
 
 Subject: Clarification on 2022 Sentinel-1 vessel annotation licence and imagery alignment
 
@@ -18,6 +21,12 @@ The database SHA256 is
 My regional screen found 73 source windows and 39 published points; cached
 Sentinel-1 imagery currently supports alignment QA for 31 windows and 23 points
 from three Newfoundland acquisitions in 2022.
+
+A subsequent AI-only second pass retained all 23 original coordinates. Five
+points coincide with previously authored provisional vessel regions; four remain
+uncertain in alignment and fourteen in class. These are self/AI observations,
+not a finding that your labels are wrong or independently reviewed vessel truth.
+The original metadata, source bytes and first-pass decisions are preserved.
 
 Could you clarify the following?
 
@@ -42,6 +51,12 @@ Could you clarify the following?
    detector predictions or nearby bright returns.
 4. Is the full 2022 annotation distribution available through a public,
    non-requester-pays download? If not, what access process and costs apply?
+5. Our reconstructed display follows the older pipeline's clipped uint8 DN
+   representation, while our current xView3 adapter expects native sigma0 dB.
+   We can replay calibration for all 23 native QA patches from the original SAFE
+   and LUTs, but the clipped PNGs cannot recover original amplitudes. Are there
+   calibrated annotation-time inputs or guidance for transferring these points
+   to native image coordinates and constructing complete model contexts?
 
 The exact source products are:
 

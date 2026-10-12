@@ -6,6 +6,11 @@ source-window overlap; the older 2022 NL annotations have unresolved
 annotation-specific permission, alignment/class questions and completeness.
 The existing independent-review guard and locked final test remain intact.
 
+Subsequent [adoption checks](ALLENAI_ADOPTION.md) complete a provisional AI-only
+second pass over the 23 points and replay their native calibration. The initial
+audit findings below retain their historical scope; permission, independent
+review, exhaustive annotation and full model contexts remain unresolved.
+
 For C-CORE portfolio review, this demonstrates source auditing, geospatial
 interoperability, pixel replay and fail-closed dataset handling. It does not
 demonstrate vessel precision, false-alarm reduction or model improvement, and
@@ -184,7 +189,10 @@ modify this release or approve training/evaluation adoption.
 The subsequent [AI-only first pass](ALLENAI_FIRST_PASS.md) completes whole-area
 inspection of all 31 cached windows, with declared prior label exposure and
 provisional vessel-like/background/ignore regions. It does not review or adopt
-the original 23 point annotations; their alignment/class review remains pending.
+the original 23 point annotations. Their subsequent
+[AI-only second pass](ALLENAI_ADOPTION.md) records five provisional consistencies
+and eighteen unresolved decisions; independent alignment/class review remains
+pending.
 
 Request clarification from AllenAI, without representing this portfolio as
 C-CORE or claiming organizational affiliation:

@@ -99,9 +99,11 @@ review is not an independent review of SAR annotations.
 
 ## Adoption remains blocked
 
-No publisher-point reveal or second-pass alignment was performed. All 23
-original published point records still require alignment/class review; this
-first pass has not accepted, corrected or rejected any of them. The
+This first pass did not reveal or decide publisher points. The subsequent
+[adoption checks](ALLENAI_ADOPTION.md) record AI-only second-pass decisions for
+all 23 points: five provisional consistencies, four unresolved alignments and
+fourteen unresolved classes. Original coordinates and this first pass remain
+unchanged. Independent class/alignment review is still unavailable. The
 [clarification request](ALLENAI_CLARIFICATION_REQUEST.md) remains unsent and
 licence/completeness questions remain unresolved.
 
@@ -112,6 +114,6 @@ detector run, model fit, AIS association or measured-improvement experiment
 occurred. For the C-CORE portfolio, this is reproducible, uncertainty-aware
 curation work—not operational accuracy or compliance with internal protocols.
 
-The next curation step is a separately recorded second-pass alignment review
-against the unchanged publisher points. Permission and training-only adoption
+The separately recorded second-pass alignment review is now available in the
+[adoption report](ALLENAI_ADOPTION.md). Permission and training-only adoption
 requirements remain separate from independent benchmark/promotion requirements.

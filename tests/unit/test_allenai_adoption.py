@@ -1,0 +1,329 @@
+"""Behavioral adoption QA contracts using only synthetic images and labels."""
+
+import copy
+import json
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+import pytest
+import rasterio
+from PIL import Image
+from rasterio.transform import from_origin
+
+from agents import allenai_adoption as adoption
+from agents import allenai_curation as cur
+from agents.artifacts import sha256_file
+from tests.unit.test_allenai_curation import frozen_pass as frozen_pass
+from tests.unit.test_allenai_curation import prepared as prepared
+
+
+def observations(path: Path, *, usable: bool = False) -> Path:
+    cur.save(
+        path,
+        {
+            "actor": "synthetic annotator",
+            "method": "ai_assisted",
+            "prior_label_exposure": True,
+            "independent_review": False,
+            "complete_point_display_inspection": True,
+            "points": [
+                {
+                    "source_label_id": 155812,
+                    "state": "usable_provisional" if usable else "unresolved_class",
+                    "reason": "Synthetic observation, not real vessel truth",
+                    "first_pass_region_index": 1 if usable else None,
+                    "alignment_evidence": (
+                        "Synthetic prior vessel region" if usable else None
+                    ),
+                }
+            ],
+        },
+    )
+    return path
+
+
+def second_pass(frozen_pass: tuple[Path, Path], *, usable: bool = False) -> Path:
+    workspace, first = frozen_pass
+    packet = workspace.parent / "alignment"
+    cur.reveal(workspace, first, packet)
+    cur.save(
+        packet / "alignment_index.json",
+        {
+            "first_pass_seal_sha256": sha256_file(first / "seal.json"),
+            "sheets": [],
+        },
+    )
+    authored = observations(workspace.parent / "observations.json", usable=usable)
+    output = workspace.parent / "second"
+    adoption.seal_review(workspace, first, packet, authored, output)
+    return output
+
+
+def test_uncertain_points_expand_ignores_without_new_truth(
+    frozen_pass: tuple[Path, Path],
+) -> None:
+    workspace, first = frozen_pass
+    before = sha256_file(first / "seal.json")
+    second = second_pass(frozen_pass)
+    result = adoption.completeness(workspace, first, second)
+    assert result["point_states"]["unresolved_class"] == 1
+    assert result["pixel_counts"]["ignore"] == 64
+    assert result["pixel_counts"]["vessel"] == 0
+    assert result["pixel_counts"]["background"] == 0
+    assert not result["training_allowed"] and not result["evaluation_allowed"]
+    assert result["upstream_exhaustive_annotation"] == "unverified"
+    assert sha256_file(first / "seal.json") == before
+
+
+def test_provisional_consistency_is_not_adoption(
+    frozen_pass: tuple[Path, Path],
+) -> None:
+    workspace, first = frozen_pass
+    result = adoption.completeness(
+        workspace, first, second_pass(frozen_pass, usable=True)
+    )
+    assert result["point_states"]["usable_provisional"] == 1
+    assert result["pixel_counts"]["vessel"] == 9
+    assert result["prior_label_exposure"] is True
+    assert result["independent_review"] is False
+    assert result["training_allowed"] is False
+    with pytest.raises(ValueError, match="quarantine"):
+        cur.load_workspace(workspace, purpose="training")
+
+
+@pytest.mark.parametrize("change", ["point", "state", "review", "duplicate", "mask"])
+def test_rehashed_second_pass_corruption_fails_semantic_replay(
+    frozen_pass: tuple[Path, Path],
+    change: str,
+) -> None:
+    workspace, first = frozen_pass
+    second = second_pass(frozen_pass, usable=True)
+    path = second / "point_decisions.json"
+    data = json.loads(path.read_text())
+    point = data["cases"][0]["points"][0]
+    if change == "point":
+        point["published_lon"] += 0.01
+    elif change == "state":
+        point["state"] = "confirmed"
+    elif change == "review":
+        data["independent_review"] = True
+    elif change == "duplicate":
+        data["cases"][0]["points"].append(copy.deepcopy(point))
+    else:
+        Image.fromarray(np.zeros((8, 8), dtype="uint8")).save(
+            second / "area_001_classes.png"
+        )
+    cur.save(path, data)
+    seal = json.loads((second / "seal.json").read_text())
+    seal["point_decisions"]["sha256"] = sha256_file(path)
+    for item in seal["artifacts"]:
+        item["sha256"] = sha256_file(second / item["path"])
+    cur.save(second / "seal.json", seal)
+    with pytest.raises(ValueError):
+        adoption.completeness(workspace, first, second)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("independent_review", True),
+        ("prior_label_exposure", False),
+        ("actor", ""),
+        ("complete_point_display_inspection", False),
+    ],
+)
+def test_invented_review_or_missing_exposure_is_refused(
+    frozen_pass: tuple[Path, Path],
+    field: str,
+    value: Any,
+) -> None:
+    workspace, first = frozen_pass
+    packet = workspace.parent / "alignment"
+    cur.reveal(workspace, first, packet)
+    cur.save(
+        packet / "alignment_index.json",
+        {
+            "first_pass_seal_sha256": sha256_file(first / "seal.json"),
+            "sheets": [],
+        },
+    )
+    authored = observations(workspace.parent / "observations.json")
+    data = json.loads(authored.read_text())
+    data[field] = value
+    cur.save(authored, data)
+    with pytest.raises(ValueError, match="exposure"):
+        adoption.seal_review(
+            workspace, first, packet, authored, workspace.parent / "reject"
+        )
+    assert not (workspace.parent / "reject").exists()
+
+
+def test_sigmoid_input_order_and_patch_shape() -> None:
+    values = np.stack([np.full((4, 4), -20.0), np.full((4, 4), -30.0)])
+    result = adoption.input_diagnostic(values)
+    assert result["channel_order"] == ["vh", "vv"]
+    np.testing.assert_allclose(
+        result["normalized_percentiles_vh_vv"][0], np.full(3, 1 / (1 + np.exp(1.8)))
+    )
+    assert result["normalized_percentiles_vh_vv"][1] == [0.5, 0.5, 0.5]
+    assert not result["native_tile_shape_compatible"]
+    assert not result["training_allowed"]
+    # Clipping maps different original amplitudes to the same display value.
+    raw = np.array([300.0, 900.0])
+    assert np.array_equal(np.clip(raw, 0, 255), [255, 255])
+    assert 20 * np.log10(raw[0] / 1000) != 20 * np.log10(raw[1] / 1000)
+
+
+@pytest.mark.parametrize("values", [np.zeros((1, 4, 4)), np.full((2, 4, 4), np.nan)])
+def test_invalid_radar_arrays_refused(values: Any) -> None:
+    with pytest.raises(ValueError, match="two-band"):
+        adoption.input_diagnostic(values)
+
+
+def native_inputs(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> tuple[Path, Path, Path]:
+    workspace, first = frozen_pass
+    root = workspace.parent.parent
+    monkeypatch.setattr(adoption, "REPO_ROOT", root)
+    monkeypatch.setattr(adoption, "require_development_scene", lambda *args: None)
+    descriptor, source, index = cur.load_workspace(workspace)
+    case = source["cases"][0]["source_case"]
+    files = []
+    calibrations = []
+    for pol in ("vv", "vh"):
+        raster = root / f"data/measurement/test-{pol}-source.tiff"
+        raster.parent.mkdir(parents=True, exist_ok=True)
+        with rasterio.open(
+            raster,
+            "w",
+            driver="GTiff",
+            width=4,
+            height=4,
+            count=1,
+            dtype="uint16",
+            crs="EPSG:4326",
+            transform=from_origin(-53, 48, 0.01, 0.01),
+        ) as dst:
+            dst.write(np.full((4, 4), 500, dtype="uint16"), 1)
+        calibration = root / f"data/calibration/test-{pol}-source.xml"
+        calibration.parent.mkdir(parents=True, exist_ok=True)
+        calibration.write_text(
+            "<root>"
+            + "".join(
+                f"<calibrationVector><line>{line}</line><pixel>0 3</pixel>"
+                "<sigmaNought>1000 1000</sigmaNought></calibrationVector>"
+                for line in (0, 3)
+            )
+            + "</root>"
+        )
+        files.extend([cur.record(root, raster), cur.record(root, calibration)])
+        calibrations.append(cur.record(root, calibration))
+    chip = root / "data/point/sigma0.tif"
+    chip.parent.mkdir(parents=True, exist_ok=True)
+    with rasterio.open(
+        chip,
+        "w",
+        driver="GTiff",
+        width=4,
+        height=4,
+        count=2,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(-53, 48, 0.01, 0.01),
+    ) as dst:
+        dst.write(np.full((2, 4, 4), 20 * np.log10(0.5), dtype="float32"))
+        dst.set_band_description(1, "sigma0_db_vv")
+        dst.set_band_description(2, "sigma0_db_vh")
+    source["sources"][0]["files"] = files
+    case["alignment_checks"] = [
+        {
+            "source_label_id": 155812,
+            "patch": {
+                "geometry": case["physical_geometry"],
+                "window": [0, 0, 4, 4],
+                "chip": cur.record(root, chip),
+                "calibration": calibrations,
+            },
+        }
+    ]
+    original_loader = cur.load_workspace
+
+    def loader(*args: Any, **kwargs: Any) -> Any:
+        original_loader(*args, **kwargs)
+        return descriptor, source, index
+
+    monkeypatch.setattr(cur, "load_workspace", loader)
+    return workspace, first, chip
+
+
+def test_native_calibration_replay_and_display_rejection(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    workspace, first, _ = native_inputs(frozen_pass, monkeypatch)
+    report = adoption.compatibility(workspace, first)
+    assert report["source_files_hash_checked"] == 4
+    assert report["native_patch_radiometry_replayed"] == 1
+    assert report["native_calibration_patches"][0]["calibration_max_abs_error_db"] == 0
+    assert report["publisher_pngs_directly_compatible"] is False
+    assert report["training_allowed"] is False
+
+
+def test_rehashed_wrong_radiometry_rejected(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    workspace, first, chip = native_inputs(frozen_pass, monkeypatch)
+    with rasterio.open(chip, "r+") as dst:
+        dst.write(np.zeros((2, 4, 4), dtype="float32"))
+    _, source, _ = cur.load_workspace(workspace)
+    source["cases"][0]["source_case"]["alignment_checks"][0]["patch"]["chip"][
+        "sha256"
+    ] = sha256_file(chip)
+    with pytest.raises(ValueError, match="calibration replay"):
+        adoption.compatibility(workspace, first)
+
+
+def test_held_out_native_context_rejected_before_source_access(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    workspace, first, _ = native_inputs(frozen_pass, monkeypatch)
+
+    def blocked(*args: Any) -> None:
+        raise ValueError("Held-out native QA context")
+
+    def forbidden(*args: Any) -> None:
+        pytest.fail("source accessed before geographic guard")
+
+    monkeypatch.setattr(adoption, "require_development_scene", blocked)
+    monkeypatch.setattr(adoption, "checked_project", forbidden)
+    with pytest.raises(ValueError, match="Held-out"):
+        adoption.compatibility(workspace, first)
+
+
+def test_aggregate_evidence_retains_quarantine_and_has_no_point_coordinates(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    workspace, first, _ = native_inputs(frozen_pass, monkeypatch)
+    second = second_pass(frozen_pass, usable=True)
+    inputs = workspace.parent / "input_audit.json"
+    cur.save(inputs, adoption.compatibility(workspace, first))
+    result = adoption.evidence(workspace, first, second, inputs)
+    assert result["areas"] == 1
+    assert result["native_calibrated_patches_replayed"] == 1
+    assert result["point_states"]["usable_provisional"] == 1
+    assert result["native_model_contexts_prepared"] == 0
+    assert not result["training_allowed"] and not result["promotion_allowed"]
+    assert "native_calibration_patches" not in result
+    assert "publisher_previews" not in result
+    assert result["input_audit_sha256"] == sha256_file(inputs)
+    data = json.loads(inputs.read_text())
+    data["training_allowed"] = True
+    cur.save(inputs, data)
+    with pytest.raises(ValueError, match="quarantined input"):
+        adoption.evidence(workspace, first, second, inputs)
