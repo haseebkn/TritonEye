@@ -272,6 +272,65 @@ def test_native_calibration_replay_and_display_rejection(
     assert report["training_allowed"] is False
 
 
+@pytest.mark.parametrize("point_count", [1, 23])
+def test_source_hashing_scales_with_unique_files_per_call(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+    point_count: int,
+) -> None:
+    workspace, first, _ = native_inputs(frozen_pass, monkeypatch)
+    _, source, _ = cur.load_workspace(workspace)
+    case = source["cases"][0]["source_case"]
+    template = case["alignment_checks"][0]
+    case["alignment_checks"] = [
+        {**copy.deepcopy(template), "source_label_id": i} for i in range(point_count)
+    ]
+    references = source["sources"][0]["files"]
+    paths = {adoption.REPO_ROOT / item["path"] for item in references}
+    source["sources"][0]["files"].append(copy.deepcopy(references[0]))
+    hashes: dict[Path, int] = dict.fromkeys(paths, 0)
+
+    def counted_hash(path: Any) -> str:
+        resolved = Path(path)
+        if resolved in hashes:
+            hashes[resolved] += 1
+        return sha256_file(path)
+
+    monkeypatch.setattr(adoption, "sha256_file", counted_hash)
+    for calls in (1, 2):
+        report = adoption.compatibility(workspace, first)
+        assert report["native_patch_radiometry_replayed"] == point_count
+        assert all(
+            patch["calibration_max_abs_error_db"] == 0
+            for patch in report["native_calibration_patches"]
+        )
+        assert hashes == dict.fromkeys(paths, calls)
+
+
+@pytest.mark.parametrize("change", ["source_bytes", "calibration_hash", "path"])
+def test_source_cache_preserves_integrity_and_path_refusal(
+    frozen_pass: tuple[Path, Path],
+    monkeypatch: pytest.MonkeyPatch,
+    change: str,
+) -> None:
+    workspace, first, _ = native_inputs(frozen_pass, monkeypatch)
+    _, source, _ = cur.load_workspace(workspace)
+    patch = source["cases"][0]["source_case"]["alignment_checks"][0]["patch"]
+    if change == "source_bytes":
+        item = source["sources"][0]["files"][0]
+        path = adoption.REPO_ROOT / item["path"]
+        path.write_bytes(path.read_bytes() + b"tampered")
+    elif change == "calibration_hash":
+        patch["calibration"][0]["sha256"] = "0" * 64
+    else:
+        item = patch["calibration"][0]
+        outside = adoption.REPO_ROOT / "outside-vv-calibration.xml"
+        outside.write_bytes((adoption.REPO_ROOT / item["path"]).read_bytes())
+        item["path"] = outside.relative_to(adoption.REPO_ROOT).as_posix()
+    with pytest.raises(ValueError, match="integrity mismatch|project data artifact"):
+        adoption.compatibility(workspace, first)
+
+
 def test_rehashed_wrong_radiometry_rejected(
     frozen_pass: tuple[Path, Path],
     monkeypatch: pytest.MonkeyPatch,

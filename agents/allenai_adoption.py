@@ -182,9 +182,17 @@ def compatibility(workspace: Path, frozen: Path) -> dict[str, Any]:
                 sources[case["source_name"]]["product_id"],
                 {"name": case["source_name"], "study_roi": point["patch"]["geometry"]},
             )
+    verified_sources: dict[tuple[str, str], Path] = {}
+
+    def verified_source(reference: dict[str, Any]) -> Path:
+        key = (reference["path"], reference["sha256"])
+        if key not in verified_sources:
+            verified_sources[key] = checked_project(reference)
+        return verified_sources[key]
+
     for item in source["sources"]:
         for reference in item["files"]:
-            checked_project(reference)
+            verified_source(reference)
     previews = []
     for case in index["cases"]:
         valid = (
@@ -230,10 +238,10 @@ def compatibility(workspace: Path, frozen: Path) -> dict[str, Any]:
                 calibration = patch["calibration"][band]
                 if f"-{pol}-" not in calibration["path"]:
                     raise ValueError("Calibration polarization mismatch")
-                with rasterio.open(checked_project(measurement)) as raster:
+                with rasterio.open(verified_source(measurement)) as raster:
                     dn = raster.read(1, window=Window(col, row, width, height))
                 replay = (
-                    Calibrator(str(checked_project(calibration)))
+                    Calibrator(str(verified_source(calibration)))
                     .to_sigma0_db(dn, row, col)
                     .astype("float32")
                 )

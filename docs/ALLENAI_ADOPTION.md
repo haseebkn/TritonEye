@@ -88,6 +88,12 @@ It publishes no annotation coordinates or imagery. Local artifacts remain under
 - `second_pass_20261012_01/`: sealed decisions and 62 class/ignore masks.
 - `input_audit_20261012_03/audit.json`: complete input diagnostics.
 
+This ledger preserves the actual pre-optimization run, whose executing verifier
+and code hash remain available at submitted commit `a74d852`. The subsequent
+compatibility optimization caches verified source paths by exact path and expected
+SHA256 within each call. It has synthetic regression coverage only; no new
+real-data replay is claimed, and the existing ledger and frozen bytes are unchanged.
+
 Choose fresh outputs when reproducing; existing packets, seals and releases
 cannot be overwritten:
 
