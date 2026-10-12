@@ -26,7 +26,7 @@ from agents.allenai_subset import (
     publisher_xy,
     warp_publisher_window,
 )
-from agents.artifacts import sha256_file, write_json
+from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.nl_benchmark import load_dataset
 from scripts import build_allenai_subset, publish_allenai_audit
 
@@ -294,6 +294,34 @@ def test_release_loader_integrity_and_no_training(
         allenai_subset.load_alignment_subset(release)
     write_json(public, {"prepared_points": 99})
     with pytest.raises(ValueError, match="Public release integrity"):
+        allenai_subset.load_alignment_subset(release)
+
+
+def test_committed_public_release_matches_recorded_and_pinned_hashes() -> None:
+    """The real published release (not a tmp_path fixture) must satisfy its
+    own recorded hashes and the pinned verification evidence, so the one
+    public deliverable this project ships is actually loadable as documented.
+    """
+    release = REPO_ROOT / "datasets/allenai_nl/v0.1.0/release.json"
+    descriptor = json.loads(release.read_text(encoding="utf-8"))
+
+    assert sha256_file(release.with_name("manifest.json")) == descriptor["manifest_sha256"]
+    assert (
+        sha256_file(release.with_name("source_evidence.json"))
+        == descriptor["source_evidence_sha256"]
+    )
+
+    verification = json.loads(
+        (REPO_ROOT / "docs/evidence/allenai_nl_verification_20261012.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert sha256_file(release) == verification["release_sha256"]
+
+    # The public-integrity stage of the real consumer must accept these
+    # committed bytes; only the private, locally-held manifest (absent in
+    # this checkout) is expected to fail past that point.
+    with pytest.raises(FileNotFoundError):
         allenai_subset.load_alignment_subset(release)
 
 
