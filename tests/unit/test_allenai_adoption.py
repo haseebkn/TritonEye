@@ -418,7 +418,8 @@ def test_cli_input_check_and_publish_preserve_quarantine(
             ],
         )
         adoption.main()
-        return json.loads(capsys.readouterr().out)
+        result: dict[str, Any] = json.loads(capsys.readouterr().out)
+        return result
 
     inputs = workspace.parent / "cli_inputs"
     diagnostic = invoke("inputs", inputs)
