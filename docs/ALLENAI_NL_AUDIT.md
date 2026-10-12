@@ -6,6 +6,11 @@ source-window overlap; the older 2022 NL annotations have unresolved
 annotation-specific permission, alignment/class questions and completeness.
 The existing independent-review guard and locked final test remain intact.
 
+Subsequent [adoption checks](ALLENAI_ADOPTION.md) complete a provisional AI-only
+second pass over the 23 points and replay their native calibration. The initial
+audit findings below retain their historical scope; permission, independent
+review, exhaustive annotation and full model contexts remain unresolved.
+
 For C-CORE portfolio review, this demonstrates source auditing, geospatial
 interoperability, pixel replay and fail-closed dataset handling. It does not
 demonstrate vessel precision, false-alarm reduction or model improvement, and
@@ -20,7 +25,7 @@ is not compliance with unavailable internal C-CORE protocols.
 | Is acquisition identity resolved? | Three exact cached SAFE names, acquisition times, VV/VH bands, source file/calibration hashes and catalogue hashes are retained. The old image UUID and current Copernicus product UUID are recorded separately. No date-only image selection or substitute scene is used. |
 | Are the coordinates aligned? | Source-grid reconstruction matches the integer image origins for all three products. Corrected positions are mapped to native pixels; all 23 are inside valid calibrated QA patches. The default polynomial publisher warp differs from TritonEye's TPS convention: diagnostic displacement **2.46–115.99 m, median 39.40 m**. This is not surveyed absolute accuracy or proof of the intended object. Original publisher PNGs are unavailable for byte-identical comparison; suggested dimensions differ by at most one edge pixel. |
 | Are annotations exhaustive? | **Not established.** The [publication](https://arxiv.org/abs/2312.03207) describes expert-authored point labels. The available database does not supply per-window exhaustive-review histories or resolved non-vessel/ice labels. The old training code's use of unmarked space as background is an assumption, not completeness evidence. A linked dataset-report notebook is absent at the pinned revision. |
-| Are these independently reviewed local vessel labels? | **No.** Source expertise is supporting provenance; no qualified independent local reviewer is available. The point-sheet sanity inspection is AI/self QA only. Some points show compact returns; others do not show a clear isolated target at the fixed stretch. No class is silently corrected, confirmed or rejected on that basis. All 23 point records remain unreviewed. |
+| Are these independently reviewed local vessel labels? | **No.** Source expertise is supporting provenance; no qualified independent local reviewer is available. The point-sheet sanity inspection was AI/self QA only. See the subsequent [adoption report](ALLENAI_ADOPTION.md#publisher-point-decisions) for provisional second-pass decisions; these do not establish independent vessel truth. |
 | Can we adopt the original train/val split? | **No.** Six of the 20 NL native acquisition groups span multiple upstream splits. No original assignments are adopted and no new training/evaluation split is invented. Pretraining overlap remains unaudited. |
 
 The rslearn conversion also changes projection, pixel representation, historical
@@ -184,7 +189,10 @@ modify this release or approve training/evaluation adoption.
 The subsequent [AI-only first pass](ALLENAI_FIRST_PASS.md) completes whole-area
 inspection of all 31 cached windows, with declared prior label exposure and
 provisional vessel-like/background/ignore regions. It does not review or adopt
-the original 23 point annotations; their alignment/class review remains pending.
+the original 23 point annotations. Their subsequent
+[AI-only second pass](ALLENAI_ADOPTION.md#publisher-point-decisions) records the
+provisional decisions; independent alignment/class review remains
+pending.
 
 Request clarification from AllenAI, without representing this portfolio as
 C-CORE or claiming organizational affiliation:

@@ -7,8 +7,9 @@ and 31 initial ignore masks. All **32,505,856 rectangular pixels start ignored**
 30,232,016 have valid imagery in both bands. The subsequent
 [provisional first-pass curation](ALLENAI_FIRST_PASS.md) inspects all 31 areas,
 declares prior label exposure and freezes five vessel-like region interpretations
-with explicit ignores. No publisher points have been revealed through this
-workflow, and no training, evaluation or threshold-selection data are exported.
+with explicit ignores. The subsequent [adoption checks](ALLENAI_ADOPTION.md)
+seal a provisional second pass over all 23 publisher points; no training,
+evaluation or threshold-selection data are exported.
 
 See the [unsent clarification request](ALLENAI_CLARIFICATION_REQUEST.md) and
 [source audit](ALLENAI_NL_AUDIT.md). Licence scope, annotation completeness and
@@ -109,8 +110,9 @@ python -m agents.allenai_curation seal-points --workspace data/model_research/al
 
 The original packet/template is preserved. A real provisional AI first pass
 was subsequently frozen in `first_pass_20261012_01`; see its
-[decisions, hashes and limitations](ALLENAI_FIRST_PASS.md). No publisher-point
-reveal or second-pass seal was run. Commands above describe the general workflow;
+[decisions, hashes and limitations](ALLENAI_FIRST_PASS.md). The subsequent
+[adoption checks](ALLENAI_ADOPTION.md) use that frozen pass for the completed
+publisher-point reveal and second-pass seal. Commands above describe the workflow;
 do not use the blank original template as completed review. Re-running
 `prepare --output <fresh-path>` creates a new packet; no output can replace a
 frozen dataset or existing bundle.
