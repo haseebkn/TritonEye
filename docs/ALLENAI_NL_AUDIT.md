@@ -176,6 +176,11 @@ ledger used by that regression; no private data are added to the image.
 
 ## What would make this usable for model training?
 
+The [clarification draft](ALLENAI_CLARIFICATION_REQUEST.md) is ready but unsent.
+The separate [image-first curation and ignore-mask workflow](ALLENAI_CURATION.md)
+prepares whole-window review without revealing publisher points. It does not
+modify this release or approve training/evaluation adoption.
+
 Request clarification from AllenAI, without representing this portfolio as
 C-CORE or claiming organizational affiliation:
 

@@ -6,6 +6,7 @@ datasets/nl_benchmark/** -text whitespace=cr-at-eol
 datasets/allenai_nl/** -text whitespace=cr-at-eol
 agents/allenai_archive.py text eol=lf
 agents/allenai_subset.py text eol=lf
+agents/allenai_curation.py text eol=lf
 scripts/build_allenai_subset.py text eol=lf
 scripts/publish_allenai_audit.py text eol=lf
 scripts/verify_allenai_subset.py text eol=lf
