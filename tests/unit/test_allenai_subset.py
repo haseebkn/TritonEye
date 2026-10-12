@@ -305,7 +305,9 @@ def test_committed_public_release_matches_recorded_and_pinned_hashes() -> None:
     release = REPO_ROOT / "datasets/allenai_nl/v0.1.0/release.json"
     descriptor = json.loads(release.read_text(encoding="utf-8"))
 
-    assert sha256_file(release.with_name("manifest.json")) == descriptor["manifest_sha256"]
+    assert (
+        sha256_file(release.with_name("manifest.json")) == descriptor["manifest_sha256"]
+    )
     assert (
         sha256_file(release.with_name("source_evidence.json"))
         == descriptor["source_evidence_sha256"]

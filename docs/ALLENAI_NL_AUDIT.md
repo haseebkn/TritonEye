@@ -161,6 +161,14 @@ Before shipping, the publication command's relative manifest path was also
 normalized and exercised with synthetic files through a successful immutable
 release. The audit regression suite then passed **18 tests**; the already
 published preparation manifests and derived imagery were not rewritten.
+The committed `manifest.json`, `source_evidence.json` and `release.json` were
+then found to fail their own recorded hashes: Git's clean filter had
+normalized their prepared CRLF line endings to LF at the first commit, before
+`datasets/allenai_nl/** -text` was added to `.gitattributes`. The original
+CRLF bytes were restored mechanically with no change to recorded hashes,
+parsed values or source data, and a regression test now checks the real
+committed release (not a `tmp_path` fixture) against the pinned verification
+ledger on every run. The audit regression suite now passes **19 tests**.
 
 ## What would make this usable for model training?
 
