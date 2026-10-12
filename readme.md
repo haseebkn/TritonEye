@@ -8,6 +8,8 @@ Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](d
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).
 Public-label audit: [AllenAI licence, NL coverage, alignment and completeness](docs/ALLENAI_NL_AUDIT.md).
+Curation preparation: [AllenAI image-first workflow and provisional ignore masks](docs/ALLENAI_CURATION.md),
+with an [unsent clarification request](docs/ALLENAI_CLARIFICATION_REQUEST.md).
 
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a

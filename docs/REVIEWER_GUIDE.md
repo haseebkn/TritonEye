@@ -44,6 +44,14 @@ source-window overlap there. Older NL annotation permission and completeness
 remain unresolved; this quarantined package is not adopted training data or
 independent benchmark truth.
 
+The [AllenAI image-first curation workflow](ALLENAI_CURATION.md) subsequently
+prepares those 31 whole areas without publisher points or detector/AIS overlays.
+All pixels initially remain ignored; no real first-pass annotations are completed.
+Hash-bound sequential review, provisional class/ignore masks and an
+[unsent licence/completeness clarification request](ALLENAI_CLARIFICATION_REQUEST.md)
+are implemented. The original quarantine, independent-review guard and locked
+test set remain unchanged; training and accuracy exports stay blocked.
+
 ## 1. Built and verified — engineering evidence
 
 The working system is a sequential Python pipeline:
