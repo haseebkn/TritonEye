@@ -4,9 +4,11 @@ The workflow prepares image-first annotation sidecars without adopting the
 quarantined AllenAI labels. The local packet contains **31 whole areas from three
 Newfoundland acquisitions**, 62 VV/VH previews, 31 intersection-validity masks
 and 31 initial ignore masks. All **32,505,856 rectangular pixels start ignored**;
-30,232,016 have valid imagery in both bands. No areas have been curated, no
-publisher points have been revealed through this workflow, and no training,
-evaluation or threshold-selection data have been exported.
+30,232,016 have valid imagery in both bands. The subsequent
+[provisional first-pass curation](ALLENAI_FIRST_PASS.md) inspects all 31 areas,
+declares prior label exposure and freezes five vessel-like region interpretations
+with explicit ignores. No publisher points have been revealed through this
+workflow, and no training, evaluation or threshold-selection data are exported.
 
 See the [unsent clarification request](ALLENAI_CLARIFICATION_REQUEST.md) and
 [source audit](ALLENAI_NL_AUDIT.md). Licence scope, annotation completeness and
@@ -105,9 +107,13 @@ history or pretending the revised pass is blind.
 python -m agents.allenai_curation seal-points --workspace data/model_research/allenai_curation/v0.1.0_20261012_04 --first-pass data/model_research/allenai_curation/first_pass_01 --decisions data/model_research/allenai_curation/alignment_01/point_decisions.json --output data/model_research/allenai_curation/point_pass_01
 ```
 
-No freeze/reveal/seal commands above have been performed on real labels: the
-packet is intentionally unreviewed. Re-running `prepare --output <fresh-path>`
-creates a new packet; no output can replace a frozen dataset or existing bundle.
+The original packet/template is preserved. A real provisional AI first pass
+was subsequently frozen in `first_pass_20261012_01`; see its
+[decisions, hashes and limitations](ALLENAI_FIRST_PASS.md). No publisher-point
+reveal or second-pass seal was run. Commands above describe the general workflow;
+do not use the blank original template as completed review. Re-running
+`prepare --output <fresh-path>` creates a new packet; no output can replace a
+frozen dataset or existing bundle.
 Intermediate local preparations `_02`, `_03` and the initial unsuffixed directory
 are retained, not training releases; `_04` is the documented preparation.
 

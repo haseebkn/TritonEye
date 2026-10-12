@@ -10,6 +10,7 @@ Development study: [Exploratory model fits and comparison protocol](docs/DEVELOP
 Public-label audit: [AllenAI licence, NL coverage, alignment and completeness](docs/ALLENAI_NL_AUDIT.md).
 Curation preparation: [AllenAI image-first workflow and provisional ignore masks](docs/ALLENAI_CURATION.md),
 with an [unsent clarification request](docs/ALLENAI_CLARIFICATION_REQUEST.md).
+Completed curation: [31-area provisional AI first pass and its limitations](docs/ALLENAI_FIRST_PASS.md).
 
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a
