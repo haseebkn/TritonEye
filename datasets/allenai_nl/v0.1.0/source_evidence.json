@@ -1,0 +1,83 @@
+{
+  "revision": "9cfaf6e9a13fcb993c687b591eb3f71df7c144c5",
+  "assets": [
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/one_off_projects/convert_satlas_webmercator_to_rslearn/sentinel1_vessel/README.md",
+      "path": "data/model_research/allenai_nl_v010/sources/0_README.md",
+      "sha256": "47b0465dc834203bb73cfd2e90f9d2ace0b104157d3bdbcd28d8906d99203586",
+      "bytes": 1719
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/one_off_projects/convert_satlas_webmercator_to_rslearn/sentinel1_vessel/convert_siv_labels.py",
+      "path": "data/model_research/allenai_nl_v010/sources/1_convert_siv_labels.py",
+      "sha256": "0643a4eb6c396d6fef5cc8556d495a701b5599ec97f31ad70e994972e00920da",
+      "bytes": 3403
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/data/sentinel1_vessels/README.md",
+      "path": "data/model_research/allenai_nl_v010/sources/2_README.md",
+      "sha256": "ef9900d9cca15e1980111c3da540ecb5649f849004d4ed9fd3cae09953f2de40",
+      "bytes": 1622
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/docs/sentinel1_vessels.md",
+      "path": "data/model_research/allenai_nl_v010/sources/3_sentinel1_vessels.md",
+      "sha256": "ef7f6206d04f76b2067712d466cfb352f7e25c1820ba834b1da3de3f0e2bcc7e",
+      "bytes": 5405
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/data/olmoearth_evals/tasks/sentinel1_vessels.yaml",
+      "path": "data/model_research/allenai_nl_v010/sources/4_sentinel1_vessels.yaml",
+      "sha256": "52e8f2b3ecb4b1ff8f191b668eab28539d41c3df0e9bdbaa24a66000d26f418a",
+      "bytes": 3744
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/rslp/olmoearth_evals/README.md",
+      "path": "data/model_research/allenai_nl_v010/sources/5_README.md",
+      "sha256": "fd4e84ebde21eac26a9ad13f1d0effe04a61df2ef64a5a2502cb4b755024ac7e",
+      "bytes": 10670
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/rslearn_projects/9cfaf6e9a13fcb993c687b591eb3f71df7c144c5/data/sentinel1_vessels/config.json",
+      "path": "data/model_research/allenai_nl_v010/sources/6_config.json",
+      "sha256": "54675e18f138959fbf35dc14a5186627840841afe58429feb7accd4f4651ba94",
+      "bytes": 1721
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/vessel-detection-sentinels/60b003d059937a9fcddbf6e1c9b64c00c33c0279/README.md",
+      "path": "data/model_research/allenai_nl_v010/sources/siv_README.md",
+      "sha256": "1cbe0a8da043b29a9d1741ff912a1d546d6a7546c8155c2a6d0d5a0f764899aa",
+      "bytes": 56100
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/vessel-detection-sentinels/60b003d059937a9fcddbf6e1c9b64c00c33c0279/src/data/warp.py",
+      "path": "data/model_research/allenai_nl_v010/sources/siv_warp.py",
+      "sha256": "5a8f64734c152b1cda47eb17e282dcaf601a63556cdb15dca0195f8160f4a615",
+      "bytes": 4782
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/vessel-detection-sentinels/60b003d059937a9fcddbf6e1c9b64c00c33c0279/src/data/preprocess.py",
+      "path": "data/model_research/allenai_nl_v010/sources/siv_preprocess.py",
+      "sha256": "9c92d7a34d24d92346bd4f9d2cbad5622e99acd2c616a4f5a23d7934499e255e",
+      "bytes": 3495
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/vessel-detection-sentinels/60b003d059937a9fcddbf6e1c9b64c00c33c0279/src/data/dataset.py",
+      "path": "data/model_research/allenai_nl_v010/sources/siv_dataset.py",
+      "sha256": "6f97a47d9cfd38f5aa5a52a62a8e87ebcf49d87d6d7f297f7d97df02ecc7acb1",
+      "bytes": 11669
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/vessel-detection-sentinels/60b003d059937a9fcddbf6e1c9b64c00c33c0279/download_imagery.py",
+      "path": "data/model_research/allenai_nl_v010/sources/siv_download_imagery.py",
+      "sha256": "e157b015afbe68b9f8f96b5bb6326d1432759db9a4d2ae62407d5297050c2c1f",
+      "bytes": 10537
+    },
+    {
+      "url": "https://raw.githubusercontent.com/allenai/vessel-detection-sentinels/60b003d059937a9fcddbf6e1c9b64c00c33c0279/src/utils/download/sentinel1.py",
+      "path": "data/model_research/allenai_nl_v010/sources/siv_sentinel1.py",
+      "sha256": "c6e5e494f3a818598172155aafaf23888262eec5fcff628f398b435d9631c4e3",
+      "bytes": 7235
+    }
+  ]
+}

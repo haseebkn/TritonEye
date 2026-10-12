@@ -7,6 +7,7 @@ Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle]
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).
+Public-label audit: [AllenAI licence, NL coverage, alignment and completeness](docs/ALLENAI_NL_AUDIT.md).
 
 Built as an independent portfolio project relevant to C-CORE's COREsight AI
 Engineer role. **Research prototype, not a certified surveillance system or a

@@ -3,6 +3,12 @@
 # Release manifests hash exact bytes. Never rewrite dataset JSON/Markdown
 # line endings on checkout (Windows autocrlf would invalidate every hash).
 datasets/nl_benchmark/** -text whitespace=cr-at-eol
+datasets/allenai_nl/** -text whitespace=cr-at-eol
+agents/allenai_archive.py text eol=lf
+agents/allenai_subset.py text eol=lf
+scripts/build_allenai_subset.py text eol=lf
+scripts/publish_allenai_audit.py text eol=lf
+scripts/verify_allenai_subset.py text eol=lf
 scripts/build_nl_benchmark.py text eol=lf
 scripts/prepare_nl_review.py text eol=lf
 # Research reports hash these implementation bytes across Windows/Linux replay.

@@ -131,6 +131,11 @@ remain under `data/model_research/allenai_audit/` and `data/raw/`.
 
 The repository publishes an Apache-2.0 licence. A separate annotation-data
 grant and complete-area annotation protocol have not been verified locally.
+The subsequent [versioned AllenAI NL audit](ALLENAI_NL_AUDIT.md) distinguishes
+the explicitly CC BY rslearn download from these older 2022 candidates. Its
+complete archive crosswalk finds no NL source-window overlap in that download;
+31 cached NL windows and 23 point patches are packaged for alignment review,
+not automatically adopted for fitting or scoring.
 These candidates are **not yet adopted for fitting or scoring**. They replace
 any assumption that suitable public NL vessel points are universally absent,
 but do not resolve the frozen v0.1.0 pilot's lack of confirmed training vessel
