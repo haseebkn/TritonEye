@@ -142,7 +142,9 @@ class MemberDetector(XView3Detector):
         # Float32 for the control and fit; differs from production ensemble AMP.
         with torch.no_grad():
             outputs = [value.detach().cpu() for value in self.model(x)]
-        vessel, fishing, objectness, size, offset = outputs
+        # Member tuple differs from the enclosing ensemble tuple: objectness
+        # first, then vessel and fishing (verified pinned ScriptModule contract).
+        objectness, vessel, fishing, size, offset = outputs
         if self.retain_maps:
             self.maps.append(objectness[0, 0].clone())
         return dict(

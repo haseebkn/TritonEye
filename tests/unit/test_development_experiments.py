@@ -9,6 +9,7 @@ import pytest
 import torch
 
 from agents.development_experiments import (
+    MemberDetector,
     feature_vector,
     fit_member_bias,
     fit_positive_head,
@@ -70,6 +71,22 @@ def test_freeze_real_scriptmodule_preserves_inference() -> None:
     freeze_member(model, "cpu")
     assert not any(p.requires_grad for p in model.parameters())
     torch.testing.assert_close(model(x), before)
+
+
+def test_member_output_heads_are_mapped_by_member_contract() -> None:
+    class Fixture(torch.nn.Module):  # type: ignore[misc]
+        def forward(self, x: Any) -> Any:
+            base = x[:, :1] * 0
+            return base + 0.25, base + 0.50, base + 0.75, base + 9, x * 0
+
+    model = torch.jit.trace(Fixture(), torch.zeros(1, 2, 2, 2))
+    detector = MemberDetector(model, "cpu")
+    actual = detector._forward(np.zeros((2, 2, 2), dtype="float32"))
+    from agents.xview3_detector import KEY_FISHING, KEY_OBJECTNESS, KEY_VESSEL
+
+    assert torch.all(actual[KEY_OBJECTNESS] == 0.25)
+    assert torch.all(actual[KEY_VESSEL] == 0.5)
+    assert torch.all(actual[KEY_FISHING] == 0.75)
 
 
 def test_token_mapping_preserves_window_and_pixel_coordinates() -> None:

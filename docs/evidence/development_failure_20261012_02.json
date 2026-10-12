@@ -1,0 +1,10 @@
+{
+  "status": "invalidated_partial_execution",
+  "reason": "Individual member tuple order was misinterpreted as ensemble order: fishing scores decoded as objectness. Stopped before any training.",
+  "code_commit": "b3f3d36",
+  "training_steps": 0,
+  "improvement": null,
+  "accuracy": null,
+  "alerts_enabled": false,
+  "partial_predictions_usable": false
+}
