@@ -12,6 +12,8 @@ Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle]
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).
+Separate supervised task: [Audited HH/HV ship versus iceberg classification baseline](docs/STATOIL_BASELINE.md).
+Its chip results do not measure full-scene vessel detection or approve model promotion.
 Public-label audit: [AllenAI licence, NL coverage, alignment and completeness](docs/ALLENAI_NL_AUDIT.md).
 Curation preparation: [AllenAI image-first workflow and provisional ignore masks](docs/ALLENAI_CURATION.md),
 with an [unsent clarification request](docs/ALLENAI_CLARIFICATION_REQUEST.md).

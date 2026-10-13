@@ -5,6 +5,11 @@ This study uses the frozen v0.2.0 development assignments. Results are
 set remains excluded. No performance improvement, selected operating threshold
 or completed Step 5 is claimed.
 
+The later [Statoil HH/HV chip-classification baseline](STATOIL_BASELINE.md)
+uses separate publisher labels and reports scoped supervised classification
+improvement. It does not change this study's frozen detection assignments,
+one-positive supervision or unmeasured vessel-detector performance.
+
 ## Executed results — 12 October 2026 UTC
 
 The successful local run is
