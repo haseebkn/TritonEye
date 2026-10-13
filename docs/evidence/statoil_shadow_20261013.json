@@ -1,0 +1,1709 @@
+{
+  "scope": "Provisional real NL HH/HV frozen-classifier shadow study",
+  "dataset_release_sha256": "29ab2db4b0ec8d969db4200c3475dd67699bc2de1f7244d66643737bc05013c5",
+  "model_report_sha256": "39b79185ab6e30d998385e0cdd0d983e8785dd89a97f110de524a92df7a8a521",
+  "model_artifacts": {
+    "audit.json": "378935c55c3aa5943f280b998703a57d6558600ea68b07565ec54c57cd5b5a64",
+    "cnn_20261013.pth": "3e97e0bce78467371940554a25bacabe1415d9e6fbc78364a4e4bca7166992ed",
+    "cnn_20261014.pth": "e15809718d739fe31dfc8d31e1a574af8b517a29f17a99d983e9c74aaff9597c",
+    "cnn_20261015.pth": "3793d4e9190604a1ecdb18a568fbbe128ce79f12332e3116a6086da2630af532",
+    "linear.npz": "1e3733fce932fb6a68503dd86d4bbd583bd7e8d39f1e8272b80a47efe07ec316",
+    "selection.json": "f9fbb076a60adbbafa4bb304c9dffd33ea4b90d1f319f1293bb71e731afe2505",
+    "split.json": "1f04bc422e61e1980d39ee38d26d89694aa40edf0660515547743ca2b1fdea8d",
+    "holdout_predictions.npz": "b6116f5bda40feefa63e6bf78858765ba3fc2b4bb40c022b8aa18fccc3589e8f"
+  },
+  "model_training_provenance": {
+    "source_path": "statoil-iceberg-classifier-challenge\\train.json\\data\\processed\\train.json",
+    "source_sha256": "a56756a2528a09b139dc2747e2e40d869f9da7a8c9df37b188b6163f6bfb8696",
+    "code_sha256": "a89d7a54e4dac4aa2fe49c9409a1ea23488a7da50dc2c3d950951fe2bcf18f49",
+    "git_head": "4d973e7b3d81557e6f7b6bb2f6b8b0f94659a111",
+    "python": "3.13.7",
+    "numpy": "2.2.6",
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "cuda": null,
+    "compute": "Intel64 Family 6 Model 191 Stepping 2, GenuineIntel",
+    "licence": "Subject to Kaggle competition rules; user-provided local archive, acceptance not independently verified",
+    "dataset_url": "https://www.kaggle.com/c/statoil-iceberg-classifier-challenge/data",
+    "rules_url": "https://www.kaggle.com/competitions/statoil-iceberg-classifier-challenge/rules",
+    "published_region": "Newfoundland and Labrador, per C-CORE authors; per-chip geography absent"
+  },
+  "parameter_sha256_before": "78c7fb9a3900cb769019f30dab2d953088a65accb4734bce18f18d132e6b2c4c",
+  "parameter_sha256_after": "78c7fb9a3900cb769019f30dab2d953088a65accb4734bce18f18d132e6b2c4c",
+  "code_sha256": "0ae7e89bc25fac59d7d10b10f576953bf1c0050dabd7ae734ab6ecacac7b456d",
+  "calibrator_sha256": "34b5b58738966b16cb540e78eb4b72004969d02bf3a74a55393ff4e9cd477fd4",
+  "python": "3.13.7",
+  "torch": "2.6.0+cpu",
+  "device": "cpu",
+  "seeds": [
+    20261013,
+    20261014,
+    20261015
+  ],
+  "frozen_normalization": {
+    "band_normalization_mean": [
+      -20.699235916137695,
+      -26.382633209228516
+    ],
+    "band_normalization_std": [
+      5.0901947021484375,
+      3.401622772216797
+    ]
+  },
+  "attribution": "Contains modified Copernicus Sentinel data (2025, 2026).",
+  "independent_review_available": false,
+  "areas": [
+    {
+      "roi_id": "ferryland_coast",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "acquisition_time": "2025-01-03T09:42:20.920719Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "objects": [
+        {
+          "object_id": "ferryland_coast_001",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            60,
+            58,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            80,
+            75,
+            115,
+            115
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.3929562618335088,
+          "seed_scores": [
+            0.692821741104126,
+            0.32794302701950073,
+            0.15810401737689972
+          ],
+          "seed_score_std": 0.22308563608734439,
+          "seed_class_disagreement_at_0_5": true,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -31.012338638305664,
+                -26.07849395751953,
+                -18.003562927246094,
+                -3.221088151931758,
+                1.282538652420044
+              ],
+              [
+                -34.79364013671875,
+                -30.512788772583008,
+                -24.49437713623047,
+                -11.322545051574707,
+                -7.835686206817627
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.03128888888888889,
+              0.06471111111111111
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "ferryland_coast_002",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            45,
+            154,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            65,
+            165,
+            100,
+            218
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.3574664617578189,
+          "seed_scores": [
+            0.35588136315345764,
+            0.062106288969516754,
+            0.6544117331504822
+          ],
+          "seed_score_std": 0.24181028266637994,
+          "seed_class_disagreement_at_0_5": true,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -30.515392303466797,
+                -26.67778694152832,
+                -17.560405731201172,
+                -2.035283670425411,
+                3.7313013076782227
+              ],
+              [
+                -35.61894989013672,
+                -30.516609420776366,
+                -23.580177307128906,
+                -9.785450706481924,
+                -6.401761054992676
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.04426666666666667,
+              0.07644444444444444
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "ferryland_coast_003",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            182,
+            332,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            190,
+            350,
+            248,
+            388
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.9876100619633993,
+          "seed_scores": [
+            0.9969786405563354,
+            0.9920260310173035,
+            0.9738255143165588
+          ],
+          "seed_score_std": 0.009954643830311487,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "iceberg",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -30.037494659423828,
+                -25.5081827545166,
+                -17.33687973022461,
+                -2.724096794128418,
+                0.6595238447189331
+              ],
+              [
+                -34.028472900390625,
+                -30.50469970703125,
+                -23.790922164916992,
+                -11.369964141845703,
+                -6.82709264755249
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.049244444444444445,
+              0.07626666666666666
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        }
+      ],
+      "ignored_context_areas": 0,
+      "audit": {
+        "chip": {
+          "path": "data/benchmarks/nl/0.1.0/ferryland_coast/sigma0.tif",
+          "sha256": "4f88d72c0bf370377cacd1f47e0452771baf010b5412f4ed4c5c200ff03cba08"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/measurement/s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.tiff",
+              "sha256": "eb98d929c3dede3b12ecd501bdc4ce8cf2ea42d37fa4a9cf71b11868878f2d2f"
+            },
+            "calibration": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/annotation/calibration/calibration-s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.xml",
+              "sha256": "e048cc9d167403dd80ea348cb3cb94a1c5434b2fd942e9b471120e7a366fdaae"
+            },
+            "annotation_path": "data\\raw\\S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE\\annotation\\s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.xml",
+            "annotation_sha256": "d84f0f2267de5cd5638e519d3d2e9323e1bac794c3be2a3dfa7f29723be9f39e",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.94436851109992,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/measurement/s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.tiff",
+              "sha256": "48a0fd3896e679e00482519402ee7d04fb712085d7c4a65fbbd8364c51cc8f63"
+            },
+            "calibration": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/annotation/calibration/calibration-s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.xml",
+              "sha256": "659da023651cd2e6bf7ab0858a53d66a7cd398a4e7354aa16dbf990306096e90"
+            },
+            "annotation_path": "data\\raw\\S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE\\annotation\\s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.xml",
+            "annotation_sha256": "89495f8c25973a42b633644b7dac68ad0e66116a341354d294a108d07b45c6ce",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.94436851109992,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -34.793521881103516,
+            -25.79390525817871,
+            -15.87645435333252,
+            -3.221275639533988,
+            6.872817039489746
+          ],
+          [
+            -38.717342376708984,
+            -30.51077651977539,
+            -22.54920196533203,
+            -10.346006393432617,
+            -0.20396386086940765
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          0.058742523193359375,
+          0.2728271484375
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "southern_avalon_offshore",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "acquisition_time": "2025-01-03T09:42:20.920719Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "objects": [],
+      "ignored_context_areas": 1,
+      "audit": {
+        "chip": {
+          "path": "data/benchmarks/nl/0.1.0/southern_avalon_offshore/sigma0.tif",
+          "sha256": "bb259eba3fe360ffcee031dfc36a1d3bfe83e7909bafcffd6e520b0f80801ead"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/measurement/s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.tiff",
+              "sha256": "eb98d929c3dede3b12ecd501bdc4ce8cf2ea42d37fa4a9cf71b11868878f2d2f"
+            },
+            "calibration": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/annotation/calibration/calibration-s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.xml",
+              "sha256": "e048cc9d167403dd80ea348cb3cb94a1c5434b2fd942e9b471120e7a366fdaae"
+            },
+            "annotation_path": "data\\raw\\S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE\\annotation\\s1a-iw-grd-hh-20250103t094220-20250103t094245-057278-070bf3-001-cog.xml",
+            "annotation_sha256": "d84f0f2267de5cd5638e519d3d2e9323e1bac794c3be2a3dfa7f29723be9f39e",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.94436851109992,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/measurement/s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.tiff",
+              "sha256": "48a0fd3896e679e00482519402ee7d04fb712085d7c4a65fbbd8364c51cc8f63"
+            },
+            "calibration": {
+              "path": "data/raw/S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE/annotation/calibration/calibration-s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.xml",
+              "sha256": "659da023651cd2e6bf7ab0858a53d66a7cd398a4e7354aa16dbf990306096e90"
+            },
+            "annotation_path": "data\\raw\\S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00_COG.SAFE\\annotation\\s1a-iw-grd-hv-20250103t094220-20250103t094245-057278-070bf3-002-cog.xml",
+            "annotation_sha256": "89495f8c25973a42b633644b7dac68ad0e66116a341354d294a108d07b45c6ce",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.94436851109992,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -35.87443542480469,
+            -24.737886428833008,
+            -18.03675079345703,
+            -12.06302302360534,
+            -7.121953964233398
+          ],
+          [
+            -38.97090148925781,
+            -30.293395080566405,
+            -24.51087760925293,
+            -20.463379821777345,
+            -17.495403289794922
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          1.52587890625e-05,
+          0.00031280517578125
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "makkovik_coast",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "acquisition_time": "2026-07-06T10:11:53.952492Z",
+      "split": "validation",
+      "region": "Labrador",
+      "regime": "coastal",
+      "objects": [
+        {
+          "object_id": "makkovik_coast_001",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            393,
+            89,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            417,
+            108,
+            443,
+            144
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.391169778459395,
+          "seed_scores": [
+            0.9675347805023193,
+            0.0038998781237751245,
+            0.20207467675209045
+          ],
+          "seed_score_std": 0.4155043316162488,
+          "seed_class_disagreement_at_0_5": true,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -33.45084762573242,
+                -27.797444229125976,
+                -19.18598175048828,
+                -0.09210886329411783,
+                8.923802375793457
+              ],
+              [
+                -36.9721794128418,
+                -32.754757995605466,
+                -25.489913940429688,
+                -11.583185272216785,
+                -4.582744121551514
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.0680888888888889,
+              0.19662222222222223
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "makkovik_coast_002",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            360,
+            168,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            386,
+            190,
+            408,
+            221
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.16763794903332987,
+          "seed_scores": [
+            0.3720608055591583,
+            0.0017709131352603436,
+            0.12908212840557098
+          ],
+          "seed_score_std": 0.15360895066376704,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -30.954044342041016,
+                -25.208553314208984,
+                -11.005599975585938,
+                -3.5581402778625435,
+                4.298020362854004
+              ],
+              [
+                -36.974700927734375,
+                -31.513303756713867,
+                -18.008813858032227,
+                -10.026519279479981,
+                -0.8149368762969971
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.06471111111111111,
+              0.36924444444444443
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        }
+      ],
+      "ignored_context_areas": 0,
+      "audit": {
+        "chip": {
+          "path": "data/benchmarks/nl/0.1.0/makkovik_coast/sigma0.tif",
+          "sha256": "df9094e92bfd20244e9bf683297165ea033d24421ccfb44a674ebc23fba7288f"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/measurement/s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.tiff",
+              "sha256": "2e3be3895df3d906d32702d39ebc9a20936fa7b3e8d4a35284d9fcc240e66004"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/annotation/calibration/calibration-s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.xml",
+              "sha256": "92df0c54e65398c75cc6452fe9fb4d055f1c965e9d70a9d4125029164d3b8439"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE\\annotation\\s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.xml",
+            "annotation_sha256": "d8c8430867b7d018fa329416bfeade723d72e832f91f627d526dc7a1c860a785",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.78973751322338,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/measurement/s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.tiff",
+              "sha256": "3334adccee641e77fe1cd407756dfb804f67fc32c56a262830e15bcf759ab1ee"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/annotation/calibration/calibration-s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.xml",
+              "sha256": "97f3ec17403b49a8f03881b6781003bfd846e98fb7528170e2dfe158b8fc31f1"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE\\annotation\\s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.xml",
+            "annotation_sha256": "4c0bdfbbb2aac49345e662106da4804a6925d5965c8126fd1719e0a74a2ba359",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.78973751322338,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -35.94579315185547,
+            -26.4123264503479,
+            -10.689426898956299,
+            -4.453115983009334,
+            8.923802375793457
+          ],
+          [
+            -39.469642639160156,
+            -31.509531021118164,
+            -17.311019897460938,
+            -11.234773578643798,
+            -0.8149368762969971
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          0.047145843505859375,
+          0.4077301025390625
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "makkovik_offshore",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "acquisition_time": "2026-07-06T10:11:53.952492Z",
+      "split": "validation",
+      "region": "Labrador",
+      "regime": "offshore",
+      "objects": [],
+      "ignored_context_areas": 0,
+      "audit": {
+        "chip": {
+          "path": "data/benchmarks/nl/0.1.0/makkovik_offshore/sigma0.tif",
+          "sha256": "365027a207201cccd30acbca1f6dc8dd27a851cdea5ae79dc8bd122d22c15462"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/measurement/s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.tiff",
+              "sha256": "2e3be3895df3d906d32702d39ebc9a20936fa7b3e8d4a35284d9fcc240e66004"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/annotation/calibration/calibration-s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.xml",
+              "sha256": "92df0c54e65398c75cc6452fe9fb4d055f1c965e9d70a9d4125029164d3b8439"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE\\annotation\\s1c-iw-grd-hh-20260706t101153-20260706t101218-008421-010a93-001-cog.xml",
+            "annotation_sha256": "d8c8430867b7d018fa329416bfeade723d72e832f91f627d526dc7a1c860a785",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.78973751322338,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/measurement/s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.tiff",
+              "sha256": "3334adccee641e77fe1cd407756dfb804f67fc32c56a262830e15bcf759ab1ee"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE/annotation/calibration/calibration-s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.xml",
+              "sha256": "97f3ec17403b49a8f03881b6781003bfd846e98fb7528170e2dfe158b8fc31f1"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260706T101153_20260706T101218_008421_010A93_7EC7_COG.SAFE\\annotation\\s1c-iw-grd-hv-20260706t101153-20260706t101218-008421-010a93-002-cog.xml",
+            "annotation_sha256": "4c0bdfbbb2aac49345e662106da4804a6925d5965c8126fd1719e0a74a2ba359",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.78973751322338,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -32.291507720947266,
+            -25.644980754852295,
+            -19.627714157104492,
+            -15.10755597114563,
+            -11.663267135620117
+          ],
+          [
+            -45.644466400146484,
+            -34.371212005615234,
+            -28.363481521606445,
+            -24.32767822265625,
+            -21.74187660217285
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          3.0517578125e-05,
+          0.0160980224609375
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "acquisition_time": "2026-10-02T09:41:05.020084Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "objects": [
+        {
+          "object_id": "scene_03_area_01_001",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            173,
+            228,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            201,
+            251,
+            220,
+            280
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.012116305995732546,
+          "seed_scores": [
+            0.010133869014680386,
+            0.007579356897622347,
+            0.018635692074894905
+          ],
+          "seed_score_std": 0.004726392505631263,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -29.152101516723633,
+                -23.808908462524414,
+                -13.808924674987793,
+                9.009926376342845,
+                19.385343551635742
+              ],
+              [
+                -34.343238830566406,
+                -30.067833557128907,
+                -21.730504989624023,
+                -4.154892330169667,
+                6.00424337387085
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.13653333333333334,
+              0.2126222222222222
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "scene_03_area_01_002",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            249,
+            277,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            275,
+            300,
+            297,
+            328
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.9607251087824503,
+          "seed_scores": [
+            0.9556667804718018,
+            0.9967148303985596,
+            0.9297937154769897
+          ],
+          "seed_score_std": 0.027553571088096983,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "iceberg",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -30.061532974243164,
+                -25.624916076660156,
+                -14.829113006591797,
+                8.272018814086916,
+                24.221969604492188
+              ],
+              [
+                -35.16930389404297,
+                -30.55935775756836,
+                -21.542692184448242,
+                0.6920316791534459,
+                14.287849426269531
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.23982222222222221,
+              0.3496888888888889
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "scene_03_area_01_003",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            270,
+            287,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            296,
+            312,
+            318,
+            337
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 7.452329124172744e-07,
+          "seed_scores": [
+            2.0592369764926843e-06,
+            5.441336980993583e-08,
+            1.2204839094920317e-07
+          ],
+          "seed_score_std": 9.295513736300064e-07,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -30.061532974243164,
+                -24.797314987182617,
+                -9.059062957763672,
+                8.646896095275883,
+                24.221969604492188
+              ],
+              [
+                -34.34079360961914,
+                -29.593501205444337,
+                -16.783876419067383,
+                2.276740808486958,
+                14.287849426269531
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.35075555555555554,
+              0.48604444444444445
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "scene_03_area_01_004",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            282,
+            327,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            307,
+            350,
+            331,
+            378
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.002193285540367166,
+          "seed_scores": [
+            0.005734032019972801,
+            0.00028323911828920245,
+            0.0005625854828394949
+          ],
+          "seed_score_std": 0.0025062818174175386,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -30.061532974243164,
+                -24.041467666625977,
+                -5.796649932861328,
+                14.30358066558839,
+                24.00362777709961
+              ],
+              [
+                -32.889007568359375,
+                -29.044511795043945,
+                -15.794530868530273,
+                1.414842629432695,
+                12.058554649353027
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.5168,
+              0.5397333333333333
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        }
+      ],
+      "ignored_context_areas": 1,
+      "audit": {
+        "chip": {
+          "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_03_area_01/sigma0.tif",
+          "sha256": "22a85b640babe2db6208f47f01c3b871cb468ece5498e75cb3f76a0bedc3bd90"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/measurement/s1c-iw-grd-hh-20261002t094105-20261002t094130-009704-013539-001.tiff",
+              "sha256": "b4b7f189680deee0411ad1bfc21c45e66028ba90215443c0498844cac088ee23"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/annotation/calibration/calibration-s1c-iw-grd-hh-20261002t094105-20261002t094130-009704-013539-001.xml",
+              "sha256": "49553370cc768c04363dc7bd0c5eecd86ba6ed322d422bee7fe337e8cd62f40a"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE\\annotation\\s1c-iw-grd-hh-20261002t094105-20261002t094130-009704-013539-001.xml",
+            "annotation_sha256": "f69e80e84a80e31de435d337817dee9d04daa68cdd1ff477c777765a4905ce27",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.95039369035099,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/measurement/s1c-iw-grd-hv-20261002t094105-20261002t094130-009704-013539-002.tiff",
+              "sha256": "ff6efe62fa8efa76d945009c2e4c9bbc1b4631b5a134330c85a9af86624f4734"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/annotation/calibration/calibration-s1c-iw-grd-hv-20261002t094105-20261002t094130-009704-013539-002.xml",
+              "sha256": "5636aafc9e3792e3e37dac12dbc740c5dabe2b16784ed44e09f51f30fd2c31c2"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE\\annotation\\s1c-iw-grd-hv-20261002t094105-20261002t094130-009704-013539-002.xml",
+            "annotation_sha256": "b1b1b671af7b20d2468bdd963f4f5de68cf1a08b37bb3c71f9c5ee7afd5204fc",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.95039369035099,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -33.59672927856445,
+            -25.353662490844727,
+            -11.092630386352539,
+            4.016001343727116,
+            27.703845977783203
+          ],
+          [
+            -41.20089340209961,
+            -30.5728759765625,
+            -17.906064987182617,
+            -5.389340362548824,
+            19.281185150146484
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          0.13768386840820312,
+          0.3788337707519531
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "scene_03_area_02",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "acquisition_time": "2026-10-02T09:41:05.020084Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "objects": [
+        {
+          "object_id": "scene_03_area_02_001",
+          "provisional_label": "vessel",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            215,
+            195,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            244,
+            217,
+            261,
+            247
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.012018260390808186,
+          "seed_scores": [
+            0.02287179045379162,
+            0.010858246125280857,
+            0.0023247445933520794
+          ],
+          "seed_score_std": 0.008428305413700573,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -29.820518493652344,
+                -25.294842834472657,
+                -19.138744354248047,
+                -6.374910697936944,
+                9.532283782958984
+              ],
+              [
+                -39.833648681640625,
+                -31.876880645751953,
+                -26.452159881591797,
+                -16.531995391845683,
+                -2.1613669395446777
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.009955555555555556,
+              0.012088888888888889
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        }
+      ],
+      "ignored_context_areas": 0,
+      "audit": {
+        "chip": {
+          "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_03_area_02/sigma0.tif",
+          "sha256": "d131333fb5437bd431fbc6344b5b8dc274a39069ecacf222d2db1c245f4b0c4a"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/measurement/s1c-iw-grd-hh-20261002t094105-20261002t094130-009704-013539-001.tiff",
+              "sha256": "b4b7f189680deee0411ad1bfc21c45e66028ba90215443c0498844cac088ee23"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/annotation/calibration/calibration-s1c-iw-grd-hh-20261002t094105-20261002t094130-009704-013539-001.xml",
+              "sha256": "49553370cc768c04363dc7bd0c5eecd86ba6ed322d422bee7fe337e8cd62f40a"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE\\annotation\\s1c-iw-grd-hh-20261002t094105-20261002t094130-009704-013539-001.xml",
+            "annotation_sha256": "f69e80e84a80e31de435d337817dee9d04daa68cdd1ff477c777765a4905ce27",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.95039369035099,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/measurement/s1c-iw-grd-hv-20261002t094105-20261002t094130-009704-013539-002.tiff",
+              "sha256": "ff6efe62fa8efa76d945009c2e4c9bbc1b4631b5a134330c85a9af86624f4734"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE/annotation/calibration/calibration-s1c-iw-grd-hv-20261002t094105-20261002t094130-009704-013539-002.xml",
+              "sha256": "5636aafc9e3792e3e37dac12dbc740c5dabe2b16784ed44e09f51f30fd2c31c2"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE\\annotation\\s1c-iw-grd-hv-20261002t094105-20261002t094130-009704-013539-002.xml",
+            "annotation_sha256": "b1b1b671af7b20d2468bdd963f4f5de68cf1a08b37bb3c71f9c5ee7afd5204fc",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.95039369035099,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -32.48055648803711,
+            -25.84708595275879,
+            -19.824398040771484,
+            -15.22571382522583,
+            9.532283782958984
+          ],
+          [
+            -43.37343215942383,
+            -32.47831344604492,
+            -26.759944915771484,
+            -22.528839111328125,
+            -2.1613669395446777
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          0.00026702880859375,
+          0.004421234130859375
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "scene_05_area_01",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "acquisition_time": "2026-09-18T09:56:31.178197Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "objects": [
+        {
+          "object_id": "scene_05_area_01_001",
+          "provisional_label": "vessel",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            221,
+            262,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            245,
+            288,
+            271,
+            311
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 3.223482296258832e-05,
+          "seed_scores": [
+            6.74152179271914e-05,
+            1.1601310689002275e-05,
+            1.768794027157128e-05
+          ],
+          "seed_score_std": 2.5000092097403076e-05,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -34.889766693115234,
+                -30.280241012573242,
+                -23.76581573486328,
+                1.7937663841248175,
+                11.357610702514648
+              ],
+              [
+                -37.9876594543457,
+                -33.30608322143555,
+                -27.286691665649414,
+                -8.539061431884756,
+                3.8600404262542725
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.0208,
+              0.02471111111111111
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        }
+      ],
+      "ignored_context_areas": 0,
+      "audit": {
+        "chip": {
+          "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_05_area_01/sigma0.tif",
+          "sha256": "8142e2fdf8ad9a7c8a672d573875e214af34bdf3c42e7f72c8ab8a86e62c74d3"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/measurement/s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.tiff",
+              "sha256": "d26732ac5f09f4bd4faeed622fa404c82804ea1bd95bfe4c2a82bc81e7d8cd22"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/annotation/calibration/calibration-s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.xml",
+              "sha256": "8920df22579ccb2570b82b13524636dcd4eaed02a95f659b5cbe610feaadeb5e"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE\\annotation\\s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.xml",
+            "annotation_sha256": "adefefdcb0a49c69e6715fc995f963fe4804759dcef1da00034e273c7ba57428",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.8683013566665,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/measurement/s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.tiff",
+              "sha256": "24441d293af2c3f8a10622ae8ca8a050d1d0dc836ed6ba1e1a23bccef01f8b4d"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/annotation/calibration/calibration-s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.xml",
+              "sha256": "bb2930a89bf85982d32d335b2b679bf6d4eaa9049059ef72f21f81eed7d31d90"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE\\annotation\\s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.xml",
+            "annotation_sha256": "a1b059ce4150e9cdb7a83203a26fb55a55a1bfcbec6d665d9c4095f52791370b",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.8683013566665,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -39.325199127197266,
+            -31.370420112609864,
+            -25.353065490722656,
+            -20.90091583251953,
+            11.357610702514648
+          ],
+          [
+            -40.923343658447266,
+            -33.31901550292969,
+            -27.665071487426758,
+            -23.531681060791016,
+            3.8600404262542725
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          0.01284027099609375,
+          0.010135650634765625
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    },
+    {
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "acquisition_time": "2026-09-18T09:56:31.178197Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "objects": [
+        {
+          "object_id": "scene_05_area_02_001",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            206,
+            210,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            231,
+            225,
+            256,
+            269
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.42166541578869027,
+          "seed_scores": [
+            0.9000257253646851,
+            0.022684263065457344,
+            0.34228625893592834
+          ],
+          "seed_score_std": 0.36254452441443047,
+          "seed_class_disagreement_at_0_5": true,
+          "hypothetical_class_at_0_5": "ship",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -32.4036865234375,
+                -29.57758888244629,
+                -13.62210464477539,
+                1.5895301628113145,
+                10.3883638381958
+              ],
+              [
+                -39.119529724121094,
+                -33.8553466796875,
+                -21.242965698242188,
+                -10.57311454772947,
+                -1.6193372011184692
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.05884444444444444,
+              0.14435555555555554
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "scene_05_area_02_002",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            269,
+            208,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            294,
+            234,
+            318,
+            257
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.9999995231628418,
+          "seed_scores": [
+            0.9999997615814209,
+            0.9999990463256836,
+            0.9999997615814209
+          ],
+          "seed_score_std": 3.371747880871523e-07,
+          "seed_class_disagreement_at_0_5": false,
+          "hypothetical_class_at_0_5": "iceberg",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -35.596412658691406,
+                -30.073393783569337,
+                -14.013477325439453,
+                -0.8989575862884482,
+                8.37096118927002
+              ],
+              [
+                -39.11918640136719,
+                -33.85458312988281,
+                -21.425119400024414,
+                -10.396650619506824,
+                -4.0769267082214355
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.06115555555555555,
+              0.17706666666666668
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "scene_05_area_02_003",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            179,
+            182,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            208,
+            210,
+            225,
+            229
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.5407598714033762,
+          "seed_scores": [
+            0.9607157707214355,
+            0.39707010984420776,
+            0.2644937336444855
+          ],
+          "seed_score_std": 0.30184581263794547,
+          "seed_class_disagreement_at_0_5": true,
+          "hypothetical_class_at_0_5": "iceberg",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -33.85603332519531,
+                -28.239395523071288,
+                -12.078938484191895,
+                0.36872104287147855,
+                10.3883638381958
+              ],
+              [
+                -40.70375442504883,
+                -33.674205932617184,
+                -19.719913482666016,
+                -11.337926216125489,
+                -1.6193372011184692
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.04604444444444444,
+              0.21102222222222222
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        },
+        {
+          "object_id": "scene_05_area_02_004",
+          "provisional_label": "unresolved",
+          "label_scope": "Existing machine-assisted interpretation; no independent review",
+          "return_preserved": true,
+          "window_px": [
+            117,
+            45,
+            75,
+            75
+          ],
+          "target_bbox_px": [
+            142,
+            66,
+            166,
+            98
+          ],
+          "status": "shadow_scored",
+          "iceberg_sigmoid_score": 0.5667885541915894,
+          "seed_scores": [
+            0.40734535455703735,
+            0.42020678520202637,
+            0.8728135228157043
+          ],
+          "seed_score_std": 0.21645602350223764,
+          "seed_class_disagreement_at_0_5": true,
+          "hypothetical_class_at_0_5": "iceberg",
+          "score_scope": "Uncalibrated transfer score, not verified class probability",
+          "distribution": {
+            "quantiles_db_min_p01_median_p99_max": [
+              [
+                -34.68626022338867,
+                -30.604597091674805,
+                -24.585376739501953,
+                -9.123252296447744,
+                -5.145174980163574
+              ],
+              [
+                -39.12556838989258,
+                -35.60245834350586,
+                -29.581329345703125,
+                -16.098851470947267,
+                -11.827346801757812
+              ]
+            ],
+            "fraction_outside_kaggle_p01_p99": [
+              0.007288888888888889,
+              0.06968888888888888
+            ],
+            "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+          }
+        }
+      ],
+      "ignored_context_areas": 1,
+      "audit": {
+        "chip": {
+          "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_05_area_02/sigma0.tif",
+          "sha256": "100e2c561794711dc26580831a9acefe0011198a9f1bc98541f731442e70f887"
+        },
+        "native_bands": [
+          {
+            "polarization": "HH",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/measurement/s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.tiff",
+              "sha256": "d26732ac5f09f4bd4faeed622fa404c82804ea1bd95bfe4c2a82bc81e7d8cd22"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/annotation/calibration/calibration-s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.xml",
+              "sha256": "8920df22579ccb2570b82b13524636dcd4eaed02a95f659b5cbe610feaadeb5e"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE\\annotation\\s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.xml",
+            "annotation_sha256": "adefefdcb0a49c69e6715fc995f963fe4804759dcef1da00034e273c7ba57428",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.8683013566665,
+            "thermal_noise_correction_performed": "false"
+          },
+          {
+            "polarization": "HV",
+            "acquisition_mode": "IW",
+            "measurement": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/measurement/s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.tiff",
+              "sha256": "24441d293af2c3f8a10622ae8ca8a050d1d0dc836ed6ba1e1a23bccef01f8b4d"
+            },
+            "calibration": {
+              "path": "data/raw/S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE/annotation/calibration/calibration-s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.xml",
+              "sha256": "bb2930a89bf85982d32d335b2b679bf6d4eaa9049059ef72f21f81eed7d31d90"
+            },
+            "annotation_path": "data\\raw\\S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE\\annotation\\s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.xml",
+            "annotation_sha256": "a1b059ce4150e9cdb7a83203a26fb55a55a1bfcbec6d665d9c4095f52791370b",
+            "range_pixel_spacing_m": 10.0,
+            "azimuth_pixel_spacing_m": 10.0,
+            "incidence_angle_mid_swath_deg": 38.8683013566665,
+            "thermal_noise_correction_performed": "false"
+          }
+        ],
+        "calibration_replay_max_abs_db": [
+          0.0,
+          0.0
+        ],
+        "input_shape": [
+          2,
+          512,
+          512
+        ],
+        "bands": [
+          "HH",
+          "HV"
+        ],
+        "compatibility": "provisional_transfer_only",
+        "resizing": false,
+        "padding": false,
+        "chip_size_m_from_native_spacing": [
+          750.0,
+          750.0
+        ],
+        "unresolved_compatibility": [
+          "Kaggle pixel spacing and preprocessing unavailable",
+          "No terrain/noise correction in project calibration",
+          "Domain and label transfer unverified"
+        ]
+      },
+      "distribution": {
+        "quantiles_db_min_p01_median_p99_max": [
+          [
+            -42.638301849365234,
+            -30.598759727478026,
+            -13.934239387512207,
+            -5.88659240722656,
+            10.3883638381958
+          ],
+          [
+            -45.13313293457031,
+            -34.68632991790771,
+            -21.616239547729492,
+            -12.955609874725338,
+            -1.6193372011184692
+          ]
+        ],
+        "fraction_outside_kaggle_p01_p99": [
+          0.019611358642578125,
+          0.17266464233398438
+        ],
+        "scope": "Descriptive domain comparison; percentile overlap is not compatibility proof"
+      },
+      "status": "processed"
+    }
+  ],
+  "excluded_locked_test_rois": [
+    "hopedale_coast",
+    "hopedale_offshore"
+  ],
+  "excluded_non_hh_hv_rois": [
+    "st_johns_harbour",
+    "eastern_avalon_offshore",
+    "bonavista_coast",
+    "bonavista_offshore",
+    "lewisporte_coast",
+    "bay_of_exploits_water",
+    "scene_01_area_01",
+    "scene_01_area_02",
+    "scene_02_area_01",
+    "scene_06_area_01",
+    "scene_06_area_02"
+  ],
+  "summary": {
+    "selected_areas": 8,
+    "processed_areas": 8,
+    "failed_areas": 0,
+    "object_centres": 15,
+    "scored_objects": 15,
+    "abstained_objects": 0,
+    "independently_reviewed_objects": 0,
+    "returns_suppressed": 0
+  },
+  "accuracy": null,
+  "false_alarms_per_km2": null,
+  "vessel_recall_change": null,
+  "promotion_eligible": false,
+  "limitations": [
+    "Object-centred selection; no target discovery or detector benchmark",
+    "No reviewed truth or labelled icebergs; unresolved labels unchanged",
+    "Kaggle spacing/processing unknown; same polarization is insufficient",
+    "0.5 predictions/disagreement are descriptive, not operating thresholds",
+    "HH/HV scoring does not improve or extend the current VV/VH detector",
+    "All returns retained; no model promotion or threshold tuning"
+  ],
+  "wall_seconds": 5.859472399999959,
+  "full_report_path": "data\\statoil_shadow\\20261013_native_03\\shadow.json",
+  "full_report_sha256": "c070920bfab46f53af7162135f53a531785e70d4ffd6536ef7f323389a263ebb"
+}

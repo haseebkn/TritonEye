@@ -13,6 +13,8 @@ Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](d
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).
 Separate supervised task: [Audited HH/HV ship versus iceberg classification baseline](docs/STATOIL_BASELINE.md).
+Its [real NL HH/HV compatibility audit and frozen shadow study](docs/STATOIL_TRANSFER.md)
+reports provisional native-image scores; detection improvement remains unmeasured.
 Its chip results do not measure full-scene vessel detection or approve model promotion.
 Public-label audit: [AllenAI licence, NL coverage, alignment and completeness](docs/ALLENAI_NL_AUDIT.md).
 Curation preparation: [AllenAI image-first workflow and provisional ignore masks](docs/ALLENAI_CURATION.md),

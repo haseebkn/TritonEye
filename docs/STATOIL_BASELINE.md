@@ -6,6 +6,10 @@ SAR–AIS correlation remain TritonEye's primary scope. Chip classification supp
 a separate supervised development task; it cannot establish full-scene vessel
 recall, false alarms per water area or correctly associated AIS identities.
 
+The subsequent [real NL HH/HV compatibility audit and frozen shadow study](STATOIL_TRANSFER.md)
+tests native input transfer on development imagery. Its descriptive scores do not
+extend the classification holdout or establish vessel detection improvement.
+
 The [official data description](https://www.kaggle.com/c/statoil-iceberg-classifier-challenge/data)
 specifies expert-supplied labels, HH then HV, two 75 by 75 float-dB bands,
 and missing incidence angles. C-CORE's authors describe collection along

@@ -7,13 +7,17 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **13 October 2026**, against main baseline
-`4d973e7b3d81557e6f7b6bb2f6b8b0f94659a111` (PR #21). The current benchmark is
+`550ef76351cac4a5c0b184889b7e8a6e94e17ef7` (PR #22). The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
 unmeasured for vessel detection. A separate supervised
 [Statoil HH/HV ship versus iceberg baseline](STATOIL_BASELINE.md) now reports
 87.97% exploratory chip classification accuracy against publisher labels; this
 does not validate full-scene detection, geographic independence or promotion.
+The subsequent [real HH/HV transfer audit](STATOIL_TRANSFER.md) scores fifteen
+existing development objects across eight NL areas using that frozen classifier.
+Input calibration replays match, but missing reviewed truth and iceberg labels
+keep native accuracy, false-alarm reduction and detection improvement unmeasured.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 
