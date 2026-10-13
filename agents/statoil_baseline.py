@@ -55,7 +55,8 @@ def available_commit() -> int:
 
     status = MemoryStatus()
     status.length = ctypes.sizeof(status)
-    if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
+    windll: Any = getattr(ctypes, "windll")
+    if not windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
         raise OSError("Cannot establish memory headroom")
     return int(status.available_commit)
 
