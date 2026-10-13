@@ -22,6 +22,7 @@ state/
 
 # Large Data & Mission Archives
 data/
+statoil-iceberg-classifier-challenge/
 missions/
 reports/
 # Model weights, anywhere in the tree. The previous `models/*.pt` matched only

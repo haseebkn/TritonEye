@@ -1,0 +1,429 @@
+{
+  "scope": "Exploratory publisher-labelled ship/iceberg chip classification",
+  "full_report_path": "data\\statoil_baseline\\20261013_cpu_01\\report.json",
+  "full_report_sha256": "39b79185ab6e30d998385e0cdd0d983e8785dd89a97f110de524a92df7a8a521",
+  "provenance": {
+    "source_path": "statoil-iceberg-classifier-challenge\\train.json\\data\\processed\\train.json",
+    "source_sha256": "a56756a2528a09b139dc2747e2e40d869f9da7a8c9df37b188b6163f6bfb8696",
+    "code_sha256": "a89d7a54e4dac4aa2fe49c9409a1ea23488a7da50dc2c3d950951fe2bcf18f49",
+    "git_head": "4d973e7b3d81557e6f7b6bb2f6b8b0f94659a111",
+    "python": "3.13.7",
+    "numpy": "2.2.6",
+    "torch": "2.6.0+cpu",
+    "device": "cpu",
+    "cuda": null,
+    "compute": "Intel64 Family 6 Model 191 Stepping 2, GenuineIntel",
+    "licence": "Subject to Kaggle competition rules; user-provided local archive, acceptance not independently verified",
+    "dataset_url": "https://www.kaggle.com/c/statoil-iceberg-classifier-challenge/data",
+    "rules_url": "https://www.kaggle.com/competitions/statoil-iceberg-classifier-challenge/rules",
+    "published_region": "Newfoundland and Labrador, per C-CORE authors; per-chip geography absent"
+  },
+  "audit": {
+    "near_definition": {
+      "smoothed_correlation_min": 0.995,
+      "native_rmse_db_max": 0.5,
+      "transforms": "four rotations with/without reflection, no band swaps",
+      "limitation": "No guarantee against shifts, resampling or related crops"
+    },
+    "angle_groups": 879,
+    "missing_angles": 133,
+    "missing_angle_labels": {
+      "ship": 133,
+      "iceberg": 0
+    },
+    "rows_in_repeated_angle_groups": 943,
+    "rows_in_pure_class_repeated_angle_groups": 926,
+    "split_proxy_groups": 879,
+    "largest_proxy_group": 133,
+    "acquisition_ids_available": false,
+    "coordinates_available": false,
+    "acquisition_disjointness_verified": false
+  },
+  "exact_duplicate_pairs": 0,
+  "near_duplicate_pairs": 0,
+  "preprocessing": {
+    "bands": [
+      "HH",
+      "HV"
+    ],
+    "input": "publisher float dB; calibration/normalization history not independently verified",
+    "normalization": "per-band mean/std fitted on training pixels only",
+    "resizing": false,
+    "augmentation": "none",
+    "incidence_angle_model_feature": false,
+    "band_quantiles_db": [
+      [
+        -45.59444808959961,
+        -31.155813579559325,
+        -21.0596866607666,
+        -6.130575180053711,
+        34.57491683959961
+      ],
+      [
+        -45.65549850463867,
+        -33.6242752456665,
+        -26.34514045715332,
+        -16.496493911743173,
+        20.15424919128418
+      ]
+    ]
+  },
+  "splits": {
+    "train": {
+      "rows": 1122,
+      "ships": 595,
+      "icebergs": 527,
+      "groups": 608
+    },
+    "validation": {
+      "rows": 241,
+      "ships": 128,
+      "icebergs": 113,
+      "groups": 135
+    },
+    "holdout": {
+      "rows": 241,
+      "ships": 128,
+      "icebergs": 113,
+      "groups": 136
+    }
+  },
+  "validation": {
+    "linear_statistics": {
+      "rows": 241,
+      "log_loss": 0.5914172707432587,
+      "accuracy": 0.6141078838174274,
+      "confusion_rows_true_columns_predicted_ship_iceberg": [
+        [
+          71,
+          57
+        ],
+        [
+          36,
+          77
+        ]
+      ],
+      "ship_recall": {
+        "value": 0.5546875,
+        "conditional_95_ci": [
+          0.464279091807082,
+          0.6425077437196471
+        ]
+      },
+      "iceberg_recall": {
+        "value": 0.6814159292035398,
+        "conditional_95_ci": [
+          0.5871467475998581,
+          0.7659049957915077
+        ]
+      },
+      "icebergs_called_ships": 36,
+      "ships_called_icebergs": 57,
+      "threshold": 0.5,
+      "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+    },
+    "cnn_ensemble": {
+      "rows": 241,
+      "log_loss": 0.2091049336180291,
+      "accuracy": 0.8879668049792531,
+      "confusion_rows_true_columns_predicted_ship_iceberg": [
+        [
+          110,
+          18
+        ],
+        [
+          9,
+          104
+        ]
+      ],
+      "ship_recall": {
+        "value": 0.859375,
+        "conditional_95_ci": [
+          0.7868852306125593,
+          0.9144767702780331
+        ]
+      },
+      "iceberg_recall": {
+        "value": 0.9203539823008849,
+        "conditional_95_ci": [
+          0.8541873732297185,
+          0.9629337354387874
+        ]
+      },
+      "icebergs_called_ships": 9,
+      "ships_called_icebergs": 18,
+      "threshold": 0.5,
+      "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+    }
+  },
+  "holdout": {
+    "training_prior": {
+      "rows": 241,
+      "log_loss": 0.6912103188834111,
+      "accuracy": 0.5311203319502075,
+      "confusion_rows_true_columns_predicted_ship_iceberg": [
+        [
+          128,
+          0
+        ],
+        [
+          113,
+          0
+        ]
+      ],
+      "ship_recall": {
+        "value": 1.0,
+        "conditional_95_ci": [
+          0.9715919465564561,
+          1.0
+        ]
+      },
+      "iceberg_recall": {
+        "value": 0.0,
+        "conditional_95_ci": [
+          0.0,
+          0.03211785574573937
+        ]
+      },
+      "icebergs_called_ships": 113,
+      "ships_called_icebergs": 0,
+      "threshold": 0.5,
+      "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+    },
+    "linear_statistics": {
+      "rows": 241,
+      "log_loss": 0.640490474830392,
+      "accuracy": 0.5892116182572614,
+      "confusion_rows_true_columns_predicted_ship_iceberg": [
+        [
+          68,
+          60
+        ],
+        [
+          39,
+          74
+        ]
+      ],
+      "ship_recall": {
+        "value": 0.53125,
+        "conditional_95_ci": [
+          0.44105282866530515,
+          0.6199685380605666
+        ]
+      },
+      "iceberg_recall": {
+        "value": 0.6548672566371682,
+        "conditional_95_ci": [
+          0.559609451034119,
+          0.7417860268897711
+        ]
+      },
+      "icebergs_called_ships": 39,
+      "ships_called_icebergs": 60,
+      "threshold": 0.5,
+      "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+    },
+    "cnn_ensemble": {
+      "rows": 241,
+      "log_loss": 0.2854506402949787,
+      "accuracy": 0.8796680497925311,
+      "confusion_rows_true_columns_predicted_ship_iceberg": [
+        [
+          111,
+          17
+        ],
+        [
+          12,
+          101
+        ]
+      ],
+      "ship_recall": {
+        "value": 0.8671875,
+        "conditional_95_ci": [
+          0.7958891975640359,
+          0.9206890460771983
+        ]
+      },
+      "iceberg_recall": {
+        "value": 0.8938053097345132,
+        "conditional_95_ci": [
+          0.8218457668641272,
+          0.9439106598898893
+        ]
+      },
+      "icebergs_called_ships": 12,
+      "ships_called_icebergs": 17,
+      "threshold": 0.5,
+      "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+    },
+    "cnn_seeds": [
+      {
+        "rows": 241,
+        "log_loss": 0.3027260468460675,
+        "accuracy": 0.8713692946058091,
+        "confusion_rows_true_columns_predicted_ship_iceberg": [
+          [
+            113,
+            15
+          ],
+          [
+            16,
+            97
+          ]
+        ],
+        "ship_recall": {
+          "value": 0.8828125,
+          "conditional_95_ci": [
+            0.8140910983080725,
+            0.9329059181181222
+          ]
+        },
+        "iceberg_recall": {
+          "value": 0.8584070796460177,
+          "conditional_95_ci": [
+            0.7802677060102549,
+            0.916847873027636
+          ]
+        },
+        "icebergs_called_ships": 16,
+        "ships_called_icebergs": 15,
+        "threshold": 0.5,
+        "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+      },
+      {
+        "rows": 241,
+        "log_loss": 0.2925572847833662,
+        "accuracy": 0.8921161825726142,
+        "confusion_rows_true_columns_predicted_ship_iceberg": [
+          [
+            114,
+            14
+          ],
+          [
+            12,
+            101
+          ]
+        ],
+        "ship_recall": {
+          "value": 0.890625,
+          "conditional_95_ci": [
+            0.8232994118653039,
+            0.9388986321100043
+          ]
+        },
+        "iceberg_recall": {
+          "value": 0.8938053097345132,
+          "conditional_95_ci": [
+            0.8218457668641272,
+            0.9439106598898893
+          ]
+        },
+        "icebergs_called_ships": 12,
+        "ships_called_icebergs": 14,
+        "threshold": 0.5,
+        "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+      },
+      {
+        "rows": 241,
+        "log_loss": 0.3435184563747353,
+        "accuracy": 0.8672199170124482,
+        "confusion_rows_true_columns_predicted_ship_iceberg": [
+          [
+            110,
+            18
+          ],
+          [
+            14,
+            99
+          ]
+        ],
+        "ship_recall": {
+          "value": 0.859375,
+          "conditional_95_ci": [
+            0.7868852306125593,
+            0.9144767702780331
+          ]
+        },
+        "iceberg_recall": {
+          "value": 0.8761061946902655,
+          "conditional_95_ci": [
+            0.8008704553072079,
+            0.9305813281434296
+          ]
+        },
+        "icebergs_called_ships": 14,
+        "ships_called_icebergs": 18,
+        "threshold": 0.5,
+        "interval_scope": "Conditional chip-binomial; ignores acquisition dependence"
+      }
+    ]
+  },
+  "selected_by_validation": "cnn_ensemble",
+  "paired_holdout_comparison": {
+    "candidate_minus_linear_log_loss": -0.3550398345354133,
+    "log_loss_difference_95_interval": [
+      -0.45454176283917314,
+      -0.23382327819346174
+    ],
+    "candidate_minus_linear_accuracy": 0.2904564315352697,
+    "accuracy_difference_95_interval": [
+      0.19800492924828958,
+      0.37854402822147937
+    ],
+    "replicates": 1000,
+    "proxy_groups": 136,
+    "scope": "Conditional proxy-group bootstrap; actual scene dependence unknown"
+  },
+  "training_settings": {
+    "seeds": [
+      20261013,
+      20261014,
+      20261015
+    ],
+    "selected_epochs": [
+      33,
+      34,
+      36
+    ],
+    "max_epochs": 40,
+    "linear_grid_validation_log_loss": [
+      {
+        "penalty": 0.001,
+        "log_loss": 0.5914172707432587
+      },
+      {
+        "penalty": 0.01,
+        "log_loss": 0.6241072531999654
+      },
+      {
+        "penalty": 0.1,
+        "log_loss": 0.6635772049058776
+      },
+      {
+        "penalty": 1.0,
+        "log_loss": 0.6748324609459143
+      }
+    ]
+  },
+  "wall_seconds": 80.90651880000007,
+  "artifacts": {
+    "audit.json": "378935c55c3aa5943f280b998703a57d6558600ea68b07565ec54c57cd5b5a64",
+    "cnn_20261013.pth": "3e97e0bce78467371940554a25bacabe1415d9e6fbc78364a4e4bca7166992ed",
+    "cnn_20261014.pth": "e15809718d739fe31dfc8d31e1a574af8b517a29f17a99d983e9c74aaff9597c",
+    "cnn_20261015.pth": "3793d4e9190604a1ecdb18a568fbbe128ce79f12332e3116a6086da2630af532",
+    "linear.npz": "1e3733fce932fb6a68503dd86d4bbd583bd7e8d39f1e8272b80a47efe07ec316",
+    "selection.json": "f9fbb076a60adbbafa4bb304c9dffd33ea4b90d1f319f1293bb71e731afe2505",
+    "split.json": "1f04bc422e61e1980d39ee38d26d89694aa40edf0660515547743ca2b1fdea8d",
+    "holdout_predictions.npz": "b6116f5bda40feefa63e6bf78858765ba3fc2b4bb40c022b8aa18fccc3589e8f"
+  },
+  "limitations": [
+    "No acquisition/time/location metadata: angle/duplicate groups are proxies, not certified scene/geographic holdouts",
+    "Near search is bounded and can miss shifted/resampled/cropped relatives",
+    "Labels are publisher-supplied; no project independent review of chips",
+    "Chip classification cannot measure full-scene precision/recall, false alarms per km2, or AIS identity accuracy",
+    "Transfer to native Sentinel preprocessing is unverified",
+    "No operational threshold or promotion; competition test images and NL locked-test pixels stay unread",
+    "This report consumes the exploratory local holdout; further tuning cannot reuse it as fresh evidence"
+  ],
+  "publication": "Aggregate evidence; chip IDs/pixels/predictions stay local"
+}

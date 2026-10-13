@@ -6,11 +6,15 @@ certified surveillance system or operational dark-vessel detector.** Internal
 C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
-Current summary refreshed **12 October 2026**, against main baseline
-`d92d371853fd872ebd736c5011c629a36db7b8c0` (PR #20). The current benchmark is
+Current summary refreshed **13 October 2026**, against main baseline
+`4d973e7b3d81557e6f7b6bb2f6b8b0f94659a111` (PR #21). The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
-unmeasured. Historical results below retain their acquisition dates, execution
+unmeasured for vessel detection. A separate supervised
+[Statoil HH/HV ship versus iceberg baseline](STATOIL_BASELINE.md) now reports
+87.97% exploratory chip classification accuracy against publisher labels; this
+does not validate full-scene detection, geographic independence or promotion.
+Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 
 For a five-minute presentation, open the [real Newfoundland case](../examples/nl-real-case.html)
@@ -95,6 +99,7 @@ older green run certifies newer code.
 | Historical selected-area detector baseline | Six supported VV/VH areas completed; four HH/HV areas were unsupported and two locked-test areas excluded. Selected validation water processing coverage was 65.40%, with 0% independently measured coverage. | Processing coverage and descriptive returns are not vessel accuracy or proof that empty offshore predictions were correct. |
 | Current v0.2.0 detector baseline | Eleven VV/VH development areas processed; eight HH/HV areas unsupported; two locked-test areas excluded. Validation water processing coverage was 62.23%, with 0% independently measured coverage. | The expanded selection changes the denominator; do not interpret its coverage difference as a detector regression or improvement. |
 | Exploratory development on v0.2.0 | Six fits and 176 frozen CROMA windows across eleven VV/VH areas. Bias fitting changed scores but retained 14 validation returns at >0.15. CROMA heads produced 2,487–2,601 validation returns. | One provisional training positive and no accepted negatives cannot establish useful generalization, accuracy or false-alarm reduction. |
+| Separate Statoil HH/HV classification | 1,604 publisher-labelled chips; angle/duplicate proxy groups kept within splits. On 241 holdout chips, the CNN ensemble had 87.97% accuracy versus 58.92% for band-statistics logistic regression; 17 ships called icebergs and 12 icebergs called ships. | Target-chip classification only. Acquisition metadata and native preprocessing transfer are unavailable; repeated protocol runs do not add independent examples. No full-scene false-alarm or detector-improvement claim. |
 
 The SAR–AIS result comes from saved 6 October executions, inspected on 11 October.
 Its AIS coverage is **partial and self-reported**; matches can be accidental.
