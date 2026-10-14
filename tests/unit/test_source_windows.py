@@ -227,6 +227,17 @@ def test_published_annotations_keep_guards_and_reservation() -> None:
         check_collection(changed)
 
 
+def _local_source_evidence_available() -> bool:
+    collection = json.loads(
+        (REPO_ROOT / "datasets/source_supported/v0.1.0/collection.json").read_text()
+    )
+    return (REPO_ROOT / collection["prepared"]["path"]).exists()
+
+
+@pytest.mark.skipif(
+    not _local_source_evidence_available(),
+    reason="no local native source evidence in data/ (gitignored, absent in CI)",
+)
 def test_local_replay_rejects_iceberg_label_on_identified_vessel() -> None:
     # ref()/checked() require artifact paths to live inside REPO_ROOT, so the
     # tampered copies must be written under the repo (in the gitignored data/
