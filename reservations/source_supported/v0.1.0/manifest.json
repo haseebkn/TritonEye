@@ -1,0 +1,286 @@
+{
+  "version": "source_supported_v0.1.0",
+  "selected_at": "2026-10-14T09:54:40.034592+00:00",
+  "policy": {
+    "path": "configs/reservations/source_supported_v010.json",
+    "sha256": "9cbe97c9f4a3ee52017a9d5369e6f1080b691d7a8aa90d046e3f8dfb4f4246da"
+  },
+  "private_selection": {
+    "path": "data/source_supported/v010_01/reservation/selection_private.json",
+    "sha256": "1157c57dc723bb6b5ef603a56d52ac839f34f4aab357f0ab31ad315a8cdd8572"
+  },
+  "first_pass_template": {
+    "path": "data/source_supported/v010_01/reservation/first_pass_template.json",
+    "sha256": "a9c7202abc7286edea891abc31e628c2e3b7d1240eaef0be04da4d95d3e2c65f"
+  },
+  "rankings": {
+    "path": "reservations/source_supported/v0.1.0/rankings.json",
+    "sha256": "f5469e97d883bab2ca2d9e58a99b411e0454372ac7a85f2c64edb5dfe4374864"
+  },
+  "areas": [
+    {
+      "id": "iceberg_support_01",
+      "stream": "iceberg_support",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "name": "S1A_IW_GRDH_1SDH_20170502T094942_20170502T095007_016401_01B28A_567C_COG.SAFE",
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "split": "train",
+      "geographic_group": "new_cell_-54_47",
+      "reference_midpoint_utc": "2017-05-02T09:49:54.520000+00:00",
+      "absolute_offset_s": 54.519999980926514,
+      "search_uncertainty_m": 354.5199999809265,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "VIS",
+      "observation_source": "GPGR"
+    },
+    {
+      "id": "iceberg_support_02",
+      "stream": "iceberg_support",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "name": "S1A_IW_GRDH_1SDH_20150630T094859_20150630T094924_006601_008CC6_68E7.SAFE",
+      "native_acquisition_group": "S1A_006601_008CC6",
+      "split": "train",
+      "geographic_group": "new_cell_-54_50",
+      "reference_midpoint_utc": "2015-06-30T09:49:12.171464+00:00",
+      "absolute_offset_s": 107.82853603363037,
+      "search_uncertainty_m": 407.82853603363037,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GPGR"
+    },
+    {
+      "id": "iceberg_support_03",
+      "stream": "iceberg_support",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "name": "S1A_IW_GRDH_1SDH_20150630T094859_20150630T094924_006601_008CC6_68E7.SAFE",
+      "native_acquisition_group": "S1A_006601_008CC6",
+      "split": "train",
+      "geographic_group": "new_cell_-53_49",
+      "reference_midpoint_utc": "2015-06-30T09:49:12.171464+00:00",
+      "absolute_offset_s": 107.82853603363037,
+      "search_uncertainty_m": 407.82853603363037,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GPGR"
+    },
+    {
+      "id": "iceberg_support_04",
+      "stream": "iceberg_support",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "name": "S1A_IW_GRDH_1SDH_20170502T094942_20170502T095007_016401_01B28A_567C_COG.SAFE",
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "split": "train",
+      "geographic_group": "new_cell_-54_47",
+      "reference_midpoint_utc": "2017-05-02T09:49:54.520000+00:00",
+      "absolute_offset_s": 185.4800000190735,
+      "search_uncertainty_m": 485.4800000190735,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "VIS",
+      "observation_source": "GPGR"
+    },
+    {
+      "id": "iceberg_support_05",
+      "stream": "iceberg_support",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "name": "S1B_IW_GRDH_1SDH_20170601T094836_20170601T094901_005855_00A441_C53C.SAFE",
+      "native_acquisition_group": "S1B_005855_00A441",
+      "split": "train",
+      "geographic_group": "new_cell_-54_49",
+      "reference_midpoint_utc": "2017-06-01T09:48:48.869306+00:00",
+      "absolute_offset_s": 311.1306939125061,
+      "search_uncertainty_m": 611.1306939125061,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GMRS"
+    },
+    {
+      "id": "iceberg_support_06",
+      "stream": "iceberg_support",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "name": "S1B_IW_GRDH_1SDH_20170601T094836_20170601T094901_005855_00A441_C53C.SAFE",
+      "native_acquisition_group": "S1B_005855_00A441",
+      "split": "train",
+      "geographic_group": "new_cell_-54_49",
+      "reference_midpoint_utc": "2017-06-01T09:48:48.869306+00:00",
+      "absolute_offset_s": 311.1306939125061,
+      "search_uncertainty_m": 611.1306939125061,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GMRS"
+    },
+    {
+      "id": "vessel_support_01",
+      "stream": "vessel_support",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "name": "S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE",
+      "native_acquisition_group": "S1C_009500_012E71",
+      "split": "validation",
+      "geographic_group": "northern_newfoundland",
+      "reference_midpoint_utc": "2026-09-18T09:56:43.677583+00:00",
+      "absolute_offset_s": 6.510861873626709,
+      "search_uncertainty_m": 292.215968,
+      "prior_datatake_exposure": true,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false
+    },
+    {
+      "id": "vessel_support_02",
+      "stream": "vessel_support",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "name": "S1C_IW_GRDH_1SDH_20261005T100435_20261005T100500_009748_0136A3_91B4.SAFE",
+      "native_acquisition_group": "S1C_009748_0136A3",
+      "split": "validation",
+      "geographic_group": "northern_newfoundland",
+      "reference_midpoint_utc": "2026-10-05T10:04:47.646877+00:00",
+      "absolute_offset_s": 11.105732917785645,
+      "search_uncertainty_m": 185.30495000000002,
+      "prior_datatake_exposure": true,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false
+    },
+    {
+      "id": "vessel_support_03",
+      "stream": "vessel_support",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "name": "S1C_IW_GRDH_1SDH_20261005T100435_20261005T100500_009748_0136A3_91B4.SAFE",
+      "native_acquisition_group": "S1C_009748_0136A3",
+      "split": "validation",
+      "geographic_group": "northern_newfoundland",
+      "reference_midpoint_utc": "2026-10-05T10:04:47.646877+00:00",
+      "absolute_offset_s": 88.7915689945221,
+      "search_uncertainty_m": 320.710338,
+      "prior_datatake_exposure": true,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false
+    }
+  ],
+  "exclusions": [
+    {
+      "product_id": "81fd1b0c-b7b7-4d9b-acbd-4aaa2fce43b0",
+      "stream": "iceberg_support",
+      "reason": "Complete reservation envelope outside swath"
+    },
+    {
+      "product_id": "13509178-817f-5464-8736-91fad2e2d15f",
+      "stream": "iceberg_support",
+      "reason": "Complete reservation envelope outside swath"
+    },
+    {
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "stream": "iceberg_support",
+      "reason": "Overlapping same-scene annotation areas"
+    },
+    {
+      "product_id": "668ace86-e745-5ee4-8464-27766343297e",
+      "stream": "iceberg_support",
+      "reason": "Repeated source identity"
+    },
+    {
+      "product_id": "668ace86-e745-5ee4-8464-27766343297e",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of already selected datatake"
+    },
+    {
+      "product_id": "fa347730-418c-4c9d-bcac-942b4b1c666a",
+      "stream": "iceberg_support",
+      "reason": "Repeated source identity"
+    },
+    {
+      "product_id": "fa347730-418c-4c9d-bcac-942b4b1c666a",
+      "stream": "iceberg_support",
+      "reason": "Repeated source identity"
+    },
+    {
+      "product_id": "668ace86-e745-5ee4-8464-27766343297e",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of already selected datatake"
+    },
+    {
+      "product_id": "668ace86-e745-5ee4-8464-27766343297e",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of already selected datatake"
+    },
+    {
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "stream": "iceberg_support",
+      "reason": "Per-product batch limit"
+    },
+    {
+      "product_id": "5415d10e-02f2-464f-ab79-deb9f5911514",
+      "stream": "vessel_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "stream": "vessel_support",
+      "reason": "Adjacent slice of already selected datatake"
+    }
+  ],
+  "class_counts": {
+    "iceberg_support": 6,
+    "vessel_support": 3
+  },
+  "native_acquisitions": 5,
+  "annotated_objects": 0,
+  "scored": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "class_year_confounding": true
+}

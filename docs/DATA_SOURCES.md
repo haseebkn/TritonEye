@@ -121,8 +121,9 @@ describes public browsing under `https://noaadata.apps.nsidc.org/NOAA/`.
 Do not disable TLS certificate verification when downloading.
 
 The IIP user guide explicitly distinguishes observation source/method and
-historical formats. In its modern CSV description, sighting longitude is degrees
-west, so normalize the sign explicitly before creating longitude-first GeoJSON.
+historical formats. See the
+[source-supported audit](SOURCE_SUPPORTED_ANNOTATION.md#iip-observation-audit)
+for the audited CSV longitude convention, schema and provenance handling.
 The documented date/time are sighting times, not a licence to assume that a
 drifting iceberg remained at that position hours or days later. Inspect each
 file's format and observed range before converting it.

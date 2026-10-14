@@ -105,6 +105,10 @@ the sealed original. Reference training data must be present to rebuild comparis
 
 ## What is still needed
 
+The subsequent [IIP and AIS source audit](SOURCE_SUPPORTED_ANNOTATION.md) reserves
+nine evidence-supported annotation opportunities. Their native images still need
+inspection; they do not add confirmed vessel or iceberg labels to this collection.
+
 Step 1 now has native inputs, calibration replay, metadata and descriptive value
 and apparent-size comparisons. Physical compatibility remains unestablished.
 Step 2 has a versioned first-pass collection, but **vessel and plausible-iceberg

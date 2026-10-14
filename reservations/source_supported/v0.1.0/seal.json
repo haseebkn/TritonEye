@@ -1,0 +1,10 @@
+{
+  "manifest": {
+    "path": "reservations/source_supported/v0.1.0/manifest.json",
+    "sha256": "112b5003c6bec475253c9193eba081404d909d07d6a03f7e8818f7a5c8bf0412"
+  },
+  "rankings": {
+    "path": "reservations/source_supported/v0.1.0/rankings.json",
+    "sha256": "f5469e97d883bab2ca2d9e58a99b411e0454372ac7a85f2c64edb5dfe4374864"
+  }
+}
