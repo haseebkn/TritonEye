@@ -1,6 +1,8 @@
 """Native uncertainty coverage uses geometry and both acquisition row times."""
 
+import json
 from copy import deepcopy
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -8,8 +10,10 @@ from pyproj import CRS, Transformer
 from shapely.geometry import box, mapping
 from shapely.ops import transform
 
-from agents.source_followup import coverage
+from agents.artifacts import REPO_ROOT
+from agents.source_followup import coverage, replay
 from agents.source_followup_annotations import validate_collection, validate_support
+from agents.source_followup_annotations import verify as verify_collection
 
 
 def geometry(half_width: float) -> dict[str, Any]:
@@ -145,3 +149,36 @@ def test_provisional_collection_refuses_approval_or_score_flags(flag: str) -> No
     }
     with pytest.raises(ValueError, match="guard changed"):
         validate_collection(value)
+
+
+def test_actual_public_release_and_tamper_detection() -> None:
+    lock = json.loads(
+        (
+            REPO_ROOT / "configs/reservations/source_followup_collection_v020.lock.json"
+        ).read_text()
+    )
+    directory = REPO_ROOT / lock["directory"]
+    verify_collection(directory, lock["seal_sha256"])
+    with pytest.raises(ValueError, match="seal changed"):
+        verify_collection(directory, "0" * 64)
+    value = json.loads((directory / "collection.json").read_text())
+    value["areas"][4]["objects"][0]["class"] = "plausible_iceberg"
+    with pytest.raises(ValueError):
+        validate_collection(value)
+
+
+@pytest.mark.skipif(
+    not (
+        REPO_ROOT / "data/source_supported/followup_native_v010_01/manifest.json"
+    ).exists(),
+    reason="Requires ignored exact native follow-up pixels and source metadata",
+)
+def test_local_preparation_replay_and_false_completion_refusal(tmp_path: Path) -> None:
+    path = REPO_ROOT / "data/source_supported/followup_native_v010_01/manifest.json"
+    assert len(replay(path)) == 6
+    value = json.loads(path.read_text())
+    value["products"][0]["resampled"] = True
+    changed = tmp_path / "changed.json"
+    changed.write_text(json.dumps(value))
+    with pytest.raises(ValueError, match="native two-band"):
+        replay(changed)

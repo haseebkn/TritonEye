@@ -38,6 +38,11 @@ adds explicit source-precision sensitivity and 18 passing numerical calibration
 comparisons. GDAL reproduces raw pixels but its calibrated view fails here;
 full preprocessing equivalence remains unresolved. Six fresh iceberg-source
 opportunities across five acquisitions are reserved, with zero new annotations.
+That reservation's subsequent [six-window preparation and annotation](FOLLOWUP_SOURCE_ANNOTATION.md)
+is now complete: four plausible iceberg interpretations and two unresolved returns,
+with two pre-pixel coverage abstentions. All remain provisional, ignored for
+accuracy and unapproved for training/promotion. These are source-supported
+hypotheses, not independently reviewed iceberg identities or measured accuracy.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 

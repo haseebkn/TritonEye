@@ -1,0 +1,386 @@
+{
+  "version": "0.2.0",
+  "protocol": {
+    "path": "configs/reservations/source_followup_v010.json",
+    "sha256": "fb7d13c5c9e3300e48bb1f1b2db02b6c140a3b222d2d3d17009b1dc2d8178e51"
+  },
+  "prepared": {
+    "path": "data/source_supported/followup_native_v010_01/manifest.json",
+    "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+  },
+  "first_pass": {
+    "path": "configs/reservations/source_followup_first_pass_v010.json",
+    "sha256": "0aa383ab7a4c19ab05e8de074bf09e9ed8fa48f1321029b92b1328c8e6a39ffb"
+  },
+  "reconciliation": {
+    "path": "configs/reservations/source_followup_reconciliation_v010.json",
+    "sha256": "9eb6291b4bbbe6c11f8e106e1ac01748006e9bff8f827532e019541676033829"
+  },
+  "local_report": {
+    "path": "data/source_supported/followup_collection_v010_01/report.json",
+    "sha256": "56017dd755a75b50158cc923ffe1adeb77ca9b218a7b967cd106f200678c5371"
+  },
+  "areas": [
+    {
+      "id": "next_iceberg_support_01",
+      "product_id": "41d30eaf-c599-5c9e-bb16-401ad1b44925",
+      "split": "validation",
+      "geographic_group": "new_cell_-52_48",
+      "native_acquisition_group": "S1B_021707_02933B",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 779.8401000499725,
+            "cell_clearance_m": 1910.9264643285437,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999983
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 809.8401000499725,
+            "cell_clearance_m": 1873.716000627198,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999993
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 839.8401000499725,
+            "cell_clearance_m": 1836.5055945754323,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999986
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 479.84010004997253,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "class": "plausible_iceberg",
+          "bbox_px": [
+            157,
+            174,
+            171,
+            201
+          ],
+          "reason": "One isolated image-first reflector and a unique compatible visual/RV iceberg source within the unchanged allowance and fully covered sensitivity scenarios. Provisional AI interpretation, not independent class truth.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "chip_sha256": "a6fd7b59c253766aaeb145ab812aa09a5b249cc3bf6fcb6b12d606320314354f",
+      "ignore_mask": {
+        "path": "data/source_supported/followup_collection_v010_01/next_iceberg_support_01_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "product_id": "36233056-eff1-5d9b-a6c6-09838f214043",
+      "split": "train",
+      "geographic_group": "eastern_avalon",
+      "native_acquisition_group": "S1A_021753_02588E",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1453.0172340869904,
+            "cell_clearance_m": 1919.4665158963332,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.0000000000000022
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1483.0172340869904,
+            "cell_clearance_m": 1872.4533914973333,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.999999999999999
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1513.0172340869904,
+            "cell_clearance_m": 1818.2725954864347,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999992
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 1153.0172340869904,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "class": "plausible_iceberg",
+          "bbox_px": [
+            197,
+            137,
+            214,
+            164
+          ],
+          "reason": "Image-first compact reflector with unique compatible reported iceberg identity and complete scenario coverage. Source-supported hypothesis only; source timing, motion and unobserved vessel alternatives remain unresolved.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "chip_sha256": "eee9bb2744ef64cf519f7c84d859c90f931ef72522a659d20cc5ee6d94ceeb87",
+      "ignore_mask": {
+        "path": "data/source_supported/followup_collection_v010_01/next_iceberg_support_02_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "product_id": "3b936136-787d-58b9-b4cf-7ec27e6952c0",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_48",
+      "native_acquisition_group": "S1B_021007_027D8F",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1493.4244420528412,
+            "cell_clearance_m": 1913.0013039212265,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999982
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1523.4244420528412,
+            "cell_clearance_m": 1908.3764168871778,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999994
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1553.4244420528412,
+            "cell_clearance_m": 1903.7515365557692,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.0000000000000002
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 1193.4244420528412,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "class": "plausible_iceberg",
+          "bbox_px": [
+            127,
+            169,
+            140,
+            188
+          ],
+          "reason": "Compact image-first return, unique compatible reported iceberg identity and complete source-coverage scenarios. Plausible source-supported ice interpretation remains uncertain and ignored for accuracy/training.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "chip_sha256": "6450efc1654f22bb9a167fc47622f8393edc721cb782a6e2793f9ce9a2a5045d",
+      "ignore_mask": {
+        "path": "data/source_supported/followup_collection_v010_01/next_iceberg_support_03_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "product_id": "e2113856-a831-530d-a28d-852876233702",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_48",
+      "native_acquisition_group": "S1A_021403_024D90",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1586.660057067871,
+            "cell_clearance_m": 1912.3486898556419,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999993
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1616.660057067871,
+            "cell_clearance_m": 1866.3416228052706,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999986
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1646.660057067871,
+            "cell_clearance_m": 1819.0738583482537,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.999999999999999
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 1286.660057067871,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "class": "plausible_iceberg",
+          "bbox_px": [
+            140,
+            92,
+            157,
+            119
+          ],
+          "reason": "One isolated two-band return with a unique compatible reported iceberg source and complete scenario coverage. Plausible iceberg hypothesis only; vessel/clutter alternatives and source error remain possible.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "chip_sha256": "58af3099bebe5221bd4337972a93d0883cb6ac487262adcd3d65d3f1cc609170",
+      "ignore_mask": {
+        "path": "data/source_supported/followup_collection_v010_01/next_iceberg_support_04_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "next_iceberg_support_05",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "split": "validation",
+      "geographic_group": "new_cell_-52_47",
+      "native_acquisition_group": "S1B_016457_01EFA7",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1720.2920100688934,
+            "cell_clearance_m": 1912.8369966733896,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999994
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1750.2920100688934,
+            "cell_clearance_m": 1539.4169985812648,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.9632914347310999
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1780.2920100688934,
+            "cell_clearance_m": 1165.9931721578434,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.8531856445897015
+          }
+        },
+        "all_scenarios_complete": false,
+        "maximum_native_row_offset_s": 1420.2920100688934,
+        "source_association_abstain": true,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            177,
+            203,
+            194,
+            232
+          ],
+          "reason": "Source-compatible compact return with incomplete source-uncertainty coverage. Proximity cannot override the frozen coverage abstention.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "chip_sha256": "168a675500aeace19a68225f54e0608c9f79dc6aaec1c6571262b1022c948da7",
+      "ignore_mask": {
+        "path": "data/source_supported/followup_collection_v010_01/next_iceberg_support_05_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "next_iceberg_support_06",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_47",
+      "native_acquisition_group": "S1B_016457_01EFA7",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 2018.0283160209656,
+            "cell_clearance_m": 1918.0567738174936,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.9799144989103159
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 2048.0283160209656,
+            "cell_clearance_m": 1394.5873059878938,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.8117767696354973
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 2078.0283160209656,
+            "cell_clearance_m": 847.3288727577028,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.6468458584017804
+          }
+        },
+        "all_scenarios_complete": false,
+        "maximum_native_row_offset_s": 1718.0283160209656,
+        "source_association_abstain": true,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            150,
+            195,
+            168,
+            220
+          ],
+          "reason": "Compact reflector in a source opportunity with incomplete nominal and sensitivity coverage; physical class stays unresolved.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "chip_sha256": "fac1c7b76cda6a96944d416135fac5daf870c769d712d1fed4a7c975a46acd3e",
+      "ignore_mask": {
+        "path": "data/source_supported/followup_collection_v010_01/next_iceberg_support_06_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    }
+  ],
+  "class_counts": {
+    "plausible_iceberg": 4,
+    "unresolved": 2
+  },
+  "native_calibration_bands_replayed": 12,
+  "extracted_native75_contexts": 6,
+  "classifier_scored": false,
+  "detector_scored": false,
+  "independent_review": false,
+  "training_approved": false,
+  "promotion_eligible": false,
+  "compatibility_established": false,
+  "annotation_completeness_verified": false
+}
