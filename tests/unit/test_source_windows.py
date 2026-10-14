@@ -231,7 +231,8 @@ def _local_source_evidence_available() -> bool:
     collection = json.loads(
         (REPO_ROOT / "datasets/source_supported/v0.1.0/collection.json").read_text()
     )
-    return (REPO_ROOT / collection["prepared"]["path"]).exists()
+    prepared_path: str = collection["prepared"]["path"]
+    return (REPO_ROOT / prepared_path).exists()
 
 
 @pytest.mark.skipif(
