@@ -1,0 +1,12 @@
+{
+  "collection": {
+    "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+    "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+  },
+  "source_report": {
+    "path": "data/hh_hv_transfer/v010_collection_02/report.json",
+    "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+  },
+  "created_at": "2026-10-14T08:12:19.987310+00:00",
+  "status": "provisional_unscored_not_benchmark"
+}

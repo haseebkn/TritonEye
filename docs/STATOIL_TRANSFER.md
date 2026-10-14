@@ -1,5 +1,9 @@
 # Statoil classifier transfer to real NL SAR imagery
 
+The subsequent [reserved acquisition audit](RESERVED_HH_HV_TRANSFER.md) adds
+sixteen unscored native areas with provisional curation and a training-only
+value/scale comparison. It does not extend the scored results below.
+
 The frozen ship-versus-iceberg ensemble processed eight Newfoundland and Labrador
 HH/HV development areas on 13 October 2026. Fifteen existing object centres were
 scored. Both provisional vessel interpretations received ship predictions; five

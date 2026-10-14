@@ -62,3 +62,8 @@ agents/hh_hv_reservation.py text eol=lf
 tests/unit/test_hh_hv_reservation.py text eol=lf
 configs/reservations/** text eol=lf
 reservations/hh_hv/** text eol=lf
+agents/reserved_sar.py text eol=lf
+agents/hh_hv_transfer.py text eol=lf
+tests/unit/test_reserved_sar.py text eol=lf
+tests/unit/test_hh_hv_transfer.py text eol=lf
+datasets/hh_hv_transfer/** -text

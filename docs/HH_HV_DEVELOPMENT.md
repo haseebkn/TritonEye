@@ -1,8 +1,9 @@
 # Additional HH HV development acquisitions
 
-Eight additional NL acquisitions are reserved **before SAR image inspection or
-scoring**. They provide sixteen planned coastal/offshore processing envelopes,
-not sixteen downloaded or annotated chips. The original eight exposed workflow
+Eight additional NL acquisitions were reserved **before SAR image inspection or
+scoring**. On 14 October, sixteen bounded native windows were downloaded and
+provisionally inspected; see the [transfer collection](RESERVED_HH_HV_TRANSFER.md).
+The original eight exposed workflow
 areas and the original locked test set retain their existing roles. This is a
 development reservation, not a replacement test set or evidence of improvement.
 
@@ -93,13 +94,17 @@ These guards are not access control against a repository owner bypassing them.
 
 ## What remains before a comparison
 
-No native imagery was downloaded by this reservation, no new areas were
+At reservation time, no native imagery was downloaded, no new areas were
 annotated, and no generator or classifier was run on them. Reservation-time
 flags remain `scored: false`, `independent_review: false` and
 `promotion_eligible: false`. The reservation is not an NL benchmark dataset
 release and cannot itself be used as `--dataset`.
 
-Next, download the exact reserved products, extract bounded native HH/HV windows
+The subsequent [transfer audit](RESERVED_HH_HV_TRANSFER.md) downloaded the exact
+products and completed native-window inspection and calibration replay. It found
+no defensible vessel or iceberg labels, so class coverage remains incomplete.
+The original preparation plan below is retained as a historical procedure:
+download the exact reserved products, extract bounded native HH/HV windows
 inside the frozen envelopes without full-scene previews, and freeze their pixel
 identities before scoring. Check calibration, polarization, coastline alignment,
 valid pixels and observed conditions. Annotate complete selected areas without
