@@ -569,7 +569,19 @@ def verify(directory: Path, expected_hash: str, local: bool = False) -> None:
         private = json.loads(checked(manifest["private_selection"]).read_text())
         iip = json.loads(checked(private["iip"]).read_text())
         ais = json.loads(checked(private["ais"]).read_text())
-        checked(private["ais_snapshot_manifest"])
+        snapshot_path = checked(private["ais_snapshot_manifest"])
+        snapshot = json.loads(snapshot_path.read_text())
+        archive = (snapshot_path.parent / "archive_snapshot").resolve()
+        if not archive.is_relative_to(REPO_ROOT.resolve()):
+            raise ValueError("Frozen AIS archive path mismatch")
+        for entry in snapshot["files"]:
+            path = (archive / entry["file"]).resolve()
+            if (
+                path.parent != archive
+                or not path.is_file()
+                or sha256_file(path) != entry["sha256"]
+            ):
+                raise ValueError("Frozen AIS archive hash/path mismatch")
         checked(private["ais_catalogue"])
         checked(manifest["first_pass_template"])
         for catalogue in private["iip_provenance"]["catalogues"]:

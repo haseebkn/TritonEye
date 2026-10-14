@@ -9,7 +9,7 @@ from typing import Any
 import pytest
 from shapely.geometry import box, mapping
 
-from agents.artifacts import REPO_ROOT
+from agents.artifacts import REPO_ROOT, sha256_file
 from agents.source_reservation import (
     assign,
     envelope,
@@ -102,6 +102,34 @@ def test_iip_excludes_circular_source_and_out_of_swath() -> None:
     broken = deepcopy(product())
     broken.pop("GeoFootprint")
     assert iip_overlaps([broken], rows, policy())[0] == []
+
+
+def test_iip_truncated_rows_do_not_abort_or_hide_valid_sightings(
+    tmp_path: Path,
+) -> None:
+    path = tmp_path / "IIP_2018IcebergSeason.csv"
+    fields = [
+        "ICEBERG_YEAR",
+        "ICEBERG_NUMBER",
+        "SIGHTING_DATE",
+        "SIGHTING_TIME",
+        "SIGHTING_LATITUDE",
+        "SIGHTING_LONGITUDE",
+        "SIGHTING_METHOD",
+        "SOURCE",
+        "SIZE",
+        "SHAPE",
+    ]
+    row = [2018, 1, "6/1/2018", "940", 48.3, -53.2, "VIS", "SHIP", "SM", "GEN"]
+    with path.open("w", newline="") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(fields)
+        writer.writerows([row[:7], row[:-1], row])
+    rows, counts = read_iip(tmp_path)
+    assert counts["invalid_rows"] == 2
+    assert len(rows) == 1
+    assert counts.get("duplicate_sightings", 0) == 0
+    assert rows[0]["source"] == "SHIP" and rows[0]["shape"] == "GEN"
 
 
 def test_two_hour_screen_is_not_thirty_minute_reservation() -> None:
@@ -310,3 +338,91 @@ def test_published_reservation_integrity_and_provisional_contract() -> None:
         validate_manifest(manifest)
     with pytest.raises(ValueError, match="seal"):
         verify(directory, "0" * 64)
+
+
+@pytest.mark.parametrize("filename", ["ais_stream_day.csv", "coverage_day.jsonl"])
+@pytest.mark.parametrize("change", ["intact", "changed", "deleted", "escape"])
+def test_local_verification_checks_frozen_archive_before_replay(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    filename: str,
+    change: str,
+) -> None:
+    frozen_policy = policy()
+    monkeypatch.setattr("agents.source_reservation.REPO_ROOT", tmp_path)
+    monkeypatch.setattr(
+        "agents.source_reservation.prior_assignments", lambda: ([], set(), {})
+    )
+
+    def store(name: str, value: Any) -> dict[str, str]:
+        path = tmp_path / name
+        path.write_text(json.dumps(value))
+        return {"path": name, "sha256": sha256_file(path)}
+
+    archive = tmp_path / "archive_snapshot"
+    archive.mkdir()
+    source = archive / filename
+    source.write_text("frozen source\n")
+    snapshot_ref = store(
+        "snapshot_manifest.json",
+        {
+            "files": [
+                {
+                    "file": "../outside.csv" if change == "escape" else filename,
+                    "sha256": sha256_file(source),
+                }
+            ],
+        },
+    )
+    if change == "escape":
+        (tmp_path / "outside.csv").write_bytes(source.read_bytes())
+    elif change == "changed":
+        source.write_text("changed source\n")
+    elif change == "deleted":
+        source.unlink()
+    private_ref = store(
+        "private.json",
+        {
+            "iip": store("iip.json", {"ranked": []}),
+            "ais": store("ais.json", {"scenes": []}),
+            "ais_snapshot_manifest": snapshot_ref,
+            "ais_catalogue": store("catalogue.json", {}),
+            "iip_provenance": {"catalogues": []},
+            "iip_sources": [],
+            "prior_native_groups": [],
+            "areas": [],
+            "exclusions": [],
+        },
+    )
+    manifest_ref = store(
+        "manifest.json",
+        {
+            "policy": store("policy.json", frozen_policy),
+            "private_selection": private_ref,
+            "first_pass_template": store("template.json", {}),
+            "areas": [],
+            "class_counts": {},
+            "native_acquisitions": 0,
+            "scored": False,
+            "independent_review": False,
+            "promotion_eligible": False,
+            "annotated_objects": 0,
+        },
+    )
+    seal_ref = store(
+        "seal.json",
+        {
+            "manifest": manifest_ref,
+            "rankings": store("rankings.json", {}),
+        },
+    )
+    if change == "intact":
+        verify(tmp_path, seal_ref["sha256"], local=True)
+    else:
+
+        def unexpected_replay(*args: Any, **kwargs: Any) -> Any:
+            pytest.fail("Invalid frozen archive reached selection replay")
+
+        monkeypatch.setattr("agents.source_reservation.reserve", unexpected_replay)
+        with pytest.raises(ValueError, match="Frozen AIS archive hash/path mismatch"):
+            verify(tmp_path, seal_ref["sha256"], local=True)

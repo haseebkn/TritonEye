@@ -78,7 +78,7 @@ The stricter HH/HV selection requires a report within 120 seconds, a bracketing
 gap no wider than 240 seconds, estimated positional uncertainty no greater than
 500 m, speed at least one knot, physical-water classification and reference
 shore distance at least 500 m. Unknown shore distances are excluded. This yields
-seven track–scene opportunities across six products before reservation checks.
+five track–scene opportunities across four products before reservation checks.
 Ranking uses nearest-report offset, bracket width, uncertainty, offshore distance,
 UUID and private identity. All competing aligned scene tracks remain available
 in the private evidence; a selected expected vessel is not the only match option.
