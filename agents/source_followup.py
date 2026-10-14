@@ -236,6 +236,13 @@ def plan(output: Path) -> None:
 
 
 def validate_plan(path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+    lock = json.loads(
+        (
+            REPO_ROOT / "configs/reservations/source_followup_plan_v010.lock.json"
+        ).read_text()
+    )
+    if ref(path) != lock["plan"]:
+        raise ValueError("Trusted pre-pixel plan changed")
     value = json.loads(path.read_text())
     manifest, private = selection()
     if (
