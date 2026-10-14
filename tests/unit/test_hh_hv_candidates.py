@@ -12,9 +12,12 @@ from rasterio.transform import from_origin
 
 from agents import hh_hv_candidate_run as runner
 from agents import hh_hv_candidates as detector
+from agents import nl_benchmark
+from agents import statoil_shadow as shadow
 from agents.artifacts import sha256_file, write_json
-from agents.calibration import CalibrationError
+from agents.calibration import CalibrationError, Calibrator
 from agents.geo import GeoreferencingError
+from tests.unit.test_statoil_shadow import native_fixture
 
 
 def make_images() -> Any:
@@ -147,6 +150,77 @@ def test_candidate_memory_preflight_refuses_pressure(monkeypatch: Any) -> None:
         runner.resource_check()
     with pytest.raises(RuntimeError, match="memory budget"):
         runner.runtime_check()
+
+
+def test_native_replay_to_persisted_shared_population(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    """Exercise real calibration, geography, generation and bundle consumption."""
+    monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(shadow, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(nl_benchmark, "REPO_ROOT", tmp_path)
+    scene, roi = native_fixture(tmp_path)
+    bands = []
+    for source, calibration in zip(scene["sources"], roi["calibration"]):
+        path = tmp_path / source["path"]
+        with rasterio.open(path, "r+") as src:
+            dn = src.read(1)
+            dn[50, 50] *= 10
+            src.write(dn, 1)
+        source["sha256"] = sha256_file(path)
+        bands.append(
+            Calibrator(str(tmp_path / calibration["path"])).to_sigma0_db(dn)
+        )
+    path = tmp_path / roi["chip"]["path"]
+    with rasterio.open(path, "r+") as src:
+        src.crs = "EPSG:4326"
+        src.write(np.asarray(bands, dtype="float32"))
+    roi["chip"]["sha256"] = sha256_file(path)
+    roi.update(
+        id="generated_coast", group="generated", regime="coastal",
+        geometry={"type": "Polygon", "coordinates": [
+            [[1, 0], [2, 0], [2, 1], [1, 1], [1, 0]]
+        ]},
+    )
+    scene.update(
+        product_id="11111111-1111-4111-8111-111111111111",
+        name="S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00.SAFE",
+        split="validation", region="Newfoundland", polarizations=["hh", "hv"],
+        acquisition_time="2025-01-03T09:42:20Z", rois=[roi],
+    )
+    manifest = {"scenes": [scene], "licence": {"attribution": "Generated fixture"}}
+    # The fixture supplies dataset discovery; all pixel/provenance consumers are real.
+    monkeypatch.setattr(runner, "load_dataset", lambda _: (manifest, {}, {}))
+    dataset = tmp_path / "datasets/fixture"
+    dataset.mkdir(parents=True)
+    write_json(dataset / "release.json", {"fixture": True})
+    output = tmp_path / "data/native_run"
+    result = runner.run(output, dataset)
+    assert result["status"] == "complete"
+    assert result["summary"]["candidate_count"] == 1
+    assert result["areas"][0]["calibration_replay_max_abs_db"] == [0, 0]
+    assert result["accuracy"] is None and result["promotion_eligible"] is False
+    bundle = output / "bundle.json"
+    pair = runner.paired_inputs(bundle, sha256_file(bundle))
+    assert pair["unfiltered"] == pair["classifier_filter"]
+    feature = pair["unfiltered"][0]["features"][0]
+    assert feature["properties"]["triggered_polarizations"] == ["HH", "HV"]
+    assert feature["properties"]["research_retained"] is True
+    assert feature["properties"]["operational_alert"] is False
+    assert feature["geometry"]["coordinates"] == pytest.approx([1.505, 0.495])
+    # Duplicate a sealed area, rehash the bundle, and verify semantic rejection.
+    result["areas"].append(dict(result["areas"][0]))
+    result["summary"]["candidate_count"] = 2
+    write_json(bundle, result)
+    with pytest.raises(ValueError, match="duplicated or omitted"):
+        runner.paired_inputs(bundle, sha256_file(bundle))
+    result["areas"].pop()
+    result["summary"]["candidate_count"] = 1
+    write_json(bundle, result)
+    # Input byte integrity is checked before native calibration can be trusted.
+    (tmp_path / scene["sources"][0]["path"]).write_bytes(b"tampered")
+    with pytest.raises(ValueError, match="Input hash mismatch"):
+        shadow.native_audit(scene, roi, {})
 
 
 @pytest.mark.parametrize(
