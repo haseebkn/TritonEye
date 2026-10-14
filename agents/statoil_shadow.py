@@ -411,7 +411,10 @@ def publish(source: Path, output: Path) -> None:
         report["scope"] != "Provisional real NL HH/HV frozen-classifier shadow study"
         or report["promotion_eligible"] is not False
         or report["accuracy"] is not None
+        or report["false_alarms_per_km2"] is not None
+        or report["vessel_recall_change"] is not None
         or report["summary"]["returns_suppressed"] != 0
+        or report["summary"]["independently_reviewed_objects"] != 0
         or report["parameter_sha256_before"] != report["parameter_sha256_after"]
     ):
         raise ValueError("Provisional frozen shadow contract required")
