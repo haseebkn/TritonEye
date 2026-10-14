@@ -244,6 +244,40 @@ def test_run_excludes_locked_and_unsupported_before_image_access(
         shadow.run(tmp_path / "data/shadow", dataset)
 
 
+def _base_provisional_report() -> dict[str, Any]:
+    return {
+        "scope": "Provisional real NL HH/HV frozen-classifier shadow study",
+        "parameter_sha256_before": "same",
+        "parameter_sha256_after": "same",
+        "summary": {"returns_suppressed": 0, "independently_reviewed_objects": 0},
+        "accuracy": None,
+        "false_alarms_per_km2": None,
+        "vessel_recall_change": None,
+        "promotion_eligible": False,
+    }
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        lambda report: report.update(vessel_recall_change=0.1),
+        lambda report: report.update(false_alarms_per_km2=1.0),
+        lambda report: report["summary"].update(independently_reviewed_objects=1),
+    ],
+)
+def test_publish_rejects_reports_that_violate_provisional_contract(
+    tmp_path: Path, monkeypatch: Any, mutation: Any
+) -> None:
+    monkeypatch.setattr(shadow, "REPO_ROOT", tmp_path)
+    report = _base_provisional_report()
+    mutation(report)
+    source = tmp_path / "data/shadow/shadow.json"
+    source.parent.mkdir(parents=True)
+    source.write_text(json.dumps(report))
+    with pytest.raises(ValueError, match="Provisional frozen shadow contract"):
+        shadow.publish(source, tmp_path / "docs/evidence/shadow.json")
+
+
 def test_memory_guard_prevents_model_loading(tmp_path: Path, monkeypatch: Any) -> None:
     monkeypatch.setattr(shadow, "REPO_ROOT", tmp_path)
 
