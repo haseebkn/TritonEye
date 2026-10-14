@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "calibration_reference": "Separate float64 parser and SciPy interpolation of ESA sigma0 equation; attempt GDAL SAFE SIGMA0 and record execution failure without calling it a pass",
+  "calibration_tolerance_db": 0.001,
+  "training_summary": {"path": "datasets/hh_hv_transfer/v0.1.0/collection.json", "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"},
+  "memory": "Reuse sealed summaries of the 1122 frozen training chips. No training JSON deserialization. Require 1 GiB commit and physical headroom for bounded native cross-check.",
+  "noise_correction": "audit original noise metadata; do not change sealed input pixels",
+  "geolocation": "withheld annotation-grid interpolation and inverse consistency only; no independent ground truth",
+  "iip_sensitivity": "literal decimal steps and minute-time representation; not accuracy bounds, no relabelling",
+  "classifier_scores": false,
+  "training_approved": false,
+  "compatibility_established": false
+}

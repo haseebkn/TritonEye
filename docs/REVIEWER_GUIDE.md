@@ -33,6 +33,11 @@ inspected windows across five acquisitions: two provisional vessels, seven unres
 compact returns and two background contexts. Eighteen calibration bands replay exactly;
 no iceberg label was defensible and no scores were generated. All remain ignored
 for accuracy and training approval, with no independent reviewer.
+The [association-error and preprocessing cross-check](SOURCE_ERROR_PREPROCESSING.md)
+adds explicit source-precision sensitivity and 18 passing numerical calibration
+comparisons. GDAL reproduces raw pixels but its calibrated view fails here;
+full preprocessing equivalence remains unresolved. Six fresh iceberg-source
+opportunities across five acquisitions are reserved, with zero new annotations.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 

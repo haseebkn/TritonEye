@@ -76,6 +76,10 @@ agents/source_annotations.py text eol=lf
 agents/native_cog.py text eol=lf
 tests/unit/test_source_windows.py text eol=lf
 datasets/source_supported/** -text
+agents/source_error_audit.py text eol=lf
+agents/source_preprocessing.py text eol=lf
+agents/source_next_batch.py text eol=lf
+tests/unit/test_source_crosscheck.py text eol=lf
 docs/evidence/source_supported_verification_20261014.json text eol=lf
 docs/evidence/source_supported_correction_20261014.json text eol=lf
 docs/evidence/source_supported_verification_after_review_20261014.json text eol=lf
