@@ -95,6 +95,7 @@ def run(
             for name in (
                 "hh_hv_candidates.py",
                 "hh_hv_candidate_run.py",
+                "hh_hv_reservation.py",
                 "calibration.py",
                 "statoil_shadow.py",
                 "geo.py",
