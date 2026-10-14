@@ -77,11 +77,18 @@ def test_iip_header_variants_duplicates_and_bad_times(tmp_path: Path) -> None:
         writer = csv.writer(stream)
         writer.writerow(fields)
         writer.writerows(
-            [row, row, [*row[:3], "2460", *row[4:]], [*row[:5], 53.2, *row[6:]]]
+            [
+                row,
+                row,
+                [*row[:3], "2460", *row[4:]],
+                [*row[:5], 53.2, *row[6:]],
+                [*row[:3], "", *row[4:]],
+                [*row[:3], " ", *row[4:]],
+            ]
         )
     rows, counts = read_iip(tmp_path)
     assert len(rows) == 1 and counts["duplicate_sightings"] == 1
-    assert counts["invalid_rows"] == 2
+    assert counts["invalid_rows"] == 4
     assert rows[0]["timestamp"] == "2018-06-01T09:40:00+00:00"
     assert rows[0]["label"] is None
     assert rows[0]["source_line"] > 2

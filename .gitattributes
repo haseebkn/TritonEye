@@ -72,3 +72,5 @@ agents/source_reservation.py text eol=lf
 tests/unit/test_source_supported.py text eol=lf
 reservations/source_supported/** -text
 docs/evidence/source_supported_verification_20261014.json text eol=lf
+docs/evidence/source_supported_correction_20261014.json text eol=lf
+docs/evidence/source_supported_verification_after_review_20261014.json text eol=lf

@@ -71,7 +71,10 @@ def read_iip(directory: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
                 try:
                     if any(not isinstance(row.get(key), str) for key in required):
                         raise ValueError("Missing required IIP row value")
-                    clock = row["SIGHTING_TIME"].strip().zfill(4)
+                    clock = row["SIGHTING_TIME"].strip()
+                    if not clock:
+                        raise ValueError("Missing sighting time")
+                    clock = clock.zfill(4)
                     if len(clock) != 4 or not clock.isdigit():
                         raise ValueError("Invalid sighting time")
                     instant = datetime.strptime(

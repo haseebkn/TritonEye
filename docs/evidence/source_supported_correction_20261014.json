@@ -1,0 +1,18 @@
+{
+  "kind": "additive_parser_correction_preserving_original_reservation",
+  "reservation_seal_sha256": "eb2e49ff3e469940f3ca9f9aff3c6f585a4010388130da1ddbe7f59fdc18e521",
+  "reason": "One blank SIGHTING_TIME was initially padded to midnight; blank times are now excluded",
+  "affected_public_source_record": {"file": "IIP_2020IcebergSeason.csv", "iceberg_id": "2020:165", "date": "2020-09-08", "method": "SAT-LOW"},
+  "historical_counts": {"valid_unique_nl_sightings": 81114, "invalid_rows": 242},
+  "corrected_counts": {"valid_unique_nl_sightings": 81113, "invalid_rows": 243},
+  "corrected_normalized": {"path": "data/source_supported/v010_01/corrected_audit/iip_normalized.json", "sha256": "addf79a634aa18de958a797ffc4189907b1ba99cbb51d84f4593add36a24d10f"},
+  "corrected_ranking": {"path": "data/source_supported/v010_01/corrected_audit/iip_ranked.json", "sha256": "b82b394d878a5595ba56d9fdb5a02ef87862f8e38e68c65cbdaaaafdbfab9db7"},
+  "audit_code_sha256": "f7bfcc79217103c2d2a01f0c2c5907e637ab66ec36ae6a36cac6aca7ceb3ff1b",
+  "primary_rankings_identical": true,
+  "primary_sightings": 46404,
+  "overlap_pairs_within_2h": 1628,
+  "pairs_within_30min": 154,
+  "reserved_areas_unchanged": 9,
+  "scored": false,
+  "annotated_objects": 0
+}

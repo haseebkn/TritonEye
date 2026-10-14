@@ -18,13 +18,23 @@ locked test set and previously sealed reservations remain unchanged.
 
 Eight original annual files, 2014–2021, were downloaded from the public
 [NSIDC IIP archive](https://noaadata.apps.nsidc.org/NOAA/G00807/).
-The 101,868 input rows yield 81,114 unique valid sightings inside the NL study
+The 101,868 input rows yield 81,113 unique valid sightings inside the NL study
 area after 1 October 2014. Exclusions comprise 17,139 earlier records, 3,360
-outside the study area, 242 invalid records and 13 exact duplicate sightings.
+outside the study area, 243 invalid records and 13 exact duplicate sightings.
 The original files and their hashes are retained. Signed west longitudes are
 preserved, UTC times are read at their supplied minute precision, and the 2018
 quoted multiline column headings are normalized explicitly. Invalid timestamps
 or coordinates are excluded rather than repaired by guessing.
+
+The immutable original rankings recorded 81,114 valid and 242 invalid rows.
+Validation found one blank sighting time that the initial parser treated as
+midnight: IIP record 2020:165, a SAT-LOW report on 8 September 2020. The parser
+now rejects blank times, and the counts above include that correction. The row
+was outside the primary VIS/R/V pool, so primary overlap counts and the nine
+reserved areas are unchanged. The sealed rankings retain their original bytes;
+the corrected audit is an additive record rather than a replacement reservation.
+The [correction ledger](evidence/source_supported_correction_20261014.json) binds
+the corrected local artifacts and confirms that the primary ranked rows are identical.
 
 Only sighting positions and times are used. Predicted drift positions are not
 substituted for observations. The primary pool contains **46,404 VIS or R/V
@@ -178,6 +188,8 @@ not download new data, view imagery or create labels.
 The [historical local verification receipt](evidence/source_supported_verification_20261014.json)
 records a successful replay with the implementation identified by its code hash;
 it predates the added AIS archive-file checks and does not attest to those checks.
+The [post-review verification receipt](evidence/source_supported_verification_after_review_20261014.json)
+records successful local replay with the strengthened archive-file checks.
 To record verification with the current implementation, add `--receipt` with a
 fresh project-local JSON path to the verification command.
 Fresh local AIS collection can be audited with `python -m agents.overlap_audit
