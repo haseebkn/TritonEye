@@ -1,0 +1,10 @@
+{
+  "manifest": {
+    "path": "reservations/source_supported/v0.2.0/manifest.json",
+    "sha256": "9e369927dc89273c3f9244dfcbeecfc5027026347d3c59f4dbee94d7b39901b7"
+  },
+  "audit_summary": {
+    "path": "reservations/source_supported/v0.2.0/audit_summary.json",
+    "sha256": "9f5251488c2d379011aaf22c5bbf52f9cac7f8b10edc5459b4350be657725bd4"
+  }
+}

@@ -13,6 +13,9 @@ New label collection: [IIP and local AIS overlap audit with a sealed annotation 
 Its [nine native windows are now provisionally annotated before scoring](docs/NATIVE_SOURCE_ANNOTATION.md):
 two provisional vessels, seven unresolved returns, two background contexts, no defensible iceberg labels.
 All remain excluded from accuracy and training approval; independent review is still missing.
+The [association-error and preprocessing cross-check](docs/SOURCE_ERROR_PREPROCESSING.md)
+adds 18 numerical calibration comparisons and a sealed six-area follow-up reservation.
+External calibrated-processor comparison and Kaggle input equivalence remain unresolved.
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).

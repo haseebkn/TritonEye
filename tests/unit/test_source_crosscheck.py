@@ -13,10 +13,18 @@ import rasterio
 from rasterio.windows import Window
 from shapely.geometry import box, mapping
 
+from agents.artifacts import REPO_ROOT
 from agents.calibration import Calibrator
 from agents.source_error_audit import literal_record, precision_sensitivity
-from agents.source_next_batch import POLICY, iceberg_tier, next_role, select, validate
-from agents.source_preprocessing import reference_db, sparse_measurement
+from agents.source_next_batch import (
+    POLICY,
+    iceberg_tier,
+    next_role,
+    select,
+    validate,
+    verify,
+)
+from agents.source_preprocessing import gdal_check, reference_db, sparse_measurement
 from agents.source_reservation import envelope
 
 
@@ -234,3 +242,46 @@ def test_public_reservation_cannot_claim_annotations_or_training() -> None:
             changed["areas"][0][key] = value
         with pytest.raises(ValueError):
             validate(changed)
+
+
+def test_external_calibration_failure_remains_a_failure(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class Raw:
+        def __enter__(self) -> Raw:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            pass
+
+        def read(self, *args: Any, **kwargs: Any) -> Any:
+            return np.ones((2, 2), dtype="uint16")
+
+    def opening(name: str) -> Any:
+        if "SIGMA0" in name:
+            raise rasterio.errors.RasterioIOError("Unsupported calibrated view")
+        return Raw()
+
+    monkeypatch.setattr(rasterio, "open", opening)
+    result = gdal_check(
+        Path("fixture.SAFE"), "HH", [0, 0, 2, 2], np.ones((2, 2)), np.zeros((2, 2))
+    )
+    assert result["raw_pixels_equal"] and not result["calibration_executed"]
+    assert result["passed"] is False
+    with pytest.raises(ValueError, match="identical source pixels"):
+        gdal_check(
+            Path("fixture.SAFE"),
+            "HH",
+            [0, 0, 2, 2],
+            np.full((2, 2), 2),
+            np.zeros((2, 2)),
+        )
+
+
+def test_sealed_next_batch_public_contract() -> None:
+    lock = json.loads(
+        (REPO_ROOT / "configs/reservations/source_next_v020.lock.json").read_text()
+    )
+    verify(REPO_ROOT / lock["directory"], lock["seal_sha256"])
+    with pytest.raises(ValueError, match="seal changed"):
+        verify(REPO_ROOT / lock["directory"], "0" * 64)

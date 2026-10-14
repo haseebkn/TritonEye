@@ -1,0 +1,441 @@
+{
+  "version": "source_supported_v0.2.0",
+  "inputs": {
+    "iip": {
+      "path": "data/source_supported/v010_01/corrected_audit/iip_ranked.json",
+      "sha256": "b82b394d878a5595ba56d9fdb5a02ef87862f8e38e68c65cbdaaaafdbfab9db7"
+    },
+    "ais": {
+      "path": "data/research/ais_sar_overlap_20261014_source_v01/audit_private.json",
+      "sha256": "4636236a4e78c5b49a11f364336b8c0ebbf8d9702f97e4b3df39967fe2d1fa9b"
+    },
+    "association_audit": {
+      "path": "data/source_supported/error_audit_v010_02/report.json",
+      "sha256": "0e3f2bddf561913e662382499902fac3dfa65920dc784766adacec32b999dbb4"
+    },
+    "preprocessing": {
+      "path": "data/source_supported/preprocessing_v010_03/report.json",
+      "sha256": "544c518adafe93788988ff70f806a25ce8ea4fb77f9c2963099c8a0a7167ad68"
+    },
+    "policy": {
+      "path": "configs/reservations/source_next_v020.json",
+      "sha256": "8e9422c159df77631f12a382b79875ab41a225db8dc1c87a17e01f1b592f26ca"
+    },
+    "original_selection": {
+      "path": "data/source_supported/v010_01/reservation/selection_private.json",
+      "sha256": "1157c57dc723bb6b5ef603a56d52ac839f34f4aab357f0ab31ad315a8cdd8572"
+    }
+  },
+  "private_selection": {
+    "path": "data/source_supported/next_v020_01/selection_private.json",
+    "sha256": "6c6c3e3806a1eb0538550c59fa960afb156afe999606589e495e5b542a653cfd"
+  },
+  "first_pass_template": {
+    "path": "data/source_supported/next_v020_01/first_pass_template.json",
+    "sha256": "f75c77628e4ccba82ff89d26769f2a6a22369d2b8b0e30f360a593d5a638158e"
+  },
+  "areas": [
+    {
+      "id": "next_iceberg_support_01",
+      "stream": "iceberg_support",
+      "product_id": "41d30eaf-c599-5c9e-bb16-401ad1b44925",
+      "name": "S1B_IW_GRDH_1SDH_20200523T094058_20200523T094123_021707_02933B_2C99.SAFE",
+      "native_acquisition_group": "S1B_021707_02933B",
+      "split": "validation",
+      "geographic_group": "new_cell_-52_48",
+      "reference_midpoint_utc": "2020-05-23T09:41:11.346000+00:00",
+      "absolute_offset_s": 468.654000043869,
+      "search_uncertainty_m": 768.654000043869,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GGJF",
+      "training_approved": false,
+      "reported_size": "MED",
+      "priority_tier": 0
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "stream": "iceberg_support",
+      "product_id": "36233056-eff1-5d9b-a6c6-09838f214043",
+      "name": "S1A_IW_GRDH_1SDH_20180504T094126_20180504T094151_021753_02588E_DB30.SAFE",
+      "native_acquisition_group": "S1A_021753_02588E",
+      "split": "train",
+      "geographic_group": "eastern_avalon",
+      "reference_midpoint_utc": "2018-05-04T09:41:39.418857+00:00",
+      "absolute_offset_s": 1160.5811429023743,
+      "search_uncertainty_m": 1460.5811429023743,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GTJZ",
+      "training_approved": false,
+      "reported_size": "MED",
+      "priority_tier": 1
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "stream": "iceberg_support",
+      "product_id": "3b936136-787d-58b9-b4cf-7ec27e6952c0",
+      "name": "S1B_IW_GRDH_1SDH_20200405T094056_20200405T094121_021007_027D8F_A3DA.SAFE",
+      "native_acquisition_group": "S1B_021007_027D8F",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_48",
+      "reference_midpoint_utc": "2020-04-05T09:41:09.118000+00:00",
+      "absolute_offset_s": 1190.8819999694824,
+      "search_uncertainty_m": 1490.8819999694824,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GGJF",
+      "training_approved": false,
+      "reported_size": "MED",
+      "priority_tier": 1
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "stream": "iceberg_support",
+      "product_id": "e2113856-a831-530d-a28d-852876233702",
+      "name": "S1A_IW_GRDH_1SDH_20180410T094125_20180410T094150_021403_024D90_FDA0.SAFE",
+      "native_acquisition_group": "S1A_021403_024D90",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_48",
+      "reference_midpoint_utc": "2018-04-10T09:41:38.437750+00:00",
+      "absolute_offset_s": 1281.5622498989105,
+      "search_uncertainty_m": 1581.5622498989105,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GTJZ",
+      "training_approved": false,
+      "reported_size": "LG",
+      "priority_tier": 1
+    },
+    {
+      "id": "next_iceberg_support_05",
+      "stream": "iceberg_support",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "name": "S1B_IW_GRDH_1SDH_20190529T094117_20190529T094142_016457_01EFA7_C7C2.SAFE",
+      "native_acquisition_group": "S1B_016457_01EFA7",
+      "split": "validation",
+      "geographic_group": "new_cell_-52_47",
+      "reference_midpoint_utc": "2019-05-29T09:41:30.245000+00:00",
+      "absolute_offset_s": 1409.755000114441,
+      "search_uncertainty_m": 1709.755000114441,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GGAO",
+      "training_approved": false,
+      "reported_size": "MED",
+      "priority_tier": 1
+    },
+    {
+      "id": "next_iceberg_support_06",
+      "stream": "iceberg_support",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "name": "S1B_IW_GRDH_1SDH_20190529T094117_20190529T094142_016457_01EFA7_C7C2.SAFE",
+      "native_acquisition_group": "S1B_016457_01EFA7",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_47",
+      "reference_midpoint_utc": "2019-05-29T09:41:30.245000+00:00",
+      "absolute_offset_s": 1709.755000114441,
+      "search_uncertainty_m": 2009.755000114441,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "GGAO",
+      "training_approved": false,
+      "reported_size": "LG",
+      "priority_tier": 1
+    }
+  ],
+  "exclusions": [
+    {
+      "product_id": "5158d414-5a55-47ee-872c-bd81020549e6",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "96ee4f45-b871-5e59-ac88-ed5d5d0f5d4f",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "7b6e30bc-42ae-4731-8752-d8f76da0ffd0",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "a9a25d33-08ca-5079-8945-2d34bbc598dc",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "c3d18592-c875-5afc-b67b-c098687ce5e5",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "c4743606-aa54-46b7-b494-9726d7694e9f",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "299bb211-7bd4-4e9d-8f18-3449616cc6b2",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "dc4371f9-724e-4aa4-b821-dc50d97d0913",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "f65797cf-5e9d-5f02-845c-a61dcd34f6a5",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "fb958835-ddcb-4a56-97ee-5168646ce237",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "dc4371f9-724e-4aa4-b821-dc50d97d0913",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "f65797cf-5e9d-5f02-845c-a61dcd34f6a5",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "fb958835-ddcb-4a56-97ee-5168646ce237",
+      "stream": "iceberg_support",
+      "reason": "Complete envelope outside swath"
+    },
+    {
+      "product_id": "5fce561e-3977-5aed-b44d-86259c1eb1e7",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "a3d09543-7a0f-5727-ba8e-72957842f095",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "0cba2555-7fec-4788-acd9-00d30c45da49",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "1469dfde-7b0f-5eaa-8ae2-2c191ee5b394",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "5bec2814-6aac-561b-8ddc-66d98d6befa4",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "6d797740-95b0-4bfe-b68a-43144c43358d",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "dc4371f9-724e-4aa4-b821-dc50d97d0913",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "f65797cf-5e9d-5f02-845c-a61dcd34f6a5",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "fb958835-ddcb-4a56-97ee-5168646ce237",
+      "stream": "iceberg_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "0cba2555-7fec-4788-acd9-00d30c45da49",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of selected datatake"
+    },
+    {
+      "product_id": "1469dfde-7b0f-5eaa-8ae2-2c191ee5b394",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of selected datatake"
+    },
+    {
+      "product_id": "5bec2814-6aac-561b-8ddc-66d98d6befa4",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of selected datatake"
+    },
+    {
+      "product_id": "6d797740-95b0-4bfe-b68a-43144c43358d",
+      "stream": "iceberg_support",
+      "reason": "Adjacent slice of selected datatake"
+    },
+    {
+      "product_id": "dc4371f9-724e-4aa4-b821-dc50d97d0913",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "f65797cf-5e9d-5f02-845c-a61dcd34f6a5",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "fb958835-ddcb-4a56-97ee-5168646ce237",
+      "stream": "iceberg_support",
+      "reason": "Previously reserved source identity"
+    },
+    {
+      "product_id": "8c113d55-f32c-53cc-a96d-54f39f6e5c3e",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "928af940-3a57-4e3c-a225-1b3352b403b2",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "f64eff00-6ab2-4267-8841-36ee3ffc66b0",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "fa44dce8-3df3-5946-99e7-15b0d58b2361",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "29af29e1-2c3a-4c69-9503-d8bbac05788a",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "5d9ec753-2d51-4636-83dd-513bb2cc3df6",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "8c037a6e-ea8a-51a7-8198-0b277630efa5",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "abad2759-6c81-56e7-83bd-46ffe9abd429",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "504f95af-902a-56d6-8743-061e4b826d78",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "8027964d-ea20-5f7f-ae98-0786cb120616",
+      "stream": "iceberg_support",
+      "reason": "Source-class batch cap"
+    },
+    {
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "stream": "vessel_support",
+      "reason": "Prior datatake exposure or reservation"
+    },
+    {
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "stream": "vessel_support",
+      "reason": "Prior datatake exposure or reservation"
+    },
+    {
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "stream": "vessel_support",
+      "reason": "Prior datatake exposure or reservation"
+    },
+    {
+      "product_id": "5415d10e-02f2-464f-ab79-deb9f5911514",
+      "stream": "vessel_support",
+      "reason": "Locked/quarantine geographic separation"
+    },
+    {
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "stream": "vessel_support",
+      "reason": "Prior datatake exposure or reservation"
+    }
+  ],
+  "screened_opportunities": 52,
+  "class_counts": {
+    "iceberg_support": 6
+  },
+  "split_source_counts": {
+    "validation:iceberg_support": 5,
+    "train:iceberg_support": 1
+  },
+  "native_acquisitions": 5,
+  "annotated_objects": 0,
+  "scored": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false,
+  "compatibility_established": false,
+  "limitations": [
+    "Source opportunities are not image labels",
+    "Both-class split coverage is a reported outcome, not assumed",
+    "No new image pixels, classifier scores or source contact used"
+  ]
+}

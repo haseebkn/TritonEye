@@ -1,0 +1,1090 @@
+{
+  "association": {
+    "version": "0.1.0",
+    "prepared": {
+      "path": "data/source_supported/native_v011_02/manifest.json",
+      "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+    },
+    "source_evidence": {
+      "path": "data/source_supported/annotation_v010_01/source_support.json",
+      "sha256": "ca312dde12792e414c8c83bb1c58cb1322be8e11d2a31e402ef489a3e365286d"
+    },
+    "iip_sources": [
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2014IcebergSeason.csv",
+        "sha256": "4e781197ca13a791eee476fbdd82e297532352856125c277d2e94dcfe3f4aea5"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2015IcebergSeason.csv",
+        "sha256": "5f488bdd7817c1af50bf2a6c6702d84e1e78a5a42493924c33d2802b1e3077b4"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2016IcebergSeason.csv",
+        "sha256": "7cacacd973c23098393bb71d7a6aeea11de48068bbea132c8421ab9950415540"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2017IcebergSeason.csv",
+        "sha256": "516e5d2c713fae0fee4e25339b03fa4d9b8ab9b9810d977d6107f2c52f9313ed"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2018IcebergSeason.csv",
+        "sha256": "b6561bd349291fdaaac4742cb9474302d86fea76b7baaa5217dff9cae6f16a8b"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2019IcebergSeason.csv",
+        "sha256": "190eba0c58c7c8b1e2c3da278d370457a0dd282f17940432b7fb816f85ddc2eb"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2020IcebergSeason.csv",
+        "sha256": "6bba77a73019237360c5d078e957400a43077128f0d797b1ecbddc72560a0755"
+      },
+      {
+        "path": "data/source_supported/v010_01/iip/IIP_2021IcebergSeason.csv",
+        "sha256": "37e29ebe83ea2497dcfc3af745826e3e3892daf953319ba2863df2234752f650"
+      }
+    ],
+    "objects": [
+      {
+        "area_id": "iceberg_support_01",
+        "object_id": "u1",
+        "stream": "iceberg_support",
+        "distance_m": 964.5408699456501,
+        "frozen_allowance_m": 353.05462622642517,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 9.285981272801092,
+        "half_pixel_convention_sensitivity_m": 7.137683293894398,
+        "reported_size": "SM",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 671.0224838689617,
+            "distance_to_clamped_cell_point_m": 570.0606430879282
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1342.0646344802126,
+            "distance_to_clamped_cell_point_m": 194.28589684976896
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 83.05462622642517,
+            "unknown_round_or_truncate_max_absolute_offset": 113.05462622642517
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -1.4653739929199219
+      },
+      {
+        "area_id": "iceberg_support_01",
+        "object_id": "u2",
+        "stream": "iceberg_support",
+        "distance_m": 1768.5603369644798,
+        "frozen_allowance_m": 353.2090630531311,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 9.287531203047653,
+        "half_pixel_convention_sensitivity_m": 7.1384557560520685,
+        "reported_size": "SM",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 671.0224838689617,
+            "distance_to_clamped_cell_point_m": 1175.7659728998701
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1342.0646344802126,
+            "distance_to_clamped_cell_point_m": 721.0548491287899
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 83.2090630531311,
+            "unknown_round_or_truncate_max_absolute_offset": 113.2090630531311
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -1.3109369277954102
+      },
+      {
+        "area_id": "iceberg_support_04",
+        "object_id": "u1",
+        "stream": "iceberg_support",
+        "distance_m": 597.9976809692446,
+        "frozen_allowance_m": 486.26315331459045,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 5.119269921495051,
+        "half_pixel_convention_sensitivity_m": 7.139647851625682,
+        "reported_size": "MED",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 671.1011571270403,
+            "distance_to_clamped_cell_point_m": 207.00558714254583
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1342.2219798593803,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 216.26315331459045,
+            "unknown_round_or_truncate_max_absolute_offset": 246.26315331459045
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -0.7831530570983887
+      },
+      {
+        "area_id": "iceberg_support_02",
+        "object_id": "c1",
+        "stream": "iceberg_support",
+        "distance_m": 17.595005683400593,
+        "frozen_allowance_m": 416.77104926109314,
+        "inside_frozen_allowance": true,
+        "compatible_sources": 1,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 5.222338079434054,
+        "half_pixel_convention_sensitivity_m": 7.135943491612186,
+        "reported_size": "MED",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 660.809500772803,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1321.6387364472575,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 146.77104926109314,
+            "unknown_round_or_truncate_max_absolute_offset": 176.77104926109314
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -8.94251298904419
+      },
+      {
+        "area_id": "iceberg_support_03",
+        "object_id": "c1",
+        "stream": "iceberg_support",
+        "distance_m": 14.558127008119467,
+        "frozen_allowance_m": 411.71091747283936,
+        "inside_frozen_allowance": true,
+        "compatible_sources": 1,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 5.163340039226371,
+        "half_pixel_convention_sensitivity_m": 7.139616144576896,
+        "reported_size": "MED",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 662.2700653358681,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1324.5598655957988,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 141.71091747283936,
+            "unknown_round_or_truncate_max_absolute_offset": 171.71091747283936
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -3.882380962371826
+      },
+      {
+        "area_id": "iceberg_support_05",
+        "object_id": "u1",
+        "stream": "iceberg_support",
+        "distance_m": 940.7779889005973,
+        "frozen_allowance_m": 621.4060211181641,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 1.2559761082602539,
+        "half_pixel_convention_sensitivity_m": 7.137324391208256,
+        "reported_size": "LG",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 662.625328853884,
+            "distance_to_clamped_cell_point_m": 291.0285543190618
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1325.270392140692,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 351.40602111816406,
+            "unknown_round_or_truncate_max_absolute_offset": 381.40602111816406
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -10.275327205657959
+      },
+      {
+        "area_id": "iceberg_support_06",
+        "object_id": "u1",
+        "stream": "iceberg_support",
+        "distance_m": 943.409976131063,
+        "frozen_allowance_m": 620.443412065506,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 3.568288829920622,
+        "half_pixel_convention_sensitivity_m": 7.135828877595268,
+        "reported_size": "SM",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 662.8226930992774,
+            "distance_to_clamped_cell_point_m": 280.81856255763444
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1325.6651202730748,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 350.443412065506,
+            "unknown_round_or_truncate_max_absolute_offset": 380.443412065506
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -9.312718152999878
+      },
+      {
+        "area_id": "iceberg_support_06",
+        "object_id": "u2",
+        "stream": "iceberg_support",
+        "distance_m": 672.8596181276058,
+        "frozen_allowance_m": 620.3392043113708,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 4.036189909412989,
+        "half_pixel_convention_sensitivity_m": 7.135762691603174,
+        "reported_size": "SM",
+        "precision_sensitivity": {
+          "latitude_step_deg": 0.01,
+          "longitude_step_deg": 0.01,
+          "nearest_rounding": {
+            "center_to_corner_m": 662.8226930992774,
+            "distance_to_clamped_cell_point_m": 310.99143839482525
+          },
+          "symmetric_one_step": {
+            "center_to_corner_m": 1325.6651202730748,
+            "distance_to_clamped_cell_point_m": 0.0
+          },
+          "minute_time_sensitivity_s": {
+            "nearest_rounding_max_absolute_offset": 350.33920431137085,
+            "unknown_round_or_truncate_max_absolute_offset": 380.33920431137085
+          }
+        },
+        "native_minus_catalogue_midpoint_s": -9.208510160446167
+      },
+      {
+        "area_id": "vessel_support_01",
+        "object_id": "u1",
+        "stream": "vessel_support",
+        "distance_m": 384.0709871638385,
+        "frozen_allowance_m": 456.568588,
+        "inside_frozen_allowance": true,
+        "compatible_sources": 1,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 17.42262693488131,
+        "half_pixel_convention_sensitivity_m": 7.129296511890634
+      },
+      {
+        "area_id": "vessel_support_02",
+        "object_id": "u1",
+        "stream": "vessel_support",
+        "distance_m": 242.75312675738076,
+        "frozen_allowance_m": 199.48345,
+        "inside_frozen_allowance": false,
+        "compatible_sources": 0,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 3.7884912844997736,
+        "half_pixel_convention_sensitivity_m": 7.14382490032715
+      },
+      {
+        "area_id": "vessel_support_03",
+        "object_id": "u1",
+        "stream": "vessel_support",
+        "distance_m": 220.7842401558797,
+        "frozen_allowance_m": 311.06127000000004,
+        "inside_frozen_allowance": true,
+        "compatible_sources": 1,
+        "label_changed": false,
+        "tps_vs_linear_grid_m": 14.37912930320978,
+        "half_pixel_convention_sensitivity_m": 7.15098205292178
+      }
+    ],
+    "grid_consistency": [
+      {
+        "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+        "withheld_points": 9,
+        "withheld_grid_max_m": 12.645224265450514,
+        "inverse_max_pixels": 1.639614891002561e-11,
+        "independent_ground_control": false
+      },
+      {
+        "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+        "withheld_points": 9,
+        "withheld_grid_max_m": 7.4015949691034875,
+        "inverse_max_pixels": 2.299174004310394e-11,
+        "independent_ground_control": false
+      },
+      {
+        "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+        "withheld_points": 9,
+        "withheld_grid_max_m": 21.733078001924294,
+        "inverse_max_pixels": 3.45128973294964e-11,
+        "independent_ground_control": false
+      },
+      {
+        "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+        "withheld_points": 9,
+        "withheld_grid_max_m": 73.49171023440864,
+        "inverse_max_pixels": 1.3116919128020487e-11,
+        "independent_ground_control": false
+      },
+      {
+        "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+        "withheld_points": 9,
+        "withheld_grid_max_m": 189.83000490576396,
+        "inverse_max_pixels": 1.6770253673335696e-11,
+        "independent_ground_control": false
+      }
+    ],
+    "labels_changed": false,
+    "allowances_changed": false,
+    "scored": false,
+    "independent_review": false,
+    "compatibility_established": false,
+    "limitations": [
+      "Decimal precision is not positional accuracy; rounding rule unknown",
+      "Grid consistency is not independent shoreline or ground validation",
+      "No motion correction or calibrated uncertainty model",
+      "Diffuse contexts do not establish iceberg detection"
+    ]
+  },
+  "preprocessing": {
+    "version": "0.1.0",
+    "policy": {
+      "path": "configs/reservations/source_crosscheck_v010.json",
+      "sha256": "daa5ab9306b80b0b269f2d74acb2f4f083983903d858a5fa8558663eb87e1fbb"
+    },
+    "prepared": {
+      "path": "data/source_supported/native_v011_02/manifest.json",
+      "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+    },
+    "metadata": {
+      "path": "data/source_supported/reference_metadata_v010_02/metadata.json",
+      "sha256": "5f7f903554bd87fa9d8f0222eb52e5e385fdf2a31de1f80103aeff3a5ccdae6d"
+    },
+    "collection": {
+      "path": "datasets/source_supported/v0.1.0/collection.json",
+      "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+    },
+    "gdal_version": "3.12.1",
+    "rasterio_version": "1.5.0",
+    "calibration": [
+      {
+        "max_absolute_db": 1.9174305236902e-06,
+        "mean_signed_db": -1.840673013850923e-08,
+        "rmse_db": 5.406534941439771e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_01",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/8ecbf406-4dd9-4756-b41a-3985eabf47da/iceberg_support_01_hh_dn.npy",
+          "sha256": "7c326ad60fc21296196bf5bcca1ef2ea576ba031c579377a79fccecaf1d6c75f"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.4030408667385927e-06,
+        "mean_signed_db": -1.4321324738244888e-08,
+        "rmse_db": 6.015100386655945e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_01",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/8ecbf406-4dd9-4756-b41a-3985eabf47da/iceberg_support_01_hv_dn.npy",
+          "sha256": "7839d2d5ed9161b494446da9e016bb0045e3aecbfe8de74459b9fb4c50f7042b"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.2654553433199e-06,
+        "mean_signed_db": 6.50504209391312e-08,
+        "rmse_db": 6.19569966783015e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_04",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/8ecbf406-4dd9-4756-b41a-3985eabf47da/iceberg_support_04_hh_dn.npy",
+          "sha256": "a48972c92e4effca24a0afd6b46bc138f8614f3a125574eab89b4690f5489329"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.3856271127442596e-06,
+        "mean_signed_db": 6.291799246219934e-08,
+        "rmse_db": 6.183515045448015e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_04",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/8ecbf406-4dd9-4756-b41a-3985eabf47da/iceberg_support_04_hv_dn.npy",
+          "sha256": "fd74ccc3f26596af5f08acc1d9193b62e7fc8748d51c77c768cb094168ab2a8a"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 1.6209273496770038e-06,
+        "mean_signed_db": 4.532872324965173e-08,
+        "rmse_db": 5.012532283472445e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_02",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/5764b504-9c0b-5c40-aee2-6811a96f8550/iceberg_support_02_hh_dn.npy",
+          "sha256": "e71d6e89b974aaba7715193910f16fbd82ab930215577101329f3029a39279cf"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.2006294031484686e-06,
+        "mean_signed_db": 4.7764894185682967e-08,
+        "rmse_db": 6.200204259336859e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_02",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/5764b504-9c0b-5c40-aee2-6811a96f8550/iceberg_support_02_hv_dn.npy",
+          "sha256": "542a2eb77708d7e7a5dc4f188b41041a2bf02207ff23d37827b1cc326e436e67"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 1.7047970857220207e-06,
+        "mean_signed_db": 1.2616095512407437e-07,
+        "rmse_db": 4.7131814403008264e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_03",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/5764b504-9c0b-5c40-aee2-6811a96f8550/iceberg_support_03_hh_dn.npy",
+          "sha256": "3a3099160498d7f0792937161b7c4917b23b0d2072df1e97d26ce68e0ebc27f0"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.0919762420135157e-06,
+        "mean_signed_db": 1.2464624063985032e-07,
+        "rmse_db": 6.357865389598502e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_03",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/5764b504-9c0b-5c40-aee2-6811a96f8550/iceberg_support_03_hv_dn.npy",
+          "sha256": "cd9f6644571f6e5b30eb4509aa841c11443fa0b9ba4efaa99662a20524c72a09"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 1.7409586483552175e-06,
+        "mean_signed_db": -1.059095841728897e-07,
+        "rmse_db": 6.352868048495653e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_05",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/c75c517d-1044-5067-bc82-b8fcc1e1779d/iceberg_support_05_hh_dn.npy",
+          "sha256": "f6c0ebd5d8ea1425f201eb09c6d2d564494703bd4fb134a852220e1debaaeabd"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.4917718022265944e-06,
+        "mean_signed_db": -1.1299970881877028e-07,
+        "rmse_db": 6.45211492654104e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_05",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/c75c517d-1044-5067-bc82-b8fcc1e1779d/iceberg_support_05_hv_dn.npy",
+          "sha256": "597deb28579362959ed2ca84483be32387ddff9cb7167711b17d85243124970f"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.1695114895692313e-06,
+        "mean_signed_db": -2.7555736633751177e-08,
+        "rmse_db": 6.265667903032591e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_06",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/c75c517d-1044-5067-bc82-b8fcc1e1779d/iceberg_support_06_hh_dn.npy",
+          "sha256": "f20b7cc49c3defb4fe6630d21ec605a9ec40c84d39f8e808ff2ecb59cfbb21bc"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.4491815793226124e-06,
+        "mean_signed_db": -3.1743171576476377e-08,
+        "rmse_db": 6.38197147387148e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "iceberg_support_06",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/c75c517d-1044-5067-bc82-b8fcc1e1779d/iceberg_support_06_hv_dn.npy",
+          "sha256": "4277efc4166ead3890bf721e13abade07c5717eb15e96a83e969a53df76c01bf"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.5369334437641555e-06,
+        "mean_signed_db": 5.491389269925139e-08,
+        "rmse_db": 6.566669966103206e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "vessel_support_01",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4/vessel_support_01_hh_dn.npy",
+          "sha256": "d9b7e5406f50486682db3cf4dfa0a3063d5b28a055196ee3fcd68a45b8a71cf0"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.6079516715071804e-06,
+        "mean_signed_db": 3.676707416509379e-08,
+        "rmse_db": 6.791439804588047e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "vessel_support_01",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4/vessel_support_01_hv_dn.npy",
+          "sha256": "0d8a097e94f07715fceea71df9a7fdceed0ef0d66f9062e65d354d7035e178b4"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.0241238658513794e-06,
+        "mean_signed_db": 8.580421772759941e-08,
+        "rmse_db": 6.468173339325987e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "vessel_support_02",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/dd031ca1-0652-4e08-97ce-42347aae32f0/vessel_support_02_hh_dn.npy",
+          "sha256": "7d1e9a3c0baac936570fdabf4d89ccffc41f5eebc3e3f395106ef26e92683876"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.5167249333435393e-06,
+        "mean_signed_db": 7.93507152415841e-08,
+        "rmse_db": 6.48260960917465e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "vessel_support_02",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/dd031ca1-0652-4e08-97ce-42347aae32f0/vessel_support_02_hv_dn.npy",
+          "sha256": "9a136418fe339ff8583f3ae944da87cb7c72828365233b0f1711fd3bc76ffa4d"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 1.7625355539507837e-06,
+        "mean_signed_db": -7.847543644487264e-08,
+        "rmse_db": 6.285562927848194e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "vessel_support_03",
+        "polarization": "HH",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/dd031ca1-0652-4e08-97ce-42347aae32f0/vessel_support_03_hh_dn.npy",
+          "sha256": "70815b417ac5eb16481102e17c1ec53644e60d97e5a197e3f263e4794847ef9d"
+        },
+        "passed": true
+      },
+      {
+        "max_absolute_db": 2.5946328037207422e-06,
+        "mean_signed_db": -7.231963517885387e-08,
+        "rmse_db": 6.401746717628445e-07,
+        "pixels": 147456,
+        "gdal": {
+          "raw_pixels_equal": true,
+          "calibration_executed": false,
+          "failure": "Measurement bands not found.",
+          "passed": false
+        },
+        "area_id": "vessel_support_03",
+        "polarization": "HV",
+        "source_dn": {
+          "path": "data/source_supported/native_v011_02/dd031ca1-0652-4e08-97ce-42347aae32f0/vessel_support_03_hv_dn.npy",
+          "sha256": "d422f14c643821936a29416bb8b4aac03ba9cc0631e4a10ae72f2d198e876f0e"
+        },
+        "passed": true
+      }
+    ],
+    "numerical_reference_all_passed": true,
+    "gdal_calibration_all_passed": false,
+    "noise_inventory": [
+      {
+        "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+        "polarization": "HH",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/8ecbf406-4dd9-4756-b41a-3985eabf47da/noise-s1a-iw-grd-hh-20170502t094942-20170502t095007-016401-01b28a-001-cog.xml",
+          "sha256": "9bafc5d2dbb54cf5ee1f6d5a41641856e0037a54545fbbb8e427c56ffb374b79"
+        },
+        "legacy_vectors": 26,
+        "range_vectors": 0,
+        "azimuth_vectors": 0,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+        "polarization": "HV",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/8ecbf406-4dd9-4756-b41a-3985eabf47da/noise-s1a-iw-grd-hv-20170502t094942-20170502t095007-016401-01b28a-002-cog.xml",
+          "sha256": "b7a6e637002e76ef481846b37ceb969c28843b650182a22ed89d75095a5d1b82"
+        },
+        "legacy_vectors": 26,
+        "range_vectors": 0,
+        "azimuth_vectors": 0,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+        "polarization": "HH",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/5764b504-9c0b-5c40-aee2-6811a96f8550/noise-s1a-iw-grd-hh-20150630t094859-20150630t094924-006601-008cc6-001.xml",
+          "sha256": "404ad0da3acf33a3c8940f158964f1c010d6edac807313bb31066f4a2cecc505"
+        },
+        "legacy_vectors": 27,
+        "range_vectors": 0,
+        "azimuth_vectors": 0,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+        "polarization": "HV",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/5764b504-9c0b-5c40-aee2-6811a96f8550/noise-s1a-iw-grd-hv-20150630t094859-20150630t094924-006601-008cc6-002.xml",
+          "sha256": "6c58b1fb180df705d033c64b4f91a504703be4b290e473fd420a847742d869e5"
+        },
+        "legacy_vectors": 27,
+        "range_vectors": 0,
+        "azimuth_vectors": 0,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+        "polarization": "HH",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/c75c517d-1044-5067-bc82-b8fcc1e1779d/noise-s1b-iw-grd-hh-20170601t094836-20170601t094901-005855-00a441-001.xml",
+          "sha256": "4e0e41c1bc62b1e1761007d71591b644345bab90ee952b6e88b7ccfecae651fb"
+        },
+        "legacy_vectors": 26,
+        "range_vectors": 0,
+        "azimuth_vectors": 0,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+        "polarization": "HV",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/c75c517d-1044-5067-bc82-b8fcc1e1779d/noise-s1b-iw-grd-hv-20170601t094836-20170601t094901-005855-00a441-002.xml",
+          "sha256": "115ad5e541e9945b8be9bb54dcebeb7ef5f50a036d557e7f030a7c22cba689f5"
+        },
+        "legacy_vectors": 26,
+        "range_vectors": 0,
+        "azimuth_vectors": 0,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+        "polarization": "HH",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4/noise-s1c-iw-grd-hh-20260918t095631-20260918t095656-009500-012e71-001.xml",
+          "sha256": "43de08656beb3e3e6bbc70d67506f642fa4b64624373e46126242d720357c84c"
+        },
+        "legacy_vectors": 0,
+        "range_vectors": 27,
+        "azimuth_vectors": 3,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+        "polarization": "HV",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4/noise-s1c-iw-grd-hv-20260918t095631-20260918t095656-009500-012e71-002.xml",
+          "sha256": "e0e5e696f68a3ef4d40dcbb894476de17afbf90305aa38451cf94952c9c6ac5e"
+        },
+        "legacy_vectors": 0,
+        "range_vectors": 27,
+        "azimuth_vectors": 3,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+        "polarization": "HH",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/dd031ca1-0652-4e08-97ce-42347aae32f0/noise-s1c-iw-grd-hh-20261005t100435-20261005t100500-009748-0136a3-001.xml",
+          "sha256": "9ad971c5c5ee6eadeb8fd630d912f0248b4fddc705b337fc2eb561a32dae1f0b"
+        },
+        "legacy_vectors": 0,
+        "range_vectors": 26,
+        "azimuth_vectors": 3,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      },
+      {
+        "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+        "polarization": "HV",
+        "source": {
+          "path": "data/source_supported/reference_metadata_v010_02/dd031ca1-0652-4e08-97ce-42347aae32f0/noise-s1c-iw-grd-hv-20261005t100435-20261005t100500-009748-0136a3-002.xml",
+          "sha256": "1654c38cad8d1da14bcca81ceda9c42800f9169946adc4c9adb6d844221f2c5b"
+        },
+        "legacy_vectors": 0,
+        "range_vectors": 26,
+        "azimuth_vectors": 3,
+        "thermal_noise_corrected": "false",
+        "correction_applied_by_this_audit": false
+      }
+    ],
+    "kaggle_training": {
+      "source": {
+        "path": "statoil-iceberg-classifier-challenge/train.json/data/processed/train.json",
+        "sha256": "a56756a2528a09b139dc2747e2e40d869f9da7a8c9df37b188b6163f6bfb8696"
+      },
+      "split": {
+        "path": "data/statoil_baseline/20261013_cpu_01/split.json",
+        "sha256": "1f04bc422e61e1980d39ee38d26d89694aa40edf0660515547743ca2b1fdea8d"
+      },
+      "partition": "train_only",
+      "classes": {
+        "ship": {
+          "chips": 595,
+          "value_quantiles_01_50_99_db": [
+            [
+              -31.396448135375977,
+              -33.650894470214844
+            ],
+            [
+              -19.871519088745117,
+              -26.073871612548828
+            ],
+            [
+              -3.808228759765731,
+              -13.14528285980234
+            ]
+          ],
+          "proxy_found": 586,
+          "proxy_edge_count": 19,
+          "proxy_extent_quantiles_10_50_90_px": {
+            "width_px": [
+              4.0,
+              8.0,
+              36.0
+            ],
+            "height_px": [
+              5.0,
+              14.0,
+              43.0
+            ],
+            "area_px": [
+              16.0,
+              75.0,
+              536.0
+            ]
+          }
+        },
+        "iceberg": {
+          "chips": 527,
+          "value_quantiles_01_50_99_db": [
+            [
+              -30.475729064941405,
+              -33.65399116516113
+            ],
+            [
+              -22.112239837646484,
+              -26.708738327026367
+            ],
+            [
+              -8.841334342956543,
+              -19.38855926513672
+            ]
+          ],
+          "proxy_found": 523,
+          "proxy_edge_count": 1,
+          "proxy_extent_quantiles_10_50_90_px": {
+            "width_px": [
+              4.0,
+              10.0,
+              22.0
+            ],
+            "height_px": [
+              5.0,
+              14.0,
+              28.0
+            ],
+            "area_px": [
+              15.200000000000003,
+              79.0,
+              267.8
+            ]
+          }
+        }
+      },
+      "physical_spacing_known": false,
+      "source_preprocessing_equivalence_established": false
+    },
+    "distribution": {
+      "kaggle_ships": {
+        "chips": 595,
+        "value_quantiles_01_50_99_db": [
+          [
+            -31.396448135375977,
+            -33.650894470214844
+          ],
+          [
+            -19.871519088745117,
+            -26.073871612548828
+          ],
+          [
+            -3.808228759765731,
+            -13.14528285980234
+          ]
+        ],
+        "proxy_found": 586,
+        "proxy_edge_count": 19,
+        "proxy_extent_quantiles_10_50_90_px": {
+          "width_px": [
+            4.0,
+            8.0,
+            36.0
+          ],
+          "height_px": [
+            5.0,
+            14.0,
+            43.0
+          ],
+          "area_px": [
+            16.0,
+            75.0,
+            536.0
+          ]
+        }
+      },
+      "kaggle_icebergs": {
+        "chips": 527,
+        "value_quantiles_01_50_99_db": [
+          [
+            -30.475729064941405,
+            -33.65399116516113
+          ],
+          [
+            -22.112239837646484,
+            -26.708738327026367
+          ],
+          [
+            -8.841334342956543,
+            -19.38855926513672
+          ]
+        ],
+        "proxy_found": 523,
+        "proxy_edge_count": 1,
+        "proxy_extent_quantiles_10_50_90_px": {
+          "width_px": [
+            4.0,
+            10.0,
+            22.0
+          ],
+          "height_px": [
+            5.0,
+            14.0,
+            28.0
+          ],
+          "area_px": [
+            15.200000000000003,
+            79.0,
+            267.8
+          ]
+        }
+      },
+      "native_mixed_provisional": {
+        "chips": 10,
+        "value_quantiles_01_50_99_db": [
+          [
+            -28.0412654876709,
+            -31.66075325012207
+          ],
+          [
+            -20.472623825073242,
+            -25.113574981689453
+          ],
+          [
+            -8.096534576416007,
+            -16.36702663421631
+          ]
+        ],
+        "proxy_found": 8,
+        "proxy_edge_count": 2,
+        "proxy_extent_quantiles_10_50_90_px": {
+          "width_px": [
+            6.1000000000000005,
+            17.0,
+            27.799999999999997
+          ],
+          "height_px": [
+            6.800000000000001,
+            21.5,
+            51.2
+          ],
+          "area_px": [
+            31.6,
+            157.5,
+            472.4
+          ]
+        }
+      }
+    },
+    "compatibility_established": false,
+    "training_approved": false,
+    "independent_review": false,
+    "classifier_scored": false,
+    "reference_scope": "Separate float64 XML parser and SciPy interpolation of ESA sigma0 equation; GDAL SAFE raw-pixel equality and attempted calibration on sparse full-dimension wrappers",
+    "limitations": [
+      "No thermal noise correction, terrain correction or resampling",
+      "External calibrated view execution is reported separately; no SNAP run",
+      "Kaggle physical scale and complete processing chain unknown",
+      "Distribution overlap cannot establish compatibility or iceberg truth"
+    ]
+  },
+  "full_private_reports": {
+    "association": {
+      "path": "data/source_supported/error_audit_v010_02/report.json",
+      "sha256": "0e3f2bddf561913e662382499902fac3dfa65920dc784766adacec32b999dbb4"
+    },
+    "preprocessing": {
+      "path": "data/source_supported/preprocessing_v010_03/report.json",
+      "sha256": "544c518adafe93788988ff70f806a25ce8ea4fb77f9c2963099c8a0a7167ad68"
+    }
+  }
+}

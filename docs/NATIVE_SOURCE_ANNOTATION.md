@@ -14,6 +14,11 @@ and promotion eligibility false. No detector or classifier ran on this batch.
 These are source-supported AI interpretations, not reviewed SAR–AIS matches or
 measured model improvement.
 
+The subsequent [association-error and preprocessing audit](SOURCE_ERROR_PREPROCESSING.md)
+preserves these decisions and reserves a fresh six-area source-supported batch.
+It records numerical calibration agreement and the unresolved external-processor,
+source-accuracy and input-compatibility limits.
+
 ## Exact acquisition preparation
 
 The [sealed source reservation](../reservations/source_supported/v0.1.0/manifest.json)
