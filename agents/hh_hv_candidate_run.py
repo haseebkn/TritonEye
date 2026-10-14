@@ -112,7 +112,6 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
             "Labrador",
         ):
             raise ValueError("NL development HH/HV acquisitions required")
-        require_development_scene(scene["product_id"], scene)
         for roi in scene["rois"]:
             runtime_check()
             entry: dict[str, Any] = {
@@ -125,6 +124,15 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                 "input_chip": roi["chip"],
             }
             try:
+                require_development_scene(
+                    scene["product_id"],
+                    {
+                        **scene,
+                        "study_roi": roi["geometry"],
+                        "geographic_group": roi["group"],
+                        "roi_id": roi["id"],
+                    },
+                )
                 images, audit = native_audit(scene, roi, cache)
                 candidates, coverage = generate(
                     images, polarizations=("HH", "HV"), settings=settings

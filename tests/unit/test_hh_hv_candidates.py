@@ -123,7 +123,15 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
     monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
     monkeypatch.setattr(runner, "resource_check", lambda: None)
     monkeypatch.setattr(runner, "available_commit", lambda: 8 * 1024**3)
-    monkeypatch.setattr(runner, "require_development_scene", lambda *a: None)
+    checked_scopes = []
+
+    def check_scope(product: str, metadata: dict[str, Any]) -> None:
+        assert product == "fixture"
+        assert metadata["study_roi"] == roi["geometry"]
+        assert metadata["geographic_group"] == "fixture_group"
+        checked_scopes.append(metadata["roi_id"])
+
+    monkeypatch.setattr(runner, "require_development_scene", check_scope)
     images = make_images()
     images[0, 50, 50] = 12
     path = tmp_path / "data/source.tif"
@@ -142,6 +150,13 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
         src.write(images)
     roi = {
         "id": "dev",
+        "group": "fixture_group",
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [[-53, 48], [-52.99, 48], [-52.99, 47.99], [-53, 47.99], [-53, 48]]
+            ],
+        },
         "regime": "offshore",
         "chip": {"path": "data/source.tif", "sha256": sha256_file(path)},
     }
@@ -188,6 +203,7 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
     (dataset / "release.json").write_text("{}")
     result = runner.run(tmp_path / "data/run", dataset)
     assert result["summary"]["candidate_count"] == 1
+    assert checked_scopes == ["dev"]
     assert result["excluded_locked_test_rois"] == ["locked"]
     assert result["excluded_non_hh_hv_rois"] == ["unsupported"]
     bundle_path = tmp_path / "data/run/bundle.json"
