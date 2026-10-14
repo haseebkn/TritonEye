@@ -1,0 +1,17 @@
+{
+  "version": "hh_hv_local_contrast_v0.1.0",
+  "polarizations": ["HH", "HV"],
+  "input_units": "sigma0_db",
+  "outer_window_px": 61,
+  "guard_window_px": 11,
+  "contrast_threshold_db": [8.0, 6.0],
+  "band_combination": "or",
+  "connectivity": 8,
+  "minimum_component_pixels": 1,
+  "maximum_roi_pixels": 1048576,
+  "background": "arithmetic_mean_linear_power_in_ring",
+  "support": "complete_valid_background_ring",
+  "component_location": "maximum_threshold_margin_row_major_tie",
+  "shoreline_filter": "none_retain_all",
+  "classifier": "not_used"
+}
