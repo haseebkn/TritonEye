@@ -3,6 +3,7 @@
 import json
 from dataclasses import FrozenInstanceError
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import numpy as np
@@ -18,6 +19,34 @@ from agents.artifacts import sha256_file, write_json
 from agents.calibration import CalibrationError, Calibrator
 from agents.geo import GeoreferencingError
 from tests.unit.test_statoil_shadow import native_fixture
+
+
+@pytest.fixture
+def healthy_resources(monkeypatch: Any) -> dict[str, int]:
+    """Control host telemetry while still executing the real resource guards."""
+    readings = {
+        "commit": 8 * 1024**3,
+        "physical": 8 * 1024**3,
+        "rss": 128 * 1024**2,
+        "disk": 8 * 1024**3,
+    }
+    monkeypatch.setattr(runner, "available_commit", lambda: readings["commit"])
+    monkeypatch.setattr(
+        runner.psutil,
+        "virtual_memory",
+        lambda: SimpleNamespace(available=readings["physical"]),
+    )
+    monkeypatch.setattr(
+        runner.psutil,
+        "Process",
+        lambda: SimpleNamespace(
+            memory_info=lambda: SimpleNamespace(rss=readings["rss"])
+        ),
+    )
+    monkeypatch.setattr(
+        runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=readings["disk"])
+    )
+    return readings
 
 
 def make_images() -> Any:
@@ -144,16 +173,23 @@ def test_config_tampering_requires_new_version(
         detector.frozen_settings()
 
 
-def test_candidate_memory_preflight_refuses_pressure(monkeypatch: Any) -> None:
-    monkeypatch.setattr(runner, "available_commit", lambda: 100)
-    with pytest.raises(RuntimeError, match="Insufficient headroom"):
+@pytest.mark.parametrize("resource", ["commit", "physical", "rss", "disk"])
+def test_candidate_memory_preflight_refuses_pressure(
+    healthy_resources: dict[str, int], resource: str
+) -> None:
+    healthy_resources[resource] = 600 * 1024**2 if resource == "rss" else 100
+    message = "storage required" if resource == "disk" else "Insufficient headroom"
+    with pytest.raises(RuntimeError, match=message):
         runner.resource_check()
-    with pytest.raises(RuntimeError, match="memory budget"):
+    if resource in ("commit", "rss"):
+        with pytest.raises(RuntimeError, match="memory budget"):
+            runner.runtime_check()
+    else:
         runner.runtime_check()
 
 
 def test_native_replay_to_persisted_shared_population(
-    tmp_path: Path, monkeypatch: Any
+    tmp_path: Path, monkeypatch: Any, healthy_resources: dict[str, int]
 ) -> None:
     """Exercise real calibration, geography, generation and bundle consumption."""
     monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
@@ -232,11 +268,12 @@ def test_native_replay_to_persisted_shared_population(
     [None, "window", "raster", "calibration", "georeferencing", "runtime", "memory"],
 )
 def test_real_runner_contract_on_synthetic_data_and_identical_arms(
-    tmp_path: Path, monkeypatch: Any, failure: str | None
+    tmp_path: Path,
+    monkeypatch: Any,
+    failure: str | None,
+    healthy_resources: dict[str, int],
 ) -> None:
     monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(runner, "resource_check", lambda: None)
-    monkeypatch.setattr(runner, "available_commit", lambda: 8 * 1024**3)
     checked_scopes: list[str] = []
 
     def check_scope(product: str, metadata: dict[str, Any]) -> None:
