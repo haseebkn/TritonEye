@@ -1,5 +1,11 @@
 # Source association and preprocessing cross-check
 
+The subsequent [SNAP reference and source audit](SNAP_CORROBORATION.md) now passes
+eight calibration bands for four follow-up development windows, while recording
+large noise sensitivity and an elapsed-limit overrun. The earlier GDAL failure
+below remains historical evidence; no independent class approval or Kaggle input
+equivalence follows from the later numerical comparison.
+
 Subsequent [native preparation and provisional annotation](FOLLOWUP_SOURCE_ANNOTATION.md)
 is complete for the six reserved windows: four plausible iceberg interpretations,
 two unresolved returns and two source-coverage abstentions. All remain ignored
