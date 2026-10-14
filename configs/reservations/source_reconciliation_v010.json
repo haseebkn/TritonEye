@@ -1,0 +1,75 @@
+{
+  "version": "0.1.0",
+  "first_pass_sha256": "4f3c73a71f1ef1b402e2fa65069fe0b5dedbd928d85b691c5b752930ea1df54b",
+  "private_source_evidence": {"path": "data/source_supported/annotation_v010_01/source_support.json", "sha256": "ca312dde12792e414c8c83bb1c58cb1322be8e11d2a31e402ef489a3e365286d"},
+  "classifier_scored": false,
+  "independent_review": false,
+  "method": "AI source reconciliation after first-pass commit 0e2c2ef. Native target azimuth times and TPS coordinates, frozen IIP allowance recalculated at native time, and all frozen competing AIS histories realigned at each target time. No post-inspection gate enlargement, no model scores, no Doppler correction. Source consistency is not verified class or identity.",
+  "areas": [
+    {
+      "id": "iceberg_support_01",
+      "source_association_notes": "Two compact returns lie about 965 m and 1769 m from the sighting, outside the approximately 353 m frozen source allowance at native time. Coastal ambiguity remains. No iceberg label.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [98, 150, 109, 163], "reason": "Nearshore compact reflector outside source allowance; class and association unresolved.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false},
+        {"id": "u2", "class": "unresolved", "bbox_px": [23, 253, 36, 266], "reason": "Shore-adjacent reflector outside source allowance; cannot distinguish coastal clutter, structure or floating target.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "iceberg_support_02",
+      "source_association_notes": "The source location falls within the inspected central diffuse-texture context. No isolated image object was identified before source consultation. Source proximity cannot convert background texture to an iceberg label or establish a negative area.",
+      "objects": [
+        {"id": "c1", "class": "clutter", "bbox_px": [154, 154, 229, 229], "reason": "Diffuse texture context only; unresolved object presence, not a confirmed negative or false alarm.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "iceberg_support_03",
+      "source_association_notes": "The reported sighting is close to the central texture context, but no isolated target was identified in either band before reconciliation. No class is inferred from a source coordinate alone.",
+      "objects": [
+        {"id": "c1", "class": "clutter", "bbox_px": [154, 154, 229, 229], "reason": "Background texture reference, not a verified non-vessel or non-iceberg sample.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "iceberg_support_04",
+      "source_association_notes": "The isolated return is about 598 m from the sighting, outside the approximately 486 m allowance. Coarse source precision could contribute but is not repaired by widening the frozen allowance after inspection. Extended lower-edge land-like feature remains ignored.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [241, 210, 254, 223], "reason": "Isolated compact return outside the frozen source allowance; no defensible iceberg identity.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "iceberg_support_05",
+      "source_association_notes": "Compact return is about 941 m from the sighting versus a 621 m native-time allowance. Source identity and ship-versus-iceberg class remain unresolved.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [241, 108, 258, 130], "reason": "Bright elongated reflector outside source allowance; appearance does not distinguish vessel from ice.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "iceberg_support_06",
+      "source_association_notes": "Two competing returns lie about 943 m and 673 m from the sighting; both exceed the approximately 620 m allowance. Neither is assigned the reported iceberg identity. No nearest-bright-return substitution.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [145, 94, 165, 120], "reason": "Upper compact return outside source allowance; class ambiguous.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false},
+        {"id": "u2", "class": "unresolved", "bbox_px": [118, 167, 136, 186], "reason": "Lower return also outside source allowance, even though nearer; no source class inherited.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "vessel_support_01",
+      "source_association_notes": "Native-time realignment of the complete frozen competing AIS pool leaves one compatible identity: selected moving vessel, about 384 m away within a heuristic 457 m allowance. This supports a provisional vessel interpretation, not a reviewed match. SAR moving-target displacement and incomplete AIS reception remain unmodelled.",
+      "objects": [
+        {"id": "u1", "class": "provisional_vessel", "bbox_px": [184, 226, 201, 243], "reason": "Two-band compact return and unique source-compatible moving AIS track; AI-reviewed only, not verified identity or independent truth.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "vessel_support_02",
+      "source_association_notes": "Selected AIS track is nearest at about 243 m but outside its approximately 200 m native-time allowance; no compatible identity remains in the frozen pool. Moving-target SAR displacement is a possible explanation, not an implemented correction or justification for changing the gate.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [176, 203, 195, 222], "reason": "Vessel-like return but frozen source allowance fails; neither class nor identity certified.", "source_consistent": false, "association_unique": false, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    },
+    {
+      "id": "vessel_support_03",
+      "source_association_notes": "Complete frozen competing AIS pool realigned at native target time leaves one compatible identity: selected moving vessel about 221 m away within a heuristic 311 m allowance. Provisional vessel class only; no independently reviewed association or accuracy measurement.",
+      "objects": [
+        {"id": "u1", "class": "provisional_vessel", "bbox_px": [169, 199, 195, 222], "reason": "Elongated two-band return and unique source-compatible moving AIS track, subject to uncalibrated SAR/AIS error and incomplete reception.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}
+      ]
+    }
+  ]
+}

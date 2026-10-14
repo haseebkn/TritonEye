@@ -28,6 +28,11 @@ native windows, 25 unresolved returns and sixteen context samples. All 32 native
 band calibrations replay exactly. No vessel or plausible iceberg label could be
 supported; no classifier scores were generated. This separate provisional
 collection does not replace the benchmark or locked test.
+The subsequent [source-supported native batch](NATIVE_SOURCE_ANNOTATION.md) adds nine
+inspected windows across five acquisitions: two provisional vessels, seven unresolved
+compact returns and two background contexts. Eighteen calibration bands replay exactly;
+no iceberg label was defensible and no scores were generated. All remain ignored
+for accuracy and training approval, with no independent reviewer.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 

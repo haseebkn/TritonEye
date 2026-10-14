@@ -1,0 +1,403 @@
+{
+  "version": "0.1.0",
+  "protocol": {
+    "path": "configs/reservations/source_windows_v011.json",
+    "sha256": "371b1381c3c66a84b77a4ab9a7837ba98489fe43970e28cdef2eb4f7114daa79"
+  },
+  "prepared": {
+    "path": "data/source_supported/native_v011_02/manifest.json",
+    "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+  },
+  "first_pass": {
+    "path": "configs/reservations/source_first_pass_v010.json",
+    "sha256": "4f3c73a71f1ef1b402e2fa65069fe0b5dedbd928d85b691c5b752930ea1df54b"
+  },
+  "reconciliation": {
+    "path": "configs/reservations/source_reconciliation_v010.json",
+    "sha256": "a7a881967c35d93fd6d00681895e4d969631a929c715f08b1f12a18de075313b"
+  },
+  "local_report": {
+    "path": "data/source_supported/collection_v010_01/report.json",
+    "sha256": "ea11b34acc89617b94d3332883d387b1a501816729a4c4534137642c75f64b56"
+  },
+  "reservation_seal_sha256": "eb2e49ff3e469940f3ca9f9aff3c6f585a4010388130da1ddbe7f59fdc18e521",
+  "areas": [
+    {
+      "id": "iceberg_support_01",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "prior_datatake_exposure": false,
+      "native_context": {
+        "center_incidence_deg": 32.14919374222855,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2017-05-02T09:49:53.107854+00:00",
+        "first_row_native_time_utc": "2017-05-02T09:49:52.819972+00:00",
+        "last_row_native_time_utc": "2017-05-02T09:49:53.394237+00:00",
+        "azimuth_interval_s": 0.001499385783067402
+      },
+      "native_pixels": 384,
+      "chip_sha256": "8dd5278ea16f28bb804841d77e802e2e84503a951fb7377ec718ce7ab33a3a3c",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            98,
+            150,
+            109,
+            163
+          ],
+          "reason": "Nearshore compact reflector outside source allowance; class and association unresolved.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        },
+        {
+          "id": "u2",
+          "class": "unresolved",
+          "bbox_px": [
+            23,
+            253,
+            36,
+            266
+          ],
+          "reason": "Shore-adjacent reflector outside source allowance; cannot distinguish coastal clutter, structure or floating target.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "iceberg_support_04",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "prior_datatake_exposure": false,
+      "native_context": {
+        "center_incidence_deg": 32.7741923644341,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2017-05-02T09:49:53.700112+00:00",
+        "first_row_native_time_utc": "2017-05-02T09:49:53.412230+00:00",
+        "last_row_native_time_utc": "2017-05-02T09:49:53.986495+00:00",
+        "azimuth_interval_s": 0.001499385783067402
+      },
+      "native_pixels": 384,
+      "chip_sha256": "7c3b2284b991138b5ec4fa1f8e065142fd3782b1c8ac874f7b7ae62d94b5fcfb",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            241,
+            210,
+            254,
+            223
+          ],
+          "reason": "Isolated compact return outside the frozen source allowance; no defensible iceberg identity.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "iceberg_support_02",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "split": "train",
+      "native_acquisition_group": "S1A_006601_008CC6",
+      "prior_datatake_exposure": false,
+      "native_context": {
+        "center_incidence_deg": 35.15959830015549,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2015-06-30T09:49:03.229700+00:00",
+        "first_row_native_time_utc": "2015-06-30T09:49:02.942005+00:00",
+        "last_row_native_time_utc": "2015-06-30T09:49:03.515896+00:00",
+        "azimuth_interval_s": 0.00149841032193173
+      },
+      "native_pixels": 384,
+      "chip_sha256": "09c0de8b3afa845678bc3458c4472f409913f4836a596d01183207cb69cc8f11",
+      "objects": [
+        {
+          "id": "c1",
+          "class": "clutter",
+          "bbox_px": [
+            154,
+            154,
+            229,
+            229
+          ],
+          "reason": "Diffuse texture context only; unresolved object presence, not a confirmed negative or false alarm.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "iceberg_support_03",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "split": "train",
+      "native_acquisition_group": "S1A_006601_008CC6",
+      "prior_datatake_exposure": false,
+      "native_context": {
+        "center_incidence_deg": 32.50162496867956,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2015-06-30T09:49:08.289832+00:00",
+        "first_row_native_time_utc": "2015-06-30T09:49:08.002137+00:00",
+        "last_row_native_time_utc": "2015-06-30T09:49:08.576028+00:00",
+        "azimuth_interval_s": 0.00149841032193173
+      },
+      "native_pixels": 384,
+      "chip_sha256": "4eaf988b431a2378336154da2823ad0b392824e79478a318448198880d694389",
+      "objects": [
+        {
+          "id": "c1",
+          "class": "clutter",
+          "bbox_px": [
+            154,
+            154,
+            229,
+            229
+          ],
+          "reason": "Background texture reference, not a verified non-vessel or non-iceberg sample.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "iceberg_support_05",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "native_acquisition_group": "S1B_005855_00A441",
+      "prior_datatake_exposure": false,
+      "native_context": {
+        "center_incidence_deg": 36.439680666223474,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2017-06-01T09:48:38.703434+00:00",
+        "first_row_native_time_utc": "2017-06-01T09:48:38.415551+00:00",
+        "last_row_native_time_utc": "2017-06-01T09:48:38.989818+00:00",
+        "azimuth_interval_s": 0.001499390987787219
+      },
+      "native_pixels": 384,
+      "chip_sha256": "68e52356422ddce66d02be104f9ce739b830b75093cd6248ee3b09500270396a",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            241,
+            108,
+            258,
+            130
+          ],
+          "reason": "Bright elongated reflector outside source allowance; appearance does not distinguish vessel from ice.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "iceberg_support_06",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "native_acquisition_group": "S1B_005855_00A441",
+      "prior_datatake_exposure": false,
+      "native_context": {
+        "center_incidence_deg": 36.777975266089705,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2017-06-01T09:48:39.684036+00:00",
+        "first_row_native_time_utc": "2017-06-01T09:48:39.396153+00:00",
+        "last_row_native_time_utc": "2017-06-01T09:48:39.970420+00:00",
+        "azimuth_interval_s": 0.001499390987787219
+      },
+      "native_pixels": 384,
+      "chip_sha256": "f84d9494ac3c061c93b8222611323a7314e3ff6282815c0b84124781c55f40c0",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            145,
+            94,
+            165,
+            120
+          ],
+          "reason": "Upper compact return outside source allowance; class ambiguous.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        },
+        {
+          "id": "u2",
+          "class": "unresolved",
+          "bbox_px": [
+            118,
+            167,
+            136,
+            186
+          ],
+          "reason": "Lower return also outside source allowance, even though nearer; no source class inherited.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "vessel_support_01",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "split": "validation",
+      "native_acquisition_group": "S1C_009500_012E71",
+      "prior_datatake_exposure": true,
+      "native_context": {
+        "center_incidence_deg": 40.92944120961707,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2026-09-18T09:56:35.585773+00:00",
+        "first_row_native_time_utc": "2026-09-18T09:56:35.297637+00:00",
+        "last_row_native_time_utc": "2026-09-18T09:56:35.872408+00:00",
+        "azimuth_interval_s": 0.001500706751305452
+      },
+      "native_pixels": 384,
+      "chip_sha256": "767320e8e4e730a2b4f0a616b42a61e532f08233e914104913ad0fade7dafc27",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "provisional_vessel",
+          "bbox_px": [
+            184,
+            226,
+            201,
+            243
+          ],
+          "reason": "Two-band compact return and unique source-compatible moving AIS track; AI-reviewed only, not verified identity or independent truth.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "vessel_support_02",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "split": "validation",
+      "native_acquisition_group": "S1C_009748_0136A3",
+      "prior_datatake_exposure": true,
+      "native_context": {
+        "center_incidence_deg": 35.88342266782641,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2026-10-05T10:04:54.705340+00:00",
+        "first_row_native_time_utc": "2026-10-05T10:04:54.416994+00:00",
+        "last_row_native_time_utc": "2026-10-05T10:04:54.992184+00:00",
+        "azimuth_interval_s": 0.001501800560847158
+      },
+      "native_pixels": 384,
+      "chip_sha256": "977e4b2c4925b7963057e4f017fbfad5b18187fde753f462081085b234814d96",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "unresolved",
+          "bbox_px": [
+            176,
+            203,
+            195,
+            222
+          ],
+          "reason": "Vessel-like return but frozen source allowance fails; neither class nor identity certified.",
+          "source_consistent": false,
+          "association_unique": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    },
+    {
+      "id": "vessel_support_03",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "split": "validation",
+      "native_acquisition_group": "S1C_009748_0136A3",
+      "prior_datatake_exposure": true,
+      "native_context": {
+        "center_incidence_deg": 34.93503536093097,
+        "incidence_method": "linear interpolation of native geolocation incidence grid",
+        "center_native_time_utc": "2026-10-05T10:04:52.443628+00:00",
+        "first_row_native_time_utc": "2026-10-05T10:04:52.155282+00:00",
+        "last_row_native_time_utc": "2026-10-05T10:04:52.730472+00:00",
+        "azimuth_interval_s": 0.001501800560847158
+      },
+      "native_pixels": 384,
+      "chip_sha256": "13dfa618676ba8b53af3a0f37e5a204125e9cfa61e781cde2b783a94bb2eaa4f",
+      "objects": [
+        {
+          "id": "u1",
+          "class": "provisional_vessel",
+          "bbox_px": [
+            169,
+            199,
+            195,
+            222
+          ],
+          "reason": "Elongated two-band return and unique source-compatible moving AIS track, subject to uncalibrated SAR/AIS error and incomplete reception.",
+          "source_consistent": true,
+          "association_unique": true,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false
+    }
+  ],
+  "class_counts": {
+    "unresolved": 7,
+    "clutter": 2,
+    "provisional_vessel": 2
+  },
+  "classifier_scored": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false,
+  "compatibility_established": false,
+  "annotation_completeness_verified": false,
+  "created_at": "2026-10-14T11:08:51.672865+00:00"
+}

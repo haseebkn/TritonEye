@@ -10,7 +10,7 @@ import hashlib
 import re
 import secrets
 import threading
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 
 import numpy as np
@@ -32,6 +32,7 @@ def read_cog(
     path = "/native_" + secrets.token_hex(8) + ".tif"
     receipts: list[dict[str, Any]] = []
     errors: list[str] = []
+    fetch_lock = threading.Lock()
 
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args: Any) -> None:
@@ -56,7 +57,8 @@ def read_cog(
                 self.send_error(416)
                 return
             try:
-                raw = client.fetch(url, start, end - start + 1, size)
+                with fetch_lock:
+                    raw = client.fetch(url, start, end - start + 1, size)
                 receipts.append(
                     {
                         "offset": start,
@@ -73,14 +75,17 @@ def read_cog(
                 errors.append(type(error).__name__)
                 self.send_error(502)
 
-    server = HTTPServer(("127.0.0.1", 0), Handler)
+    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     arrays = []
     try:
         with rasterio.Env(
             GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR",
-            GDAL_HTTP_MULTIRANGE="NO",
+            GDAL_HTTP_MULTIRANGE="SERIAL",
+            GDAL_HTTP_CONNECTTIMEOUT="5",
+            GDAL_HTTP_TIMEOUT="150",
+            GDAL_HTTP_MAX_RETRY="0",
             GDAL_NUM_THREADS="1",
             GDAL_CACHEMAX=16 * 1024**2,
         ):
@@ -91,6 +96,7 @@ def read_cog(
                     (dataset.width, dataset.height) != dimensions
                     or dataset.count != 1
                     or dataset.dtypes != ("uint16",)
+                    or dataset.tags(ns="IMAGE_STRUCTURE").get("LAYOUT") != "COG"
                 ):
                     raise ValueError(
                         "COG base raster incompatible with native annotation"

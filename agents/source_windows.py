@@ -20,8 +20,8 @@ from shapely.geometry import shape
 from agents.artifacts import REPO_ROOT
 from agents.calibration import Calibrator
 from agents.hh_hv_reservation import save
-from agents.nl_benchmark import require_development_scene
 from agents.native_cog import read_cog
+from agents.nl_benchmark import require_development_scene
 from agents.region import load_region
 from agents.reserved_sar import DOWNLOAD, Cdse, NativeTiff, annotation_metadata, locate
 from agents.source_reservation import checked, ref, verify
@@ -115,37 +115,6 @@ def local_context(xml: bytes, col: int, row: int) -> dict[str, Any]:
             start.timestamp() + (row + SIZE - 1) * interval, timezone.utc
         ).isoformat(),
         "azimuth_interval_s": interval,
-    }
-
-
-def full_measurement(
-    client: Cdse, url: str, size: int, path: Path, budget: dict[str, int]
-) -> dict[str, Any]:
-    """Bounded streaming fallback for the exact reserved compressed COG only."""
-    if size > 1536 * 1024**2 or size <= 0 or path.exists():
-        raise ValueError("Full measurement size/path refused")
-    if client.bytes + budget["full_bytes"] + size > 4 * 1024**3:
-        raise ValueError("Combined transfer budget exhausted")
-    client.authenticate()
-    digest, count = hashlib.sha256(), 0
-    with client.session.get(url, stream=True, timeout=(30, 120)) as response:
-        if response.status_code != 200:
-            raise ValueError(f"Full native download failed HTTP {response.status_code}")
-        with path.open("xb") as stream:
-            for block in response.iter_content(4 * 1024**2):
-                count += len(block)
-                if count > size:
-                    raise ValueError("Oversized full native response")
-                digest.update(block)
-                stream.write(block)
-    budget["full_bytes"] += count
-    if count != size:
-        raise ValueError("Truncated full native response")
-    return {
-        "bytes": count,
-        "sha256": digest.hexdigest(),
-        "path": ref(path)["path"],
-        "publisher_checksum_verified": False,
     }
 
 
@@ -306,30 +275,29 @@ def prepare_product(
             native = NativeTiff(read, item["ContentLength"])
             if native.width != info["width"] or native.height != info["height"]:
                 raise ValueError("Native TIFF/annotation dimensions differ")
-        if True:
-            for index, (a, col, row) in enumerate(windows):
-                if compressed is not None:
-                    dn = compressed[index]
-                else:
-                    assert native is not None
-                    dn = native.window(col, row, SIZE)
-                if dn.shape != (SIZE, SIZE) or not (dn > 0).all():
-                    raise ValueError(
-                        "Invalid reserved pixels; no padding or relocation permitted"
-                    )
-                dp = directory / f"{a['id']}_{pol}_dn.npy"
-                np.save(dp, dn, allow_pickle=False)
-                db = Calibrator(str(cp)).to_sigma0_db(dn, row, col).astype("float32")
-                if not np.isfinite(db).all():
-                    raise ValueError("Nonfinite calibration")
-                pixels[a["id"]].append(db)
-                records[a["id"]]["bands"].append(
-                    {
-                        "polarization": pol.upper(),
-                        "dn": ref(dp),
-                        "valid_pixels": int(dn.size),
-                    }
+        for index, (a, col, row) in enumerate(windows):
+            if compressed is not None:
+                dn = compressed[index]
+            else:
+                assert native is not None
+                dn = native.window(col, row, SIZE)
+            if dn.shape != (SIZE, SIZE) or not (dn > 0).all():
+                raise ValueError(
+                    "Invalid reserved pixels; no padding or relocation permitted"
                 )
+            dp = directory / f"{a['id']}_{pol}_dn.npy"
+            np.save(dp, dn, allow_pickle=False)
+            db = Calibrator(str(cp)).to_sigma0_db(dn, row, col).astype("float32")
+            if not np.isfinite(db).all():
+                raise ValueError("Nonfinite calibration")
+            pixels[a["id"]].append(db)
+            records[a["id"]]["bands"].append(
+                {
+                    "polarization": pol.upper(),
+                    "dn": ref(dp),
+                    "valid_pixels": int(dn.size),
+                }
+            )
         info.update(
             measurement_url=url,
             measurement_bytes=item["ContentLength"],

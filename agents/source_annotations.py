@@ -4,24 +4,53 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 import numpy as np
+import pandas as pd
 import rasterio
+from rasterio.transform import GCPTransformer
 
 from agents.artifacts import REPO_ROOT, sha256_file
+from agents.association import GEOD, aligned_ais
 from agents.calibration import Calibrator
 from agents.hh_hv_reservation import save
 from agents.hh_hv_transfer import native_chip
+from agents.reserved_sar import locate
 from agents.source_reservation import checked, ref, verify
-from agents.source_windows import PROTOCOL, SIZE, scope
+from agents.source_windows import PROTOCOL, SIZE, metadata, scope
 
 CELLS = {"top_left", "top_right", "bottom_left", "bottom_right"}
 FIRST_CLASSES = {"unresolved", "clutter", "coastal_structure"}
 FINAL_CLASSES = FIRST_CLASSES | {"provisional_vessel", "plausible_iceberg"}
+
+
+def public_metadata(value: Any) -> None:
+    """Fail closed on private AIS identities, coordinates and track payloads."""
+    forbidden = {
+        "mmsi",
+        "source_identity",
+        "lon",
+        "lat",
+        "longitude",
+        "latitude",
+        "geometry",
+        "window",
+        "reports",
+        "competing_identity_pool",
+    }
+    if isinstance(value, dict):
+        if forbidden.intersection(value):
+            raise ValueError("Private identity/position fields cannot be published")
+        for child in value.values():
+            public_metadata(child)
+    elif isinstance(value, list):
+        for child in value:
+            public_metadata(child)
 
 
 def reservation() -> tuple[dict[str, Any], dict[str, Any]]:
@@ -71,7 +100,13 @@ def validate_first_pass(decisions: dict[str, Any], expected: set[str]) -> None:
         if len(ids) != len(set(ids)):
             raise ValueError("Duplicate object identity")
         for obj in area["objects"]:
-            if obj["class"] not in FIRST_CLASSES or not obj["reason"]:
+            if (
+                obj["class"] not in FIRST_CLASSES
+                or not obj["reason"]
+                or not re.fullmatch(r"[a-z][a-z0-9_]{0,30}", obj["id"])
+                or len(obj["bbox_px"]) != 4
+                or any(type(v) is not int for v in obj["bbox_px"])
+            ):
                 raise ValueError("Unsupported first-pass decision")
             native_chip(np.empty((2, SIZE, SIZE)), obj["bbox_px"], True)
 
@@ -100,6 +135,12 @@ def validate_reconciliation(
             raise ValueError("Reconciliation cannot add or remove first-pass objects")
         for obj in row["objects"]:
             if (
+                obj.get("provisional") is not True
+                or obj.get("ignore_for_accuracy") is not True
+                or obj.get("independent_review") is not False
+            ):
+                raise ValueError("Individual annotation review guard changed")
+            if (
                 obj["class"] not in FINAL_CLASSES
                 or obj["bbox_px"] != originals[obj["id"]]["bbox_px"]
                 or not obj["reason"]
@@ -116,6 +157,7 @@ def validate_reconciliation(
 
 
 def check_collection(collection: dict[str, Any], local: bool = False) -> None:
+    public_metadata(collection)
     for flag in (
         "classifier_scored",
         "independent_review",
@@ -127,6 +169,8 @@ def check_collection(collection: dict[str, Any], local: bool = False) -> None:
         if collection.get(flag) is not False:
             raise ValueError("Provisional collection guard changed")
     expected, lock = reservation()
+    if collection["protocol"] != ref(PROTOCOL):
+        raise ValueError("Annotation protocol binding changed")
     if collection["reservation_seal_sha256"] != lock["seal_sha256"]:
         raise ValueError("Reservation binding changed")
     first_ref = collection["first_pass"]
@@ -134,6 +178,8 @@ def check_collection(collection: dict[str, Any], local: bool = False) -> None:
     expected_ids = {a["id"] for a in expected["areas"]}
     validate_first_pass(first, expected_ids)
     reconciliation = json.loads(checked(collection["reconciliation"]).read_text())
+    public_metadata(first)
+    public_metadata(reconciliation)
     validate_reconciliation(first_ref, reconciliation)
     rows = collection["areas"]
     originals = {a["id"]: a for a in expected["areas"]}
@@ -155,6 +201,9 @@ def check_collection(collection: dict[str, Any], local: bool = False) -> None:
         if (
             area["whole_area_ignore_for_accuracy"] is not True
             or area["independent_review"] is not False
+            or area["native_pixels"] != SIZE
+            or area["chip_sha256"]
+            != next(a for a in first["areas"] if a["id"] == area["id"])["chip_sha256"]
         ):
             raise ValueError("Provisional area guard changed")
         row = next(r for r in reconciliation["areas"] if r["id"] == area["id"])
@@ -165,6 +214,32 @@ def check_collection(collection: dict[str, Any], local: bool = False) -> None:
         raise ValueError("Annotation counts differ")
     if local:
         replay_prepared(checked(collection["prepared"]))
+        evidence = json.loads(
+            checked(reconciliation["private_source_evidence"]).read_text()
+        )
+        if (
+            evidence["first_pass"] != first_ref
+            or evidence["prepared"] != collection["prepared"]
+            or evidence["scored"] is not False
+        ):
+            raise ValueError("Source reconciliation lineage changed")
+        for area in reconciliation["areas"]:
+            support = next(a for a in evidence["areas"] if a["id"] == area["id"])
+            for obj in area["objects"]:
+                if obj["class"] in {"provisional_vessel", "plausible_iceberg"}:
+                    item = next(
+                        o for o in support["objects"] if o["object_id"] == obj["id"]
+                    )
+                    compatible = [
+                        m for m in item["matches"] if m["inside_source_allowance"]
+                    ]
+                    if len(compatible) != 1 or (
+                        obj["class"] == "provisional_vessel"
+                        and not compatible[0].get("selected_source")
+                    ):
+                        raise ValueError(
+                            "Provisional positive contradicts saved source support"
+                        )
         report = json.loads(checked(collection["local_report"]).read_text())
         if (
             report["first_pass"] != first_ref
@@ -235,7 +310,15 @@ def replay_prepared(path: Path) -> list[dict[str, Any]]:
                     raise ValueError("Calibrated band layout mismatch")
             checked(area["preview"])
             for index, band in enumerate(product["bands"]):
-                checked(band["annotation"])
+                annotation = checked(band["annotation"]).read_bytes()
+                _, gcps = metadata(annotation, original, band["polarization"].lower())
+                expected_col, expected_row, expected_geometry = locate(
+                    gcps, (original["lon"], original["lat"]), SIZE
+                )
+                if [expected_col, expected_row, SIZE, SIZE] != area[
+                    "window"
+                ] or json.loads(json.dumps(expected_geometry)) != area["geometry"]:
+                    raise ValueError("Native crop moved from reserved source centre")
                 dn = np.load(checked(area["bands"][index]["dn"]), allow_pickle=False)
                 calibrated = (
                     Calibrator(str(checked(band["calibration"])))
@@ -377,6 +460,123 @@ def build(
     )
 
 
+def source_support(prepared: Path, first_path: Path, output: Path) -> None:
+    """Private distance/uncertainty evidence, never automatic image class labels."""
+    if output.exists() or not output.resolve().is_relative_to(
+        (REPO_ROOT / "data").resolve()
+    ):
+        raise ValueError("Fresh private source reconciliation artifact required")
+    rows = replay_prepared(prepared)
+    first = json.loads(first_path.read_text())
+    validate_first_pass(first, {a["id"] for a in rows})
+    expected, _ = reservation()
+    private = json.loads(checked(expected["private_selection"]).read_text())
+    sources = {a["id"]: a for a in private["areas"]}
+    manifest = json.loads(prepared.read_text())
+    results = []
+    for area in rows:
+        source = sources[area["id"]]
+        product = next(
+            p for p in manifest["products"] if p["product_id"] == area["product_id"]
+        )
+        xml = checked(product["bands"][0]["annotation"]).read_bytes()
+        info, gcps = metadata(xml, source, "hh")
+        objects = next(a for a in first["areas"] if a["id"] == area["id"])["objects"]
+        evidence = []
+        for obj in objects:
+            x0, y0, x1, y1 = obj["bbox_px"]
+            col = area["window"][0] + (x0 + x1) / 2
+            row = area["window"][1] + (y0 + y1) / 2
+            with GCPTransformer(gcps, tps=True) as transform:
+                lons, lats = transform.xy([row], [col], offset="ul")
+            instant = datetime.fromisoformat(
+                str(info["native_start_time"]).replace("Z", "+00:00")
+            )
+            if instant.tzinfo is None:
+                instant = instant.replace(tzinfo=timezone.utc)
+            timestamp = instant.timestamp() + row * info["azimuth_interval_s"]
+            matches = []
+            if source["stream"] == "iceberg_support":
+                report = source["source"]
+                offset = abs(timestamp - report["time"])
+                distance = GEOD.inv(lons[0], lats[0], report["lon"], report["lat"])[2]
+                allowance = 300 + offset
+                matches.append(
+                    {
+                        "source_identity": source["source_identity"],
+                        "distance_m": distance,
+                        "uncertainty_m": allowance,
+                        "inside_source_allowance": distance <= allowance,
+                        "observation_offset_s": offset,
+                        "method": report["method"],
+                    }
+                )
+            else:
+                histories = [
+                    r["values"]
+                    for track in source["competing_identity_pool"]
+                    for r in track["reports"]
+                ]
+                aligned, _ = aligned_ais(
+                    pd.DataFrame(histories),
+                    datetime.fromtimestamp(timestamp, timezone.utc).isoformat(),
+                )
+                for position in aligned.to_dict("records"):
+                    distance = GEOD.inv(
+                        lons[0], lats[0], position["lon"], position["lat"]
+                    )[2]
+                    matches.append(
+                        {
+                            "source_identity": position["mmsi"],
+                            "distance_m": distance,
+                            "uncertainty_m": position["uncertainty_m"],
+                            "inside_source_allowance": distance
+                            <= position["uncertainty_m"],
+                            "alignment_method": position["alignment_method"],
+                            "selected_source": position["mmsi"]
+                            == source["source_identity"],
+                        }
+                    )
+            evidence.append(
+                {
+                    "object_id": obj["id"],
+                    "native_time_utc": datetime.fromtimestamp(
+                        timestamp, timezone.utc
+                    ).isoformat(),
+                    "lon": lons[0],
+                    "lat": lats[0],
+                    "matches": sorted(matches, key=lambda m: m["distance_m"]),
+                    "inside_source_allowance_count": sum(
+                        m["inside_source_allowance"] for m in matches
+                    ),
+                }
+            )
+        results.append(
+            {"id": area["id"], "stream": source["stream"], "objects": evidence}
+        )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    save(
+        output,
+        {
+            "first_pass": ref(first_path),
+            "prepared": ref(prepared),
+            "areas": results,
+            "scored": False,
+            "labels_assigned_automatically": False,
+            "limitations": [
+                "Frozen source allowances are heuristic, not calibrated probabilities",
+                "IIP coordinates have coarse precision; "
+                "gates are not widened after image inspection",
+                "No SAR moving-target displacement correction; "
+                "AIS compatibility is not identity proof",
+                "Only the reserved sighting and frozen competing AIS pool "
+                "are considered; neither is exhaustive truth",
+            ],
+        },
+    )
+    print(json.dumps({"evidence": ref(output), "labels_assigned_automatically": False}))
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prepared", type=Path)
@@ -387,8 +587,11 @@ if __name__ == "__main__":
     parser.add_argument("--verify", type=Path)
     parser.add_argument("--seal-sha256")
     parser.add_argument("--local", action="store_true")
+    parser.add_argument("--support", type=Path)
     args = parser.parse_args()
-    if args.verify and args.seal_sha256:
+    if args.support and args.first_pass and args.output:
+        source_support(args.support, args.first_pass, args.output)
+    elif args.verify and args.seal_sha256:
         if sha256_file(args.verify / "seal.json") != args.seal_sha256:
             raise ValueError("Trusted annotation seal changed")
         seal = json.loads((args.verify / "seal.json").read_text())

@@ -1,5 +1,11 @@
 # Source supported NL annotation reservation
 
+Subsequent preparation is complete: the [native annotation report](NATIVE_SOURCE_ANNOTATION.md)
+records nine inspected windows, two provisional vessel labels, seven unresolved
+returns and two background contexts, all before scoring. The reservation audit
+below describes the historical selection stage; its sealed zero-label records
+remain unchanged. No iceberg class or independent truth was established.
+
 The 14 October 2026 audit reserves **nine annotation areas across five native
 HH/HV acquisitions**: six opportunities supported by IIP iceberg observations and
 three supported by local AIS. These are candidate locations for image annotation;
