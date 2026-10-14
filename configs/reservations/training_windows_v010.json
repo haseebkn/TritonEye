@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "reservation_lock": "configs/reservations/provisional_training_v010.lock.json",
+  "native_window_pixels": 384,
+  "centering": "Exact reserved source centre; freeze metadata plan before pixels; no relocation, padding, resizing or model inference",
+  "uncertainty": "Existing original, coordinate half-step plus 30s, and one-step plus 60s scenarios; 300m base plus 1m/s maximum native-row time separation. Heuristic search scenarios, not calibrated accuracy bounds.",
+  "incomplete_coverage": "Inspect unchanged window but abstain from source-supported class assignment",
+  "first_pass": "Both bands and all four quadrants; no source overlays, distance reconciliation, detector outputs or classifier scores before sealed first-pass annotations",
+  "prior_project_and_source_exposure": true,
+  "annotator": "Codex AI assistant; no independent SAR reviewer",
+  "repeat_iip_window_hours": 24,
+  "optical_window_hours": 3,
+  "optical_scope": "Sentinel-2 L1C footprint at target within +/-3h; record pagination/failure; metadata alone cannot confirm object identity",
+  "corroboration": "Repeated IIP publisher identities are correlated context; additional physical evidence must identify the same reflector before exploratory iceberg training admission",
+  "classifier_scored": false,
+  "detector_scored": false,
+  "independent_review": false,
+  "training_approved": false,
+  "promotion_eligible": false
+}

@@ -105,3 +105,7 @@ docs/evidence/target_noise_v010.json text eol=lf
 agents/provisional_training.py text eol=lf
 tests/unit/test_provisional_training.py text eol=lf
 reservations/native_training/** -text
+agents/training_windows.py text eol=lf
+agents/training_annotation.py text eol=lf
+tests/unit/test_training_annotation.py text eol=lf
+datasets/native_training/** -text

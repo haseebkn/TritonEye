@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0",
+  "first_pass_sha256": "4370d9069c7e085f59d647760f39bf1d8a84eeb741c6bf4aa34afc143b1e8baa",
+  "private_source_evidence": {"path": "data/source_supported/training_evidence_v010_01/report.json", "sha256": "558ee55d776bf63c56c964c9c17b601fabacec30b770b16558ca44a50b963c77"},
+  "classifier_scored": false,
+  "independent_review": false,
+  "areas": [
+    {
+      "id": "training_iceberg_support_01",
+      "source_association_notes": "The image-first return is 894.82 m from the selected R/V observation at a native target-time offset of 686.66 s, within the unchanged 986.66 m heuristic allowance. One reported identity is compatible in the incomplete available IIP pool, and only one visible object was boxed. All three source coverage scenarios fit this window. No repeated identity observation exists within the searched +/-24h interval and no covering Sentinel-2 L1C product was returned by the complete +/-3h native-window query. No co-temporal local AIS or independent physical identity confirmation is available. An unreported vessel or other reflector remains possible.",
+      "objects": [
+        {
+          "id": "u1",
+          "bbox_px": [108, 115, 130, 170],
+          "class": "plausible_iceberg",
+          "reason": "Provisional source-compatible iceberg hypothesis after reconciling the sealed unresolved two-band return with the R/V observation. Morphology and source proximity do not distinguish it from a vessel or establish physical identity. Additional physical corroboration required for exploratory training is absent.",
+          "source_consistent": true,
+          "association_unique": true,
+          "additional_physical_corroboration": false,
+          "exploratory_training_admitted": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ]
+    },
+    {
+      "id": "training_iceberg_support_02",
+      "source_association_notes": "No distinct object was boxed in the image-first pass. Original and nearest-rounding coverage fit, but the symmetric one-step scenario is incomplete (about 95.92% of its heuristic search area covered). Preserve source-association abstention and the unchanged crop. A complete +/-3h Sentinel-2 L1C native-window query returned no covering product at the source position. Missing AIS or absent image annotation does not establish an iceberg or a negative example.",
+      "objects": []
+    }
+  ]
+}

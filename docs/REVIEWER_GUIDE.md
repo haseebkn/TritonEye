@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **14 October 2026**, against main baseline
-`0c670d139a49607d940b6824489e7b8e46d8d96d` (PR #33), plus the
+`c2e6699bf437b38de4bd0b210ebe7c4e5e8754d5` (PR #34), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -17,6 +17,10 @@ define future exploratory admission requirements and reserve two fresh IIP-suppo
 acquisitions; no training-vessel opportunities pass the current checks and no
 labels are admitted. The [frozen native recipe](NATIVE_NL_INPUT.md) is executable;
 Kaggle equivalence and independently validated native accuracy remain unresolved.
+The [subsequent two-window preparation](TRAINING_NATIVE_ANNOTATION.md) adds one
+unconfirmed iceberg hypothesis and one unannotated coverage-abstention area;
+all four calibration bands replay exactly, and no new labels are admitted for
+training or accuracy. The original 31-area register retains its historical scope.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
