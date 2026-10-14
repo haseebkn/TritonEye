@@ -1,0 +1,26 @@
+{
+  "version": "reserved_hh_hv_transfer_v0.1.0",
+  "reservation_lock": "configs/reservations/hh_hv_development_v010.lock.json",
+  "selection": "512 x 512 native pixels centred on each reserved envelope centroid; no target or model guided recentering",
+  "roi_size_px": 512,
+  "target_chip_size_px": 75,
+  "bands": ["HH", "HV"],
+  "calibration": "sigma0_db_from_native_lut",
+  "resampling": "none",
+  "preview_db_limits": [-30, 5],
+  "annotation": "Complete selected areas inspected in both bands before any classifier or candidate output; AI interpretations provisional, ambiguous objects ignored for accuracy",
+  "prior_exposure": "Annotator has seen earlier development labels and classifier results; the reserved images have not been viewed",
+  "scale_proxy": {
+    "method": "central excess-backscatter connected component",
+    "median_filter_px": 3,
+    "border_width_px": 10,
+    "contrast_db": 6,
+    "maximum_center_distance_px": 12,
+    "band_rule": "HH or HV above its own border median plus contrast",
+    "interpretation": "Apparent bright-component pixel extent only; not a vessel hull, iceberg size or physical-resolution equivalence"
+  },
+  "reference": "Only the frozen Kaggle training partition; no validation or holdout pixels used for the reference distribution",
+  "scoring": "none",
+  "independent_review": false,
+  "promotion_eligible": false
+}
