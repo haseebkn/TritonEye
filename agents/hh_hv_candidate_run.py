@@ -7,6 +7,8 @@ import copy
 import hashlib
 import json
 import platform
+import shutil
+import tempfile
 import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -21,8 +23,31 @@ from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.geo import Georeferencer
 from agents.hh_hv_candidates import CONFIG_SHA256, frozen_settings, generate
 from agents.nl_benchmark import bounded_path, load_dataset, require_development_scene
-from agents.statoil_baseline import available_commit, resource_check
+from agents.statoil_baseline import available_commit
 from agents.statoil_shadow import DEFAULT_DATASET, native_audit
+
+
+def resource_check() -> None:
+    """Bounded NumPy processing does not load Torch or the training JSON."""
+    if (
+        available_commit() < 1024**3
+        or psutil.virtual_memory().available < 1024**3
+        or psutil.Process().memory_info().rss > 512 * 1024**2
+    ):
+        raise RuntimeError("Insufficient headroom for bounded candidate generation")
+    if any(
+        shutil.disk_usage(p).free < 1024**3
+        for p in (REPO_ROOT, Path(tempfile.gettempdir()))
+    ):
+        raise RuntimeError("At least 1 GiB free project/temp storage required")
+
+
+def runtime_check() -> None:
+    if (
+        available_commit() < 512 * 1024**2
+        or psutil.Process().memory_info().rss > 512 * 1024**2
+    ):
+        raise RuntimeError("Candidate run exceeded memory budget")
 
 
 def identity(value: Any) -> str:
@@ -61,6 +86,12 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
         "selection": "Previously exposed development ROIs; no fresh holdout claim",
         "comparison": "Frozen before filter comparison; no classifier invoked",
         "attribution": manifest["licence"]["attribution"],
+        "resources": {
+            "rss_limit_bytes": 512 * 1024**2,
+            "preflight_commit_bytes": 1024**3,
+            "preflight_physical_bytes": 1024**3,
+            "runtime_commit_floor_bytes": 512 * 1024**2,
+        },
     }
     output.mkdir(parents=True)
     write_json(output / "definition.json", definition)
@@ -83,11 +114,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
             raise ValueError("NL development HH/HV acquisitions required")
         require_development_scene(scene["product_id"], scene)
         for roi in scene["rois"]:
-            if (
-                available_commit() < 1024**3
-                or psutil.Process().memory_info().rss > 2 * 1024**3
-            ):
-                raise RuntimeError("Candidate run exceeded memory budget")
+            runtime_check()
             entry: dict[str, Any] = {
                 "roi_id": roi["id"],
                 "product_id": scene["product_id"],
@@ -102,6 +129,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                 candidates, coverage = generate(
                     images, polarizations=("HH", "HV"), settings=settings
                 )
+                runtime_check()
                 features = []
                 with rasterio.open(bounded_path(REPO_ROOT, roi["chip"]["path"])) as src:
                     with Georeferencer.from_dataset(src) as geo:
@@ -142,6 +170,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                     "scope": "Experimental HH/HV candidates; no class/accuracy truth",
                 }
                 filename = f"area_{len(areas):03d}.geojson"
+                runtime_check()
                 write_json(output / filename, collection)
                 entry.update(
                     status="processed",

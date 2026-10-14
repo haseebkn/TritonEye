@@ -109,6 +109,14 @@ def test_config_tampering_requires_new_version(
         detector.frozen_settings()
 
 
+def test_candidate_memory_preflight_refuses_pressure(monkeypatch: Any) -> None:
+    monkeypatch.setattr(runner, "available_commit", lambda: 100)
+    with pytest.raises(RuntimeError, match="Insufficient headroom"):
+        runner.resource_check()
+    with pytest.raises(RuntimeError, match="memory budget"):
+        runner.runtime_check()
+
+
 def test_real_runner_contract_on_synthetic_data_and_identical_arms(
     tmp_path: Path, monkeypatch: Any
 ) -> None:
