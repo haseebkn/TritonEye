@@ -67,3 +67,8 @@ agents/hh_hv_transfer.py text eol=lf
 tests/unit/test_reserved_sar.py text eol=lf
 tests/unit/test_hh_hv_transfer.py text eol=lf
 datasets/hh_hv_transfer/** -text
+agents/source_supported.py text eol=lf
+agents/source_reservation.py text eol=lf
+tests/unit/test_source_supported.py text eol=lf
+reservations/source_supported/** -text
+docs/evidence/source_supported_verification_20261014.json text eol=lf

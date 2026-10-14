@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-10-14T09:58:41.103941+00:00",
+  "seal_sha256": "eb2e49ff3e469940f3ca9f9aff3c6f585a4010388130da1ddbe7f59fdc18e521",
+  "local_sources_verified": true,
+  "selection_replayed": true,
+  "verification_code_sha256": "b889229f56f4394d62aa799ee36938a0eb175b83ed4194c3f69a351a9517b34b",
+  "scored": false,
+  "annotated_objects": 0
+}
