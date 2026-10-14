@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "purpose": "Source-supported provisional native NL training admission and training-only acquisition reservation",
+  "native_specification": {"path": "configs/native_nl/input_v010.json", "sha256": "1ac869d85ddcaf3b89b4c1a2f9c5c391ae7214e5e7be00fff8462c9be2529e3a"},
+  "historical_admission": {"path": "docs/evidence/label_admission_v010.json", "sha256": "8589e80a71a42ec4450cd8dbd4787a0fb7ccee45d3a5e409ad0623bf96532865"},
+  "source_policy": {"path": "configs/reservations/source_supported_v010.json", "sha256": "9cbe97c9f4a3ee52017a9d5369e6f1080b691d7a8aa90d046e3f8dfb4f4246da"},
+  "minimum_iceberg_year": 2018,
+  "maximum_iceberg_offset_seconds": 900,
+  "preferred_sizes": ["MED", "LG", "VLG"],
+  "exploratory_sizes": ["SM"],
+  "small_iceberg_maximum_offset_seconds": 900,
+  "envelope_half_width_m": 3000,
+  "maximum_per_stream": 4,
+  "maximum_per_native_acquisition": 1,
+  "split": "train",
+  "new_geographic_groups": "Assign genuinely new groups to train; preserve every prior acquisition and named geographic-group role. Reject validation, test, quarantine, prior exposure and previously reserved source identities.",
+  "rank": "Within each source stream: absolute observation offset, source uncertainty, AIS bracket gap, product UUID, source identity. Vessel stream first; no classifier output or pixels used.",
+  "admission": {
+    "classes": ["vessel", "iceberg"],
+    "required_checks": ["native_input_verified", "complete_native75", "source_uncertainty_covered", "local_area_inspected_both_bands", "all_visible_returns_recorded", "alternative_returns_checked", "association_unique_in_available_pool", "source_error_and_motion_bounded", "geographic_acquisition_object_groups_resolved", "permitted_use_verified"],
+    "vessel_checks": ["ais_brackets_native_target_time", "competing_ais_tracks_checked", "track_supports_vessel_identity"],
+    "iceberg_checks": ["observation_is_visual_or_radar_visual", "source_independent_of_sar_interpretation", "additional_physical_corroboration", "corroboration_identifies_same_reflector", "alternative_vessel_explanation_checked"],
+    "evidence": "Every check must cite a hash-bound evidence record. The evaluator verifies receipts and declarations, not their physical truth. Source proximity or source uniqueness alone is insufficient. No probability weights are inferred.",
+    "label_status": "provisional",
+    "scope": "exploratory_training_only",
+    "accuracy_truth_admitted": false,
+    "promotion_eligible": false,
+    "independent_review": false,
+    "original_masks_and_decisions": "Preserve; any future admitted label needs an additive dossier and separately versioned training export. This reservation creates neither labels nor a training export."
+  },
+  "limitations": ["Provisional research criteria, not C-CORE requirements", "Source-centred selection and prior project exposure must be disclosed", "No independent reviewer; no independently validated accuracy or promotion", "Historical IIP and modern AIS may confound era, location and class", "No minimum sample count here establishes statistical sufficiency"]
+}

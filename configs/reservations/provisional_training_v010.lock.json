@@ -1,0 +1,10 @@
+{
+  "manifest": {
+    "path": "reservations/native_training/v0.1.0/manifest.json",
+    "sha256": "6413ae6f145607ad7ae040d83a50647b6cee00996009f06cbd073fcd4c79e6bc"
+  },
+  "rankings": {
+    "path": "reservations/native_training/v0.1.0/rankings.json",
+    "sha256": "093c6860e63ff3670729035aebf6843c37d85a067d6571c90d33767e5b213f6f"
+  }
+}
