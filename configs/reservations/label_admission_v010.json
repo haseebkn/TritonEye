@@ -8,7 +8,7 @@
   ],
   "snap": {"path": "docs/evidence/snap_corroboration_20261014.json", "sha256": "99d60a8616a4458667fbee05aba919656ca9d9440add8773a05c9b9c480d4c80"},
   "noise": {"path": "docs/evidence/snap_noise_floor_20261014.json", "sha256": "9ceefa4422e8d2372ac5a5b0f51d32cd20691c58c9b225e966809a8145f0dc71"},
-  "kaggle": {"path": "docs/evidence/statoil_baseline_20261013.json", "sha256": "7cda386dd174534a54063bf3e1f8001f9a93585455696ce5719c8830af5a85f6"},
+  "kaggle": {"path": "docs/evidence/statoil_baseline_20261013.json", "sha256": "c1d5dad7ce8951ba884583bcea01b2fbec8b49b53c55e58cbb2b90126170ebda"},
   "decision": "hold_all_current_labels; no training export or approval through this report",
   "prior_exposure": "AI annotator had prior project label and model-output exposure. These three batches were curated before their own classifier scoring, with source-centred selection disclosed. This register is a later evidence synthesis, not another blind or independent review.",
   "future_admission_requirements": [

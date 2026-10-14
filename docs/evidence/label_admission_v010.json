@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "policy": {
     "path": "configs/reservations/label_admission_v010.json",
-    "sha256": "26e5826198520e4df4abd26006724de20ce1d49a64d46973bf3864c998f62e07"
+    "sha256": "d50b032b345b2e91f2743a5771ad24340c914a186753cdf7de3f98dc5ac74316"
   },
   "scope": "31 reserved native NL HH/HV areas; existing scored benchmark, Kaggle rows and quarantined AllenAI labels are outside this admission register",
   "prior_exposure": "AI annotator had prior project label and model-output exposure. These three batches were curated before their own classifier scoring, with source-centred selection disclosed. This register is a later evidence synthesis, not another blind or independent review.",

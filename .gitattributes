@@ -96,3 +96,4 @@ docs/evidence/snap_noise_floor_20261014.json text eol=lf
 agents/label_admission.py text eol=lf
 tests/unit/test_label_admission.py text eol=lf
 docs/evidence/label_admission_v010.json text eol=lf
+docs/evidence/statoil_baseline_20261013.json text eol=lf
