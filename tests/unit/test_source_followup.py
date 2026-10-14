@@ -1,12 +1,15 @@
 """Native uncertainty coverage uses geometry and both acquisition row times."""
 
+from copy import deepcopy
 from typing import Any
 
+import pytest
 from pyproj import CRS, Transformer
 from shapely.geometry import box, mapping
 from shapely.ops import transform
 
 from agents.source_followup import coverage
+from agents.source_followup_annotations import validate_collection, validate_support
 
 
 def geometry(half_width: float) -> dict[str, Any]:
@@ -63,3 +66,82 @@ def test_coverage_uses_worst_row_time_on_either_side_of_observation() -> None:
     )
     assert result["maximum_native_row_offset_s"] == 650
     assert not result["scenarios"]["original"]["complete"]
+
+
+def evidence() -> dict[str, Any]:
+    return {
+        "areas": [
+            {
+                "id": "area",
+                "source_association_abstain": False,
+                "objects": [
+                    {
+                        "object_id": "u1",
+                        "inside_selected_allowance": True,
+                        "compatible_iceberg_identities": ["ice"],
+                        "matches": [{"selected_identity": True}],
+                    }
+                ],
+            }
+        ]
+    }
+
+
+def positive() -> list[dict[str, Any]]:
+    return [{"id": "area", "objects": [{"id": "u1", "class": "plausible_iceberg"}]}]
+
+
+def test_incomplete_source_coverage_cannot_support_iceberg_class() -> None:
+    source = evidence()
+    validate_support(positive(), source)
+    source["areas"][0]["source_association_abstain"] = True
+    with pytest.raises(ValueError, match="complete unique"):
+        validate_support(positive(), source)
+
+
+def test_competing_returns_or_identities_prevent_positive_support() -> None:
+    source = evidence()
+    for case in ("objects", "identities", "wrong_source"):
+        changed = deepcopy(source)
+        objects = changed["areas"][0]["objects"]
+        if case == "objects":
+            objects.append({**objects[0], "object_id": "u2"})
+        elif case == "identities":
+            objects[0]["compatible_iceberg_identities"].append("other")
+        else:
+            objects[0]["matches"][0]["selected_identity"] = False
+        with pytest.raises(ValueError, match="complete unique"):
+            validate_support(positive(), changed)
+    vessel = positive()
+    vessel[0]["objects"][0]["class"] = "provisional_vessel"
+    with pytest.raises(ValueError, match="no co-temporal vessel"):
+        validate_support(vessel, source)
+
+
+@pytest.mark.parametrize(
+    "flag",
+    [
+        "classifier_scored",
+        "detector_scored",
+        "independent_review",
+        "training_approved",
+        "promotion_eligible",
+        "compatibility_established",
+        "annotation_completeness_verified",
+    ],
+)
+def test_provisional_collection_refuses_approval_or_score_flags(flag: str) -> None:
+    value = {
+        key: key == flag
+        for key in (
+            "classifier_scored",
+            "detector_scored",
+            "independent_review",
+            "training_approved",
+            "promotion_eligible",
+            "compatibility_established",
+            "annotation_completeness_verified",
+        )
+    }
+    with pytest.raises(ValueError, match="guard changed"):
+        validate_collection(value)

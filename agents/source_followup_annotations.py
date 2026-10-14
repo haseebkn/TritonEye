@@ -118,9 +118,11 @@ def source_evidence(prepared: Path, first_path: Path) -> dict[str, Any]:
         "scored": False,
         "labels_assigned_automatically": False,
         "limitations": [
-            "All nearby visual/RV reports in frozen IIP data considered; not exhaustive truth",
+            "Nearby visual/RV reports in frozen IIP data considered; "
+            "not exhaustive truth",
             "No co-temporal area-wide AIS or independent imagery confirmation",
-            "Frozen allowance is heuristic; sensitivity cells do not change matching gates",
+            "Frozen allowance is heuristic; sensitivity cells "
+            "do not change matching gates",
         ],
     }
 
@@ -148,7 +150,8 @@ def validate_support(areas: list[dict[str, Any]], evidence: dict[str, Any]) -> N
                     or not any(m["selected_identity"] for m in record["matches"])
                 ):
                     raise ValueError(
-                        "Iceberg interpretation lacks complete unique provisional source support"
+                        "Iceberg interpretation lacks complete unique "
+                        "provisional source support"
                     )
 
 
