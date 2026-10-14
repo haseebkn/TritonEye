@@ -157,8 +157,9 @@ remains outside this work.
 
 Original CSVs, the user guide and archive index are stored in
 `data/source_supported/v010_01/`. Public source hashes, acquisition UUIDs and
-ranking criteria are retained in Git. Fresh output directories prevent overwriting
-existing evidence. Catalogue and IIP metadata are public; this audit needed no new
+ranking criteria are retained in Git. Reservation builds require fresh private and
+public output directories; use a fresh IIP audit directory to preserve prior evidence.
+Catalogue and IIP metadata are public; this audit needed no new
 credentials and sent no email or contact request.
 
 ```sh
@@ -167,11 +168,18 @@ python -m agents.source_reservation --verify reservations/source_supported/v0.1.
 ```
 
 Verification without `--local` checks the public seal, policy and provisional
-flags. Local verification additionally hashes the frozen source files, private
-selection and template, then replays reservation decisions from the saved IIP
-ranking and AIS audit. It does not download new data, view imagery or create labels.
-The [local verification receipt](evidence/source_supported_verification_20261014.json)
-records the successful replay and verification implementation hash.
+flags. Local verification requires the original hash-matching private bundle and
+prior-assignment metadata at their recorded project paths. It additionally hashes
+the frozen source files, private selection and template, including every CSV and
+coverage journal listed in the AIS snapshot manifest. Snapshot entries must resolve
+to files directly inside its `archive_snapshot/` directory. Verification then
+replays reservation decisions from the saved IIP ranking and AIS audit. It does
+not download new data, view imagery or create labels.
+The [historical local verification receipt](evidence/source_supported_verification_20261014.json)
+records a successful replay with the implementation identified by its code hash;
+it predates the added AIS archive-file checks and does not attest to those checks.
+To record verification with the current implementation, add `--receipt` with a
+fresh project-local JSON path to the verification command.
 Fresh local AIS collection can be audited with `python -m agents.overlap_audit
 --output data/research/fresh_overlap --bundle-count 0`. Use `--fetch` with the IIP
 auditor for fresh yearly catalogue queries rather than a frozen replay.
