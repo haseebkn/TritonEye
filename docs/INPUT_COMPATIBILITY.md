@@ -1,5 +1,11 @@
 # Native NL HH/HV input-compatibility decision v0.1.0
 
+Subsequent work: the [target noise audit](TARGET_NOISE_AUDIT.md) and
+[frozen native input specification](NATIVE_NL_INPUT.md) now define a separate
+experimental native recipe. This historical decision and its evidence remain
+unchanged: Kaggle equivalence and label admission are still unresolved. The new
+recipe preserves nominal pixels and does not authorize fitting or filtering.
+
 **Decision: hold native transfer training and classifier-filter selection.**
 No preprocessing recipe is approved by this report. The decision consumes the
 same pinned evidence as the [label-admission register](LABEL_ADMISSION.md); its

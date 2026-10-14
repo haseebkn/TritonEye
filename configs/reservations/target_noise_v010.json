@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "collection": {"path": "datasets/source_supported/v0.2.0/collection.json", "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"},
+  "reference": {"path": "docs/evidence/snap_corroboration_20261014.json", "sha256": "99d60a8616a4458667fbee05aba919656ca9d9440add8773a05c9b9c480d4c80"},
+  "area_ids": ["next_iceberg_support_01", "next_iceberg_support_02", "next_iceberg_support_03", "next_iceberg_support_04"],
+  "background_guard_px": 5,
+  "background_outer_px": 30,
+  "snap_floor_power": 0.00001,
+  "comparison_tolerance_db": 0.001,
+  "background_interpretation": "Geometric annulus around existing bbox, excludes all known boxes plus guard. Unreviewed surrounding context, not verified pure water or a negative label.",
+  "source": "https://raw.githubusercontent.com/senbox-org/s1tbx/master/s1tbx-op-calibration/src/main/java/org/esa/s1tbx/calibration/gpf/Sentinel1RemoveThermalNoiseOp.java",
+  "source_scope": "Archived upstream implementation documents range-times-azimuth interpolation and negative-residual floor 1e-5; not a source/binary equivalence claim for installed SNAP 14. Numerical agreement is checked separately.",
+  "precision_source": "https://raw.githubusercontent.com/senbox-org/s1tbx/master/s1tbx-commons/src/main/java/org/esa/s1tbx/commons/Sentinel1Utils.java",
+  "precision_policy": "Float64 metadata diagnostics retained. Also replay float32 noise LUT nodes as documented upstream, with float64 interpolation; report both comparisons and any floor-mask disagreement.",
+  "training_approved": false,
+  "independent_review": false,
+  "labels_modified": false,
+  "classifier_scored": false
+}
