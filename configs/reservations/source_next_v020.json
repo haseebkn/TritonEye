@@ -1,0 +1,23 @@
+{
+  "version": "source_supported_v0.2.0",
+  "minimum_iceberg_year": 2018,
+  "maximum_iceberg_offset_seconds": 1800,
+  "small_iceberg_maximum_offset_seconds": 900,
+  "preferred_sizes": ["MED", "LG", "VLG"],
+  "exploratory_sizes": ["SM"],
+  "rank": "Preferred sizes within 15 min; preferred sizes within 30 min; small within 15 min; then offset, R/V, UUID and identity",
+  "maximum_iceberg_areas": 6,
+  "maximum_vessel_areas": 4,
+  "maximum_per_product": 2,
+  "envelope_half_width_m": 3000,
+  "native_preparation_pixels": 384,
+  "new_group_assignment": "SHA256 geographic group, first byte parity: even train, odd validation; preserve all existing group/datatake roles",
+  "exclude_original_batch_datatakes_and_identities": true,
+  "match_allowance": "Existing 300m + 1m/s absolute separation retained. Decimal/time sensitivity is disclosed, never automatic class evidence",
+  "future_preparation": "Check native footprint and source uncertainty coverage before pixels; do not recenter or expand after inspection",
+  "classifier_scored": false,
+  "imagery_inspected": false,
+  "independent_review": false,
+  "training_approved": false,
+  "promotion_eligible": false
+}
