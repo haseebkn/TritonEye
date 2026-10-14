@@ -1,0 +1,114 @@
+{
+  "version": "0.1.0",
+  "annotator": "Codex AI assistant, not a qualified independent SAR reviewer",
+  "prior_source_exposure": true,
+  "exposure_notes": "Source-informed reservation, source-centred windows and stream IDs known to preparer; first iceberg source record previously opened for schema inspection. AIS datatakes have earlier project imagery/model exposure. No source overlays, detector outputs or classifier scores opened in this new image pass. This is not independent or fully naive review.",
+  "classifier_scores_viewed": false,
+  "detector_outputs_viewed": false,
+  "source_overlays_viewed": false,
+  "independent_review": false,
+  "inspection": "All nine complete native HH/HV paired previews inspected at fixed -30 to +5 dB; coordinates refer to original 384-pixel bands, excluding preview header and gutter. No automated target generator or model used. Sparse point annotations do not establish exhaustive truth.",
+  "areas": [
+    {
+      "id": "iceberg_support_01",
+      "chip_sha256": "8dd5278ea16f28bb804841d77e802e2e84503a951fb7377ec718ce7ab33a3a3c",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "Broad bright land-like texture borders a dark channel in both bands. Two small HH-bright nearshore returns are not independently classifiable. Continuous bright shore/land regions remain ignored; no vessel or iceberg identity assigned.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [98, 150, 109, 163], "reason": "Small HH-bright return near a land-like boundary; weak HV and insufficient shape evidence."},
+        {"id": "u2", "class": "unresolved", "bbox_px": [23, 253, 36, 266], "reason": "Shore-adjacent point return cannot be separated confidently from coastal clutter or structure."}
+      ]
+    },
+    {
+      "id": "iceberg_support_02",
+      "chip_sha256": "09c0de8b3afa845678bc3458c4472f409913f4836a596d01183207cb69cc8f11",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "Diffuse HH texture and weak HV speckle throughout; no isolated return is defensibly distinguishable in the fixed-display inspection. The centre context is a texture sample, not a hard negative or an absence-of-iceberg claim.",
+      "objects": [
+        {"id": "c1", "class": "clutter", "bbox_px": [154, 154, 229, 229], "reason": "Diffuse background texture context only; no verified object class or negative label."}
+      ]
+    },
+    {
+      "id": "iceberg_support_03",
+      "chip_sha256": "4eaf988b431a2378336154da2823ad0b392824e79478a318448198880d694389",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "Spatially varying diffuse HH background and weak HV speckle across all quadrants. No isolated defensible object at this display. Central texture context remains ignored and is not a confirmed negative.",
+      "objects": [
+        {"id": "c1", "class": "clutter", "bbox_px": [154, 154, 229, 229], "reason": "Background texture reference, not an exhaustive non-vessel or non-iceberg annotation."}
+      ]
+    },
+    {
+      "id": "iceberg_support_04",
+      "chip_sha256": "7c3b2284b991138b5ec4fa1f8e065142fd3782b1c8ac874f7b7ae62d94b5fcfb",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One compact HH-bright isolated return above an extended land-like shape entering the lower edge. HV target evidence is weak. The large lower-edge feature remains ignored rather than classified as a floating object.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [241, 210, 254, 223], "reason": "Compact return visible mainly in HH; vessel, ice and other reflectors remain plausible without source reconciliation."}
+      ]
+    },
+    {
+      "id": "iceberg_support_05",
+      "chip_sha256": "68e52356422ddce66d02be104f9ce739b830b75093cd6248ee3b09500270396a",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One compact vertically extended bright return in the upper-right half, strong in HH with weak corresponding HV. Remaining area shows diffuse background texture. SAR shape alone does not distinguish ship and iceberg.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [241, 108, 258, 130], "reason": "Compact bright reflector with slight vertical extent, ambiguous object class."}
+      ]
+    },
+    {
+      "id": "iceberg_support_06",
+      "chip_sha256": "f84d9494ac3c061c93b8222611323a7314e3ff6282815c0b84124781c55f40c0",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "Two compact elongated returns in the upper-left half, corresponding weak HV responses, and broad curved background texture lower down. The two returns are competing possible objects; neither is assigned a source identity in this pass.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [145, 94, 165, 120], "reason": "Bright narrow return with extension; class ambiguous."},
+        {"id": "u2", "class": "unresolved", "bbox_px": [118, 167, 136, 186], "reason": "Second isolated bright return, distinct from the upper object; class ambiguous."}
+      ]
+    },
+    {
+      "id": "vessel_support_01",
+      "chip_sha256": "767320e8e4e730a2b4f0a616b42a61e532f08233e914104913ad0fade7dafc27",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One dominant compact bright return in both bands near the centre with a north-south extension and weaker cross-range streak. No other comparably distinct return in the fixed-display scan. Streaks are not counted as separate targets or verified wake.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [184, 226, 201, 243], "reason": "Compact two-band return; vessel-like appearance is insufficient for an image-only class or identity."}
+      ]
+    },
+    {
+      "id": "vessel_support_02",
+      "chip_sha256": "977e4b2c4925b7963057e4f017fbfad5b18187fde753f462081085b234814d96",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One bright slanted compact target in HH and HV near the centre with an azimuth-like vertical extension. Diffuse background elsewhere. Target remains image-only unresolved until source reconciliation.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [176, 203, 195, 222], "reason": "Slanted compact return present in both bands; source identity not consulted in the first pass."}
+      ]
+    },
+    {
+      "id": "vessel_support_03",
+      "chip_sha256": "13dfa618676ba8b53af3a0f37e5a204125e9cfa61e781cde2b783a94bb2eaa4f",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One elongated northwest-southeast bright return near the centre in both bands. A fainter vertical feature is contiguous with it and not counted separately. No class or vessel identity established from appearance alone.",
+      "objects": [
+        {"id": "u1", "class": "unresolved", "bbox_px": [169, 199, 195, 222], "reason": "Elongated two-band object, class unresolved without supporting evidence."}
+      ]
+    }
+  ]
+}
