@@ -168,25 +168,29 @@ def test_native_replay_to_persisted_shared_population(
             dn[50, 50] *= 10
             src.write(dn, 1)
         source["sha256"] = sha256_file(path)
-        bands.append(
-            Calibrator(str(tmp_path / calibration["path"])).to_sigma0_db(dn)
-        )
+        bands.append(Calibrator(str(tmp_path / calibration["path"])).to_sigma0_db(dn))
     path = tmp_path / roi["chip"]["path"]
     with rasterio.open(path, "r+") as src:
         src.crs = "EPSG:4326"
         src.write(np.asarray(bands, dtype="float32"))
     roi["chip"]["sha256"] = sha256_file(path)
     roi.update(
-        id="generated_coast", group="generated", regime="coastal",
-        geometry={"type": "Polygon", "coordinates": [
-            [[1, 0], [2, 0], [2, 1], [1, 1], [1, 0]]
-        ]},
+        id="generated_coast",
+        group="generated",
+        regime="coastal",
+        geometry={
+            "type": "Polygon",
+            "coordinates": [[[1, 0], [2, 0], [2, 1], [1, 1], [1, 0]]],
+        },
     )
     scene.update(
         product_id="11111111-1111-4111-8111-111111111111",
         name="S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00.SAFE",
-        split="validation", region="Newfoundland", polarizations=["hh", "hv"],
-        acquisition_time="2025-01-03T09:42:20Z", rois=[roi],
+        split="validation",
+        region="Newfoundland",
+        polarizations=["hh", "hv"],
+        acquisition_time="2025-01-03T09:42:20Z",
+        rois=[roi],
     )
     manifest = {"scenes": [scene], "licence": {"attribution": "Generated fixture"}}
     # The fixture supplies dataset discovery; all pixel/provenance consumers are real.
@@ -269,12 +273,10 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
             ],
         },
         "regime": "offshore",
-        "window": (
-            [0, 0, 4096, 4096] if failure == "window" else [0, 0, 101, 101]
-        ),
+        "window": ([0, 0, 4096, 4096] if failure == "window" else [0, 0, 101, 101]),
         "chip": {"path": "data/source.tif", "sha256": sha256_file(path)},
     }
-    scene = {
+    scene: dict[str, Any] = {
         "split": "validation",
         "polarizations": ["hh", "hv"],
         "region": "Newfoundland",
