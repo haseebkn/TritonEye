@@ -73,6 +73,7 @@ tests/unit/test_source_supported.py text eol=lf
 reservations/source_supported/** -text
 agents/source_windows.py text eol=lf
 agents/source_annotations.py text eol=lf
+agents/native_cog.py text eol=lf
 tests/unit/test_source_windows.py text eol=lf
 datasets/source_supported/** -text
 docs/evidence/source_supported_verification_20261014.json text eol=lf

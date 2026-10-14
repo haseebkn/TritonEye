@@ -15,13 +15,13 @@ import numpy as np
 import rasterio
 from PIL import Image, ImageDraw
 from rasterio.control import GroundControlPoint
-from rasterio.windows import Window
 from shapely.geometry import shape
 
-from agents.artifacts import REPO_ROOT, sha256_file
+from agents.artifacts import REPO_ROOT
 from agents.calibration import Calibrator
 from agents.hh_hv_reservation import save
 from agents.nl_benchmark import require_development_scene
+from agents.native_cog import read_cog
 from agents.region import load_region
 from agents.reserved_sar import DOWNLOAD, Cdse, NativeTiff, annotation_metadata, locate
 from agents.source_reservation import checked, ref, verify
@@ -236,7 +236,8 @@ def prepare_product(
         ap.write_bytes(annotation)
         calibration = client.fetch(
             base
-            + f"/Nodes(annotation)/Nodes(calibration)/Nodes(calibration-{name[:-5]}.xml)/$value"
+            + "/Nodes(annotation)/Nodes(calibration)"
+            + f"/Nodes(calibration-{name[:-5]}.xml)/$value"
         )
         cal_header = ET.fromstring(calibration)
         if (
@@ -291,28 +292,27 @@ def prepare_product(
             return raw
 
         # Exact COG UUID is retained; full-resolution raster read, no overviews.
-        full = None
         native = None
-        dataset = None
+        compressed = None
         if "_COG.SAFE" in area["name"]:
-            fp = directory / f"{pol}_full_native.tiff"
-            full = full_measurement(client, url, item["ContentLength"], fp, budget)
-            dataset = rasterio.open(fp)
-            if (
-                dataset.count != 1
-                or dataset.dtypes != ("uint16",)
-                or dataset.width != info["width"]
-                or dataset.height != info["height"]
-            ):
-                dataset.close()
-                raise ValueError("COG base raster incompatible with native annotation")
+            compressed, receipts = read_cog(
+                client,
+                url,
+                item["ContentLength"],
+                (info["width"], info["height"]),
+                [(c, r, SIZE) for _, c, r in windows],
+            )
         else:
             native = NativeTiff(read, item["ContentLength"])
             if native.width != info["width"] or native.height != info["height"]:
                 raise ValueError("Native TIFF/annotation dimensions differ")
-        try:
-            for a, col, row in windows:
-                dn = dataset.read(1, window=Window(col, row, SIZE, SIZE)) if dataset is not None else native.window(col, row, SIZE)  # type: ignore[union-attr]
+        if True:
+            for index, (a, col, row) in enumerate(windows):
+                if compressed is not None:
+                    dn = compressed[index]
+                else:
+                    assert native is not None
+                    dn = native.window(col, row, SIZE)
                 if dn.shape != (SIZE, SIZE) or not (dn > 0).all():
                     raise ValueError(
                         "Invalid reserved pixels; no padding or relocation permitted"
@@ -330,14 +330,15 @@ def prepare_product(
                         "valid_pixels": int(dn.size),
                     }
                 )
-        finally:
-            if dataset is not None:
-                dataset.close()
         info.update(
             measurement_url=url,
             measurement_bytes=item["ContentLength"],
             range_receipts=receipts,
-            full_download=full,
+            transport=(
+                "bounded_native_compressed_ranges"
+                if compressed is not None
+                else "bounded_native_strips"
+            ),
             full_source_hash_verified=False,
         )
         bands.append(info)
