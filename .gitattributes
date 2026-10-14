@@ -58,3 +58,7 @@ configs/coastline/regional_controls.json text eol=crlf
 configs/coastline/st_johns_checks.geojson text eol=crlf
 configs/coastline/bonavista_checks.geojson text eol=crlf
 configs/coastline/lewisporte_checks.geojson text eol=crlf
+agents/hh_hv_reservation.py text eol=lf
+tests/unit/test_hh_hv_reservation.py text eol=lf
+configs/reservations/** text eol=lf
+reservations/hh_hv/** text eol=lf
