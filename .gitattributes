@@ -102,3 +102,6 @@ agents/target_noise_audit.py text eol=lf
 tests/unit/test_target_noise_audit.py text eol=lf
 configs/native_nl/** text eol=lf
 docs/evidence/target_noise_v010.json text eol=lf
+agents/provisional_training.py text eol=lf
+tests/unit/test_provisional_training.py text eol=lf
+reservations/native_training/** -text

@@ -7,11 +7,17 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **14 October 2026**, against main baseline
-`b1895fb846eff3c63ef6209f312f5b66959ba2d5` (PR #32), plus the
+`0c670d139a49607d940b6824489e7b8e46d8d96d` (PR #33), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
-training or accuracy-truth admissions. The current benchmark is
+training or accuracy-truth admissions. The subsequent
+[provisional training policy and training-only reservation](PROVISIONAL_NATIVE_TRAINING.md)
+define future exploratory admission requirements and reserve two fresh IIP-supported
+acquisitions; no training-vessel opportunities pass the current checks and no
+labels are admitted. The [frozen native recipe](NATIVE_NL_INPUT.md) is executable;
+Kaggle equivalence and independently validated native accuracy remain unresolved.
+The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
 unmeasured for vessel detection. A separate supervised

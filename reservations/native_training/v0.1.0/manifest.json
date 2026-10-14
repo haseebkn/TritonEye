@@ -1,0 +1,167 @@
+{
+  "version": "0.1.0",
+  "inputs": {
+    "policy": {
+      "path": "configs/reservations/provisional_training_v010.json",
+      "sha256": "a9abbd6b15feacb0aa8031dfb66e50a7d11d4fcd38fec2b70a947d590ef4702c"
+    },
+    "iip": {
+      "path": "data/source_supported/v010_01/corrected_audit/iip_ranked.json",
+      "sha256": "b82b394d878a5595ba56d9fdb5a02ef87862f8e38e68c65cbdaaaafdbfab9db7"
+    },
+    "ais": {
+      "path": "data/research/ais_sar_overlap_20261014_training_v01/audit_private.json",
+      "sha256": "d74c9f23bfef70a8d467aa073f9ed2fb82723883babcdef9fbb2dc9af1639224"
+    },
+    "implementation": {
+      "path": "agents/provisional_training.py",
+      "sha256": "79fadf66c02a3aec2e6864067ce45caf9f24e4182711749cfbaac0eb10ba4212"
+    }
+  },
+  "private_selection": {
+    "path": "data/source_supported/training_v010_01/selection_private.json",
+    "sha256": "71660b94e3578f3d411ca7530bfa1e1948864ee60cc69d14cbbed744f5042af5"
+  },
+  "annotation_template": {
+    "path": "data/source_supported/training_v010_01/annotation_template.json",
+    "sha256": "b9e4270fd80c6fa9ab4412dbe6bd8ab7741fcb9faf84d266e49408ca78cc43ce"
+  },
+  "dossier_templates": [
+    {
+      "path": "data/source_supported/training_v010_01/admission_training_iceberg_support_01.json",
+      "sha256": "2f907b71ef9bf5468387fdac76a4e42a94b7d3721d31ee3412fd28e305314a56"
+    },
+    {
+      "path": "data/source_supported/training_v010_01/admission_training_iceberg_support_02.json",
+      "sha256": "64f8947d57dfddb3987911f1958a423eb33a890d8d6bc983a96b00d9c35d2cb2"
+    }
+  ],
+  "areas": [
+    {
+      "id": "training_iceberg_support_01",
+      "stream": "iceberg_support",
+      "product_id": "29af29e1-2c3a-4c69-9503-d8bbac05788a",
+      "name": "S1A_IW_GRDH_1SDH_20190429T094108_20190429T094133_027003_030A4E_0AB5_COG.SAFE",
+      "native_acquisition_group": "S1A_027003_030A4E",
+      "split": "train",
+      "geographic_group": "new_cell_-53_49",
+      "reference_midpoint_utc": "2019-04-29T09:41:20.693000+00:00",
+      "absolute_offset_s": 680.6930000782013,
+      "search_uncertainty_m": 980.6930000782013,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "NDJV",
+      "training_approved": false
+    },
+    {
+      "id": "training_iceberg_support_02",
+      "stream": "iceberg_support",
+      "product_id": "504f95af-902a-56d6-8743-061e4b826d78",
+      "name": "S1A_IW_GRDH_1SDH_20200627T094824_20200627T094849_033201_03D8A3_3C29.SAFE",
+      "native_acquisition_group": "S1A_033201_03D8A3",
+      "split": "train",
+      "geographic_group": "new_cell_-56_53",
+      "reference_midpoint_utc": "2020-06-27T09:48:36.618500+00:00",
+      "absolute_offset_s": 683.381500005722,
+      "search_uncertainty_m": 983.381500005722,
+      "prior_datatake_exposure": false,
+      "imagery_inspected": false,
+      "classifier_scored": false,
+      "label": null,
+      "ignore_for_accuracy": true,
+      "provisional": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "observation_method": "R/V",
+      "observation_source": "XJAR",
+      "training_approved": false
+    }
+  ],
+  "class_counts": {
+    "iceberg_support": 2
+  },
+  "shortfalls_to_batch_cap": {
+    "vessel_support": 4,
+    "iceberg_support": 2
+  },
+  "source_snapshot": {
+    "ais_archive": {
+      "input_rows": 219136,
+      "legacy_naive_utc_reports": 19621,
+      "valid_unique_reports": 219136,
+      "first_utc": "2026-08-18T20:08:37+00:00",
+      "last_utc": "2026-10-14T21:28:39.934427+00:00",
+      "dates_present": [
+        "2026-08-18",
+        "2026-08-19",
+        "2026-08-22",
+        "2026-08-23",
+        "2026-08-24",
+        "2026-08-25",
+        "2026-08-26",
+        "2026-08-27",
+        "2026-09-03",
+        "2026-09-04",
+        "2026-09-15",
+        "2026-09-16",
+        "2026-09-17",
+        "2026-09-18",
+        "2026-09-19",
+        "2026-09-20",
+        "2026-09-21",
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-09-27",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14"
+      ]
+    },
+    "ais_audited_at": "2026-10-14T21:30:40.529472+00:00",
+    "iip_years": [
+      2014,
+      2021
+    ],
+    "fresh_ais_catalogue_query": true,
+    "iip_catalogue_query": "Retained historical snapshots; not refreshed"
+  },
+  "annotated_objects": 0,
+  "historical_labels_admitted": 0,
+  "accuracy_truth_admitted": false,
+  "provisional": true,
+  "ignore_for_accuracy": true,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false,
+  "limitations": [
+    "Provisional research criteria, not C-CORE requirements",
+    "Source-centred selection and prior project exposure must be disclosed",
+    "No independent reviewer; no independently validated accuracy or promotion",
+    "Historical IIP and modern AIS may confound era, location and class",
+    "No minimum sample count here establishes statistical sufficiency"
+  ]
+}
