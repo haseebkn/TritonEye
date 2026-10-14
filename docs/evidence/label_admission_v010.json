@@ -1,0 +1,3345 @@
+{
+  "version": "0.1.0",
+  "policy": {
+    "path": "configs/reservations/label_admission_v010.json",
+    "sha256": "d50b032b345b2e91f2743a5771ad24340c914a186753cdf7de3f98dc5ac74316"
+  },
+  "scope": "31 reserved native NL HH/HV areas; existing scored benchmark, Kaggle rows and quarantined AllenAI labels are outside this admission register",
+  "prior_exposure": "AI annotator had prior project label and model-output exposure. These three batches were curated before their own classifier scoring, with source-centred selection disclosed. This register is a later evidence synthesis, not another blind or independent review.",
+  "inventory": [
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_coastal",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_offshore",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_coastal",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_offshore",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_coastal",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_offshore",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_coastal",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_offshore",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_coastal",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_offshore",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_coastal",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_offshore",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_coastal",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_offshore",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_coastal",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_offshore",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "prepared": {
+        "path": "data/hh_hv_transfer/v010_native_01/manifest.json",
+        "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_01",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_04",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_02",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_03",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_05",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_06",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "vessel_support_01",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "vessel_support_02",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "vessel_support_03",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/native_v011_02/manifest.json",
+        "sha256": "17102e3cf1eaa0a00fe67fe938a50570e1b39a32ff87852d3e3017ba787236b7"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_01",
+      "product_id": "41d30eaf-c599-5c9e-bb16-401ad1b44925",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/followup_native_v010_01/manifest.json",
+        "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_02",
+      "product_id": "36233056-eff1-5d9b-a6c6-09838f214043",
+      "split": "train",
+      "prepared": {
+        "path": "data/source_supported/followup_native_v010_01/manifest.json",
+        "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_03",
+      "product_id": "3b936136-787d-58b9-b4cf-7ec27e6952c0",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/followup_native_v010_01/manifest.json",
+        "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_04",
+      "product_id": "e2113856-a831-530d-a28d-852876233702",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/followup_native_v010_01/manifest.json",
+        "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_05",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/followup_native_v010_01/manifest.json",
+        "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    },
+    {
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_06",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "split": "validation",
+      "prepared": {
+        "path": "data/source_supported/followup_native_v010_01/manifest.json",
+        "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+      },
+      "whole_area_negative_admitted": false,
+      "annotation_completeness_verified": false
+    }
+  ],
+  "records": [
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_winter_coastal::burin_shelf_winter_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_coastal",
+      "object_id": "burin_shelf_winter_coastal_objects_0",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        284,
+        146,
+        314,
+        179
+      ],
+      "annotation_reason": "Compact bright shore cluster; buildings, rock and berthed-vessel alternatives.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_winter_coastal::burin_shelf_winter_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_coastal",
+      "object_id": "burin_shelf_winter_coastal_objects_1",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        285,
+        247,
+        317,
+        271
+      ],
+      "annotation_reason": "Two bright near-shore returns; class and multiplicity unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_winter_coastal::burin_shelf_winter_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_coastal",
+      "object_id": "burin_shelf_winter_coastal_objects_2",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        385,
+        26,
+        409,
+        48
+      ],
+      "annotation_reason": "Compact land-adjacent return; no independently established identity.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_winter_coastal::burin_shelf_winter_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_coastal",
+      "object_id": "burin_shelf_winter_coastal_contexts_0",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        274,
+        140,
+        322,
+        212
+      ],
+      "annotation_reason": "Provisional built-up shoreline context; includes unresolved individual structures and possible vessels. Not negative truth.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_winter_offshore::burin_shelf_winter_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_winter_offshore",
+      "object_id": "burin_shelf_winter_offshore_contexts_0",
+      "product_id": "e4f3f146-305f-4dcf-bd9e-98d6d3569be8",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Distributed sea/background texture; potential small missed targets remain unknown.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_summer_coastal::burin_shelf_summer_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_coastal",
+      "object_id": "burin_shelf_summer_coastal_objects_0",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        284,
+        143,
+        314,
+        178
+      ],
+      "annotation_reason": "Persistent coastal cluster; fixed structures and possible berthed vessels cannot be separated.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_summer_coastal::burin_shelf_summer_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_coastal",
+      "object_id": "burin_shelf_summer_coastal_objects_1",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        286,
+        187,
+        321,
+        211
+      ],
+      "annotation_reason": "Compact shoreline returns; uncertain class and count.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_summer_coastal::burin_shelf_summer_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_coastal",
+      "object_id": "burin_shelf_summer_coastal_objects_2",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        384,
+        25,
+        407,
+        48
+      ],
+      "annotation_reason": "Bright land-adjacent return; unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "boundary_or_size_abstention",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative",
+        "native75_extraction_abstained"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_summer_coastal::burin_shelf_summer_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_coastal",
+      "object_id": "burin_shelf_summer_coastal_contexts_0",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        274,
+        140,
+        322,
+        212
+      ],
+      "annotation_reason": "Persistent built-up coastal context across epochs, without object-level fixed-structure truth.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::burin_shelf_summer_offshore::burin_shelf_summer_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "burin_shelf_summer_offshore",
+      "object_id": "burin_shelf_summer_offshore_contexts_0",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "split": "train",
+      "geographic_group": "burin_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Sea/background context only; not a verified negative area.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_winter_coastal::cartwright_shelf_winter_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_coastal",
+      "object_id": "cartwright_shelf_winter_coastal_objects_0",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        327,
+        207,
+        353,
+        241
+      ],
+      "annotation_reason": "Very bright harbour-edge cluster; quay, structure and vessel alternatives.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_winter_coastal::cartwright_shelf_winter_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_coastal",
+      "object_id": "cartwright_shelf_winter_coastal_objects_1",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        366,
+        231,
+        394,
+        259
+      ],
+      "annotation_reason": "Bright shore edge; fixed structure or berthed vessel unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_winter_coastal::cartwright_shelf_winter_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_coastal",
+      "object_id": "cartwright_shelf_winter_coastal_objects_2",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        250,
+        146,
+        300,
+        174
+      ],
+      "annotation_reason": "Several land-associated compact returns, uncertain individual count.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_winter_coastal::cartwright_shelf_winter_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_coastal",
+      "object_id": "cartwright_shelf_winter_coastal_contexts_0",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        319,
+        191,
+        391,
+        263
+      ],
+      "annotation_reason": "Provisional harbour/settlement context; target identities not verified.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_winter_offshore::cartwright_shelf_winter_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_winter_offshore",
+      "object_id": "cartwright_shelf_winter_offshore_contexts_0",
+      "product_id": "9b3d2075-99ba-4fde-88da-df3104411a26",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Distributed sea clutter context; no completeness certification.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_summer_coastal::cartwright_shelf_summer_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_coastal",
+      "object_id": "cartwright_shelf_summer_coastal_objects_0",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        327,
+        207,
+        355,
+        242
+      ],
+      "annotation_reason": "Shore-connected bright cluster and sidelobes; structure/vessel alternatives.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_summer_coastal::cartwright_shelf_summer_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_coastal",
+      "object_id": "cartwright_shelf_summer_coastal_objects_1",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        365,
+        231,
+        392,
+        260
+      ],
+      "annotation_reason": "Harbour-edge bright return; potential berth or fixed structure.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_summer_coastal::cartwright_shelf_summer_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_coastal",
+      "object_id": "cartwright_shelf_summer_coastal_objects_2",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        283,
+        134,
+        306,
+        165
+      ],
+      "annotation_reason": "Compact land-adjacent return; unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_summer_coastal::cartwright_shelf_summer_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_coastal",
+      "object_id": "cartwright_shelf_summer_coastal_contexts_0",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        319,
+        191,
+        391,
+        263
+      ],
+      "annotation_reason": "Persistent coastal built-up context, not an individual verified structure.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::cartwright_shelf_summer_offshore::cartwright_shelf_summer_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "cartwright_shelf_summer_offshore",
+      "object_id": "cartwright_shelf_summer_offshore_contexts_0",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "split": "train",
+      "geographic_group": "cartwright_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Variable sea/background texture; wind and sea state not independently measured.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_winter_coastal::southwest_newfoundland_winter_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_coastal",
+      "object_id": "southwest_newfoundland_winter_coastal_objects_0",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        280,
+        120,
+        318,
+        162
+      ],
+      "annotation_reason": "Bright elongated harbour-edge cluster; possible vessel, quay and sidelobe alternatives.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_winter_coastal::southwest_newfoundland_winter_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_coastal",
+      "object_id": "southwest_newfoundland_winter_coastal_objects_1",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        246,
+        191,
+        281,
+        223
+      ],
+      "annotation_reason": "Compact bright shore-connected cluster, uncertain class/count.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_winter_coastal::southwest_newfoundland_winter_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_coastal",
+      "object_id": "southwest_newfoundland_winter_coastal_objects_2",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        458,
+        137,
+        484,
+        161
+      ],
+      "annotation_reason": "Land-associated elongated reflector, not a verified vessel.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_winter_coastal::southwest_newfoundland_winter_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_coastal",
+      "object_id": "southwest_newfoundland_winter_coastal_contexts_0",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        266,
+        104,
+        338,
+        176
+      ],
+      "annotation_reason": "Provisional port/urban shoreline context; individual targets unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_winter_offshore::southwest_newfoundland_winter_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_winter_offshore",
+      "object_id": "southwest_newfoundland_winter_offshore_contexts_0",
+      "product_id": "067f5756-4f31-4402-83b9-6b6705b27859",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Strong patterned sea or imaging texture; physical cause unverified.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_summer_coastal::southwest_newfoundland_summer_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_coastal",
+      "object_id": "southwest_newfoundland_summer_coastal_objects_0",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        267,
+        119,
+        309,
+        157
+      ],
+      "annotation_reason": "Harbour cluster; individual hull/structure separation not possible.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_summer_coastal::southwest_newfoundland_summer_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_coastal",
+      "object_id": "southwest_newfoundland_summer_coastal_objects_1",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        265,
+        173,
+        291,
+        204
+      ],
+      "annotation_reason": "Bright shore-connected elongated return; unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_summer_coastal::southwest_newfoundland_summer_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_coastal",
+      "object_id": "southwest_newfoundland_summer_coastal_objects_2",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        430,
+        378,
+        453,
+        405
+      ],
+      "annotation_reason": "Compact water-adjacent return; vessel, small rock/islet or artefact alternatives.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_summer_coastal::southwest_newfoundland_summer_coastal_objects_3",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_coastal",
+      "object_id": "southwest_newfoundland_summer_coastal_objects_3",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        487,
+        408,
+        511,
+        438
+      ],
+      "annotation_reason": "Edge-near compact return; identity unresolved and native 75-pixel crop cannot fit.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "boundary_or_size_abstention",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative",
+        "native75_extraction_abstained"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_summer_coastal::southwest_newfoundland_summer_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_coastal",
+      "object_id": "southwest_newfoundland_summer_coastal_contexts_0",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        258,
+        104,
+        330,
+        176
+      ],
+      "annotation_reason": "Provisional port/urban coastal context, not verified object negatives.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::southwest_newfoundland_summer_offshore::southwest_newfoundland_summer_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "southwest_newfoundland_summer_offshore",
+      "object_id": "southwest_newfoundland_summer_offshore_contexts_0",
+      "product_id": "a666ddc8-6d79-4f23-9264-d378aec82bfc",
+      "split": "validation",
+      "geographic_group": "southwest_newfoundland",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Background sea context; missed small targets remain possible.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_winter_coastal::st_lewis_shelf_winter_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_coastal",
+      "object_id": "st_lewis_shelf_winter_coastal_objects_0",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        105,
+        272,
+        130,
+        303
+      ],
+      "annotation_reason": "Bright shoreline reflector; fixed object or berthed vessel unresolved.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_winter_coastal::st_lewis_shelf_winter_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_coastal",
+      "object_id": "st_lewis_shelf_winter_coastal_objects_1",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        144,
+        231,
+        179,
+        261
+      ],
+      "annotation_reason": "Built-up bright cluster; uncertain individual structures/objects.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_winter_coastal::st_lewis_shelf_winter_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_coastal",
+      "object_id": "st_lewis_shelf_winter_coastal_objects_2",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        204,
+        246,
+        232,
+        271
+      ],
+      "annotation_reason": "Land-associated compact reflectors; uncertain class.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_winter_coastal::st_lewis_shelf_winter_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_coastal",
+      "object_id": "st_lewis_shelf_winter_coastal_contexts_0",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        133,
+        226,
+        205,
+        298
+      ],
+      "annotation_reason": "Provisional settlement/shoreline context; no individual identities.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_winter_offshore::st_lewis_shelf_winter_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_winter_offshore",
+      "object_id": "st_lewis_shelf_winter_offshore_contexts_0",
+      "product_id": "1a4085ef-303f-43af-a3d5-29382e416d8a",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Distributed marine background context, not verified empty water.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_summer_coastal::st_lewis_shelf_summer_coastal_objects_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_coastal",
+      "object_id": "st_lewis_shelf_summer_coastal_objects_0",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        104,
+        273,
+        129,
+        303
+      ],
+      "annotation_reason": "Persistent bright shore-edge return; uncertain fixed/mobile identity.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_summer_coastal::st_lewis_shelf_summer_coastal_objects_1",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_coastal",
+      "object_id": "st_lewis_shelf_summer_coastal_objects_1",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        157,
+        287,
+        181,
+        310
+      ],
+      "annotation_reason": "Small inner-shore return, possible berthed vessel or structure.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_summer_coastal::st_lewis_shelf_summer_coastal_objects_2",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_coastal",
+      "object_id": "st_lewis_shelf_summer_coastal_objects_2",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "unresolved",
+      "kind": "objects",
+      "bbox_px": [
+        145,
+        230,
+        179,
+        261
+      ],
+      "annotation_reason": "Built-up bright cluster with unresolved individual objects.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_summer_coastal::st_lewis_shelf_summer_coastal_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_coastal",
+      "object_id": "st_lewis_shelf_summer_coastal_contexts_0",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "coastal_structure",
+      "kind": "contexts",
+      "bbox_px": [
+        133,
+        226,
+        205,
+        298
+      ],
+      "annotation_reason": "Persistent built-up shoreline context; not object-level ground truth.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/hh_hv_transfer/v0.1.0/collection.json::st_lewis_shelf_summer_offshore::st_lewis_shelf_summer_offshore_contexts_0",
+      "collection": {
+        "path": "datasets/hh_hv_transfer/v0.1.0/collection.json",
+        "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"
+      },
+      "area_id": "st_lewis_shelf_summer_offshore",
+      "object_id": "st_lewis_shelf_summer_offshore_contexts_0",
+      "product_id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+      "split": "validation",
+      "geographic_group": "st_lewis_shelf",
+      "native_acquisition_group": null,
+      "interpretation": "clutter",
+      "kind": "contexts",
+      "bbox_px": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "annotation_reason": "Sea/background context, with unknown missed-target rate.",
+      "source_consistent": null,
+      "association_unique_in_available_pool": null,
+      "source_coverage": null,
+      "extraction_status": "extracted",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_01::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_01",
+      "object_id": "u1",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        98,
+        150,
+        109,
+        163
+      ],
+      "annotation_reason": "Nearshore compact reflector outside source allowance; class and association unresolved.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_01::u2",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_01",
+      "object_id": "u2",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        23,
+        253,
+        36,
+        266
+      ],
+      "annotation_reason": "Shore-adjacent reflector outside source allowance; cannot distinguish coastal clutter, structure or floating target.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_04::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_04",
+      "object_id": "u1",
+      "product_id": "8ecbf406-4dd9-4756-b41a-3985eabf47da",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1A_016401_01B28A",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        241,
+        210,
+        254,
+        223
+      ],
+      "annotation_reason": "Isolated compact return outside the frozen source allowance; no defensible iceberg identity.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_02::c1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_02",
+      "object_id": "c1",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1A_006601_008CC6",
+      "interpretation": "clutter",
+      "kind": "annotation",
+      "bbox_px": [
+        154,
+        154,
+        229,
+        229
+      ],
+      "annotation_reason": "Diffuse texture context only; unresolved object presence, not a confirmed negative or false alarm.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_03::c1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_03",
+      "object_id": "c1",
+      "product_id": "5764b504-9c0b-5c40-aee2-6811a96f8550",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1A_006601_008CC6",
+      "interpretation": "clutter",
+      "kind": "annotation",
+      "bbox_px": [
+        154,
+        154,
+        229,
+        229
+      ],
+      "annotation_reason": "Background texture reference, not a verified non-vessel or non-iceberg sample.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_05::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_05",
+      "object_id": "u1",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1B_005855_00A441",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        241,
+        108,
+        258,
+        130
+      ],
+      "annotation_reason": "Bright elongated reflector outside source allowance; appearance does not distinguish vessel from ice.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_06::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_06",
+      "object_id": "u1",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1B_005855_00A441",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        145,
+        94,
+        165,
+        120
+      ],
+      "annotation_reason": "Upper compact return outside source allowance; class ambiguous.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::iceberg_support_06::u2",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "iceberg_support_06",
+      "object_id": "u2",
+      "product_id": "c75c517d-1044-5067-bc82-b8fcc1e1779d",
+      "split": "train",
+      "geographic_group": null,
+      "native_acquisition_group": "S1B_005855_00A441",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        118,
+        167,
+        136,
+        186
+      ],
+      "annotation_reason": "Lower return also outside source allowance, even though nearer; no source class inherited.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::vessel_support_01::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "vessel_support_01",
+      "object_id": "u1",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "split": "validation",
+      "geographic_group": null,
+      "native_acquisition_group": "S1C_009500_012E71",
+      "interpretation": "provisional_vessel",
+      "kind": "annotation",
+      "bbox_px": [
+        184,
+        226,
+        201,
+        243
+      ],
+      "annotation_reason": "Two-band compact return and unique source-compatible moving AIS track; AI-reviewed only, not verified identity or independent truth.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "source_supported_hold",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "physical_identity_unconfirmed"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::vessel_support_02::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "vessel_support_02",
+      "object_id": "u1",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "split": "validation",
+      "geographic_group": null,
+      "native_acquisition_group": "S1C_009748_0136A3",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        176,
+        203,
+        195,
+        222
+      ],
+      "annotation_reason": "Vessel-like return but frozen source allowance fails; neither class nor identity certified.",
+      "source_consistent": false,
+      "association_unique_in_available_pool": false,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.1.0/collection.json::vessel_support_03::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.1.0/collection.json",
+        "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"
+      },
+      "area_id": "vessel_support_03",
+      "object_id": "u1",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "split": "validation",
+      "geographic_group": null,
+      "native_acquisition_group": "S1C_009748_0136A3",
+      "interpretation": "provisional_vessel",
+      "kind": "annotation",
+      "bbox_px": [
+        169,
+        199,
+        195,
+        222
+      ],
+      "annotation_reason": "Elongated two-band return and unique source-compatible moving AIS track, subject to uncalibrated SAR/AIS error and incomplete reception.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": null,
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "source_supported_hold",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "physical_identity_unconfirmed"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.2.0/collection.json::next_iceberg_support_01::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_01",
+      "object_id": "u1",
+      "product_id": "41d30eaf-c599-5c9e-bb16-401ad1b44925",
+      "split": "validation",
+      "geographic_group": "new_cell_-52_48",
+      "native_acquisition_group": "S1B_021707_02933B",
+      "interpretation": "plausible_iceberg",
+      "kind": "annotation",
+      "bbox_px": [
+        157,
+        174,
+        171,
+        201
+      ],
+      "annotation_reason": "One isolated image-first reflector and a unique compatible visual/RV iceberg source within the unchanged allowance and fully covered sensitivity scenarios. Provisional AI interpretation, not independent class truth.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 779.8401000499725,
+            "cell_clearance_m": 1910.9264643285437,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999983
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 809.8401000499725,
+            "cell_clearance_m": 1873.716000627198,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999993
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 839.8401000499725,
+            "cell_clearance_m": 1836.5055945754323,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999986
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 479.84010004997253,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "source_supported_hold",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "physical_identity_unconfirmed"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.2.0/collection.json::next_iceberg_support_02::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_02",
+      "object_id": "u1",
+      "product_id": "36233056-eff1-5d9b-a6c6-09838f214043",
+      "split": "train",
+      "geographic_group": "eastern_avalon",
+      "native_acquisition_group": "S1A_021753_02588E",
+      "interpretation": "plausible_iceberg",
+      "kind": "annotation",
+      "bbox_px": [
+        197,
+        137,
+        214,
+        164
+      ],
+      "annotation_reason": "Image-first compact reflector with unique compatible reported iceberg identity and complete scenario coverage. Source-supported hypothesis only; source timing, motion and unobserved vessel alternatives remain unresolved.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1453.0172340869904,
+            "cell_clearance_m": 1919.4665158963332,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.0000000000000022
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1483.0172340869904,
+            "cell_clearance_m": 1872.4533914973333,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.999999999999999
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1513.0172340869904,
+            "cell_clearance_m": 1818.2725954864347,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999992
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 1153.0172340869904,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "source_supported_hold",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "physical_identity_unconfirmed"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.2.0/collection.json::next_iceberg_support_03::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_03",
+      "object_id": "u1",
+      "product_id": "3b936136-787d-58b9-b4cf-7ec27e6952c0",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_48",
+      "native_acquisition_group": "S1B_021007_027D8F",
+      "interpretation": "plausible_iceberg",
+      "kind": "annotation",
+      "bbox_px": [
+        127,
+        169,
+        140,
+        188
+      ],
+      "annotation_reason": "Compact image-first return, unique compatible reported iceberg identity and complete source-coverage scenarios. Plausible source-supported ice interpretation remains uncertain and ignored for accuracy/training.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1493.4244420528412,
+            "cell_clearance_m": 1913.0013039212265,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999982
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1523.4244420528412,
+            "cell_clearance_m": 1908.3764168871778,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999994
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1553.4244420528412,
+            "cell_clearance_m": 1903.7515365557692,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.0000000000000002
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 1193.4244420528412,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "source_supported_hold",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "physical_identity_unconfirmed"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.2.0/collection.json::next_iceberg_support_04::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_04",
+      "object_id": "u1",
+      "product_id": "e2113856-a831-530d-a28d-852876233702",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_48",
+      "native_acquisition_group": "S1A_021403_024D90",
+      "interpretation": "plausible_iceberg",
+      "kind": "annotation",
+      "bbox_px": [
+        140,
+        92,
+        157,
+        119
+      ],
+      "annotation_reason": "One isolated two-band return with a unique compatible reported iceberg source and complete scenario coverage. Plausible iceberg hypothesis only; vessel/clutter alternatives and source error remain possible.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1586.660057067871,
+            "cell_clearance_m": 1912.3486898556419,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999993
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1616.660057067871,
+            "cell_clearance_m": 1866.3416228052706,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999986
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1646.660057067871,
+            "cell_clearance_m": 1819.0738583482537,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.999999999999999
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 1286.660057067871,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "source_supported_hold",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "physical_identity_unconfirmed"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.2.0/collection.json::next_iceberg_support_05::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_05",
+      "object_id": "u1",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "split": "validation",
+      "geographic_group": "new_cell_-52_47",
+      "native_acquisition_group": "S1B_016457_01EFA7",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        177,
+        203,
+        194,
+        232
+      ],
+      "annotation_reason": "Source-compatible compact return with incomplete source-uncertainty coverage. Proximity cannot override the frozen coverage abstention.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 1720.2920100688934,
+            "cell_clearance_m": 1912.8369966733896,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999994
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1750.2920100688934,
+            "cell_clearance_m": 1539.4169985812648,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.9632914347310999
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1780.2920100688934,
+            "cell_clearance_m": 1165.9931721578434,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.8531856445897015
+          }
+        },
+        "all_scenarios_complete": false,
+        "maximum_native_row_offset_s": 1420.2920100688934,
+        "source_association_abstain": true,
+        "accuracy_bounds_established": false
+      },
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative",
+        "source_uncertainty_coverage_incomplete"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    },
+    {
+      "id": "datasets/source_supported/v0.2.0/collection.json::next_iceberg_support_06::u1",
+      "collection": {
+        "path": "datasets/source_supported/v0.2.0/collection.json",
+        "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+      },
+      "area_id": "next_iceberg_support_06",
+      "object_id": "u1",
+      "product_id": "d5666c07-f4df-5a8a-8253-f7807ab4f44b",
+      "split": "validation",
+      "geographic_group": "new_cell_-53_47",
+      "native_acquisition_group": "S1B_016457_01EFA7",
+      "interpretation": "unresolved",
+      "kind": "annotation",
+      "bbox_px": [
+        150,
+        195,
+        168,
+        220
+      ],
+      "annotation_reason": "Compact reflector in a source opportunity with incomplete nominal and sensitivity coverage; physical class stays unresolved.",
+      "source_consistent": true,
+      "association_unique_in_available_pool": true,
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 2018.0283160209656,
+            "cell_clearance_m": 1918.0567738174936,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.9799144989103159
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 2048.0283160209656,
+            "cell_clearance_m": 1394.5873059878938,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.8117767696354973
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 2078.0283160209656,
+            "cell_clearance_m": 847.3288727577028,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.6468458584017804
+          }
+        },
+        "all_scenarios_complete": false,
+        "maximum_native_row_offset_s": 1718.0283160209656,
+        "source_association_abstain": true,
+        "accuracy_bounds_established": false
+      },
+      "extraction_status": "see_hash_bound_local_report",
+      "disposition": "ignored",
+      "blockers": [
+        "no_independent_review",
+        "input_compatibility_unresolved",
+        "validation_role_cannot_train",
+        "class_unresolved_or_context_not_verified_negative",
+        "source_uncertainty_coverage_incomplete"
+      ],
+      "exploratory_training_admitted": false,
+      "accuracy_truth_admitted": false,
+      "verified_negative": false,
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "training_approved": false,
+      "promotion_eligible": false,
+      "compatibility_established": false
+    }
+  ],
+  "summary": {
+    "areas": 31,
+    "annotations_and_contexts": 58,
+    "interpretations": {
+      "unresolved": 34,
+      "coastal_structure": 8,
+      "clutter": 10,
+      "provisional_vessel": 2,
+      "plausible_iceberg": 4
+    },
+    "source_supported_roles": {
+      "provisional_vessel:validation": 2,
+      "plausible_iceberg:validation": 3,
+      "plausible_iceberg:train": 1
+    },
+    "training_admitted": 0,
+    "accuracy_truth_admitted": 0,
+    "verified_negatives": 0
+  },
+  "compatibility": {
+    "checks": [
+      {
+        "dimension": "polarization_and_layout",
+        "decision": "documented",
+        "finding": "Native calibrated HH then HV; 75x75 context extraction does not prove physical equivalence."
+      },
+      {
+        "dimension": "nominal_calibration",
+        "decision": "passes_audited_scope",
+        "finding": "SNAP numerical comparison covers four acquisitions/eight bands only; other areas have pipeline replays."
+      },
+      {
+        "dimension": "physical_scale_and_resolution",
+        "decision": "unresolved",
+        "finding": "Native IW GRDH 10m sampling is documented; Kaggle physical spacing, resolution and target scale equivalence are unknown."
+      },
+      {
+        "dimension": "thermal_noise",
+        "decision": "unresolved",
+        "finding": "Substantial HV changes and inferred power pile-up. Keep the original uncorrected inputs; select no correction recipe from this diagnostic."
+      },
+      {
+        "dimension": "incidence_mode_and_conditions",
+        "decision": "unresolved",
+        "finding": "Native mode/incidence metadata exists; incidence overlap alone cannot match sensor geometry, sea state or effective resolution."
+      },
+      {
+        "dimension": "values_and_apparent_extent",
+        "decision": "descriptive_only",
+        "finding": "Training-only Kaggle summaries show distribution/extent differences; no histogram matching, resampling or compatibility threshold selected."
+      },
+      {
+        "dimension": "normalization",
+        "decision": "frozen_shadow_only",
+        "finding": "Retain original Kaggle training normalization for reproducible shadow inference. It is not proof of native compatibility."
+      },
+      {
+        "dimension": "runtime_limits",
+        "decision": "overrun_recorded",
+        "finding": "Execution-limit compliance is separate from numerical calibration agreement."
+      }
+    ],
+    "kaggle_training_reference": {
+      "source": {
+        "path": "statoil-iceberg-classifier-challenge/train.json/data/processed/train.json",
+        "sha256": "a56756a2528a09b139dc2747e2e40d869f9da7a8c9df37b188b6163f6bfb8696"
+      },
+      "split": {
+        "path": "data/statoil_baseline/20261013_cpu_01/split.json",
+        "sha256": "1f04bc422e61e1980d39ee38d26d89694aa40edf0660515547743ca2b1fdea8d"
+      },
+      "partition": "train_only",
+      "classes": {
+        "ship": {
+          "chips": 595,
+          "value_quantiles_01_50_99_db": [
+            [
+              -31.396448135375977,
+              -33.650894470214844
+            ],
+            [
+              -19.871519088745117,
+              -26.073871612548828
+            ],
+            [
+              -3.808228759765731,
+              -13.14528285980234
+            ]
+          ],
+          "proxy_found": 586,
+          "proxy_edge_count": 19,
+          "proxy_extent_quantiles_10_50_90_px": {
+            "width_px": [
+              4.0,
+              8.0,
+              36.0
+            ],
+            "height_px": [
+              5.0,
+              14.0,
+              43.0
+            ],
+            "area_px": [
+              16.0,
+              75.0,
+              536.0
+            ]
+          }
+        },
+        "iceberg": {
+          "chips": 527,
+          "value_quantiles_01_50_99_db": [
+            [
+              -30.475729064941405,
+              -33.65399116516113
+            ],
+            [
+              -22.112239837646484,
+              -26.708738327026367
+            ],
+            [
+              -8.841334342956543,
+              -19.38855926513672
+            ]
+          ],
+          "proxy_found": 523,
+          "proxy_edge_count": 1,
+          "proxy_extent_quantiles_10_50_90_px": {
+            "width_px": [
+              4.0,
+              10.0,
+              22.0
+            ],
+            "height_px": [
+              5.0,
+              14.0,
+              28.0
+            ],
+            "area_px": [
+              15.200000000000003,
+              79.0,
+              267.8
+            ]
+          }
+        }
+      },
+      "physical_spacing_known": false,
+      "source_preprocessing_equivalence_established": false
+    },
+    "noise_diagnostics": [
+      {
+        "id": "next_iceberg_support_01",
+        "measured": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 0,
+            "fraction_of_all_pixels": 0.0,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -14.88588708107536,
+              -10.517986754083271,
+              -6.898369279599935
+            ]
+          },
+          {
+            "polarization": "HV",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 44605,
+            "fraction_of_all_pixels": 0.3024970160590278,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -106.19359074716705,
+              -30.690316294229547,
+              -23.490675462429955
+            ]
+          }
+        ]
+      },
+      {
+        "id": "next_iceberg_support_02",
+        "measured": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 6193,
+            "fraction_of_all_pixels": 0.041998969184027776,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -37.01480300755651,
+              -22.0233219022239,
+              -17.38826949911583
+            ]
+          },
+          {
+            "polarization": "HV",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 74776,
+            "fraction_of_all_pixels": 0.5071072048611112,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -105.77684821152516,
+              -105.75495415993281,
+              -24.84328259636454
+            ]
+          }
+        ]
+      },
+      {
+        "id": "next_iceberg_support_03",
+        "measured": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 806,
+            "fraction_of_all_pixels": 0.005466037326388889,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -28.61196769141997,
+              -21.796963314084472,
+              -17.407756249729484
+            ]
+          },
+          {
+            "polarization": "HV",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 77802,
+            "fraction_of_all_pixels": 0.5276285807291666,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -105.55152969270276,
+              -105.53305008232336,
+              -28.12951248983298
+            ]
+          }
+        ]
+      },
+      {
+        "id": "next_iceberg_support_04",
+        "measured": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 8,
+            "fraction_of_all_pixels": 5.425347222222222e-05,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -20.659921935462073,
+              -16.154647950784277,
+              -12.645854567030467
+            ]
+          },
+          {
+            "polarization": "HV",
+            "total_pixels": 147456,
+            "finite_pixels": 147456,
+            "pixels_near_reconstructed_power_1e_minus5": 32431,
+            "fraction_of_all_pixels": 0.2199367947048611,
+            "power_floor_relative_tolerance": 1e-05,
+            "noise_db_quantiles_05_50_95": [
+              -105.46886855226316,
+              -30.9983362560906,
+              -24.58300476532415
+            ]
+          }
+        ]
+      }
+    ],
+    "snap_calibration_passed": true,
+    "snap_bounded_execution_passed": false,
+    "decision": "hold_native_transfer_training_and_filter_selection",
+    "approved_preprocessing_recipe": null,
+    "compatibility_established": false,
+    "next_evidence": [
+      "Establish publisher preprocessing and physical scale, or design a separate native-domain experiment with its own assumptions",
+      "Investigate low surviving HV power with source noise metadata; finite values alone cannot validate the subtraction",
+      "Use only training acquisitions to select adaptations, then freeze before validation comparison"
+    ]
+  },
+  "future_admission_requirements": [
+    "Create a new version with original decisions, ignore masks and split assignments retained in history",
+    "Document defensible object class and association evidence, competing returns, source error and remaining uncertainty before viewing model scores",
+    "Resolve native input recipe, target scale and noise treatment for the intended experiment; freeze choices before comparison",
+    "Keep acquisition, repeated-object and geographic groups separated; validation objects cannot become training data",
+    "Treat exploratory weak-label training as a separately authorized experiment; this report grants no training approval",
+    "Retain independent-review and promotion guards; AI or self review cannot satisfy them"
+  ],
+  "new_scoring_performed": false,
+  "labels_modified": false,
+  "provisional": true,
+  "ignore_for_accuracy": true,
+  "independent_review": false,
+  "training_approved": false,
+  "promotion_eligible": false,
+  "compatibility_established": false
+}
