@@ -71,6 +71,19 @@ def test_db_offsets_preserve_contrast_and_inputs_remain_unchanged() -> None:
     )
 
 
+def test_large_connected_return_is_retained_with_unusable_classifier_context() -> None:
+    images = np.zeros((2, 201, 201), dtype="float32")
+    images[0, 100, 60:141] = 30
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    assert candidates[0]["bbox_px"] == [60, 100, 141, 101]
+    assert (
+        candidates[0]["classifier_context_status"]
+        == "component_exceeds_classifier_chip"
+    )
+    assert candidates[0]["research_retained"] is True
+
+
 def test_boundaries_nodata_and_missing_classifier_context_are_explicit() -> None:
     images = make_images()
     images[0, 10, 10] = 20
@@ -123,7 +136,7 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
     monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
     monkeypatch.setattr(runner, "resource_check", lambda: None)
     monkeypatch.setattr(runner, "available_commit", lambda: 8 * 1024**3)
-    checked_scopes = []
+    checked_scopes: list[str] = []
 
     def check_scope(product: str, metadata: dict[str, Any]) -> None:
         assert product == "fixture"

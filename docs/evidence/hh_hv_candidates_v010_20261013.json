@@ -1,0 +1,361 @@
+{
+  "scope": "Frozen experimental NL HH/HV candidate bundle",
+  "definition_sha256": "68eda4f7a67b0e85cc1e71f5efd4f9f688e5e6244ab97781bfff892b4f4f9783",
+  "config_sha256": "59360b88d1f07056d54e82e3fd6dbc33f6923f31eb6aa9797a1d36b161b5245d",
+  "generator_version": "hh_hv_local_contrast_v0.1.0",
+  "areas": [
+    {
+      "roi_id": "ferryland_coast",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "acquisition_time": "2025-01-03T09:42:20.920719Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "input_chip": {
+        "path": "data/benchmarks/nl/0.1.0/ferryland_coast/sigma0.tif",
+        "sha256": "4f88d72c0bf370377cacd1f47e0452771baf010b5412f4ed4c5c200ff03cba08"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 2851,
+        "components": 386,
+        "candidate_count": 386,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 386,
+      "candidates_path": "area_000.geojson",
+      "candidates_sha256": "054fc9693a35664fdfa9a427b7a8a11025211e6422ec12b31597475be2b0aa92",
+      "candidate_identity": "60714a562d3ed14d306a8583e08f35f8f6a6de9ea96290264495789a454f3b6f",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "southern_avalon_offshore",
+      "product_id": "e6533595-47e6-472e-9850-4f066bf6ac69",
+      "acquisition_time": "2025-01-03T09:42:20.920719Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "input_chip": {
+        "path": "data/benchmarks/nl/0.1.0/southern_avalon_offshore/sigma0.tif",
+        "sha256": "bb259eba3fe360ffcee031dfc36a1d3bfe83e7909bafcffd6e520b0f80801ead"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 70,
+        "components": 40,
+        "candidate_count": 40,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 40,
+      "candidates_path": "area_001.geojson",
+      "candidates_sha256": "996ce496dc7cf774dbb7798f19de47d26fb59f86d87e5c5b944d221fdd7ed551",
+      "candidate_identity": "293ffcd1f5366c894fc49f494c935a9689caff90b00b936fa01f22a759d9433e",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "makkovik_coast",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "acquisition_time": "2026-07-06T10:11:53.952492Z",
+      "split": "validation",
+      "region": "Labrador",
+      "regime": "coastal",
+      "input_chip": {
+        "path": "data/benchmarks/nl/0.1.0/makkovik_coast/sigma0.tif",
+        "sha256": "df9094e92bfd20244e9bf683297165ea033d24421ccfb44a674ebc23fba7288f"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 663,
+        "components": 194,
+        "candidate_count": 194,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 194,
+      "candidates_path": "area_002.geojson",
+      "candidates_sha256": "2e5ea6fd028c31f2783733815bf36ada1e25e95bfe219d27e6c81bb3bb77f230",
+      "candidate_identity": "1e1d94f5c79761d8160409a40cdfcc426659240931f796a40960b3d17c63a313",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "makkovik_offshore",
+      "product_id": "fef9a00a-1a5d-4b37-a3f0-25e0d5a5a917",
+      "acquisition_time": "2026-07-06T10:11:53.952492Z",
+      "split": "validation",
+      "region": "Labrador",
+      "regime": "offshore",
+      "input_chip": {
+        "path": "data/benchmarks/nl/0.1.0/makkovik_offshore/sigma0.tif",
+        "sha256": "365027a207201cccd30acbca1f6dc8dd27a851cdea5ae79dc8bd122d22c15462"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 5,
+        "components": 5,
+        "candidate_count": 5,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 5,
+      "candidates_path": "area_003.geojson",
+      "candidates_sha256": "2e4887f3d099fa7b4a07d40345ea1e7f7201aef8915e707b5c6443be0e2ff924",
+      "candidate_identity": "c04f605f44d5f49609aa8cb83ac0f52c1dc444b919227a929c639cef6f6b21d2",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "scene_03_area_01",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "acquisition_time": "2026-10-02T09:41:05.020084Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "input_chip": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_03_area_01/sigma0.tif",
+        "sha256": "22a85b640babe2db6208f47f01c3b871cb468ece5498e75cb3f76a0bedc3bd90"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 6655,
+        "components": 638,
+        "candidate_count": 638,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 638,
+      "candidates_path": "area_004.geojson",
+      "candidates_sha256": "d3453cfee4c78ff7b21c1eec0e7aaf7977a911adcf4c27884698704da8d2daad",
+      "candidate_identity": "cb4f6d2d828a456bbd22d843f7ec727b93269293e2583ba2b9c50013e56d24cb",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "scene_03_area_02",
+      "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+      "acquisition_time": "2026-10-02T09:41:05.020084Z",
+      "split": "train",
+      "region": "Newfoundland",
+      "regime": "offshore",
+      "input_chip": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_03_area_02/sigma0.tif",
+        "sha256": "d131333fb5437bd431fbc6344b5b8dc274a39069ecacf222d2db1c245f4b0c4a"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 93,
+        "components": 6,
+        "candidate_count": 6,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 6,
+      "candidates_path": "area_005.geojson",
+      "candidates_sha256": "455c10b80d8288315cb5cfdf9e4fb7ca0d3980ac3946f1d288ce1997adfc7cda",
+      "candidate_identity": "fc4a136c093e6794dc79c1bb9bd09460398d9fe7d4d518347f88525ba1e2ce0f",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "scene_05_area_01",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "acquisition_time": "2026-09-18T09:56:31.178197Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "input_chip": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_05_area_01/sigma0.tif",
+        "sha256": "8142e2fdf8ad9a7c8a672d573875e214af34bdf3c42e7f72c8ab8a86e62c74d3"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 123,
+        "components": 11,
+        "candidate_count": 11,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 11,
+      "candidates_path": "area_006.geojson",
+      "candidates_sha256": "4bd624954d9e0734711c794299390177842f06a94b5b9ad2efe16547de7be4cf",
+      "candidate_identity": "fdf6651fa140af597e9a5901ab75f19e5098f1fb44488f6c294be35498cd8bc8",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    },
+    {
+      "roi_id": "scene_05_area_02",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "acquisition_time": "2026-09-18T09:56:31.178197Z",
+      "split": "validation",
+      "region": "Newfoundland",
+      "regime": "coastal",
+      "input_chip": {
+        "path": "data/research/ais_sar_overlap_20261011_final_v01/image_first/scene_05_area_02/sigma0.tif",
+        "sha256": "100e2c561794711dc26580831a9acefe0011198a9f1bc98541f731442e70f887"
+      },
+      "status": "processed",
+      "coverage": {
+        "roi_pixels": 262144,
+        "valid_pixels": 262144,
+        "evaluated_pixels": 204304,
+        "unevaluated_pixels": 57840,
+        "coverage_fraction": 0.77935791015625,
+        "bright_pixels": 1760,
+        "components": 362,
+        "candidate_count": 362,
+        "scope": "Pixel processing support; not evaluated water area or vessel recall"
+      },
+      "candidate_count": 362,
+      "candidates_path": "area_007.geojson",
+      "candidates_sha256": "33f0fb58ec548260423a1268a2b5c689aaeed420c368c71bdbc83dd42866244b",
+      "candidate_identity": "128394f3f291f2592c74a05305085987b6853375a3d460a1bcf0c1ee8b9e02d5",
+      "calibration_replay_max_abs_db": [
+        0,
+        0
+      ]
+    }
+  ],
+  "excluded_locked_test_rois": [
+    "hopedale_coast",
+    "hopedale_offshore"
+  ],
+  "excluded_non_hh_hv_rois": [
+    "st_johns_harbour",
+    "eastern_avalon_offshore",
+    "bonavista_coast",
+    "bonavista_offshore",
+    "lewisporte_coast",
+    "bay_of_exploits_water",
+    "scene_01_area_01",
+    "scene_01_area_02",
+    "scene_02_area_01",
+    "scene_06_area_01",
+    "scene_06_area_02"
+  ],
+  "comparison_inputs": {
+    "unfiltered": "this_exact_bundle",
+    "classifier_filter": "this_exact_bundle"
+  },
+  "summary": {
+    "selected_areas": 8,
+    "processed_areas": 8,
+    "failed_areas": 0,
+    "candidate_count": 1642,
+    "evaluated_pixels": 1634432,
+    "roi_pixels": 2097152
+  },
+  "wall_seconds": 9.363089100000252,
+  "accuracy": null,
+  "false_alarms_per_km2": null,
+  "promotion_eligible": false,
+  "limits": [
+    "No labelled accuracy or measured false-alarm rate",
+    "Ring edges and invalid pixels are unevaluated",
+    "Connected targets can merge; boxes are not hull dimensions",
+    "No shoreline/clutter/ice exclusion and no classifier inference",
+    "A fixed 0.1.0 heuristic, not optimized against labels or filter results",
+    "Existing development imagery was previously viewed"
+  ],
+  "bundle_path": "data/hh_hv_candidates/v010_20261013_03/bundle.json",
+  "bundle_sha256": "88ca06cd2c01e84780c72edc6d2fe6c35c1558b51e412683552be297dced17cc",
+  "definition": {
+    "configuration": {
+      "version": "hh_hv_local_contrast_v0.1.0",
+      "polarizations": [
+        "HH",
+        "HV"
+      ],
+      "input_units": "sigma0_db",
+      "outer_window_px": 61,
+      "guard_window_px": 11,
+      "contrast_threshold_db": [
+        8,
+        6
+      ],
+      "band_combination": "or",
+      "connectivity": 8,
+      "minimum_component_pixels": 1,
+      "maximum_roi_pixels": 1048576,
+      "background": "arithmetic_mean_linear_power_in_ring",
+      "support": "complete_valid_background_ring",
+      "component_location": "maximum_threshold_margin_row_major_tie",
+      "shoreline_filter": "none_retain_all",
+      "classifier": "not_used"
+    },
+    "config_sha256": "59360b88d1f07056d54e82e3fd6dbc33f6923f31eb6aa9797a1d36b161b5245d",
+    "code_sha256": {
+      "hh_hv_candidates.py": "78bfeb0d74ba0d83a4f9eb17bacb94adab588324cf2391889483ab08b627199c",
+      "hh_hv_candidate_run.py": "7e6ab59015599002ab6526f32f1f8878600a7672c5f7beaa4d429cf22a7356d1",
+      "calibration.py": "34b5b58738966b16cb540e78eb4b72004969d02bf3a74a55393ff4e9cd477fd4",
+      "statoil_shadow.py": "6421b7a878c2411546c0ea5f84f7e21b2820d2683be6ef0774e1a347635df05e",
+      "geo.py": "5bd3bd7cdfae03073656b426453f3b3fef10e862e788b6c07f7306ccd8ede039"
+    },
+    "dataset_release_sha256": "29ab2db4b0ec8d969db4200c3475dd67699bc2de1f7244d66643737bc05013c5",
+    "python": "3.13.7",
+    "numpy": "2.2.6",
+    "scipy": "1.14.1",
+    "selection": "Previously exposed development ROIs; no fresh holdout claim",
+    "comparison": "Frozen before filter comparison; no classifier invoked",
+    "attribution": "Contains modified Copernicus Sentinel data (2025, 2026).",
+    "resources": {
+      "rss_limit_bytes": 536870912,
+      "preflight_commit_bytes": 1073741824,
+      "preflight_physical_bytes": 1073741824,
+      "runtime_commit_floor_bytes": 536870912
+    }
+  },
+  "paired_inputs_identical": true,
+  "population_digest": "c76371cde123be8e499616c37cbd07580b24f7b8e0cf81ee3479e2002fb85c37",
+  "classifier_context_counts": {
+    "roi_boundary": 89,
+    "available": 1552,
+    "component_exceeds_classifier_chip": 1
+  },
+  "classifier_inference_performed": false
+}

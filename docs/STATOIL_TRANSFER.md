@@ -130,8 +130,9 @@ fixtures are used; unit tests do not train on or open the real Kaggle archive.
 
 ## What this enables next
 
-A useful next comparison requires a permitted HH/HV candidate generator and
-complete selected-area labels, including missed targets and clutter. Compare
+The subsequent [experimental HH/HV candidate generator](HH_HV_CANDIDATES.md)
+provides a frozen population shared by both arms. A useful next comparison still
+requires complete selected-area labels, including missed targets and clutter. Compare
 identical candidates with and without classifier filtering, selecting thresholds
 on validation data under both false-alarm and useful recall/coverage constraints.
 Retain unresolved returns and measure vessels wrongly rejected alongside

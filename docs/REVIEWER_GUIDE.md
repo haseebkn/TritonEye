@@ -18,6 +18,10 @@ The subsequent [real HH/HV transfer audit](STATOIL_TRANSFER.md) scores fifteen
 existing development objects across eight NL areas using that frozen classifier.
 Input calibration replays match, but missing reviewed truth and iceberg labels
 keep native accuracy, false-alarm reduction and detection improvement unmeasured.
+The [experimental HH/HV candidate generator](HH_HV_CANDIDATES.md) subsequently
+freezes 1,642 local-contrast candidates from eight development areas, with
+77.94% pixel support and identical cached inputs for a future filter comparison.
+No classifier filtering or measured detection improvement is claimed.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 
