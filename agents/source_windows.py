@@ -165,7 +165,7 @@ def write_window(
 
 
 def prepare_product(
-    client: Cdse, areas: list[dict[str, Any]], output: Path, budget: dict[str, int]
+    client: Cdse, areas: list[dict[str, Any]], output: Path
 ) -> dict[str, Any]:
     area = areas[0]
     directory = output / area["product_id"]
@@ -346,7 +346,7 @@ def prepare(output: Path) -> None:
             "scored": False,
         },
     )
-    client, budget = Cdse(), {"full_bytes": 0}
+    client = Cdse()
     results, failures = [], []
     products = list(dict.fromkeys(a["product_id"] for a in private["areas"]))
     for product in products:
@@ -356,14 +356,13 @@ def prepare(output: Path) -> None:
                     client,
                     [a for a in private["areas"] if a["product_id"] == product],
                     output,
-                    budget,
                 )
             )
             print(
                 json.dumps(
                     {
                         "prepared": product,
-                        "network_bytes": client.bytes + budget["full_bytes"],
+                        "network_bytes": client.bytes,
                     }
                 ),
                 flush=True,
@@ -379,7 +378,7 @@ def prepare(output: Path) -> None:
                 "products": results,
                 "failures": failures,
                 "scored": False,
-                "network_bytes": client.bytes + budget["full_bytes"],
+                "network_bytes": client.bytes,
             },
         )
     save(
@@ -390,7 +389,7 @@ def prepare(output: Path) -> None:
             "products": results,
             "failures": failures,
             "scored": False,
-            "network_bytes": client.bytes + budget["full_bytes"],
+            "network_bytes": client.bytes,
         },
     )
     if failures:
