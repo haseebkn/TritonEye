@@ -103,12 +103,14 @@ class NativeTiff:
 
     def window(self, col: int, row: int, size: int) -> Array:
         if (
-            size != 512
+            not 75 <= size <= 512
             or min(col, row) < 0
             or col + size > self.width
             or row + size > self.height
         ):
-            raise ValueError("Only bounded 512-pixel windows permitted")
+            raise ValueError(
+                "Only bounded native windows of 75 to 512 pixels permitted"
+            )
         first, last = row // self.rows, (row + size - 1) // self.rows
         starts = self.offsets[first : last + 1]
         lengths = self.counts[first : last + 1]
@@ -237,24 +239,26 @@ def annotation_metadata(
 
 
 def locate(
-    gcps: list[GroundControlPoint], center: tuple[float, float]
+    gcps: list[GroundControlPoint], center: tuple[float, float], size: int = 512
 ) -> tuple[int, int, dict[str, Any]]:
+    if not 75 <= size <= 512:
+        raise ValueError("Bounded native window size required")
     with GCPTransformer(gcps, tps=True) as transform:
         rr, cc = transform.rowcol([center[0]], [center[1]])
-        row, col = int(rr[0]) - 256, int(cc[0]) - 256
+        row, col = int(rr[0]) - size // 2, int(cc[0]) - size // 2
         rows = np.concatenate(
             [
                 np.full(17, row),
-                np.linspace(row, row + 512, 17),
-                np.full(17, row + 512),
-                np.linspace(row + 512, row, 17),
+                np.linspace(row, row + size, 17),
+                np.full(17, row + size),
+                np.linspace(row + size, row, 17),
             ]
         )
         cols = np.concatenate(
             [
-                np.linspace(col, col + 512, 17),
-                np.full(17, col + 512),
-                np.linspace(col + 512, col, 17),
+                np.linspace(col, col + size, 17),
+                np.full(17, col + size),
+                np.linspace(col + size, col, 17),
                 np.full(17, col),
             ]
         )

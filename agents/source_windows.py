@@ -26,7 +26,8 @@ from agents.region import load_region
 from agents.reserved_sar import DOWNLOAD, Cdse, NativeTiff, annotation_metadata, locate
 from agents.source_reservation import checked, ref, verify
 
-PROTOCOL = REPO_ROOT / "configs/reservations/source_windows_v010.json"
+PROTOCOL = REPO_ROOT / "configs/reservations/source_windows_v011.json"
+SIZE = 384
 Array = np.ndarray[Any, Any]
 
 
@@ -91,7 +92,7 @@ def local_context(xml: bytes, col: int, row: int) -> dict[str, Any]:
     ]
     incidences = [float(p.findtext("incidenceAngle", "nan")) for p in points]
     incidence = float(
-        LinearNDInterpolator(coordinates, incidences)(row + 256, col + 256)
+        LinearNDInterpolator(coordinates, incidences)(row + SIZE // 2, col + SIZE // 2)
     )
     start = datetime.fromisoformat(
         tree.findtext(".//adsHeader/startTime", "").replace("Z", "+00:00")
@@ -105,13 +106,13 @@ def local_context(xml: bytes, col: int, row: int) -> dict[str, Any]:
         "center_incidence_deg": incidence,
         "incidence_method": "linear interpolation of native geolocation incidence grid",
         "center_native_time_utc": datetime.fromtimestamp(
-            start.timestamp() + (row + 256) * interval, timezone.utc
+            start.timestamp() + (row + SIZE // 2) * interval, timezone.utc
         ).isoformat(),
         "first_row_native_time_utc": datetime.fromtimestamp(
             start.timestamp() + row * interval, timezone.utc
         ).isoformat(),
         "last_row_native_time_utc": datetime.fromtimestamp(
-            start.timestamp() + (row + 511) * interval, timezone.utc
+            start.timestamp() + (row + SIZE - 1) * interval, timezone.utc
         ).isoformat(),
         "azimuth_interval_s": interval,
     }
@@ -160,8 +161,8 @@ def write_window(
         path,
         "w",
         driver="GTiff",
-        width=512,
-        height=512,
+        width=SIZE,
+        height=SIZE,
         count=2,
         dtype="float32",
         compress="deflate",
@@ -177,17 +178,18 @@ def write_window(
         dst.write(np.stack(arrays))
         dst.descriptions = ("sigma0_db_hh", "sigma0_db_hv")
     record["chip"] = ref(path)
-    canvas = Image.new("RGB", (1044, 552), "#182128")
+    stride = SIZE + 10
+    canvas = Image.new("RGB", (stride * 2, SIZE + 40), "#182128")
     draw = ImageDraw.Draw(canvas)
     for b, pol in enumerate(("HH", "HV")):
         pixels = np.clip((arrays[b] + 30) / 35 * 255, 0, 255).astype("uint8")
-        canvas.paste(Image.fromarray(pixels).convert("RGB"), (b * 522, 40))
+        canvas.paste(Image.fromarray(pixels).convert("RGB"), (b * stride, 40))
         draw.text(
-            (b * 522 + 5, 5), f"{record['id']} {pol} | native 512px", fill="white"
+            (b * stride + 5, 5), f"{record['id']} {pol} | native {SIZE}px", fill="white"
         )
-        for tick in (0, 128, 256, 384):
-            draw.text((b * 522 + tick + 2, 26), str(tick), fill="#00ffff")
-            draw.text((b * 522, 40 + tick), str(tick), fill="#00ffff")
+        for tick in (0, 96, 192, 288):
+            draw.text((b * stride + tick + 2, 26), str(tick), fill="#00ffff")
+            draw.text((b * stride, 40 + tick), str(tick), fill="#00ffff")
     preview = directory / f"{record['id']}_review.png"
     canvas.save(preview)
     record["preview"] = ref(preview)
@@ -247,15 +249,15 @@ def prepare_product(
         info.update(annotation=ref(ap), calibration=ref(cp))
         windows = []
         for a in areas:
-            col, row, geometry = locate(gcps, (a["lon"], a["lat"]))
+            col, row, geometry = locate(gcps, (a["lon"], a["lat"]), SIZE)
             scope(a, geometry)
             if (
                 min(col, row) < 0
-                or col + 512 > info["width"]
-                or row + 512 > info["height"]
+                or col + SIZE > info["width"]
+                or row + SIZE > info["height"]
             ):
                 raise ValueError("Reserved crop outside native raster")
-            window = [col, row, 512, 512]
+            window = [col, row, SIZE, SIZE]
             if a["id"] in records and records[a["id"]]["window"] != window:
                 raise ValueError("Band window mismatch")
             records.setdefault(
@@ -310,8 +312,8 @@ def prepare_product(
                 raise ValueError("Native TIFF/annotation dimensions differ")
         try:
             for a, col, row in windows:
-                dn = dataset.read(1, window=Window(col, row, 512, 512)) if dataset is not None else native.window(col, row, 512)  # type: ignore[union-attr]
-                if dn.shape != (512, 512) or not (dn > 0).all():
+                dn = dataset.read(1, window=Window(col, row, SIZE, SIZE)) if dataset is not None else native.window(col, row, SIZE)  # type: ignore[union-attr]
+                if dn.shape != (SIZE, SIZE) or not (dn > 0).all():
                     raise ValueError(
                         "Invalid reserved pixels; no padding or relocation permitted"
                     )
@@ -401,7 +403,7 @@ def prepare(output: Path) -> None:
             failures.append({"product_id": product, "error": str(error)})
             print(json.dumps(failures[-1]), flush=True)
         save(
-            output / "manifest.json",
+            output / f"progress_{products.index(product)+1}.json",
             {
                 "version": "0.1.0",
                 "selection": ref(output / "selection.json"),
@@ -411,6 +413,17 @@ def prepare(output: Path) -> None:
                 "network_bytes": client.bytes + budget["full_bytes"],
             },
         )
+    save(
+        output / "manifest.json",
+        {
+            "version": "0.1.1",
+            "selection": ref(output / "selection.json"),
+            "products": results,
+            "failures": failures,
+            "scored": False,
+            "network_bytes": client.bytes + budget["full_bytes"],
+        },
+    )
     if failures:
         raise ValueError(
             "Preparation incomplete; failed reservations retained without substitutions"
