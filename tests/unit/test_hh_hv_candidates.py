@@ -1,5 +1,6 @@
 """Behavioral candidate generation and sealed comparison-population contracts."""
 
+import json
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,8 @@ from rasterio.transform import from_origin
 from agents import hh_hv_candidate_run as runner
 from agents import hh_hv_candidates as detector
 from agents.artifacts import sha256_file, write_json
+from agents.calibration import CalibrationError
+from agents.geo import GeoreferencingError
 
 
 def make_images() -> Any:
@@ -84,6 +87,22 @@ def test_large_connected_return_is_retained_with_unusable_classifier_context() -
     assert candidates[0]["research_retained"] is True
 
 
+def test_peak_centred_classifier_window_must_contain_entire_component() -> None:
+    images = np.zeros((2, 201, 201), dtype="float32")
+    images[0, 100, 60:130] = 30
+    images[0, 100, 60] = 31
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    candidate = candidates[0]
+    assert candidate["bbox_px"] == [60, 100, 130, 101]
+    assert candidate["peak_pixel_xy"] == [60, 100]
+    assert candidate["classifier_window_px"] == [23, 63, 75, 75]
+    assert (
+        candidate["classifier_context_status"] == "component_clipped_by_classifier_chip"
+    )
+    assert candidate["research_retained"] is True
+
+
 def test_boundaries_nodata_and_missing_classifier_context_are_explicit() -> None:
     images = make_images()
     images[0, 10, 10] = 20
@@ -130,8 +149,12 @@ def test_candidate_memory_preflight_refuses_pressure(monkeypatch: Any) -> None:
         runner.runtime_check()
 
 
+@pytest.mark.parametrize(
+    "failure",
+    [None, "window", "raster", "calibration", "georeferencing", "runtime", "memory"],
+)
 def test_real_runner_contract_on_synthetic_data_and_identical_arms(
-    tmp_path: Path, monkeypatch: Any
+    tmp_path: Path, monkeypatch: Any, failure: str | None
 ) -> None:
     monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
     monkeypatch.setattr(runner, "resource_check", lambda: None)
@@ -153,14 +176,15 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
         path,
         "w",
         driver="GTiff",
-        width=101,
-        height=101,
+        width=4096 if failure == "raster" else 101,
+        height=4096 if failure == "raster" else 101,
         count=2,
         dtype="float32",
         crs="EPSG:4326",
         transform=from_origin(-53, 48, 0.0001, 0.0001),
     ) as src:
-        src.write(images)
+        if failure != "raster":
+            src.write(images)
     roi = {
         "id": "dev",
         "group": "fixture_group",
@@ -171,6 +195,9 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
             ],
         },
         "regime": "offshore",
+        "window": (
+            [0, 0, 4096, 4096] if failure == "window" else [0, 0, 101, 101]
+        ),
         "chip": {"path": "data/source.tif", "sha256": sha256_file(path)},
     }
     scene = {
@@ -206,15 +233,59 @@ def test_real_runner_contract_on_synthetic_data_and_identical_arms(
         ),
     )
 
-    def audit(*args: Any) -> tuple[Any, dict[str, Any]]:
+    audit_calls: list[str] = []
+    fatal_types = {
+        "calibration": CalibrationError,
+        "georeferencing": GeoreferencingError,
+        "runtime": RuntimeError,
+        "memory": MemoryError,
+    }
+    if failure in fatal_types:
+        scene["rois"].extend([{**roi, "id": "failed"}, {**roi, "id": "unreached"}])
+
+    def audit(scene: Any, roi: Any, cache: Any) -> tuple[Any, dict[str, Any]]:
         assert (tmp_path / "data/run/definition.json").is_file()
+        audit_calls.append(roi["id"])
+        assert failure not in ("window", "raster")
+        if roi["id"] == "failed":
+            raise fatal_types[str(failure)]("fixture failure")
         return images, {"calibration_replay_max_abs_db": [0, 0]}
 
     monkeypatch.setattr(runner, "native_audit", audit)
     dataset = tmp_path / "datasets"
     dataset.mkdir()
     (dataset / "release.json").write_text("{}")
+    if failure == "runtime":
+        checks = 0
+
+        def runtime_check() -> None:
+            nonlocal checks
+            checks += 1
+            if checks == 4:
+                raise RuntimeError("fixture failure")
+
+        monkeypatch.setattr(runner, "runtime_check", runtime_check)
+    if failure in fatal_types:
+        with pytest.raises(fatal_types[str(failure)], match="fixture failure"):
+            runner.run(tmp_path / "data/run", dataset)
+        bundle_path = tmp_path / "data/run/bundle.json"
+        result = json.loads(bundle_path.read_text(encoding="utf-8"))
+        assert result["status"] == "incomplete"
+        assert result["summary"]["processed_areas"] == 1
+        assert result["summary"]["failed_areas"] == 1
+        assert [area["roi_id"] for area in result["areas"]] == ["dev", "failed"]
+        assert result["areas"][1]["error"] == "fixture failure"
+        assert "unreached" not in audit_calls
+        with pytest.raises(ValueError, match="Complete frozen"):
+            runner.paired_inputs(bundle_path, sha256_file(bundle_path))
+        return
     result = runner.run(tmp_path / "data/run", dataset)
+    if failure in ("window", "raster"):
+        assert audit_calls == []
+        assert result["summary"]["failed_areas"] == 1
+        assert result["status"] == "incomplete"
+        assert "Bounded" in result["areas"][0]["error"]
+        return
     assert result["summary"]["candidate_count"] == 1
     assert checked_scopes == ["dev"]
     assert result["excluded_locked_test_rois"] == ["locked"]

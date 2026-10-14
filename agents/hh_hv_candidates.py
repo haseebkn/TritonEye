@@ -106,6 +106,7 @@ def generate(
         dy, dx = np.unravel_index(np.argmax(scores), scores.shape)
         row, col = ys.start + int(dy), xs.start + int(dx)
         bbox = [xs.start, ys.start, xs.stop, ys.stop]
+        window = [col - 37, row - 37, 75, 75]
         context = (
             "component_exceeds_classifier_chip"
             if xs.stop - xs.start > 75 or ys.stop - ys.start > 75
@@ -118,6 +119,11 @@ def generate(
                 else "available"
             )
         )
+        if context == "available" and not (
+            window[0] <= xs.start < xs.stop <= window[0] + window[2]
+            and window[1] <= ys.start < ys.stop <= window[1] + window[3]
+        ):
+            context = "component_clipped_by_classifier_chip"
         if (
             context == "available"
             and not valid[row - 37 : row + 38, col - 37 : col + 38].all()
@@ -134,7 +140,7 @@ def generate(
                 "triggered_polarizations": [
                     p for b, p in enumerate(polarizations) if margins[b, row, col] >= 0
                 ],
-                "classifier_window_px": [col - 37, row - 37, 75, 75],
+                "classifier_window_px": window,
                 "classifier_context_status": context,
                 "research_retained": True,
                 "operational_alert": False,

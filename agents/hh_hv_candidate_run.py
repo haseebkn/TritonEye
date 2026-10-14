@@ -100,6 +100,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
     areas: list[dict[str, Any]] = []
     excluded_test: list[str] = []
     excluded_other: list[str] = []
+    fatal_error: RuntimeError | MemoryError | None = None
     for scene in manifest["scenes"]:
         if scene["split"] == "test":
             excluded_test.extend(r["id"] for r in scene["rois"])
@@ -113,7 +114,6 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
         ):
             raise ValueError("NL development HH/HV acquisitions required")
         for roi in scene["rois"]:
-            runtime_check()
             entry: dict[str, Any] = {
                 "roi_id": roi["id"],
                 "product_id": scene["product_id"],
@@ -124,6 +124,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                 "input_chip": roi["chip"],
             }
             try:
+                runtime_check()
                 require_development_scene(
                     scene["product_id"],
                     {
@@ -133,6 +134,20 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                         "roi_id": roi["id"],
                     },
                 )
+                _, _, width, height = roi["window"]
+                if (
+                    not isinstance(width, int)
+                    or not isinstance(height, int)
+                    or min(width, height) < settings.outer
+                    or width * height > settings.maximum_pixels
+                ):
+                    raise ValueError("Bounded native ROI window required")
+                with rasterio.open(bounded_path(REPO_ROOT, roi["chip"]["path"])) as src:
+                    if (
+                        src.width * src.height > settings.maximum_pixels
+                        or (src.width, src.height, src.count) != (width, height, 2)
+                    ):
+                        raise ValueError("Bounded matching native ROI raster required")
                 images, audit = native_audit(scene, roi, cache)
                 candidates, coverage = generate(
                     images, polarizations=("HH", "HV"), settings=settings
@@ -193,8 +208,20 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                 )
             except (ValueError, OSError, ET.ParseError) as error:
                 entry.update(status="failed", error=str(error))
+            except (RuntimeError, MemoryError) as error:
+                entry.update(status="failed", error=str(error))
+                fatal_error = error
             areas.append(entry)
+            if fatal_error is not None:
+                break
+        if fatal_error is not None:
+            break
     bundle = {
+        "status": (
+            "incomplete"
+            if any(a["status"] == "failed" for a in areas)
+            else "complete"
+        ),
         "scope": "Frozen experimental NL HH/HV candidate bundle",
         "definition_sha256": sha256_file(output / "definition.json"),
         "config_sha256": CONFIG_SHA256,
@@ -232,6 +259,8 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
         ],
     }
     write_json(output / "bundle.json", bundle)
+    if fatal_error is not None:
+        raise fatal_error
     return bundle
 
 
@@ -249,6 +278,7 @@ def paired_inputs(path: Path, expected_sha256: str) -> dict[str, Any]:
         bundle["scope"] != "Frozen experimental NL HH/HV candidate bundle"
         or bundle["config_sha256"] != CONFIG_SHA256
         or bundle["summary"]["failed_areas"]
+        or bundle.get("status", "complete") != "complete"
         or not bundle["areas"]
     ):
         raise ValueError("Complete frozen candidate bundle required")
