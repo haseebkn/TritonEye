@@ -143,10 +143,11 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                 ):
                     raise ValueError("Bounded native ROI window required")
                 with rasterio.open(bounded_path(REPO_ROOT, roi["chip"]["path"])) as src:
-                    if (
-                        src.width * src.height > settings.maximum_pixels
-                        or (src.width, src.height, src.count) != (width, height, 2)
-                    ):
+                    if src.width * src.height > settings.maximum_pixels or (
+                        src.width,
+                        src.height,
+                        src.count,
+                    ) != (width, height, 2):
                         raise ValueError("Bounded matching native ROI raster required")
                 images, audit = native_audit(scene, roi, cache)
                 candidates, coverage = generate(
@@ -218,9 +219,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
             break
     bundle = {
         "status": (
-            "incomplete"
-            if any(a["status"] == "failed" for a in areas)
-            else "complete"
+            "incomplete" if any(a["status"] == "failed" for a in areas) else "complete"
         ),
         "scope": "Frozen experimental NL HH/HV candidate bundle",
         "definition_sha256": sha256_file(output / "definition.json"),

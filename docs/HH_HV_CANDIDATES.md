@@ -22,17 +22,8 @@ reading SAR arrays. Previously viewed regional images and the earlier shadow
 study informed this development context; this is an engineering freeze, not
 independent preregistration or a new blind evaluation.
 
-| Parameter | Fixed value |
-| --- | --- |
-| Bands and units | Native HH then HV, calibrated sigma0 dB |
-| Background ring | 61 × 61 pixels, excluding a central 11 × 11 guard |
-| Background statistic | Arithmetic mean of **linear power**, not mean dB |
-| Trigger | HH contrast ≥ 8 dB **or** HV contrast ≥ 6 dB |
-| Grouping | Eight-connected threshold pixels, minimum size one pixel |
-| Candidate location | Largest threshold margin; row-major tie breaking |
-| Size or ranking exclusions | None; connected components are retained |
-| Shoreline exclusions | None in the generator |
-| ROI bound | At most 1,048,576 pixels |
+The versioned configuration is the authoritative source for band order, units,
+ring dimensions, thresholds, grouping, location rules and the ROI pixel bound.
 
 For each band, contrast is `10 log10(pixel power / ring mean power)`, with
 power calculated as `10 ** (sigma0_db / 10)`. A complete finite, non-nodata
@@ -79,9 +70,12 @@ support: each 512 × 512 area has 452 × 452 evaluated pixels. Total support is
 evaluated water area or vessel recall; the unevaluated edge band cannot be
 counted as empty water.
 
-Of the candidates, 1,552 have a geometrically available 75 × 75 classifier
-context, 89 lack ROI-boundary context and one connected component exceeds the
-classifier chip size. All 1,642 remain in the shared population. Context
+The aggregate evidence records the original replay's classifier-context counts.
+Those historical statuses predate the current component-containment check and
+do not establish availability under that stricter rule. The current generator
+marks a context unsupported when the entire component does not fit within its
+actual peak-centred 75 × 75 window, when that window crosses the ROI boundary,
+or when it contains invalid pixels. All components remain in the population. Context
 availability establishes neither input-domain compatibility nor a correct class;
 later filtering must retain abstentions. The high coastal counts are raw returns,
 not confirmed false positives. Classifier filtering and threshold comparisons
@@ -134,6 +128,14 @@ project/temp storage, and checks a 512 MiB process RSS budget and 512 MiB commit
 floor during processing. Checks bound the workload but cannot guarantee stability
 when other applications allocate memory between samples. Resource limits do not
 change the classifier's existing safeguards or detection thresholds.
+
+Before native calibration or full raster reads, the runner validates the declared
+ROI dimensions against the configured pixel bound and checks that the raster has
+matching dimensions and two bands. Per-area input failures are recorded in
+`bundle.json` with `status: incomplete`. Calibration, georeferencing and runtime
+or memory failures stop further processing after the failed area and incomplete
+bundle are saved; the error is then raised. The shared loader rejects incomplete
+bundles. Preflight failures occur before output creation.
 
 Tests exercise analytic per-band contrast, exclusion of the guard region,
 connectivity/merging, retained oversized components, nodata/edge coverage,

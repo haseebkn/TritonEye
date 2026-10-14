@@ -9,9 +9,9 @@ false-alarm reduction and vessel detection improvement remain unmeasured.
 
 This is a provisional input audit and shadow experiment. Every return is preserved.
 The [original Kaggle classification baseline](STATOIL_BASELINE.md) remains a
-separate task. TritonEye's current VV/VH detector still requires a compatible
-candidate generator or separate VV/VH adaptation before this classifier could
-participate in a detection comparison.
+separate task. The subsequent [HH/HV candidate experiment](HH_HV_CANDIDATES.md)
+supplies comparison inputs and documents the remaining evaluation requirements;
+it does not extend TritonEye's current VV/VH detector.
 
 ## Selection and input compatibility
 
