@@ -7,8 +7,8 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **14 October 2026**, against main baseline
-`d44fe4a6cdaf717e34223ba4f03c80323cf9be02` (PR #25), plus the reserved-scene
-transfer collection described below. The current benchmark is
+`b174fc07503769ddbc13acc87d44a9cbc04ff2fe` (PR #30), plus the SNAP/source
+audit described below. The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
 unmeasured for vessel detection. A separate supervised
@@ -43,6 +43,10 @@ is now complete: four plausible iceberg interpretations and two unresolved retur
 with two pre-pixel coverage abstentions. All remain provisional, ignored for
 accuracy and unapproved for training/promotion. These are source-supported
 hypotheses, not independently reviewed iceberg identities or measured accuracy.
+The [SNAP reference and corroboration audit](SNAP_CORROBORATION.md) subsequently
+checks these four development candidates with the cached official processor and
+additional source searches. It does not approve their labels or establish Kaggle
+input equivalence; numerical agreement and runtime-limit compliance are separate.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 

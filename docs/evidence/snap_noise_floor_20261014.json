@@ -1,0 +1,147 @@
+{
+  "version": "0.1.0",
+  "policy": {
+    "path": "configs/reservations/snap_corroboration_v020.json",
+    "sha256": "15edd99ec6195c9028af015fecb9766c74a526073b31cb3c657ed8627e6c1d67"
+  },
+  "execution": {
+    "path": "data/source_supported/snap_interpreted_v020_01/report.json",
+    "sha256": "99244d09b4b041498bdb3ec0bf643a143d6880ac979a25a5fdce8ceebd37f5e0"
+  },
+  "areas": [
+    {
+      "id": "next_iceberg_support_01",
+      "measured": true,
+      "bands": [
+        {
+          "polarization": "HH",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 0,
+          "fraction_of_all_pixels": 0.0,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -14.88588708107536,
+            -10.517986754083271,
+            -6.898369279599935
+          ]
+        },
+        {
+          "polarization": "HV",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 44605,
+          "fraction_of_all_pixels": 0.3024970160590278,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -106.19359074716705,
+            -30.690316294229547,
+            -23.490675462429955
+          ]
+        }
+      ]
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "measured": true,
+      "bands": [
+        {
+          "polarization": "HH",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 6193,
+          "fraction_of_all_pixels": 0.041998969184027776,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -37.01480300755651,
+            -22.0233219022239,
+            -17.38826949911583
+          ]
+        },
+        {
+          "polarization": "HV",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 74776,
+          "fraction_of_all_pixels": 0.5071072048611112,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -105.77684821152516,
+            -105.75495415993281,
+            -24.84328259636454
+          ]
+        }
+      ]
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "measured": true,
+      "bands": [
+        {
+          "polarization": "HH",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 806,
+          "fraction_of_all_pixels": 0.005466037326388889,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -28.61196769141997,
+            -21.796963314084472,
+            -17.407756249729484
+          ]
+        },
+        {
+          "polarization": "HV",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 77802,
+          "fraction_of_all_pixels": 0.5276285807291666,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -105.55152969270276,
+            -105.53305008232336,
+            -28.12951248983298
+          ]
+        }
+      ]
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "measured": true,
+      "bands": [
+        {
+          "polarization": "HH",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 8,
+          "fraction_of_all_pixels": 5.425347222222222e-05,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -20.659921935462073,
+            -16.154647950784277,
+            -12.645854567030467
+          ]
+        },
+        {
+          "polarization": "HV",
+          "total_pixels": 147456,
+          "finite_pixels": 147456,
+          "pixels_near_reconstructed_power_1e_minus5": 32431,
+          "fraction_of_all_pixels": 0.2199367947048611,
+          "power_floor_relative_tolerance": 1e-05,
+          "noise_db_quantiles_05_50_95": [
+            -105.46886855226316,
+            -30.9983362560906,
+            -24.58300476532415
+          ]
+        }
+      ]
+    }
+  ],
+  "training_approved": false,
+  "independent_review": false,
+  "compatibility_established": false,
+  "classifier_scored": false,
+  "detector_scored": false,
+  "interpretation": "Post-run inferred power = DN^2 * 10^((noise_db - nominal_db)/10); same calibration LUT cancels. Descriptive pile-up near 1e-5 is not proof of correct physical noise subtraction. No mask, classifier input recipe or operating threshold selected."
+}

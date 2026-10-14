@@ -38,8 +38,10 @@ The inputs are native IW GRDH HH/HV; local centre incidence ranges from
 32.64 to 39.67 degrees. Pixel spacing is not physical resolution. This work adds
 no thermal-noise subtraction, terrain correction or moving-target displacement
 correction. Partial downloads do not verify publisher full-file checksums.
-The earlier [preprocessing cross-check](SOURCE_ERROR_PREPROCESSING.md) still
-leaves external calibrated-processor and Kaggle input equivalence unresolved.
+The earlier [preprocessing cross-check](SOURCE_ERROR_PREPROCESSING.md) did not
+establish external calibrated-processor or Kaggle input equivalence. The subsequent
+[SNAP/source audit](SNAP_CORROBORATION.md) passes eight numerical calibration bands
+for four candidates; input equivalence and independent class review remain unresolved.
 
 ## Source-uncertainty coverage
 
