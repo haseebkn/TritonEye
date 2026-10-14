@@ -234,9 +234,9 @@ def execute(gpt: Path, arguments: list[str], log: Path, timeout: int) -> dict[st
                 [str(gpt), *arguments],
                 stdout=stream,
                 stderr=subprocess.STDOUT,
-                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0)
-                if os.name == "nt"
-                else 0,
+                creationflags=(
+                    getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+                ),
             )
             deadline = start + timeout
             while True:
