@@ -7,8 +7,11 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **14 October 2026**, against main baseline
-`b174fc07503769ddbc13acc87d44a9cbc04ff2fe` (PR #30), plus the SNAP/source
-audit described below. The current benchmark is
+`a5540779af1fa5d690a44734af1ce95cfc581ee3` (PR #31), plus the
+[label-admission register](LABEL_ADMISSION.md) and
+[input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
+for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
+training or accuracy-truth admissions. The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
 unmeasured for vessel detection. A separate supervised

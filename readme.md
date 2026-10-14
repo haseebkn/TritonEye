@@ -3,6 +3,10 @@ Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 
 **Start here: [Reviewer guide — built and verified, measured, and blocked](docs/REVIEWER_GUIDE.md).**
 One entry point for evidence, limitations and a short review walkthrough.
+Current data decisions: [NL label-admission register](docs/LABEL_ADMISSION.md)
+and [input-compatibility decision report](docs/INPUT_COMPATIBILITY.md).
+The 31 reserved areas contain 58 provisional annotations/contexts; none is
+admitted for training or accuracy truth. Native transfer compatibility remains open.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),
 [walkthrough and lifecycle rehearsal](docs/PORTFOLIO_DEMO.md), and
 [technical explanation and contribution notes](docs/TECHNICAL_EXPLANATION.md).

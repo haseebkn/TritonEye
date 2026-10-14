@@ -93,3 +93,6 @@ tests/unit/test_snap_corroboration.py text eol=lf
 agents/snap_image.py text eol=lf
 docs/evidence/snap_corroboration_20261014.json text eol=lf
 docs/evidence/snap_noise_floor_20261014.json text eol=lf
+agents/label_admission.py text eol=lf
+tests/unit/test_label_admission.py text eol=lf
+docs/evidence/label_admission_v010.json text eol=lf

@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "scope": "31 reserved native NL HH/HV areas; existing scored benchmark, Kaggle rows and quarantined AllenAI labels are outside this admission register",
+  "collections": [
+    {"path": "datasets/hh_hv_transfer/v0.1.0/collection.json", "sha256": "42bbb2c001c341d0ad18b4c4f05d120672e7dcda7ea9b69faf08814bf9e1e2d4"},
+    {"path": "datasets/source_supported/v0.1.0/collection.json", "sha256": "20aabf2fce2cf56643de608e622e02f739e421161314e126552a6d534a08f274"},
+    {"path": "datasets/source_supported/v0.2.0/collection.json", "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"}
+  ],
+  "snap": {"path": "docs/evidence/snap_corroboration_20261014.json", "sha256": "99d60a8616a4458667fbee05aba919656ca9d9440add8773a05c9b9c480d4c80"},
+  "noise": {"path": "docs/evidence/snap_noise_floor_20261014.json", "sha256": "9ceefa4422e8d2372ac5a5b0f51d32cd20691c58c9b225e966809a8145f0dc71"},
+  "kaggle": {"path": "docs/evidence/statoil_baseline_20261013.json", "sha256": "7cda386dd174534a54063bf3e1f8001f9a93585455696ce5719c8830af5a85f6"},
+  "decision": "hold_all_current_labels; no training export or approval through this report",
+  "prior_exposure": "AI annotator had prior project label and model-output exposure. These three batches were curated before their own classifier scoring, with source-centred selection disclosed. This register is a later evidence synthesis, not another blind or independent review.",
+  "future_admission_requirements": [
+    "Create a new version with original decisions, ignore masks and split assignments retained in history",
+    "Document defensible object class and association evidence, competing returns, source error and remaining uncertainty before viewing model scores",
+    "Resolve native input recipe, target scale and noise treatment for the intended experiment; freeze choices before comparison",
+    "Keep acquisition, repeated-object and geographic groups separated; validation objects cannot become training data",
+    "Treat exploratory weak-label training as a separately authorized experiment; this report grants no training approval",
+    "Retain independent-review and promotion guards; AI or self review cannot satisfy them"
+  ]
+}
