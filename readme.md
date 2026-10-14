@@ -5,6 +5,9 @@ Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 One entry point for evidence, limitations and a short review walkthrough.
 Current data decisions: [NL label-admission register](docs/LABEL_ADMISSION.md)
 and [input-compatibility decision report](docs/INPUT_COMPATIBILITY.md).
+The subsequent [target noise audit](docs/TARGET_NOISE_AUDIT.md) and
+[frozen native-NL input specification](docs/NATIVE_NL_INPUT.md) document
+noise-limited target boxes and an executable research recipe; labels remain on hold.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native transfer compatibility remains open.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

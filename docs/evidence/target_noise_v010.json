@@ -1,0 +1,2208 @@
+{
+  "version": "0.1.0",
+  "policy": {
+    "path": "configs/reservations/target_noise_v010.json",
+    "sha256": "402a8089ba4b4c9aa3855e058d0f79fe50062e6f64be1f84de7489749a827224"
+  },
+  "specification": {
+    "path": "configs/native_nl/input_v010.json",
+    "sha256": "1ac869d85ddcaf3b89b4c1a2f9c5c391ae7214e5e7be00fff8462c9be2529e3a"
+  },
+  "collection": {
+    "path": "datasets/source_supported/v0.2.0/collection.json",
+    "sha256": "ac4165bfddc4fbfbb68e7929a94b7e18766ffdaee0463b997036ccdc72bf1837"
+  },
+  "reference": {
+    "path": "docs/evidence/snap_corroboration_20261014.json",
+    "sha256": "99d60a8616a4458667fbee05aba919656ca9d9440add8773a05c9b9c480d4c80"
+  },
+  "local_inputs": [
+    {
+      "path": "data/source_supported/snap_interpreted_v020_01/report.json",
+      "sha256": "99244d09b4b041498bdb3ec0bf643a143d6880ac979a25a5fdce8ceebd37f5e0"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/manifest.json",
+      "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/metadata.json",
+      "sha256": "5e2510b4263ef030fb401059314b0db1d536308a3e14a627cb94fb4b09ce0ca9"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/hh_annotation.xml",
+      "sha256": "7d4e1fd83d39e21dafa1d702beb42b2fccc33f40631234ecd1c6e4ad2fa7b9bf"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/hh_calibration.xml",
+      "sha256": "1ebc11d5467c29e466a9b01daf29a9898d6aa2818a5f494dd3bf79d910e0f01b"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/hv_annotation.xml",
+      "sha256": "287a59189d5c0aaa4519041ade40872074efeb5f6a5b4040f4b2fa9048ffb94b"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/hv_calibration.xml",
+      "sha256": "161a65b0d04833979947c9ef023ca7ced81391f68ab8d5b202ad6cf620bd6fcf"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/next_iceberg_support_02_hh_dn.npy",
+      "sha256": "e7315bad12cfd8f5f9023cf0f9bc8ea9cb3403ee92f47c398dd95214fc810bdb"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/next_iceberg_support_02_hv_dn.npy",
+      "sha256": "5477f614ffe28b11cdb51d0a5c9610c83003fd7e274ecdcd8f93a627e31baa27"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/36233056-eff1-5d9b-a6c6-09838f214043/next_iceberg_support_02_sigma0.tif",
+      "sha256": "eee9bb2744ef64cf519f7c84d859c90f931ef72522a659d20cc5ee6d94ceeb87"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/hh_annotation.xml",
+      "sha256": "a79dec6449561a326c1122c8274b74d906913c660ce2ab9d4be85f0bcac85106"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/hh_calibration.xml",
+      "sha256": "c3dd702b0a5f333d37b7fca379410d5d3a6ad8ee090d115f3e4436b7bca2a469"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/hv_annotation.xml",
+      "sha256": "432cfdd286d1c86ea32f91e36e4cc474208f093b8bcf4b132dc2a3a6065e3457"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/hv_calibration.xml",
+      "sha256": "ad4a7841e43f41538d3c17fa39da7b4635c065aa2eae5490ca6d2d3b1404a7a9"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/next_iceberg_support_03_hh_dn.npy",
+      "sha256": "9f322d4f974c603128e285b101ad285ee0ff1808557c9f1491370ae5ee53f6c3"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/next_iceberg_support_03_hv_dn.npy",
+      "sha256": "3145c1407282bfbcf4fb77390703fffd15a3a36b434b213219656f4aeb82f9e6"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/3b936136-787d-58b9-b4cf-7ec27e6952c0/next_iceberg_support_03_sigma0.tif",
+      "sha256": "6450efc1654f22bb9a167fc47622f8393edc721cb782a6e2793f9ce9a2a5045d"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/hh_annotation.xml",
+      "sha256": "e22c062d4603057c4fc4026a2fb7cfdf6619eadb368f42d71998ad530cff1600"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/hh_calibration.xml",
+      "sha256": "8ad916c593fe6a5226941af00af011c295ad9247af17e6a213a3cef657dde246"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/hv_annotation.xml",
+      "sha256": "150bffe42528d574176d91302c8d39a76ad583945980b991e0eee4af1c0beae9"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/hv_calibration.xml",
+      "sha256": "f43e06796a3e784c2f8e9782846012f41afd931ad943ab79baf1124dda3a61b5"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/next_iceberg_support_01_hh_dn.npy",
+      "sha256": "685492ea5d1349e2d54813e2ad863fc23b23290a660498bc7b05dead23b461fb"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/next_iceberg_support_01_hv_dn.npy",
+      "sha256": "be2a4918fc589b909e15f6af4efa5ed7f005a534504d792c27147f5641ce925f"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/41d30eaf-c599-5c9e-bb16-401ad1b44925/next_iceberg_support_01_sigma0.tif",
+      "sha256": "a6fd7b59c253766aaeb145ab812aa09a5b249cc3bf6fcb6b12d606320314354f"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/hh_annotation.xml",
+      "sha256": "b1eb8a127527e43d9a0536af2837f7fada29fd1f01c78de0026182b02b43db17"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/hh_calibration.xml",
+      "sha256": "558cb57f55ccecbda6e23450155db7b5a749f16408c3d0846d3abaf8fb4dc4dd"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/hv_annotation.xml",
+      "sha256": "935489bd5f4b1b3d7e1ab846e6d2b063f17616d2ac20c801a45eafcbd5a84170"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/hv_calibration.xml",
+      "sha256": "60205c270d9f9ba766811b8bd966fc42b9d6f3a561e1ea2a158899631d4f2ebe"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/next_iceberg_support_04_hh_dn.npy",
+      "sha256": "380a9e0bf16dbe7fee4770ecc6e1ee6d3e6398f7e0f7c16bba27658cc0ce48f5"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/next_iceberg_support_04_hv_dn.npy",
+      "sha256": "ac8bd5efca5925e6197569f53c8cd47b03ebe3ff9d7fcf0b8f88bdaacfa74d8b"
+    },
+    {
+      "path": "data/source_supported/followup_native_v010_01/e2113856-a831-530d-a28d-852876233702/next_iceberg_support_04_sigma0.tif",
+      "sha256": "58af3099bebe5221bd4337972a93d0883cb6ac487262adcd3d65d3f1cc609170"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/36233056-eff1-5d9b-a6c6-09838f214043/manifest.safe",
+      "sha256": "60a07006a509aa50c3fce10a0c6ec7e3238db9023b9d3f3ba4a27b82650b7373"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/36233056-eff1-5d9b-a6c6-09838f214043/noise-s1a-iw-grd-hh-20180504t094126-20180504t094151-021753-02588e-001.xml",
+      "sha256": "832273c1947da4669f0c64d3b0fecd4c17158c43563d4133c1bd50ef68881c97"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/36233056-eff1-5d9b-a6c6-09838f214043/noise-s1a-iw-grd-hv-20180504t094126-20180504t094151-021753-02588e-002.xml",
+      "sha256": "37123bee1a97d0584623bc06c87cff7836442a2545ede70b838ea2d2f9eccd8d"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/3b936136-787d-58b9-b4cf-7ec27e6952c0/manifest.safe",
+      "sha256": "c373ab79bf55ec332c37991a5da7fd4ce5eb761338aa459b80332cdf9391d263"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/3b936136-787d-58b9-b4cf-7ec27e6952c0/noise-s1b-iw-grd-hh-20200405t094056-20200405t094121-021007-027d8f-001.xml",
+      "sha256": "25d9e7c8ceeb104d4bf863431ae7ec68f5fab271bddeed1216c2d4e2dfb5d0f4"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/3b936136-787d-58b9-b4cf-7ec27e6952c0/noise-s1b-iw-grd-hv-20200405t094056-20200405t094121-021007-027d8f-002.xml",
+      "sha256": "4771d254df4987ab4ae4f60960bc6719a9ecf9f377d3980228a6f69e3d42099c"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/41d30eaf-c599-5c9e-bb16-401ad1b44925/manifest.safe",
+      "sha256": "27fa91454289661b3f4241c75b115acc80bbb0712e2a2d975471003e63944fc7"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/41d30eaf-c599-5c9e-bb16-401ad1b44925/noise-s1b-iw-grd-hh-20200523t094058-20200523t094123-021707-02933b-001.xml",
+      "sha256": "2be94a64aceb50c90023d0b6e8528041f080e3d36424819278885555ae105cf9"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/41d30eaf-c599-5c9e-bb16-401ad1b44925/noise-s1b-iw-grd-hv-20200523t094058-20200523t094123-021707-02933b-002.xml",
+      "sha256": "7fe19177a6dec2cf585b61318ae7145e7d1ac1611dda7bac3c8973ce0f6dee3c"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/e2113856-a831-530d-a28d-852876233702/manifest.safe",
+      "sha256": "18795a498e521a3374c54b14221299faf6c944d4ce6607abfa8c717d71c2ae8c"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/e2113856-a831-530d-a28d-852876233702/noise-s1a-iw-grd-hh-20180410t094125-20180410t094150-021403-024d90-001.xml",
+      "sha256": "a3a95af11733a3eb2e8ad44a10f6de85a7aecdb8e0a14d0cbaf528fe9c61440c"
+    },
+    {
+      "path": "data/source_supported/snap_metadata_v010_02/e2113856-a831-530d-a28d-852876233702/noise-s1a-iw-grd-hv-20180410t094125-20180410t094150-021403-024d90-002.xml",
+      "sha256": "5a6a81da15c10cc5006dad21c5254e2fb03c1a9bbaef2fd3a3bb1fd65b4a1a1b"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/Sigma0_HH_dB.img",
+      "sha256": "2b29c1c097e42a13a711d19860c129a8b6e14831a24e3fc4a968bd2c485ba583"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/Sigma0_HV_dB.img",
+      "sha256": "e781d9eed2b59011abd5288b428d156ffaab9569314ad5118aa4713c5bf6e72c"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/elevation_angle.img",
+      "sha256": "9541ae8a934bc874d0d94b4586289b9ce8399999a204e4112b72a89e5ee919bf"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/incident_angle.img",
+      "sha256": "463f788374f4a2c69b358759e2b5274ba05b435b2b975e081c750a8610fc8286"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/latitude.img",
+      "sha256": "203f1d1e8aa1ec7488ecaa6e47a87acb7ba5c0e46d3b074bae72f1958dcd8ece"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/longitude.img",
+      "sha256": "9d3cc34227dbf53866910c0a495b8346d4f75899b0309e75ce6fe63ef2b9868d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/tie_point_grids/slant_range_time.img",
+      "sha256": "523f5c727279e8a7a9b3136cb9fcfb3d2a00822c04e0aa764e7bc28bbf4e08eb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/calibration.dim",
+      "sha256": "3909d0bf652444184fc511c04a1aa5cd909e441f4b5e280ff6ab8d5e5a921d3a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/Sigma0_HH_dB.img",
+      "sha256": "f5c0669ee652785096e07b8ae24916c9807ffb8b5407fda3f76e7be893d3982e"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/Sigma0_HV_dB.img",
+      "sha256": "7abb9734b04cae0884f33d07095dd1e5782a1b3eb6737ff7b3011fd528b9f1c7"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/elevation_angle.img",
+      "sha256": "9541ae8a934bc874d0d94b4586289b9ce8399999a204e4112b72a89e5ee919bf"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/incident_angle.img",
+      "sha256": "463f788374f4a2c69b358759e2b5274ba05b435b2b975e081c750a8610fc8286"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/latitude.img",
+      "sha256": "203f1d1e8aa1ec7488ecaa6e47a87acb7ba5c0e46d3b074bae72f1958dcd8ece"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/longitude.img",
+      "sha256": "9d3cc34227dbf53866910c0a495b8346d4f75899b0309e75ce6fe63ef2b9868d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/tie_point_grids/slant_range_time.img",
+      "sha256": "523f5c727279e8a7a9b3136cb9fcfb3d2a00822c04e0aa764e7bc28bbf4e08eb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/noise.dim",
+      "sha256": "2bf1d4375df976854682cd5f7c34052e261d4218b8d390282973e49406a66165"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/Amplitude_HH.hdr",
+      "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/Amplitude_HH.img",
+      "sha256": "dde9bfb995b04fb338a47b9f25364f367c124d494971603066f5e800aa243645"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/Amplitude_HV.hdr",
+      "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/Amplitude_HV.img",
+      "sha256": "33defe06aaba2702baee54c97cd1fc2d31751b3d10e16cd16d0adb3d899a7fa0"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/elevation_angle.img",
+      "sha256": "9541ae8a934bc874d0d94b4586289b9ce8399999a204e4112b72a89e5ee919bf"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/incident_angle.img",
+      "sha256": "463f788374f4a2c69b358759e2b5274ba05b435b2b975e081c750a8610fc8286"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/latitude.img",
+      "sha256": "203f1d1e8aa1ec7488ecaa6e47a87acb7ba5c0e46d3b074bae72f1958dcd8ece"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/longitude.img",
+      "sha256": "9d3cc34227dbf53866910c0a495b8346d4f75899b0309e75ce6fe63ef2b9868d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/tie_point_grids/slant_range_time.img",
+      "sha256": "523f5c727279e8a7a9b3136cb9fcfb3d2a00822c04e0aa764e7bc28bbf4e08eb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.dim",
+      "sha256": "e9f702a2cb97e817d89906070c90096fe5381ba79193315b96dc442158396de8"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_01/raw.xml",
+      "sha256": "7ff6ba174b2eb2a98f0ffc91b74860aa51d90a8f380e6eb6705b6ffd5b9a8083"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/Sigma0_HH_dB.img",
+      "sha256": "1ee8cb3d2ae75a83bddfa5e8d52ef3bf6eeb2289da2585cf18b216c27cd51f1c"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/Sigma0_HV_dB.img",
+      "sha256": "78cf1728e0c24e4956341844bf6c61d61efcc31a761cf67c445855aec20f03de"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/elevation_angle.img",
+      "sha256": "ee6202894867dffc677ef0ef128d49148c212368959236683e8af66ec5bb6bdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/incident_angle.img",
+      "sha256": "764e76db92cc8ad9dff57b8f7376d7e249c22f1af9911a89a6c5533caf838318"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/latitude.img",
+      "sha256": "617efb72b4c815c5b3606344026ada1ce0566c13867215c1b7fc1e64b8e74267"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/longitude.img",
+      "sha256": "adc4c0077bb5828eb0e916214a79c30a44004ec86bf3a98f635e3501146e44d5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/tie_point_grids/slant_range_time.img",
+      "sha256": "f8c43438e4d6b12a3e4d693eb90d8396e0052bde8fa9ec5d34ef44adc6c35752"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/calibration.dim",
+      "sha256": "7cb4ffcb51e69942d1140e6b18af3006afdf7870ec560b25e1c3bc64a36f93f4"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/Sigma0_HH_dB.img",
+      "sha256": "ab92c784950dbc9205570768d9a333ff6eb7ab6fb591fffab55a70758779dd0c"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/Sigma0_HV_dB.img",
+      "sha256": "7e438f3b71b3046f558cb3e6c19c80e58ee75f201c99d39e1f728334f4ff8b16"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/elevation_angle.img",
+      "sha256": "ee6202894867dffc677ef0ef128d49148c212368959236683e8af66ec5bb6bdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/incident_angle.img",
+      "sha256": "764e76db92cc8ad9dff57b8f7376d7e249c22f1af9911a89a6c5533caf838318"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/latitude.img",
+      "sha256": "617efb72b4c815c5b3606344026ada1ce0566c13867215c1b7fc1e64b8e74267"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/longitude.img",
+      "sha256": "adc4c0077bb5828eb0e916214a79c30a44004ec86bf3a98f635e3501146e44d5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/tie_point_grids/slant_range_time.img",
+      "sha256": "f8c43438e4d6b12a3e4d693eb90d8396e0052bde8fa9ec5d34ef44adc6c35752"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/noise.dim",
+      "sha256": "aeac81ca90096f96580ce99a139c69de72e54486f6862527cc058f246f686589"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/Amplitude_HH.hdr",
+      "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/Amplitude_HH.img",
+      "sha256": "dbf0aa3cdc34be0084f8b6d407ab91f8de9c90d18413da57ff7ef40af89637cc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/Amplitude_HV.hdr",
+      "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/Amplitude_HV.img",
+      "sha256": "39d8c24dbf7265280f1d153fc53abb98dc7641b47c755e34bf4b250cdb1f7f5c"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/elevation_angle.img",
+      "sha256": "ee6202894867dffc677ef0ef128d49148c212368959236683e8af66ec5bb6bdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/incident_angle.img",
+      "sha256": "764e76db92cc8ad9dff57b8f7376d7e249c22f1af9911a89a6c5533caf838318"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/latitude.img",
+      "sha256": "617efb72b4c815c5b3606344026ada1ce0566c13867215c1b7fc1e64b8e74267"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/longitude.img",
+      "sha256": "adc4c0077bb5828eb0e916214a79c30a44004ec86bf3a98f635e3501146e44d5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/tie_point_grids/slant_range_time.img",
+      "sha256": "f8c43438e4d6b12a3e4d693eb90d8396e0052bde8fa9ec5d34ef44adc6c35752"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.dim",
+      "sha256": "e1b501de47a79e49ab84c0fffda188e3bb261cd05d39f74bd411f3e9f3506bf3"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_02/raw.xml",
+      "sha256": "ca909b51b9bf9145b112812c8279ebf5f8635c5bdc6e63c7188dc9e5f7459c83"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/Sigma0_HH_dB.img",
+      "sha256": "7879ff8947b52076bc84b3b6f0688040288d61f26fcf749d1f66598894ee299b"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/Sigma0_HV_dB.img",
+      "sha256": "38a08e23852697882fba303489223b97556e5992b1ed4e5c5cd6b045ddb73a6c"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/elevation_angle.img",
+      "sha256": "87761f772b1456c32632bb537b7a5c6c1ffa509fc03c1ca48a2513f27b35371a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/incident_angle.img",
+      "sha256": "9fad41bfa223bd3cc5e4d6ea58f8c5e2687d7e8638b2c3d35a932b951d10dfcc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/latitude.img",
+      "sha256": "b9383bd7c3481514f685beb731ce99522254999397c0308c9da234888d5274dc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/longitude.img",
+      "sha256": "239cdd408fd68477b554dfb3b2644b11dbcded838b01060fb4cbf3b798d908d3"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/tie_point_grids/slant_range_time.img",
+      "sha256": "0f45ad71fc5a44b18d49f443486877ac95a280b94965aa5645a5293066cf16e4"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/calibration.dim",
+      "sha256": "462f70ed333c0981419c6374cbbfa9adfa1a843e173d73b346b736992c3b7640"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/Sigma0_HH_dB.img",
+      "sha256": "def350734651763ede5b4f820221aae8d09559d6395a152302b9ff77b7fbf9d0"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/Sigma0_HV_dB.img",
+      "sha256": "6f5df4877dd90f29a6799a748923c924648fd1866c8ef37beb1f0f4c69322086"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/elevation_angle.img",
+      "sha256": "87761f772b1456c32632bb537b7a5c6c1ffa509fc03c1ca48a2513f27b35371a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/incident_angle.img",
+      "sha256": "9fad41bfa223bd3cc5e4d6ea58f8c5e2687d7e8638b2c3d35a932b951d10dfcc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/latitude.img",
+      "sha256": "b9383bd7c3481514f685beb731ce99522254999397c0308c9da234888d5274dc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/longitude.img",
+      "sha256": "239cdd408fd68477b554dfb3b2644b11dbcded838b01060fb4cbf3b798d908d3"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/tie_point_grids/slant_range_time.img",
+      "sha256": "0f45ad71fc5a44b18d49f443486877ac95a280b94965aa5645a5293066cf16e4"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/noise.dim",
+      "sha256": "64abcce4a1ebf44eff9867a47a0f155dd8c5bd22e30856f709225c19c41a1326"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/Amplitude_HH.hdr",
+      "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/Amplitude_HH.img",
+      "sha256": "c842ae44706c67f0afa3174cb4e3ac05144bf1d23f56ad7031671678e628bd36"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/Amplitude_HV.hdr",
+      "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/Amplitude_HV.img",
+      "sha256": "8eb25d12a89af6d72cba7596a2281caf6066a34f69fd62b5eaf2f6864e83b69a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/elevation_angle.img",
+      "sha256": "87761f772b1456c32632bb537b7a5c6c1ffa509fc03c1ca48a2513f27b35371a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/incident_angle.img",
+      "sha256": "9fad41bfa223bd3cc5e4d6ea58f8c5e2687d7e8638b2c3d35a932b951d10dfcc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/latitude.img",
+      "sha256": "b9383bd7c3481514f685beb731ce99522254999397c0308c9da234888d5274dc"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/longitude.img",
+      "sha256": "239cdd408fd68477b554dfb3b2644b11dbcded838b01060fb4cbf3b798d908d3"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/tie_point_grids/slant_range_time.img",
+      "sha256": "0f45ad71fc5a44b18d49f443486877ac95a280b94965aa5645a5293066cf16e4"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.dim",
+      "sha256": "19ead000db557751c38525754fe26aa5e634b120d46b7f9d7ddae2fa38ed74b4"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_03/raw.xml",
+      "sha256": "6f8030db0eeec884c155ec3d6ae4fbbf18c0ba601e98bb59390c126ac8c7b623"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/Sigma0_HH_dB.img",
+      "sha256": "359e0b69ed8e1b4f7af4e815a708cae62364c6edd80e003234b2dda93a1b7bea"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/Sigma0_HV_dB.img",
+      "sha256": "d6704a3590efc85755d928850ca40753ce06bf38a1c8a210398a54969ec5debf"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/elevation_angle.img",
+      "sha256": "cc4fc0adeb1ec618072e2b723322f9c5df0f933c8f38606fa0b3aadf4054a5ec"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/incident_angle.img",
+      "sha256": "1f2d0843d00a474eb3bb9c3c29e135f53cfd96427742703f407b76d02cd0b0d9"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/latitude.img",
+      "sha256": "9bdb7698c5a8e709af0c76caba615eea96757129d51e295772cfeb4679d9ca2a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/longitude.img",
+      "sha256": "663a070277145f0196c2d7ffc8c394a318153ffb581b24e360226c63662ceea7"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/tie_point_grids/slant_range_time.img",
+      "sha256": "1ad4c55f8a958cae4c0a42bf1783aaa09ac86aa38da9de0e4747069ea1852b37"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/calibration.dim",
+      "sha256": "06379d3d4e525c382c640d31f986c64b8fc5798eef6dc85198db30b0effaf018"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/Sigma0_HH_dB.hdr",
+      "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/Sigma0_HH_dB.img",
+      "sha256": "a5f0319c4313b04835bfd9f9cf0be32550ab52e5005a5e48b8f9f88f8b4ec8d9"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/Sigma0_HV_dB.hdr",
+      "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/Sigma0_HV_dB.img",
+      "sha256": "0d7bb1ce1055b024744bd346e7011098c3f30eaf56826e887f47ecdd2f58f084"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/elevation_angle.img",
+      "sha256": "cc4fc0adeb1ec618072e2b723322f9c5df0f933c8f38606fa0b3aadf4054a5ec"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/incident_angle.img",
+      "sha256": "1f2d0843d00a474eb3bb9c3c29e135f53cfd96427742703f407b76d02cd0b0d9"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/latitude.img",
+      "sha256": "9bdb7698c5a8e709af0c76caba615eea96757129d51e295772cfeb4679d9ca2a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/longitude.img",
+      "sha256": "663a070277145f0196c2d7ffc8c394a318153ffb581b24e360226c63662ceea7"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/tie_point_grids/slant_range_time.img",
+      "sha256": "1ad4c55f8a958cae4c0a42bf1783aaa09ac86aa38da9de0e4747069ea1852b37"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/noise.dim",
+      "sha256": "d0f1070928deca948e0226d1cc0fc8c4a5b6c4f1ec656d9b2f574fcc33a3cd31"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/Amplitude_HH.hdr",
+      "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/Amplitude_HH.img",
+      "sha256": "bf6d9e5364cd4a55617edf03f9c3a8c61d0ed4d3ad11eb7f2ab67ea0769ef0c3"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/Amplitude_HV.hdr",
+      "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/Amplitude_HV.img",
+      "sha256": "8f32912da15695c292ad592539e2584904b3181949066062b1ca6ebe780a96d3"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/elevation_angle.hdr",
+      "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/elevation_angle.img",
+      "sha256": "cc4fc0adeb1ec618072e2b723322f9c5df0f933c8f38606fa0b3aadf4054a5ec"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/incident_angle.hdr",
+      "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/incident_angle.img",
+      "sha256": "1f2d0843d00a474eb3bb9c3c29e135f53cfd96427742703f407b76d02cd0b0d9"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/latitude.hdr",
+      "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/latitude.img",
+      "sha256": "9bdb7698c5a8e709af0c76caba615eea96757129d51e295772cfeb4679d9ca2a"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/longitude.hdr",
+      "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/longitude.img",
+      "sha256": "663a070277145f0196c2d7ffc8c394a318153ffb581b24e360226c63662ceea7"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/slant_range_time.hdr",
+      "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/tie_point_grids/slant_range_time.img",
+      "sha256": "1ad4c55f8a958cae4c0a42bf1783aaa09ac86aa38da9de0e4747069ea1852b37"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/vector_data/ground_control_points.csv",
+      "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.data/vector_data/pins.csv",
+      "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.dim",
+      "sha256": "aba2e4326e91e06ef4bb9168b082f0fb2929a9fa2174f4d6682abb9d93170f5f"
+    },
+    {
+      "path": "data/source_supported/snap_reference_v020_01/next_iceberg_support_04/raw.xml",
+      "sha256": "cbb5b3e204bfa426b560ebc1f8c4dc7c674c6582e9be4638d1da321e9aade11a"
+    }
+  ],
+  "areas": [
+    {
+      "id": "next_iceberg_support_01",
+      "product_id": "41d30eaf-c599-5c9e-bb16-401ad1b44925",
+      "split": "validation",
+      "window": [
+        2941,
+        875,
+        384,
+        384
+      ],
+      "ipf_versions": [
+        "003.20"
+      ],
+      "input_metadata": {
+        "mission": "S1B",
+        "mode": "IW",
+        "product_type": "GRD",
+        "band_order": [
+          "HH",
+          "HV"
+        ],
+        "pixel_spacing_m": [
+          10.0,
+          10.0
+        ],
+        "thermal_noise_corrected": false,
+        "unit": "sigma0_db",
+        "incidence_center_deg": 32.63918182265162
+      },
+      "bands": [
+        {
+          "polarization": "HH",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.1e-07,
+            "corrected_max_error_db": 7.74e-07,
+            "float64_lut_corrected_max_error_db": 7.74e-07,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.7205703157255147e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                151,
+                21
+              ],
+              "original_row_col": [
+                1026,
+                2962
+              ],
+              "observed_power": 34969.0,
+              "estimated_noise_power_snap_precision": 1199.3927723172785,
+              "replayed_residual_power": 33769.60722768272,
+              "snap_reconstructed_power": 33769.60121102038
+            },
+            "passes": true
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                157,
+                174,
+                171,
+                201
+              ],
+              "target": {
+                "pixels": 378,
+                "dn_power_q05_50_95": [
+                  17689.0,
+                  66306.5,
+                  434738.2
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1194.443435,
+                  1194.759455,
+                  1195.073737
+                ],
+                "residual_power_q05_50_95": [
+                  16493.9517,
+                  65111.687438,
+                  433543.383256
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  11.703178,
+                  17.44253,
+                  25.608041
+                ],
+                "nonpositive_residual_fraction": 0.0,
+                "nominal_sigma0_db_q05_50_95": [
+                  -13.708543,
+                  -7.969367,
+                  0.195779
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -14.012328,
+                  -8.048339,
+                  0.18382
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -0.303786,
+                  -0.078973,
+                  -0.011959
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5550,
+                "dn_power_q05_50_95": [
+                  14400.0,
+                  37249.0,
+                  82369.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1193.27932,
+                  1194.911265,
+                  1196.473408
+                ],
+                "residual_power_q05_50_95": [
+                  13205.344006,
+                  36052.856105,
+                  81175.123257
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  10.811196,
+                  14.933312,
+                  18.388043
+                ],
+                "nonpositive_residual_fraction": 0.0,
+                "nominal_sigma0_db_q05_50_95": [
+                  -14.60025,
+                  -10.47655,
+                  -7.025962
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -14.976381,
+                  -10.618288,
+                  -7.08937
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -0.376128,
+                  -0.14175,
+                  -0.063408
+                ]
+              },
+              "nominal_target_background_median_db": 2.507183,
+              "corrected_target_background_median_db": 2.569948
+            }
+          ]
+        },
+        {
+          "polarization": "HV",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.1e-07,
+            "corrected_max_error_db": 0.001955472,
+            "float64_lut_corrected_max_error_db": 0.31992568,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              2e-06
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.2297358554756842e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                38,
+                137
+              ],
+              "original_row_col": [
+                913,
+                3078
+              ],
+              "observed_power": 1156.0,
+              "estimated_noise_power_snap_precision": 1155.9992532085398,
+              "replayed_residual_power": 0.0007467914601875236,
+              "snap_reconstructed_power": 0.0007471277892363932
+            },
+            "passes": false
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                157,
+                174,
+                171,
+                201
+              ],
+              "target": {
+                "pixels": 378,
+                "dn_power_q05_50_95": [
+                  900.0,
+                  3192.5,
+                  27274.65
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1153.892245,
+                  1154.298232,
+                  1154.707595
+                ],
+                "residual_power_q05_50_95": [
+                  -254.126493,
+                  2038.111229,
+                  26120.450279
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -1.080109,
+                  4.417108,
+                  13.734742
+                ],
+                "nonpositive_residual_fraction": 0.100529,
+                "nominal_sigma0_db_q05_50_95": [
+                  -26.642282,
+                  -21.144466,
+                  -11.827444
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -106.185507,
+                  -23.094485,
+                  -12.015233
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -79.542425,
+                  -1.950019,
+                  -0.187788
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5550,
+                "dn_power_q05_50_95": [
+                  625.0,
+                  1521.0,
+                  3025.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1152.335857,
+                  1154.443422,
+                  1156.44608
+                ],
+                "residual_power_q05_50_95": [
+                  -530.049104,
+                  365.165343,
+                  1868.689116
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -2.667204,
+                  1.192335,
+                  4.176508
+                ],
+                "nonpositive_residual_fraction": 0.283243,
+                "nominal_sigma0_db_q05_50_95": [
+                  -28.227015,
+                  -24.366044,
+                  -21.380082
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -106.187176,
+                  -30.562383,
+                  -23.471656
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -80.103,
+                  -6.196396,
+                  -2.091883
+                ]
+              },
+              "nominal_target_background_median_db": 3.221577,
+              "corrected_target_background_median_db": 7.467898
+            }
+          ]
+        }
+      ],
+      "native_input_checks": [
+        {
+          "object_id": "u1",
+          "status": "research_tensor_only",
+          "reason": null,
+          "shape": [
+            2,
+            75,
+            75
+          ],
+          "tensor_sha256_float32_c_order": "f68b7fcdb770598d1609a4e59e49a18a7f48f73e3f1769c5290e76c636ea57c4"
+        }
+      ]
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "product_id": "36233056-eff1-5d9b-a6c6-09838f214043",
+      "split": "train",
+      "window": [
+        8856,
+        13383,
+        384,
+        384
+      ],
+      "ipf_versions": [
+        "002.90"
+      ],
+      "input_metadata": {
+        "mission": "S1A",
+        "mode": "IW",
+        "product_type": "GRD",
+        "band_order": [
+          "HH",
+          "HV"
+        ],
+        "pixel_spacing_m": [
+          10.0,
+          10.0
+        ],
+        "thermal_noise_corrected": false,
+        "unit": "sigma0_db",
+        "incidence_center_deg": 36.5513059635956
+      },
+      "bands": [
+        {
+          "polarization": "HH",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.54e-07,
+            "corrected_max_error_db": 1.0759e-05,
+            "float64_lut_corrected_max_error_db": 0.000489318,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              1e-06
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.593827758703651e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                314,
+                279
+              ],
+              "original_row_col": [
+                13697,
+                9135
+              ],
+              "observed_power": 1369.0,
+              "estimated_noise_power_snap_precision": 1368.843730696866,
+              "replayed_residual_power": 0.1562693031339677,
+              "snap_reconstructed_power": 0.1562689160090211
+            },
+            "passes": true
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                197,
+                137,
+                214,
+                164
+              ],
+              "target": {
+                "pixels": 459,
+                "dn_power_q05_50_95": [
+                  2916.0,
+                  8281.0,
+                  62600.4
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1393.101994,
+                  1398.075889,
+                  1403.055766
+                ],
+                "residual_power_q05_50_95": [
+                  1512.979058,
+                  6883.543388,
+                  61202.51032
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  3.177234,
+                  7.727445,
+                  16.510993
+                ],
+                "nonpositive_residual_fraction": 0.004357,
+                "nominal_sigma0_db_q05_50_95": [
+                  -21.118701,
+                  -16.585362,
+                  -7.800346
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -23.968189,
+                  -17.388133,
+                  -7.898427
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -2.849546,
+                  -0.802707,
+                  -0.098081
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5700,
+                "dn_power_q05_50_95": [
+                  1521.0,
+                  3844.0,
+                  8464.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1377.287996,
+                  1405.553259,
+                  1452.263139
+                ],
+                "residual_power_q05_50_95": [
+                  130.956925,
+                  2442.615112,
+                  7065.239607
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  0.39101,
+                  4.373265,
+                  7.790577
+                ],
+                "nonpositive_residual_fraction": 0.03807,
+                "nominal_sigma0_db_q05_50_95": [
+                  -23.943677,
+                  -19.917325,
+                  -16.49081
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -34.593436,
+                  -21.888605,
+                  -17.275693
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -10.650007,
+                  -1.974452,
+                  -0.790002
+                ]
+              },
+              "nominal_target_background_median_db": 3.331964,
+              "corrected_target_background_median_db": 4.500472
+            }
+          ]
+        },
+        {
+          "polarization": "HV",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.37e-07,
+            "corrected_max_error_db": 8.7343e-05,
+            "float64_lut_corrected_max_error_db": 0.007360235,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              2e-06
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.206312942504369e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                35,
+                356
+              ],
+              "original_row_col": [
+                13418,
+                9212
+              ],
+              "observed_power": 1156.0,
+              "estimated_noise_power_snap_precision": 1155.9787430849278,
+              "replayed_residual_power": 0.021256915072171978,
+              "snap_reconstructed_power": 0.021256487569761246
+            },
+            "passes": true
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                197,
+                137,
+                214,
+                164
+              ],
+              "target": {
+                "pixels": 459,
+                "dn_power_q05_50_95": [
+                  670.9,
+                  1849.0,
+                  6724.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1236.612378,
+                  1241.136241,
+                  1245.671339
+                ],
+                "residual_power_q05_50_95": [
+                  -573.279092,
+                  604.392495,
+                  5482.777286
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -2.683415,
+                  1.719045,
+                  7.33778
+                ],
+                "nonpositive_residual_fraction": 0.285403,
+                "nominal_sigma0_db_q05_50_95": [
+                  -27.501073,
+                  -23.097142,
+                  -17.489842
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -105.766512,
+                  -27.953386,
+                  -18.376061
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -80.629578,
+                  -4.856179,
+                  -0.886271
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5700,
+                "dn_power_q05_50_95": [
+                  529.0,
+                  1225.0,
+                  2500.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  1222.268771,
+                  1247.670086,
+                  1282.930947
+                ],
+                "residual_power_q05_50_95": [
+                  -714.129239,
+                  -2.280849,
+                  1244.023677
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -3.710606,
+                  -0.008079,
+                  2.989586
+                ],
+                "nonpositive_residual_fraction": 0.502632,
+                "nominal_sigma0_db_q05_50_95": [
+                  -28.530602,
+                  -24.882705,
+                  -21.78716
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -105.768123,
+                  -105.763616,
+                  -24.820179
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -80.629579,
+                  -74.0824,
+                  -3.031114
+                ]
+              },
+              "nominal_target_background_median_db": 1.785562,
+              "corrected_target_background_median_db": 77.81023
+            }
+          ]
+        }
+      ],
+      "native_input_checks": [
+        {
+          "object_id": "u1",
+          "status": "research_tensor_only",
+          "reason": null,
+          "shape": [
+            2,
+            75,
+            75
+          ],
+          "tensor_sha256_float32_c_order": "9b0faf5d60694e74735946b579279d9942dc28f0fd9f1d79927ab9d8e0e2c8dc"
+        }
+      ]
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "product_id": "3b936136-787d-58b9-b4cf-7ec27e6952c0",
+      "split": "validation",
+      "window": [
+        12557,
+        6638,
+        384,
+        384
+      ],
+      "ipf_versions": [
+        "003.20"
+      ],
+      "input_metadata": {
+        "mission": "S1B",
+        "mode": "IW",
+        "product_type": "GRD",
+        "band_order": [
+          "HH",
+          "HV"
+        ],
+        "pixel_spacing_m": [
+          10.0,
+          10.0
+        ],
+        "thermal_noise_corrected": false,
+        "unit": "sigma0_db",
+        "incidence_center_deg": 38.81109959812815
+      },
+      "bands": [
+        {
+          "polarization": "HH",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.54e-07,
+            "corrected_max_error_db": 8.32e-07,
+            "float64_lut_corrected_max_error_db": 0.00073761,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              1e-06
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.6817582307037846e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                21,
+                374
+              ],
+              "original_row_col": [
+                6659,
+                12931
+              ],
+              "observed_power": 900.0,
+              "estimated_noise_power_snap_precision": 535.1809235899254,
+              "replayed_residual_power": 364.81907641007456,
+              "snap_reconstructed_power": 364.81900650714095
+            },
+            "passes": true
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                127,
+                169,
+                140,
+                188
+              ],
+              "target": {
+                "pixels": 247,
+                "dn_power_q05_50_95": [
+                  1246.3,
+                  4225.0,
+                  39853.6
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  534.234778,
+                  534.529535,
+                  534.82451
+                ],
+                "residual_power_q05_50_95": [
+                  711.943868,
+                  3690.245042,
+                  39319.044726
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  3.67646,
+                  8.976719,
+                  18.721803
+                ],
+                "nonpositive_residual_fraction": 0.0,
+                "nominal_sigma0_db_q05_50_95": [
+                  -24.591162,
+                  -19.288042,
+                  -9.544387
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -27.025848,
+                  -19.875688,
+                  -9.603114
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -2.434687,
+                  -0.587715,
+                  -0.058728
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5100,
+                "dn_power_q05_50_95": [
+                  1024.0,
+                  2916.0,
+                  7056.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  533.125608,
+                  534.536462,
+                  535.968533
+                ],
+                "residual_power_q05_50_95": [
+                  489.856499,
+                  2381.689984,
+                  6521.936859
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  2.82642,
+                  7.369942,
+                  11.20966
+                ],
+                "nonpositive_residual_fraction": 0.006275,
+                "nominal_sigma0_db_q05_50_95": [
+                  -25.442865,
+                  -20.898009,
+                  -17.059407
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -28.646719,
+                  -21.776901,
+                  -17.401145
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -3.202311,
+                  -0.879023,
+                  -0.34182
+                ]
+              },
+              "nominal_target_background_median_db": 1.609968,
+              "corrected_target_background_median_db": 1.901213
+            }
+          ]
+        },
+        {
+          "polarization": "HV",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.35e-07,
+            "corrected_max_error_db": 8.34e-07,
+            "float64_lut_corrected_max_error_db": 7.245e-06,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              2e-06
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.1821510255088695e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                92,
+                369
+              ],
+              "original_row_col": [
+                6730,
+                12926
+              ],
+              "observed_power": 625.0,
+              "estimated_noise_power_snap_precision": 536.1694070782286,
+              "replayed_residual_power": 88.83059292177143,
+              "snap_reconstructed_power": 88.83057586934741
+            },
+            "passes": true
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                127,
+                169,
+                140,
+                188
+              ],
+              "target": {
+                "pixels": 247,
+                "dn_power_q05_50_95": [
+                  324.0,
+                  729.0,
+                  3329.5
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  538.270791,
+                  538.579033,
+                  538.887393
+                ],
+                "residual_power_q05_50_95": [
+                  -214.861563,
+                  190.208887,
+                  2791.0151
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -2.209322,
+                  1.313071,
+                  7.911506
+                ],
+                "nonpositive_residual_fraction": 0.315789,
+                "nominal_sigma0_db_q05_50_95": [
+                  -30.440915,
+                  -26.91909,
+                  -20.32279
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -105.546365,
+                  -32.753717,
+                  -21.089192
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -77.234557,
+                  -5.834967,
+                  -0.766402
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5100,
+                "dn_power_q05_50_95": [
+                  225.0,
+                  529.0,
+                  1089.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  537.106144,
+                  538.583631,
+                  540.082026
+                ],
+                "residual_power_q05_50_95": [
+                  -314.404624,
+                  -8.665531,
+                  549.935061
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -3.797321,
+                  -0.070565,
+                  3.053868
+                ],
+                "nonpositive_residual_fraction": 0.513725,
+                "nominal_sigma0_db_q05_50_95": [
+                  -32.02556,
+                  -28.310167,
+                  -25.176537
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -105.547782,
+                  -105.544101,
+                  -28.143834
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -77.234557,
+                  -71.583625,
+                  -2.967165
+                ]
+              },
+              "nominal_target_background_median_db": 1.391077,
+              "corrected_target_background_median_db": 72.790384
+            }
+          ]
+        }
+      ],
+      "native_input_checks": [
+        {
+          "object_id": "u1",
+          "status": "research_tensor_only",
+          "reason": null,
+          "shape": [
+            2,
+            75,
+            75
+          ],
+          "tensor_sha256_float32_c_order": "c54070475ec8c8a87276ea6139e3d44d5038e74debc652e8d260df7594e1231e"
+        }
+      ]
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "product_id": "e2113856-a831-530d-a28d-852876233702",
+      "split": "validation",
+      "window": [
+        14010,
+        4937,
+        384,
+        384
+      ],
+      "ipf_versions": [
+        "002.90"
+      ],
+      "input_metadata": {
+        "mission": "S1A",
+        "mode": "IW",
+        "product_type": "GRD",
+        "band_order": [
+          "HH",
+          "HV"
+        ],
+        "pixel_spacing_m": [
+          10.0,
+          10.0
+        ],
+        "thermal_noise_corrected": false,
+        "unit": "sigma0_db",
+        "incidence_center_deg": 39.670311515731534
+      },
+      "bands": [
+        {
+          "polarization": "HH",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.7e-07,
+            "corrected_max_error_db": 8.18e-07,
+            "float64_lut_corrected_max_error_db": 2.178e-06,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.7823892422747107e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                346,
+                30
+              ],
+              "original_row_col": [
+                5283,
+                14040
+              ],
+              "observed_power": 11881.0,
+              "estimated_noise_power_snap_precision": 695.7425756207052,
+              "replayed_residual_power": 11185.257424379295,
+              "snap_reconstructed_power": 11185.25953027494
+            },
+            "passes": true
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                140,
+                92,
+                157,
+                119
+              ],
+              "target": {
+                "pixels": 459,
+                "dn_power_q05_50_95": [
+                  3844.0,
+                  13924.0,
+                  96475.6
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  701.865608,
+                  702.38473,
+                  702.903873
+                ],
+                "residual_power_q05_50_95": [
+                  3141.287348,
+                  13222.134381,
+                  95772.985193
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  7.380056,
+                  12.9751,
+                  21.376712
+                ],
+                "nonpositive_residual_fraction": 0.0,
+                "nominal_sigma0_db_q05_50_95": [
+                  -19.617967,
+                  -14.027509,
+                  -5.621474
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -20.494767,
+                  -14.252286,
+                  -5.653223
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -0.876757,
+                  -0.224625,
+                  -0.031749
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5700,
+                "dn_power_q05_50_95": [
+                  3600.0,
+                  9409.0,
+                  20164.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  700.729434,
+                  702.43457,
+                  704.30823
+                ],
+                "residual_power_q05_50_95": [
+                  2898.892154,
+                  8707.290827,
+                  19462.555181
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  7.105177,
+                  11.273863,
+                  14.585832
+                ],
+                "nonpositive_residual_fraction": 0.0,
+                "nominal_sigma0_db_q05_50_95": [
+                  -19.901266,
+                  -15.729499,
+                  -12.417876
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -20.842991,
+                  -16.066283,
+                  -12.572222
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -0.940705,
+                  -0.336604,
+                  -0.153768
+                ]
+              },
+              "nominal_target_background_median_db": 1.70199,
+              "corrected_target_background_median_db": 1.813997
+            }
+          ]
+        },
+        {
+          "polarization": "HV",
+          "source_noise_corrected": false,
+          "schema": "range_times_azimuth",
+          "reconstruction": {
+            "nominal_max_error_db": 6.44e-07,
+            "corrected_max_error_db": 0.002862777,
+            "float64_lut_corrected_max_error_db": 0.453344379,
+            "float64_lut_corrected_error_db_q05_50_95": [
+              0.0,
+              0.0,
+              2e-06
+            ],
+            "noise_lut_precision_for_snap_comparison": "float32 LUT nodes, float64 interpolation",
+            "metadata_precision_floor_mask_disagreements": 0,
+            "maximum_power_error_fraction_of_observed_power": 1.2860823483572824e-07,
+            "largest_db_error_pixel": {
+              "local_row_col": [
+                78,
+                201
+              ],
+              "original_row_col": [
+                5015,
+                14211
+              ],
+              "observed_power": 625.0,
+              "estimated_noise_power_snap_precision": 624.9998754015714,
+              "replayed_residual_power": 0.0001245984285560553,
+              "snap_reconstructed_power": 0.00012468058827402957
+            },
+            "passes": false
+          },
+          "objects": [
+            {
+              "object_id": "u1",
+              "bbox_px": [
+                140,
+                92,
+                157,
+                119
+              ],
+              "target": {
+                "pixels": 459,
+                "dn_power_q05_50_95": [
+                  400.0,
+                  1600.0,
+                  7294.6
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  623.320917,
+                  623.769143,
+                  624.218252
+                ],
+                "residual_power_q05_50_95": [
+                  -223.4957,
+                  976.144356,
+                  6670.694377
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -1.927735,
+                  4.090359,
+                  10.677132
+                ],
+                "nonpositive_residual_fraction": 0.115468,
+                "nominal_sigma0_db_q05_50_95": [
+                  -29.445141,
+                  -23.424218,
+                  -16.83714
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -105.465849,
+                  -25.570216,
+                  -17.225766
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -76.444386,
+                  -2.14606,
+                  -0.388626
+                ]
+              },
+              "surrounding_context": {
+                "pixels": 5700,
+                "dn_power_q05_50_95": [
+                  400.0,
+                  961.0,
+                  1849.0
+                ],
+                "metadata_noise_power_q05_50_95": [
+                  622.342816,
+                  623.820459,
+                  625.449709
+                ],
+                "residual_power_q05_50_95": [
+                  -224.794351,
+                  335.430507,
+                  1225.735838
+                ],
+                "observed_to_noise_db_q05_50_95": [
+                  -1.936771,
+                  1.864478,
+                  4.722648
+                ],
+                "nonpositive_residual_fraction": 0.206491,
+                "nominal_sigma0_db_q05_50_95": [
+                  -29.446383,
+                  -25.640285,
+                  -22.795134
+                ],
+                "corrected_sigma0_db_q05_50_95": [
+                  -105.46666,
+                  -30.209006,
+                  -24.580863
+                ],
+                "corrected_delta_db_q05_50_95": [
+                  -77.234557,
+                  -4.571208,
+                  -1.7854
+                ]
+              },
+              "nominal_target_background_median_db": 2.216067,
+              "corrected_target_background_median_db": 4.63879
+            }
+          ]
+        }
+      ],
+      "native_input_checks": [
+        {
+          "object_id": "u1",
+          "status": "research_tensor_only",
+          "reason": null,
+          "shape": [
+            2,
+            75,
+            75
+          ],
+          "tensor_sha256_float32_c_order": "f51a1899374152e79c4f4fcbe4fda97751e4c877728ebb87d868297b51e1a7c7"
+        }
+      ]
+    }
+  ],
+  "reconstruction_all_passed": false,
+  "training_approved": false,
+  "independent_review": false,
+  "labels_modified": false,
+  "classifier_scored": false,
+  "compatibility_established": false,
+  "promotion_eligible": false
+}

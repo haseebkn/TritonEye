@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **14 October 2026**, against main baseline
-`a5540779af1fa5d690a44734af1ce95cfc581ee3` (PR #31), plus the
+`b1895fb846eff3c63ef6209f312f5b66959ba2d5` (PR #32), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -52,6 +52,14 @@ additional source searches. It does not approve their labels or establish Kaggle
 input equivalence; numerical agreement and runtime-limit compliance are separate.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
+
+The subsequent [target noise audit](TARGET_NOISE_AUDIT.md) reconstructs noise
+power at the four existing iceberg candidate boxes. Their HV box pixels have
+10–32% nonpositive residuals; six of eight corrected bands meet the fixed
+0.001 dB maximum-error tolerance, with two small failures retained. The
+[frozen native input specification](NATIVE_NL_INPUT.md) preserves nominal
+sigma0 and yields complete 75x75 research tensors for all four. No new scoring,
+label admission or model improvement is claimed.
 
 For a five-minute presentation, open the [real Newfoundland case](../examples/nl-real-case.html)
 and follow the [demonstration walkthrough](PORTFOLIO_DEMO.md). The separate
