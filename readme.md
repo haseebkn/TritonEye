@@ -10,6 +10,9 @@ Local model operations: [promotion, paired shadow evaluation and rollback](docs/
 Promotion remains blocked by the current independent-review and coverage gaps.
 Latest preparation: [SAR–AIS overlap ranking and detector-blind review bundle](docs/OVERLAP_REVIEW.md).
 New label collection: [IIP and local AIS overlap audit with a sealed annotation batch](docs/SOURCE_SUPPORTED_ANNOTATION.md).
+Its [nine native windows are now provisionally annotated before scoring](docs/NATIVE_SOURCE_ANNOTATION.md):
+two provisional vessels, seven unresolved returns, two background contexts, no defensible iceberg labels.
+All remain excluded from accuracy and training approval; independent review is still missing.
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).
