@@ -36,6 +36,7 @@ models/
 
 # Temporary & Scratch Files
 scratch/
+.review-test-tmp/
 *.zip
 *.tar.gz
 *.tmp

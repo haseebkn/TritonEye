@@ -71,8 +71,12 @@ evaluated water area or vessel recall; the unevaluated edge band cannot be
 counted as empty water.
 
 The aggregate evidence records the original replay's classifier-context counts.
-Those historical statuses predate the current component-containment check and
-do not establish availability under that stricter rule. The current generator
+A post-review regeneration of all eight local areas with the stricter
+component-containment check reproduced every candidate property and coverage
+field in the saved population. The counts remain 1,552 available contexts,
+89 ROI-boundary abstentions and one oversized component; none acquired the new
+clipped-component status. This is an engineering replay, not independent label
+review or evidence of classifier accuracy. The generator
 marks a context unsupported when the entire component does not fit within its
 actual peak-centred 75 × 75 window, when that window crosses the ROI boundary,
 or when it contains invalid pixels. All components remain in the population. Context

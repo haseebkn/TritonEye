@@ -1,12 +1,14 @@
 """Behavioral candidate generation and sealed comparison-population contracts."""
 
 import json
+import shutil
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
 import numpy as np
+import psutil
 import pytest
 import rasterio
 from rasterio.transform import from_origin
@@ -32,19 +34,19 @@ def healthy_resources(monkeypatch: Any) -> dict[str, int]:
     }
     monkeypatch.setattr(runner, "available_commit", lambda: readings["commit"])
     monkeypatch.setattr(
-        runner.psutil,
+        psutil,
         "virtual_memory",
         lambda: SimpleNamespace(available=readings["physical"]),
     )
     monkeypatch.setattr(
-        runner.psutil,
+        psutil,
         "Process",
         lambda: SimpleNamespace(
             memory_info=lambda: SimpleNamespace(rss=readings["rss"])
         ),
     )
     monkeypatch.setattr(
-        runner.shutil, "disk_usage", lambda _: SimpleNamespace(free=readings["disk"])
+        shutil, "disk_usage", lambda _: SimpleNamespace(free=readings["disk"])
     )
     return readings
 
