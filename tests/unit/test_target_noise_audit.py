@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import xml.etree.ElementTree as ET
 from copy import deepcopy
@@ -10,12 +11,14 @@ from typing import Any
 
 import numpy as np
 import pytest
+import rasterio
 
 from agents.native_nl_input import load_specification, prepare, specification
 from agents.target_noise_audit import (
     LOCK,
     interpolate,
     masks,
+    native_input_checks,
     noise_power,
     region_stats,
     require_uncorrected,
@@ -146,6 +149,27 @@ def test_native_contract_preserves_pixels_and_returns_copy() -> None:
     assert not result["training_approved"] and not result["promotion_eligible"]
 
 
+def test_tensor_receipt_uses_original_saved_pixels(tmp_path: Path) -> None:
+    values = np.linspace(-45, -3, 20000, dtype="float32").reshape(2, 100, 100)
+    path = tmp_path / "original.tif"
+    with rasterio.open(
+        path, "w", driver="GTiff", width=100, height=100, count=2, dtype="float32"
+    ) as dataset:
+        dataset.write(values)
+        dataset.set_band_description(1, "sigma0_db_hh")
+        dataset.set_band_description(2, "sigma0_db_hv")
+    checks = native_input_checks(
+        path, [{"id": "u1", "bbox_px": [45, 45, 55, 55]}], metadata(), "train"
+    )
+    expected = values[:, 13:88, 13:88].copy()
+    digest = hashlib.sha256(expected.tobytes(order="C")).hexdigest()
+    assert checks[0]["tensor_sha256_float32_c_order"] == digest
+    assert checks[0]["status"] == "research_tensor_only"
+    # A numerically close reference is still a different input byte contract.
+    nearby = np.nextafter(expected, np.float32(np.inf))
+    assert hashlib.sha256(nearby.tobytes(order="C")).hexdigest() != digest
+
+
 @pytest.mark.parametrize(
     "key,value",
     [
@@ -222,9 +246,28 @@ def test_public_release_integrity_and_provisional_scope() -> None:
 
 def test_retained_data_replay_when_available() -> None:
     from agents.artifacts import REPO_ROOT
+    from agents.source_reservation import checked
 
     if not (
         REPO_ROOT / "data/source_supported/snap_interpreted_v020_01/report.json"
     ).exists():
         pytest.skip("Retained native/SNAP inputs required")
+    report = json.loads(checked(json.loads(LOCK.read_text())["evidence"]).read_text())
+    collection = json.loads(checked(report["collection"]).read_text())
+    for area in report["areas"]:
+        original = next(
+            r
+            for r in report["artifacts"]
+            if r["path"].endswith(area["id"] + "_sigma0.tif")
+        )
+        with rasterio.open(checked(original)) as dataset:
+            values = dataset.read()
+        obj = next(a for a in collection["areas"] if a["id"] == area["id"])["objects"][
+            0
+        ]
+        x0, y0, x1, y1 = obj["bbox_px"]
+        x, y = (x0 + x1) // 2 - 37, (y0 + y1) // 2 - 37
+        expected = values[:, y : y + 75, x : x + 75].astype("float32")
+        digest = hashlib.sha256(expected.tobytes(order="C")).hexdigest()
+        assert area["native_input_checks"][0]["tensor_sha256_float32_c_order"] == digest
     assert verify(local=True)["verified"]

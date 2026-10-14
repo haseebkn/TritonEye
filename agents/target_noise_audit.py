@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import rasterio
 from scipy.interpolate import interp1d
 
 from agents.artifacts import REPO_ROOT
@@ -171,6 +172,37 @@ def region_stats(
 def require_uncorrected(annotation: ET.ElementTree[Any]) -> None:
     if annotation.findtext(".//thermalNoiseCorrectionPerformed") != "false":
         raise ValueError("Uncorrected source required; refuse double subtraction")
+
+
+def native_input_checks(
+    source_chip: Path,
+    objects: list[dict[str, Any]],
+    metadata: dict[str, Any],
+    split: str,
+) -> list[dict[str, Any]]:
+    """Crop the original calibrated source, never a numerical reference copy."""
+    with rasterio.open(source_chip) as dataset:
+        if dataset.descriptions != ("sigma0_db_hh", "sigma0_db_hv"):
+            raise ValueError("Original sigma0 HH/HV band descriptions required")
+        values = dataset.read()
+    checks = []
+    for obj in objects:
+        result = prepare(values, obj["bbox_px"], metadata, split)
+        tensor = result["tensor"]
+        checks.append(
+            {
+                "object_id": obj["id"],
+                "status": result["status"],
+                "reason": result["reason"],
+                "shape": list(tensor.shape) if tensor is not None else None,
+                "tensor_sha256_float32_c_order": (
+                    hashlib.sha256(tensor.tobytes(order="C")).hexdigest()
+                    if tensor is not None
+                    else None
+                ),
+            }
+        )
+    return checks
 
 
 def replay() -> dict[str, Any]:
@@ -399,26 +431,9 @@ def replay() -> dict[str, Any]:
             "unit": "sigma0_db",
             "incidence_center_deg": native["native_context"]["center_incidence_deg"],
         }
-        tensor_checks = []
-        for obj in label["objects"]:
-            result = prepare(nominal, obj["bbox_px"], input_metadata, label["split"])
-            tensor_checks.append(
-                {
-                    "object_id": obj["id"],
-                    "status": result["status"],
-                    "reason": result["reason"],
-                    "shape": (
-                        list(result["tensor"].shape)
-                        if result["tensor"] is not None
-                        else None
-                    ),
-                    "tensor_sha256_float32_c_order": (
-                        hashlib.sha256(result["tensor"].tobytes(order="C")).hexdigest()
-                        if result["tensor"] is not None
-                        else None
-                    ),
-                }
-            )
+        tensor_checks = native_input_checks(
+            artifact(native["chip"]), label["objects"], input_metadata, label["split"]
+        )
         results.append(
             {
                 "id": identity,
