@@ -16,6 +16,10 @@ All remain excluded from accuracy and training approval; independent review is s
 The [association-error and preprocessing cross-check](docs/SOURCE_ERROR_PREPROCESSING.md)
 adds 18 numerical calibration comparisons and a sealed six-area follow-up reservation.
 External calibrated-processor comparison and Kaggle input equivalence remain unresolved.
+The subsequent [six-window native preparation and provisional annotations](docs/FOLLOWUP_SOURCE_ANNOTATION.md)
+yield four source-supported plausible iceberg interpretations and two unresolved returns.
+Four windows cover all frozen uncertainty scenarios; two require association abstention.
+All six remain ignored for accuracy and unapproved for training or promotion.
 Latest supporting measurement: [AIS coastal-buffer sensitivity and its limits](docs/AIS_COASTAL_ANALYSIS.md).
 Latest detector replay: [Provisional v0.2.0 development baseline](docs/NL_BASELINE_V020.md).
 Development study: [Exploratory model fits and comparison protocol](docs/DEVELOPMENT_EXPERIMENTS.md).

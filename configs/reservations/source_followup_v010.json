@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "reservation_lock": "configs/reservations/source_next_v020.lock.json",
+  "native_window_pixels": 384,
+  "centering": "Original reserved source centre through native TPS; no relocation, resampling or padding",
+  "coverage": "Local WGS84 azimuthal-equidistant plane, densified window boundary; minimum boundary clearance gates complete coverage, area fraction descriptive only",
+  "scenarios": ["original", "nearest_rounding", "symmetric_one_step"],
+  "original": "300 m + 1 m/s maximum absolute source separation across native first/last rows",
+  "nearest_rounding": "Literal coordinate half-step cell plus original radius and 30 seconds",
+  "symmetric_one_step": "Literal coordinate one-step cell plus original radius and 60 seconds",
+  "incomplete_coverage": "Prepare and inspect the unchanged window; abstain from source-supported class assignment when any scenario is incomplete",
+  "positive_labels": "No automated source class assignment. Image observations remain provisional and ignored, irrespective of source proximity",
+  "first_pass": "Both HH/HV and all four quadrants before source overlays, distance reconciliation or any model scores",
+  "prior_source_exposure": true,
+  "annotator": "Codex AI assistant; no independent SAR reviewer",
+  "classifier_scored": false,
+  "detector_scored": false,
+  "training_approved": false,
+  "promotion_eligible": false,
+  "independent_review": false,
+  "compatibility_established": false
+}

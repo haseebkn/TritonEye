@@ -1,0 +1,67 @@
+{
+  "version": "0.1.0",
+  "annotator": "Codex AI assistant; no qualified independent SAR reviewer",
+  "prior_source_exposure": true,
+  "exposure_notes": "Source-centred reservations, iceberg-support stream names, acquisition metadata, source coordinate precision and pre-pixel coverage results were known. This pass is not independent or fully naive. No target-to-source distances or source overlays were inspected before sealing the six image observations. No model outputs or classifier scores were viewed.",
+  "classifier_scores_viewed": false,
+  "detector_outputs_viewed": false,
+  "source_overlays_viewed": false,
+  "independent_review": false,
+  "inspection": "All six full 384x384 paired HH/HV previews inspected at the existing fixed -30 to +5 dB scale. All four quadrants scanned in both bands. Boxes use native image coordinates with exclusive upper limits; preview header and gutter excluded. Compact return is an image observation, not a ship or iceberg class. Unrecorded fine speckle and background remain ignored; a complete visual scan does not establish exhaustive truth.",
+  "areas": [
+    {
+      "id": "next_iceberg_support_01",
+      "chip_sha256": "a6fd7b59c253766aaeb145ab812aa09a5b249cc3bf6fcb6b12d606320314354f",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One isolated compact reflector slightly left of centre, visible against bright textured HH background and dark HV background. The HV return is vertically elongated. All quadrants inspected; no other compact return confidently separated from fine speckle. No class or verified background label assigned.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [157, 174, 171, 201], "reason": "Compact two-band reflector with unresolved ship/ice/other identity before source reconciliation."}]
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "chip_sha256": "eee9bb2744ef64cf519f7c84d859c90f931ef72522a659d20cc5ee6d94ceeb87",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One vertically extended compact reflector in the upper-central part of both bands. Surroundings show diffuse texture and broad streaks; neither is a confirmed negative. All quadrants inspected without source overlay or scores.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [197, 137, 214, 164], "reason": "Single compact radar return; image appearance alone cannot settle the physical class."}]
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "chip_sha256": "6450efc1654f22bb9a167fc47622f8393edc721cb782a6e2793f9ce9a2a5045d",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One small bright HH return left of centre, with a faint corresponding HV return. Broad streaked texture is visible across HH. All quadrants inspected; faint isolated speckle was not adjudicated as objects or negatives.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [127, 169, 140, 188], "reason": "Compact HH return with faint cross-polarized support; source identity and vessel-versus-iceberg class unresolved."}]
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "chip_sha256": "58af3099bebe5221bd4337972a93d0883cb6ac487262adcd3d65d3f1cc609170",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One compact vertically extended HH reflector in the upper-left quadrant, with a weaker elongated HV counterpart. Diffuse textured background in all quadrants stays ignored. No reliable vessel shape, wake or physical iceberg class established from this view.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [140, 92, 157, 119], "reason": "Isolated radar reflector; source association and physical class require separate evidence."}]
+    },
+    {
+      "id": "next_iceberg_support_05",
+      "chip_sha256": "168a675500aeace19a68225f54e0608c9f79dc6aaec1c6571262b1022c948da7",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One small cluster of bright HH pixels just below centre; faint HV texture at the corresponding location is insufficient to establish class. All quadrants inspected. Pre-pixel source-coverage abstention was already known; the crop was not moved or enlarged.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [177, 203, 194, 232], "reason": "Compact HH reflector within an incompletely covered source opportunity; no physical class inferred."}]
+    },
+    {
+      "id": "next_iceberg_support_06",
+      "chip_sha256": "fac1c7b76cda6a96944d416135fac5daf870c769d712d1fed4a7c975a46acd3e",
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "complete_visual_scan": true,
+      "notes": "One small compact HH reflector left and slightly below centre with a faint HV counterpart. Surroundings are textured and streaked. All quadrants inspected; no exhaustive negatives or class truth asserted. The known incomplete-coverage crop remains unchanged.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [150, 195, 168, 220], "reason": "Compact reflector with unsettled class and an incomplete source-uncertainty footprint."}]
+    }
+  ]
+}

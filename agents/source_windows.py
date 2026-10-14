@@ -9,7 +9,7 @@ import shutil
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import numpy as np
 import rasterio
@@ -165,7 +165,12 @@ def write_window(
 
 
 def prepare_product(
-    client: Cdse, areas: list[dict[str, Any]], output: Path
+    client: Cdse,
+    areas: list[dict[str, Any]],
+    output: Path,
+    on_window: (
+        Callable[[dict[str, Any], dict[str, Any], dict[str, Any]], None] | None
+    ) = None,
 ) -> dict[str, Any]:
     area = areas[0]
     directory = output / area["product_id"]
@@ -245,6 +250,8 @@ def prepare_product(
                     "bands": [],
                 },
             )
+            if on_window is not None:
+                on_window(a, records[a["id"]], info)
             windows.append((a, col, row))
         url = base + f"/Nodes(measurement)/Nodes({name})/$value"
         receipts: list[dict[str, Any]] = []

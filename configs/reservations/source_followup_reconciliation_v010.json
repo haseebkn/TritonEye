@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "first_pass_sha256": "0aa383ab7a4c19ab05e8de074bf09e9ed8fa48f1321029b92b1328c8e6a39ffb",
+  "private_source_evidence": {"path": "data/source_supported/followup_support_v010_01/evidence.json", "sha256": "495e970c2eb420b64b68cd31db08085c535a6a295ad94ba5c3dbe0e59634f8b8"},
+  "classifier_scored": false,
+  "independent_review": false,
+  "limitations": "AI interpretation with prior source-selection exposure. VIS/RV sightings support a plausible iceberg hypothesis but do not prove the SAR return's identity or exclude a vessel. No co-temporal area-wide AIS or independent corroborating imagery. Heuristic drift allowances are not calibrated probabilities. All labels remain ignored and unapproved for training, accuracy or promotion.",
+  "areas": [
+    {
+      "id": "next_iceberg_support_01",
+      "source_association_notes": "The frozen compact two-band return is about 294 m from the selected observation inside the native-time 780 m allowance. One compatible IIP identity is present in the frozen visual/RV pool; all three pre-pixel coverage scenarios are complete. Retain only a plausible, source-supported iceberg interpretation; mistaken source/object identity and vessel alternatives remain possible.",
+      "objects": [{"id": "u1", "class": "plausible_iceberg", "bbox_px": [157, 174, 171, 201], "reason": "One isolated image-first reflector and a unique compatible visual/RV iceberg source within the unchanged allowance and fully covered sensitivity scenarios. Provisional AI interpretation, not independent class truth.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}]
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "source_association_notes": "The frozen upper-central return is about 450 m from the observation inside the 1453 m allowance. One compatible IIP identity is available, and all coverage scenarios are complete. The roughly nineteen-minute separation and permissive heuristic drift allowance weaken identity confidence; no confirmed iceberg or exhaustive absence of competing vessels is asserted.",
+      "objects": [{"id": "u1", "class": "plausible_iceberg", "bbox_px": [197, 137, 214, 164], "reason": "Image-first compact reflector with unique compatible reported iceberg identity and complete scenario coverage. Source-supported hypothesis only; source timing, motion and unobserved vessel alternatives remain unresolved.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}]
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "source_association_notes": "The compact return is about 608 m from the selected sighting inside the 1493 m allowance, with one compatible IIP identity and complete coverage scenarios. Faint HV support and roughly twenty-minute source separation limit the interpretation. No image-only class certainty or independent review is claimed.",
+      "objects": [{"id": "u1", "class": "plausible_iceberg", "bbox_px": [127, 169, 140, 188], "reason": "Compact image-first return, unique compatible reported iceberg identity and complete source-coverage scenarios. Plausible source-supported ice interpretation remains uncertain and ignored for accuracy/training.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}]
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "source_association_notes": "The reflector is about 988 m from the selected sighting inside the 1587 m allowance. The frozen IIP pool contains one compatible identity and all coverage scenarios are complete. The kilometre-scale separation and roughly twenty-one-minute time gap mean this is a tentative source association, not proof of the physical object's identity.",
+      "objects": [{"id": "u1", "class": "plausible_iceberg", "bbox_px": [140, 92, 157, 119], "reason": "One isolated two-band return with a unique compatible reported iceberg source and complete scenario coverage. Plausible iceberg hypothesis only; vessel/clutter alternatives and source error remain possible.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}]
+    },
+    {
+      "id": "next_iceberg_support_05",
+      "source_association_notes": "The return is about 269 m from the selected sighting inside the 1720 m allowance and has one compatible IIP identity. However, only about 96.3% of the nearest-rounding scenario and 85.3% of the broader scenario is covered. The pre-pixel abstention takes precedence over apparent proximity. No source class is assigned, and the window is not expanded or recentered.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [177, 203, 194, 232], "reason": "Source-compatible compact return with incomplete source-uncertainty coverage. Proximity cannot override the frozen coverage abstention.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}]
+    },
+    {
+      "id": "next_iceberg_support_06",
+      "source_association_notes": "The return is about 363 m from the selected sighting inside the 2018 m allowance and one compatible IIP identity is available. The crop covers only about 98.0% of the original allowance, 81.2% of the nearest-rounding scenario and 64.7% of the broader scenario. The frozen coverage rule requires abstention despite the nearby return. No source class is inherited and no crop is moved.",
+      "objects": [{"id": "u1", "class": "unresolved", "bbox_px": [150, 195, 168, 220], "reason": "Compact reflector in a source opportunity with incomplete nominal and sensitivity coverage; physical class stays unresolved.", "source_consistent": true, "association_unique": true, "provisional": true, "ignore_for_accuracy": true, "independent_review": false}]
+    }
+  ]
+}

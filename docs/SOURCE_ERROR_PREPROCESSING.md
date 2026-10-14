@@ -1,5 +1,10 @@
 # Source association and preprocessing cross-check
 
+Subsequent [native preparation and provisional annotation](FOLLOWUP_SOURCE_ANNOTATION.md)
+is complete for the six reserved windows: four plausible iceberg interpretations,
+two unresolved returns and two source-coverage abstentions. All remain ignored
+and unapproved; the reservation-stage statements below retain their original scope.
+
 On 14 October 2026, the nine sealed native areas were audited without changing
 their annotations, source allowances or ignore masks. The separate float64
 calibration calculation passes all 18 bands. The next batch reserves six
