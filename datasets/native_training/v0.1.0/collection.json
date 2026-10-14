@@ -1,0 +1,210 @@
+{
+  "version": "0.1.0",
+  "protocol": {
+    "path": "configs/reservations/training_windows_v010.json",
+    "sha256": "ff36e6be369fe00d3c42eb0a5fada94511fb17f58e2a8f4828a5944e2983b90d"
+  },
+  "prepared": {
+    "path": "data/source_supported/training_native_v010_01/manifest.json",
+    "sha256": "787e42899f8428d81c2c2870b26f631a4151fc179d934e65ed18e26b693e2f8b"
+  },
+  "first_pass": {
+    "path": "configs/reservations/training_first_pass_v010.json",
+    "sha256": "4370d9069c7e085f59d647760f39bf1d8a84eeb741c6bf4aa34afc143b1e8baa"
+  },
+  "reconciliation": {
+    "path": "configs/reservations/training_reconciliation_v010.json",
+    "sha256": "e80bf4f8f5bf3fcb50e6c1b708174e57510fd98b59630bf0285aeb4e309d4532"
+  },
+  "source_evidence": {
+    "path": "data/source_supported/training_evidence_v010_01/report.json",
+    "sha256": "558ee55d776bf63c56c964c9c17b601fabacec30b770b16558ca44a50b963c77"
+  },
+  "local_report": {
+    "path": "data/source_supported/training_collection_v010_01/report.json",
+    "sha256": "a65a921058f8ba10f66d7bada828d1071ee7d7a21b8f895b59d655635c99f402"
+  },
+  "areas": [
+    {
+      "id": "training_iceberg_support_01",
+      "product_id": "29af29e1-2c3a-4c69-9503-d8bbac05788a",
+      "split": "train",
+      "geographic_group": "new_cell_-53_49",
+      "native_acquisition_group": "S1A_027003_030A4E",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 987.0176301002502,
+            "cell_clearance_m": 1911.4301358092048,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999972
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1017.0176301002502,
+            "cell_clearance_m": 1552.466714226052,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.0000000000000036
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1047.0176301002502,
+            "cell_clearance_m": 1193.4997115449269,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.0000000000000002
+          }
+        },
+        "all_scenarios_complete": true,
+        "maximum_native_row_offset_s": 687.0176301002502,
+        "source_association_abstain": false,
+        "accuracy_bounds_established": false
+      },
+      "objects": [
+        {
+          "id": "u1",
+          "bbox_px": [
+            108,
+            115,
+            130,
+            170
+          ],
+          "class": "plausible_iceberg",
+          "reason": "Provisional source-compatible iceberg hypothesis after reconciling the sealed unresolved two-band return with the R/V observation. Morphology and source proximity do not distinguish it from a vessel or establish physical identity. Additional physical corroboration required for exploratory training is absent.",
+          "source_consistent": true,
+          "association_unique": true,
+          "additional_physical_corroboration": false,
+          "exploratory_training_admitted": false,
+          "provisional": true,
+          "ignore_for_accuracy": true,
+          "independent_review": false
+        }
+      ],
+      "source_evidence": [
+        {
+          "object_id": "u1",
+          "selected_source_distance_m": 894.8192133146459,
+          "absolute_offset_s": 686.6570870876312,
+          "frozen_allowance_m": 986.6570870876312,
+          "inside_selected_allowance": true,
+          "native_time_utc": "2019-04-29T09:41:26.657087+00:00",
+          "additional_physical_corroboration": false,
+          "compatible_identity_count": 1,
+          "repeat_report_count": 0,
+          "optical": {
+            "query_status": "complete",
+            "covering_products": 0,
+            "products": [],
+            "object_confirmation": false,
+            "limitation": "Footprint/cloud metadata does not establish local visibility or target identity; no motion search or optical pixels evaluated"
+          }
+        }
+      ],
+      "source_position_optical": {
+        "query_status": "complete",
+        "covering_products": 0,
+        "products": [],
+        "object_confirmation": false,
+        "limitation": "Footprint/cloud metadata does not establish local visibility or target identity; no motion search or optical pixels evaluated"
+      },
+      "chip_sha256": "65449e3ecadb2d8205bc14ac415e9fc2fd3b46417647fe8306157e08b93486bd",
+      "ignore_mask": {
+        "path": "data/source_supported/training_collection_v010_01/training_iceberg_support_01_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false,
+      "native_input_metadata": {
+        "mission": "S1A",
+        "mode": "IW",
+        "product_type": "GRD",
+        "band_order": [
+          "HH",
+          "HV"
+        ],
+        "unit": "sigma0_db",
+        "pixel_spacing_m": [
+          10.0,
+          10.0
+        ],
+        "thermal_noise_corrected": false,
+        "incidence_center_deg": 37.00645259807213
+      }
+    },
+    {
+      "id": "training_iceberg_support_02",
+      "product_id": "504f95af-902a-56d6-8743-061e4b826d78",
+      "split": "train",
+      "geographic_group": "new_cell_-56_53",
+      "native_acquisition_group": "S1A_033201_03D8A3",
+      "source_coverage": {
+        "scenarios": {
+          "original": {
+            "motion_and_base_radius_m": 974.4195430278778,
+            "cell_clearance_m": 1912.1824113130695,
+            "complete": true,
+            "approximate_covered_area_fraction": 0.9999999999999993
+          },
+          "nearest_rounding": {
+            "motion_and_base_radius_m": 1004.4195430278778,
+            "cell_clearance_m": 1387.9308421491287,
+            "complete": true,
+            "approximate_covered_area_fraction": 1.000000000000002
+          },
+          "symmetric_one_step": {
+            "motion_and_base_radius_m": 1034.4195430278778,
+            "cell_clearance_m": 837.230929386065,
+            "complete": false,
+            "approximate_covered_area_fraction": 0.9592006514844846
+          }
+        },
+        "all_scenarios_complete": false,
+        "maximum_native_row_offset_s": 674.4195430278778,
+        "source_association_abstain": true,
+        "accuracy_bounds_established": false
+      },
+      "objects": [],
+      "source_evidence": [],
+      "source_position_optical": {
+        "query_status": "complete",
+        "covering_products": 0,
+        "products": [],
+        "object_confirmation": false,
+        "limitation": "Footprint/cloud metadata does not establish local visibility or target identity; no motion search or optical pixels evaluated"
+      },
+      "chip_sha256": "0ba84bceb9a3741923127ecae5fab63f424c3e39aa1e7b840b5875768a805577",
+      "ignore_mask": {
+        "path": "data/source_supported/training_collection_v010_01/training_iceberg_support_02_ignore.npy",
+        "sha256": "e9ec36b2de544c7d00df187cc3e8855dd8187e40b95e70a891c9f05af104d523"
+      },
+      "whole_area_ignore_for_accuracy": true,
+      "independent_review": false,
+      "native_input_metadata": {
+        "mission": "S1A",
+        "mode": "IW",
+        "product_type": "GRD",
+        "band_order": [
+          "HH",
+          "HV"
+        ],
+        "unit": "sigma0_db",
+        "pixel_spacing_m": [
+          10.0,
+          10.0
+        ],
+        "thermal_noise_corrected": false,
+        "incidence_center_deg": 45.36024550450159
+      }
+    }
+  ],
+  "class_counts": {
+    "plausible_iceberg": 1
+  },
+  "native_calibration_bands_replayed": 4,
+  "native75_contexts": 1,
+  "exploratory_training_admitted": false,
+  "accuracy_truth_admitted": false,
+  "classifier_scored": false,
+  "detector_scored": false,
+  "independent_review": false,
+  "training_approved": false,
+  "promotion_eligible": false,
+  "annotation_completeness_verified": false
+}

@@ -1,5 +1,10 @@
 # Provisional native NL training policy and reservation v0.1.0
 
+Subsequent [native preparation and provisional annotation](TRAINING_NATIVE_ANNOTATION.md)
+is complete for both reserved windows: one new source-compatible iceberg hypothesis,
+one incomplete-coverage area without a distinct annotated target, and zero training
+admissions. The sealed reservation below retains its original selection-stage state.
+
 The [executable policy](../configs/reservations/provisional_training_v010.json)
 permits separately recorded **exploratory training decisions** when a new object
 dossier satisfies explicit evidence requirements. Independent review remains
@@ -123,8 +128,9 @@ then reconstructs the ranking and selection exactly. Publication refuses existin
 release or private output paths. Further evidence needs a new version; this release
 neither changes the review guard nor resolves AllenAI permission/completeness.
 
-The next preparation task is the two reserved native windows. Whether either can
-yield an admissible iceberg remains unknown. Additional vessels require fresh
+At reservation time, the next task was preparing the two native windows; that
+preparation is now documented above. Neither area currently supplies an admitted
+training label. Additional vessels require fresh
 source-supported training acquisitions; existing validation vessels retain their
 roles. Vessel detection remains the primary goal. A vessel/clutter feasibility
 study may proceed separately if iceberg class evidence remains insufficient,

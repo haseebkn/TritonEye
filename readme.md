@@ -11,6 +11,9 @@ noise-limited target boxes and an executable research recipe; labels remain on h
 The [provisional training policy and source-ranked training-only reservation](docs/PROVISIONAL_NATIVE_TRAINING.md)
 add an executable evidence checklist and two fresh annotation opportunities;
 no existing labels are admitted, and training-vessel coverage remains missing.
+The [two-window native preparation and annotation report](docs/TRAINING_NATIVE_ANNOTATION.md)
+records one new plausible iceberg hypothesis, one coverage abstention, four exact
+calibration replays and no admitted training labels or new model scores.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native transfer compatibility remains open.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

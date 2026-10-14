@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0",
+  "completed_at_utc": "2026-10-14T22:22:18+00:00",
+  "annotator": "Codex AI assistant; no independent reviewer",
+  "prior_source_exposure": true,
+  "exposure_disclosure": "The annotator had prior project label/model-output exposure and knew these windows were source-centred IIP opportunities. Both native-band images, all quadrants and display-only contrast views were inspected before target/source-distance reconciliation, source overlays or model scoring. This is not independent or wholly naive annotation.",
+  "classifier_scores_viewed": false,
+  "detector_outputs_viewed": false,
+  "source_overlays_viewed": false,
+  "independent_review": false,
+  "display": "Original fixed display and whole-band 0.5/99.5 percentile quadrant views, nearest-neighbour 2x enlargement only; original sigma0 pixels unchanged",
+  "areas": [
+    {
+      "id": "training_iceberg_support_01",
+      "chip_sha256": "65449e3ecadb2d8205bc14ac415e9fc2fd3b46417647fe8306157e08b93486bd",
+      "complete_visual_scan": true,
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "notes": "One conspicuous elongated bright return in the upper-left quadrant appears in both bands. Surrounding texture is speckled without another clearly separable target in this first pass. Morphology does not establish vessel versus iceberg; no confidently identifiable wake. Visual scan does not certify exhaustive labels.",
+      "objects": [
+        {
+          "id": "u1",
+          "bbox_px": [108, 115, 130, 170],
+          "class": "unresolved",
+          "reason": "Bright elongated two-band reflector with extended azimuth response; vessel, iceberg and other reflector explanations remain unresolved from imagery alone. Box includes the visible response and some background; it is not a physical object extent."
+        }
+      ]
+    },
+    {
+      "id": "training_iceberg_support_02",
+      "chip_sha256": "0ba84bceb9a3741923127ecae5fab63f424c3e39aa1e7b840b5875768a805577",
+      "complete_visual_scan": true,
+      "bands_reviewed": ["HH", "HV"],
+      "cells_reviewed": ["top_left", "top_right", "bottom_left", "bottom_right"],
+      "notes": "Both bands show speckled, spatially varying texture without a comparably distinct compact/elongated object that can be confidently isolated in this first pass. No box invented at the reserved source centre. Empty object list does not certify absence of vessels or icebergs; retain the entire area ignored and preserve incomplete source-uncertainty abstention.",
+      "objects": []
+    }
+  ]
+}
