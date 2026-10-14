@@ -233,12 +233,16 @@ def check_collection(collection: dict[str, Any], local: bool = False) -> None:
                     compatible = [
                         m for m in item["matches"] if m["inside_source_allowance"]
                     ]
-                    if len(compatible) != 1 or (
-                        obj["class"] == "provisional_vessel"
-                        and not compatible[0].get("selected_source")
-                    ) or (
-                        obj["class"] == "plausible_iceberg"
-                        and compatible[0].get("selected_source")
+                    if (
+                        len(compatible) != 1
+                        or (
+                            obj["class"] == "provisional_vessel"
+                            and not compatible[0].get("selected_source")
+                        )
+                        or (
+                            obj["class"] == "plausible_iceberg"
+                            and compatible[0].get("selected_source")
+                        )
                     ):
                         raise ValueError(
                             "Provisional positive contradicts saved source support"

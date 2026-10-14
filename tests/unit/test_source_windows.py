@@ -227,6 +227,75 @@ def test_published_annotations_keep_guards_and_reservation() -> None:
         check_collection(changed)
 
 
+def test_local_replay_rejects_iceberg_label_on_identified_vessel() -> None:
+    # ref()/checked() require artifact paths to live inside REPO_ROOT, so the
+    # tampered copies must be written under the repo (in the gitignored data/
+    # tree) rather than pytest's tmp_path.
+    tmp_dir = REPO_ROOT / "data" / "_test_local_replay_tmp"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        collection = json.loads(
+            (REPO_ROOT / "datasets/source_supported/v0.1.0/collection.json").read_text()
+        )
+        check_collection(collection, local=True)
+
+        reconciliation = json.loads(
+            (
+                REPO_ROOT / "configs/reservations/source_reconciliation_v010.json"
+            ).read_text()
+        )
+        evidence = json.loads(
+            (
+                REPO_ROOT
+                / "data/source_supported/annotation_v010_01/source_support.json"
+            ).read_text()
+        )
+        support = next(a for a in evidence["areas"] if a["id"] == "vessel_support_01")
+        matches = next(o for o in support["objects"] if o["object_id"] == "u1")[
+            "matches"
+        ]
+        compatible = [m for m in matches if m["inside_source_allowance"]]
+        assert len(compatible) == 1 and compatible[0]["selected_source"] is True
+
+        for area in reconciliation["areas"]:
+            if area["id"] == "vessel_support_01":
+                for obj in area["objects"]:
+                    if obj["id"] == "u1":
+                        obj["class"] = "plausible_iceberg"
+        recon_path = tmp_dir / "reconciliation.json"
+        recon_path.write_text(json.dumps(reconciliation))
+
+        report = json.loads(
+            (
+                REPO_ROOT / "data/source_supported/collection_v010_01/report.json"
+            ).read_text()
+        )
+        report["reconciliation"] = ref(recon_path)
+        report_path = tmp_dir / "report.json"
+        report_path.write_text(json.dumps(report))
+
+        for area in collection["areas"]:
+            if area["id"] == "vessel_support_01":
+                for obj in area["objects"]:
+                    if obj["id"] == "u1":
+                        obj["class"] = "plausible_iceberg"
+        collection["reconciliation"] = ref(recon_path)
+        collection["local_report"] = ref(report_path)
+        collection["class_counts"] = {
+            "unresolved": 7,
+            "clutter": 2,
+            "provisional_vessel": 1,
+            "plausible_iceberg": 1,
+        }
+
+        with pytest.raises(ValueError, match="contradicts saved source support"):
+            check_collection(collection, local=True)
+    finally:
+        for f in tmp_dir.iterdir():
+            f.unlink()
+        tmp_dir.rmdir()
+
+
 def test_reconciliation_cannot_move_drop_or_approve_objects() -> None:
     first = ref(REPO_ROOT / "configs/reservations/source_first_pass_v010.json")
     original = json.loads(
