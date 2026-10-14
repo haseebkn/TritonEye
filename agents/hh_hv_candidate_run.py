@@ -18,10 +18,12 @@ import numpy as np
 import psutil
 import rasterio
 import scipy
+from shapely.geometry import box, mapping
 
 from agents.artifacts import REPO_ROOT, sha256_file, write_json
 from agents.geo import Georeferencer
 from agents.hh_hv_candidates import CONFIG_SHA256, frozen_settings, generate
+from agents.hh_hv_reservation import load_reservation, require_scope
 from agents.nl_benchmark import bounded_path, load_dataset, require_development_scene
 from agents.statoil_baseline import available_commit
 from agents.statoil_shadow import DEFAULT_DATASET, native_audit
@@ -58,13 +60,32 @@ def identity(value: Any) -> str:
     ).hexdigest()
 
 
-def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
+def run(
+    output: Path,
+    dataset: Path = DEFAULT_DATASET,
+    reservation: Path | None = None,
+    reservation_sha256: str | None = None,
+) -> dict[str, Any]:
     output = output.resolve()
     if output.exists() or not output.is_relative_to((REPO_ROOT / "data").resolve()):
         raise ValueError("Fresh ignored candidate output required")
+    if (reservation is None) != (reservation_sha256 is None):
+        raise ValueError(
+            "Reservation directory and trusted seal hash required together"
+        )
+    reserved = (
+        load_reservation(reservation, reservation_sha256)
+        if reservation is not None and reservation_sha256 is not None
+        else None
+    )
     resource_check()
     settings, config = frozen_settings()
     manifest, _, _ = load_dataset(dataset)
+    if reserved is not None:
+        for scene in manifest["scenes"]:
+            if scene["split"] != "test" and scene["polarizations"] == ["hh", "hv"]:
+                for roi in scene["rois"]:
+                    require_scope(reserved, scene, roi)
     # Write the definition BEFORE accessing SAR arrays or generating any candidates.
     definition = {
         "configuration": config,
@@ -74,6 +95,7 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
             for name in (
                 "hh_hv_candidates.py",
                 "hh_hv_candidate_run.py",
+                "hh_hv_reservation.py",
                 "calibration.py",
                 "statoil_shadow.py",
                 "geo.py",
@@ -93,6 +115,12 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
             "runtime_commit_floor_bytes": 512 * 1024**2,
         },
     }
+    if reserved is not None:
+        definition["reservation"] = {
+            "version": reserved["version"],
+            "seal_sha256": reservation_sha256,
+            "role": "Pre-scoring development reservation; not independent truth",
+        }
     output.mkdir(parents=True)
     write_json(output / "definition.json", definition)
     started = time.perf_counter()
@@ -149,6 +177,15 @@ def run(output: Path, dataset: Path = DEFAULT_DATASET) -> dict[str, Any]:
                         src.count,
                     ) != (width, height, 2):
                         raise ValueError("Bounded matching native ROI raster required")
+                    if reserved is not None:
+                        with Georeferencer.from_dataset(src) as geo:
+                            bounds = geo.footprint_bounds()
+                        require_scope(
+                            reserved,
+                            scene,
+                            {**roi, "geometry": mapping(box(*bounds))},
+                        )
+                        entry["reserved_raster_bounds"] = bounds
                 images, audit = native_audit(scene, roi, cache)
                 candidates, coverage = generate(
                     images, polarizations=("HH", "HV"), settings=settings
@@ -325,8 +362,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
+    parser.add_argument("--reservation", type=Path)
+    parser.add_argument("--reservation-sha256")
     args = parser.parse_args()
-    bundle = run(args.output, args.dataset)
+    bundle = run(args.output, args.dataset, args.reservation, args.reservation_sha256)
     print(
         json.dumps(
             {

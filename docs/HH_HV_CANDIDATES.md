@@ -10,6 +10,11 @@ The existing VV/VH production detector, review guard, AllenAI quarantine, locked
 test set and coastal operating policy remain unchanged. These candidates retain
 land and coastal returns for subsequent shared policy annotation and research.
 
+Before any new scoring, [eight additional development acquisitions are now
+reserved](HH_HV_DEVELOPMENT.md) across four new geographic groups and winter/summer
+epochs. These are metadata reservations, not downloaded or annotated chips.
+The original eight exposed areas remain workflow checks.
+
 ## Frozen algorithm
 
 The [versioned configuration](../configs/candidates/hh_hv_local_contrast_v010.json)

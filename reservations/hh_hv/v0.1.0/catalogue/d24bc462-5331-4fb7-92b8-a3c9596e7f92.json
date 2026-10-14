@@ -1,0 +1,239 @@
+{
+  "@odata.mediaContentType": "application/octet-stream",
+  "Id": "d24bc462-5331-4fb7-92b8-a3c9596e7f92",
+  "Name": "S1C_IW_GRDH_1SDH_20260708T095602_20260708T095627_008450_010B92_D000.SAFE",
+  "ContentType": "application/octet-stream",
+  "ContentLength": 1735201571,
+  "OriginDate": "2026-07-08T13:37:06.817000Z",
+  "PublicationDate": "2026-07-08T13:40:37.217152Z",
+  "ModificationDate": "2026-07-08T13:40:37.217152Z",
+  "Online": true,
+  "EvictionDate": "9999-12-31T23:59:59.999999Z",
+  "S3Path": "/eodata/Sentinel-1/SAR/IW_GRDH_1S/2026/07/08/S1C_IW_GRDH_1SDH_20260708T095602_20260708T095627_008450_010B92_D000.SAFE",
+  "Checksum": [
+    {
+      "Value": "69f879a1c2df4191e442b96e60bb7646",
+      "Algorithm": "MD5",
+      "ChecksumDate": "2026-07-08T13:40:33.105424Z"
+    },
+    {
+      "Value": "f5b8605a9954254445405f3091d15bb10e5f72963ce043f3b7d83b9d39e42b99",
+      "Algorithm": "BLAKE3",
+      "ChecksumDate": "2026-07-08T13:40:35.921144Z"
+    }
+  ],
+  "ContentDate": {
+    "Start": "2026-07-08T09:56:02.880154Z",
+    "End": "2026-07-08T09:56:27.878931Z"
+  },
+  "Footprint": "geography'SRID=4326;POLYGON ((-54.080639 51.47076, -53.578876 52.963112, -57.393654 53.36861, -57.769363 51.873688, -54.080639 51.47076))'",
+  "GeoFootprint": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -54.080639,
+          51.47076
+        ],
+        [
+          -53.578876,
+          52.963112
+        ],
+        [
+          -57.393654,
+          53.36861
+        ],
+        [
+          -57.769363,
+          51.873688
+        ],
+        [
+          -54.080639,
+          51.47076
+        ]
+      ]
+    ]
+  },
+  "Attributes": [
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "origin",
+      "Value": "ESA",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "datatakeID",
+      "Value": 68498,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "timeliness",
+      "Value": "Fast-24h",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "cycleNumber",
+      "Value": 52,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "orbitNumber",
+      "Value": 8450,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "sliceNumber",
+      "Value": 13,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "totalSlices",
+      "Value": 18,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "productClass",
+      "Value": "S",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "processorName",
+      "Value": "Sentinel-1 IPF",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "orbitDirection",
+      "Value": "DESCENDING",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.DateTimeOffsetAttribute",
+      "Name": "processingDate",
+      "Value": "2026-07-08T13:29:26.534955Z",
+      "ValueType": "DateTimeOffset"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "operationalMode",
+      "Value": "IW",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "processingLevel",
+      "Value": "LEVEL1",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "swathIdentifier",
+      "Value": "IW",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "processingCenter",
+      "Value": "S1 Production Service-WERUM",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "processorVersion",
+      "Value": "004.03",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.DateTimeOffsetAttribute",
+      "Name": "segmentStartTime",
+      "Value": "2026-07-08T09:50:59.179000Z",
+      "ValueType": "DateTimeOffset"
+    },
+    {
+      "@odata.type": "#OData.CSC.BooleanAttribute",
+      "Name": "sliceProductFlag",
+      "Value": true,
+      "ValueType": "Boolean"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "platformShortName",
+      "Value": "SENTINEL-1",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "productComposition",
+      "Value": "Slice",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "instrumentShortName",
+      "Value": "SAR",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "relativeOrbitNumber",
+      "Value": 127,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "polarisationChannels",
+      "Value": "HH&HV",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "platformSerialIdentifier",
+      "Value": "C",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.IntegerAttribute",
+      "Name": "instrumentConfigurationID",
+      "Value": 5,
+      "ValueType": "Integer"
+    },
+    {
+      "@odata.type": "#OData.CSC.DoubleAttribute",
+      "Name": "startTimeFromAscendingNode",
+      "Value": 2090328.0,
+      "ValueType": "Double"
+    },
+    {
+      "@odata.type": "#OData.CSC.DoubleAttribute",
+      "Name": "completionTimeFromAscendingNode",
+      "Value": 2115327.0,
+      "ValueType": "Double"
+    },
+    {
+      "@odata.type": "#OData.CSC.StringAttribute",
+      "Name": "productType",
+      "Value": "IW_GRDH_1S",
+      "ValueType": "String"
+    },
+    {
+      "@odata.type": "#OData.CSC.DateTimeOffsetAttribute",
+      "Name": "beginningDateTime",
+      "Value": "2026-07-08T09:56:02.880154Z",
+      "ValueType": "DateTimeOffset"
+    },
+    {
+      "@odata.type": "#OData.CSC.DateTimeOffsetAttribute",
+      "Name": "endingDateTime",
+      "Value": "2026-07-08T09:56:27.878931Z",
+      "ValueType": "DateTimeOffset"
+    }
+  ]
+}

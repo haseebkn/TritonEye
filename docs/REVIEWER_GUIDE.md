@@ -6,8 +6,8 @@ certified surveillance system or operational dark-vessel detector.** Internal
 C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
-Current summary refreshed **13 October 2026**, against main baseline
-`550ef76351cac4a5c0b184889b7e8a6e94e17ef7` (PR #22). The current benchmark is
+Current summary refreshed **14 October 2026**, against main baseline
+`1d9fe961c223914bf284799ef16e8f145c1eb2c4` (PR #24). The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
 unmeasured for vessel detection. A separate supervised
@@ -20,6 +20,9 @@ Input calibration replays match, but missing reviewed truth and iceberg labels
 keep native accuracy, false-alarm reduction and detection improvement unmeasured.
 See the [experimental HH/HV candidate generator](HH_HV_CANDIDATES.md) for the
 subsequent frozen population, replay evidence and future filter-comparison limits.
+The [additional HH/HV development reservation](HH_HV_DEVELOPMENT.md) fixes eight
+new acquisitions and four geographic groups before scoring. It is metadata-only,
+does not enlarge the annotated benchmark and does not replace the locked test.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 

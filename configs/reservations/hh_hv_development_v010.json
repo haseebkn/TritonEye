@@ -1,0 +1,20 @@
+{
+  "version": "hh_hv_development_v0.1.0",
+  "purpose": "Metadata-only reservation before image inspection or scoring",
+  "minimum_group_separation_m": 10000,
+  "minimum_prior_exposure_separation_m": 10000,
+  "envelope_half_width_degrees": 0.1,
+  "envelope_half_height_degrees": 0.065,
+  "selection_rule": "Earliest online IW GRDH HH/HV physical acquisition covering both complete envelopes; native acquisition groups cannot be reused",
+  "condition_scope": "Seasonal sampling proxies only; wind, ice, sea state and native radiometry remain unverified",
+  "epochs": [
+    {"id": "winter", "start": "2025-01-01T00:00:00Z", "end": "2025-03-01T00:00:00Z"},
+    {"id": "summer", "start": "2026-07-01T00:00:00Z", "end": "2026-09-01T00:00:00Z"}
+  ],
+  "groups": [
+    {"id": "burin_shelf", "region": "Newfoundland", "split": "train", "coastal_center": [-55.16, 47.03], "offshore_center": [-54.8, 46.7]},
+    {"id": "cartwright_shelf", "region": "Labrador", "split": "train", "coastal_center": [-57.01, 53.7], "offshore_center": [-55.5, 53.6]},
+    {"id": "southwest_newfoundland", "region": "Newfoundland", "split": "validation", "coastal_center": [-59.14, 47.57], "offshore_center": [-58.8, 47.2]},
+    {"id": "st_lewis_shelf", "region": "Labrador", "split": "validation", "coastal_center": [-55.7, 52.37], "offshore_center": [-55.0, 52.3]}
+  ]
+}
