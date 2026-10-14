@@ -1,0 +1,425 @@
+"""Behavioral candidate generation and sealed comparison-population contracts."""
+
+import json
+import shutil
+from dataclasses import FrozenInstanceError
+from pathlib import Path
+from types import SimpleNamespace
+from typing import Any
+
+import numpy as np
+import psutil
+import pytest
+import rasterio
+from rasterio.transform import from_origin
+
+from agents import hh_hv_candidate_run as runner
+from agents import hh_hv_candidates as detector
+from agents import nl_benchmark
+from agents import statoil_shadow as shadow
+from agents.artifacts import sha256_file, write_json
+from agents.calibration import CalibrationError, Calibrator
+from agents.geo import GeoreferencingError
+from tests.unit.test_statoil_shadow import native_fixture
+
+
+@pytest.fixture
+def healthy_resources(monkeypatch: Any) -> dict[str, int]:
+    """Control host telemetry while still executing the real resource guards."""
+    readings = {
+        "commit": 8 * 1024**3,
+        "physical": 8 * 1024**3,
+        "rss": 128 * 1024**2,
+        "disk": 8 * 1024**3,
+    }
+    monkeypatch.setattr(runner, "available_commit", lambda: readings["commit"])
+    monkeypatch.setattr(
+        psutil,
+        "virtual_memory",
+        lambda: SimpleNamespace(available=readings["physical"]),
+    )
+    monkeypatch.setattr(
+        psutil,
+        "Process",
+        lambda: SimpleNamespace(
+            memory_info=lambda: SimpleNamespace(rss=readings["rss"])
+        ),
+    )
+    monkeypatch.setattr(
+        shutil, "disk_usage", lambda _: SimpleNamespace(free=readings["disk"])
+    )
+    return readings
+
+
+def make_images() -> Any:
+    return np.zeros((2, 101, 101), dtype="float32")
+
+
+def detect(images: Any) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    return detector.generate(
+        images, polarizations=("HH", "HV"), settings=detector.frozen_settings()[0]
+    )
+
+
+def test_uniform_water_has_no_candidates_and_edges_are_unevaluated() -> None:
+    candidates, coverage = detect(make_images())
+    assert candidates == []
+    assert coverage["evaluated_pixels"] == 41**2
+    assert coverage["unevaluated_pixels"] == 101**2 - 41**2
+    assert coverage["coverage_fraction"] < 1
+
+
+@pytest.mark.parametrize("band,contrast", [(0, 10), (1, 7)])
+def test_each_native_band_can_trigger_against_exact_ring_background(
+    band: int, contrast: float
+) -> None:
+    images = make_images()
+    images[band, 50, 50] = contrast
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    candidate = candidates[0]
+    assert candidate["peak_pixel_xy"] == [50, 50]
+    assert candidate["contrast_db_hh_hv"][band] == pytest.approx(contrast)
+    assert candidate["triggered_polarizations"] == [["HH"], ["HV"]][band]
+    assert candidate["operational_alert"] is False
+    assert candidate["research_retained"] is True
+
+
+def test_guard_excludes_neighbor_target_and_components_merge_diagonals() -> None:
+    images = make_images()
+    images[0, 50, 50] = 12
+    images[0, 51, 51] = 10
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    assert candidates[0]["component_pixels"] == 2
+    assert candidates[0]["bbox_px"] == [50, 50, 52, 52]
+    assert candidates[0]["contrast_db_hh_hv"][0] == pytest.approx(12)
+
+
+def test_db_offsets_preserve_contrast_and_inputs_remain_unchanged() -> None:
+    images = make_images()
+    images[0, 50, 50] = 10
+    original = images.copy()
+    before, _ = detect(images)
+    np.testing.assert_array_equal(images, original)
+    shifted, _ = detect(images + np.asarray([[-20], [-30]])[:, :, None])
+    assert before[0]["contrast_db_hh_hv"] == pytest.approx(
+        shifted[0]["contrast_db_hh_hv"]
+    )
+
+
+def test_large_connected_return_is_retained_with_unusable_classifier_context() -> None:
+    images = np.zeros((2, 201, 201), dtype="float32")
+    images[0, 100, 60:141] = 30
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    assert candidates[0]["bbox_px"] == [60, 100, 141, 101]
+    assert (
+        candidates[0]["classifier_context_status"]
+        == "component_exceeds_classifier_chip"
+    )
+    assert candidates[0]["research_retained"] is True
+
+
+def test_peak_centred_classifier_window_must_contain_entire_component() -> None:
+    images = np.zeros((2, 201, 201), dtype="float32")
+    images[0, 100, 60:130] = 30
+    images[0, 100, 60] = 31
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    candidate = candidates[0]
+    assert candidate["bbox_px"] == [60, 100, 130, 101]
+    assert candidate["peak_pixel_xy"] == [60, 100]
+    assert candidate["classifier_window_px"] == [23, 63, 75, 75]
+    assert (
+        candidate["classifier_context_status"] == "component_clipped_by_classifier_chip"
+    )
+    assert candidate["research_retained"] is True
+
+
+def test_boundaries_nodata_and_missing_classifier_context_are_explicit() -> None:
+    images = make_images()
+    images[0, 10, 10] = 20
+    images[0, 31, 50] = 12
+    candidates, _ = detect(images)
+    assert len(candidates) == 1
+    assert candidates[0]["classifier_context_status"] == "roi_boundary"
+    images = make_images()
+    images[0, 50, 50] = 12
+    images[:, 50, 85] = -60
+    candidates, coverage = detect(images)
+    assert candidates[0]["classifier_context_status"] == "invalid_pixels"
+    assert coverage["evaluated_pixels"] < 41**2
+    _, missing = detect(np.full((2, 101, 101), -60))
+    assert missing["evaluated_pixels"] == 0
+
+
+def test_native_polarization_and_bounded_inputs_enforced() -> None:
+    settings, _ = detector.frozen_settings()
+    with pytest.raises(ValueError, match="HH then HV"):
+        detector.generate(make_images(), polarizations=("VV", "VH"), settings=settings)
+    with pytest.raises(ValueError, match="Bounded"):
+        detect(np.zeros((2, 2000, 2000)))
+    with pytest.raises(FrozenInstanceError):
+        setattr(settings, "outer", 31)
+
+
+def test_config_tampering_requires_new_version(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    monkeypatch.setattr(detector, "REPO_ROOT", tmp_path)
+    path = tmp_path / detector.CONFIG_PATH
+    path.parent.mkdir(parents=True)
+    path.write_text("{}")
+    with pytest.raises(ValueError, match="configuration changed"):
+        detector.frozen_settings()
+
+
+@pytest.mark.parametrize("resource", ["commit", "physical", "rss", "disk"])
+def test_candidate_memory_preflight_refuses_pressure(
+    healthy_resources: dict[str, int], resource: str
+) -> None:
+    healthy_resources[resource] = 600 * 1024**2 if resource == "rss" else 100
+    message = "storage required" if resource == "disk" else "Insufficient headroom"
+    with pytest.raises(RuntimeError, match=message):
+        runner.resource_check()
+    if resource in ("commit", "rss"):
+        with pytest.raises(RuntimeError, match="memory budget"):
+            runner.runtime_check()
+    else:
+        runner.runtime_check()
+
+
+def test_native_replay_to_persisted_shared_population(
+    tmp_path: Path, monkeypatch: Any, healthy_resources: dict[str, int]
+) -> None:
+    """Exercise real calibration, geography, generation and bundle consumption."""
+    monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(shadow, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(nl_benchmark, "REPO_ROOT", tmp_path)
+    scene, roi = native_fixture(tmp_path)
+    bands = []
+    for source, calibration in zip(scene["sources"], roi["calibration"]):
+        path = tmp_path / source["path"]
+        with rasterio.open(path, "r+") as src:
+            dn = src.read(1)
+            dn[50, 50] *= 10
+            src.write(dn, 1)
+        source["sha256"] = sha256_file(path)
+        bands.append(Calibrator(str(tmp_path / calibration["path"])).to_sigma0_db(dn))
+    path = tmp_path / roi["chip"]["path"]
+    with rasterio.open(path, "r+") as src:
+        src.crs = "EPSG:4326"
+        src.write(np.asarray(bands, dtype="float32"))
+    roi["chip"]["sha256"] = sha256_file(path)
+    roi.update(
+        id="generated_coast",
+        group="generated",
+        regime="coastal",
+        geometry={
+            "type": "Polygon",
+            "coordinates": [[[1, 0], [2, 0], [2, 1], [1, 1], [1, 0]]],
+        },
+    )
+    scene.update(
+        product_id="11111111-1111-4111-8111-111111111111",
+        name="S1A_IW_GRDH_1SDH_20250103T094220_20250103T094245_057278_070BF3_5F00.SAFE",
+        split="validation",
+        region="Newfoundland",
+        polarizations=["hh", "hv"],
+        acquisition_time="2025-01-03T09:42:20Z",
+        rois=[roi],
+    )
+    manifest = {"scenes": [scene], "licence": {"attribution": "Generated fixture"}}
+    # The fixture supplies dataset discovery; all pixel/provenance consumers are real.
+    monkeypatch.setattr(runner, "load_dataset", lambda _: (manifest, {}, {}))
+    dataset = tmp_path / "datasets/fixture"
+    dataset.mkdir(parents=True)
+    write_json(dataset / "release.json", {"fixture": True})
+    output = tmp_path / "data/native_run"
+    result = runner.run(output, dataset)
+    assert result["status"] == "complete"
+    assert result["summary"]["candidate_count"] == 1
+    assert result["areas"][0]["calibration_replay_max_abs_db"] == [0, 0]
+    assert result["accuracy"] is None and result["promotion_eligible"] is False
+    bundle = output / "bundle.json"
+    pair = runner.paired_inputs(bundle, sha256_file(bundle))
+    assert pair["unfiltered"] == pair["classifier_filter"]
+    feature = pair["unfiltered"][0]["features"][0]
+    assert feature["properties"]["triggered_polarizations"] == ["HH", "HV"]
+    assert feature["properties"]["research_retained"] is True
+    assert feature["properties"]["operational_alert"] is False
+    assert feature["geometry"]["coordinates"] == pytest.approx([1.505, 0.495])
+    # Duplicate a sealed area, rehash the bundle, and verify semantic rejection.
+    result["areas"].append(dict(result["areas"][0]))
+    result["summary"]["candidate_count"] = 2
+    write_json(bundle, result)
+    with pytest.raises(ValueError, match="duplicated or omitted"):
+        runner.paired_inputs(bundle, sha256_file(bundle))
+    result["areas"].pop()
+    result["summary"]["candidate_count"] = 1
+    write_json(bundle, result)
+    # Input byte integrity is checked before native calibration can be trusted.
+    (tmp_path / scene["sources"][0]["path"]).write_bytes(b"tampered")
+    with pytest.raises(ValueError, match="Input hash mismatch"):
+        shadow.native_audit(scene, roi, {})
+
+
+@pytest.mark.parametrize(
+    "failure",
+    [None, "window", "raster", "calibration", "georeferencing", "runtime", "memory"],
+)
+def test_real_runner_contract_on_synthetic_data_and_identical_arms(
+    tmp_path: Path,
+    monkeypatch: Any,
+    failure: str | None,
+    healthy_resources: dict[str, int],
+) -> None:
+    monkeypatch.setattr(runner, "REPO_ROOT", tmp_path)
+    checked_scopes: list[str] = []
+
+    def check_scope(product: str, metadata: dict[str, Any]) -> None:
+        assert product == "fixture"
+        assert metadata["study_roi"] == roi["geometry"]
+        assert metadata["geographic_group"] == "fixture_group"
+        checked_scopes.append(metadata["roi_id"])
+
+    monkeypatch.setattr(runner, "require_development_scene", check_scope)
+    images = make_images()
+    images[0, 50, 50] = 12
+    path = tmp_path / "data/source.tif"
+    path.parent.mkdir()
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        width=4096 if failure == "raster" else 101,
+        height=4096 if failure == "raster" else 101,
+        count=2,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(-53, 48, 0.0001, 0.0001),
+    ) as src:
+        if failure != "raster":
+            src.write(images)
+    roi = {
+        "id": "dev",
+        "group": "fixture_group",
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [[-53, 48], [-52.99, 48], [-52.99, 47.99], [-53, 47.99], [-53, 48]]
+            ],
+        },
+        "regime": "offshore",
+        "window": ([0, 0, 4096, 4096] if failure == "window" else [0, 0, 101, 101]),
+        "chip": {"path": "data/source.tif", "sha256": sha256_file(path)},
+    }
+    scene: dict[str, Any] = {
+        "split": "validation",
+        "polarizations": ["hh", "hv"],
+        "region": "Newfoundland",
+        "product_id": "fixture",
+        "acquisition_time": "2026-10-01T00:00:00Z",
+        "rois": [roi],
+    }
+    manifest = {
+        "scenes": [
+            {
+                "split": "test",
+                "rois": [{"id": "locked", "chip": {"path": "NEVER_OPEN_LOCKED"}}],
+            },
+            {
+                "split": "train",
+                "polarizations": ["vv", "vh"],
+                "rois": [{"id": "unsupported"}],
+            },
+            scene,
+        ],
+        "licence": {"attribution": "fixture"},
+    }
+    monkeypatch.setattr(
+        runner,
+        "load_dataset",
+        lambda directory: (
+            manifest,
+            {"objects": [{"bbox_px": "labels must not be used"}]},
+            {},
+        ),
+    )
+
+    audit_calls: list[str] = []
+    fatal_types = {
+        "calibration": CalibrationError,
+        "georeferencing": GeoreferencingError,
+        "runtime": RuntimeError,
+        "memory": MemoryError,
+    }
+    if failure in fatal_types:
+        scene["rois"].extend([{**roi, "id": "failed"}, {**roi, "id": "unreached"}])
+
+    def audit(scene: Any, roi: Any, cache: Any) -> tuple[Any, dict[str, Any]]:
+        assert (tmp_path / "data/run/definition.json").is_file()
+        audit_calls.append(roi["id"])
+        assert failure not in ("window", "raster")
+        if roi["id"] == "failed":
+            raise fatal_types[str(failure)]("fixture failure")
+        return images, {"calibration_replay_max_abs_db": [0, 0]}
+
+    monkeypatch.setattr(runner, "native_audit", audit)
+    dataset = tmp_path / "datasets"
+    dataset.mkdir()
+    (dataset / "release.json").write_text("{}")
+    if failure == "runtime":
+        checks = 0
+
+        def runtime_check() -> None:
+            nonlocal checks
+            checks += 1
+            if checks == 4:
+                raise RuntimeError("fixture failure")
+
+        monkeypatch.setattr(runner, "runtime_check", runtime_check)
+    if failure in fatal_types:
+        with pytest.raises(fatal_types[str(failure)], match="fixture failure"):
+            runner.run(tmp_path / "data/run", dataset)
+        bundle_path = tmp_path / "data/run/bundle.json"
+        result = json.loads(bundle_path.read_text(encoding="utf-8"))
+        assert result["status"] == "incomplete"
+        assert result["summary"]["processed_areas"] == 1
+        assert result["summary"]["failed_areas"] == 1
+        assert [area["roi_id"] for area in result["areas"]] == ["dev", "failed"]
+        assert result["areas"][1]["error"] == "fixture failure"
+        assert "unreached" not in audit_calls
+        with pytest.raises(ValueError, match="Complete frozen"):
+            runner.paired_inputs(bundle_path, sha256_file(bundle_path))
+        return
+    result = runner.run(tmp_path / "data/run", dataset)
+    if failure in ("window", "raster"):
+        assert audit_calls == []
+        assert result["summary"]["failed_areas"] == 1
+        assert result["status"] == "incomplete"
+        assert "Bounded" in result["areas"][0]["error"]
+        return
+    assert result["summary"]["candidate_count"] == 1
+    assert checked_scopes == ["dev"]
+    assert result["excluded_locked_test_rois"] == ["locked"]
+    assert result["excluded_non_hh_hv_rois"] == ["unsupported"]
+    bundle_path = tmp_path / "data/run/bundle.json"
+    checksum = sha256_file(bundle_path)
+    pair = runner.paired_inputs(bundle_path, checksum)
+    assert pair["unfiltered"] == pair["classifier_filter"]
+    feature = pair["unfiltered"][0]["features"][0]
+    assert feature["geometry"]["coordinates"] == pytest.approx([-52.99495, 47.99495])
+    pair["classifier_filter"][0]["features"].clear()
+    assert len(pair["unfiltered"][0]["features"]) == 1
+    candidate_path = tmp_path / "data/run/area_000.geojson"
+    candidate_path.write_text("{}")
+    with pytest.raises(ValueError, match="Candidate bytes"):
+        runner.paired_inputs(bundle_path, checksum)
+    result["summary"]["failed_areas"] = 1
+    write_json(bundle_path, result)
+    with pytest.raises(ValueError, match="Complete frozen"):
+        runner.paired_inputs(bundle_path, sha256_file(bundle_path))
+    with pytest.raises(ValueError, match="Fresh ignored"):
+        runner.run(tmp_path / "data/run", dataset)

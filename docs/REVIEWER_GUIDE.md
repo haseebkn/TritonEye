@@ -18,6 +18,8 @@ The subsequent [real HH/HV transfer audit](STATOIL_TRANSFER.md) scores fifteen
 existing development objects across eight NL areas using that frozen classifier.
 Input calibration replays match, but missing reviewed truth and iceberg labels
 keep native accuracy, false-alarm reduction and detection improvement unmeasured.
+See the [experimental HH/HV candidate generator](HH_HV_CANDIDATES.md) for the
+subsequent frozen population, replay evidence and future filter-comparison limits.
 Historical results below retain their acquisition dates, execution
 versions and source hashes; this documentation refresh does not rerun inference.
 
