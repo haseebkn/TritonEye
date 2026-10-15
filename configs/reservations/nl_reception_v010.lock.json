@@ -1,0 +1,14 @@
+{
+  "report": {
+    "path": "docs/evidence/nl_reception_v010.json",
+    "sha256": "f21c4d6cf238acfc113d703ad3d0e8c7fffaad580c2cb198ea616ea111add5e1"
+  },
+  "geojson": {
+    "path": "docs/evidence/nl_reception_v010.geojson",
+    "sha256": "c1da3f56463fff7498e0ca040c055dbab92fa9364e40fe98ac2a265c827f4876"
+  },
+  "view": {
+    "path": "docs/evidence/nl_reception_v010.html",
+    "sha256": "e5edbcc7508a8076513fbb31d51e7913434c0bc807f022dbe6296b6945d7824e"
+  }
+}

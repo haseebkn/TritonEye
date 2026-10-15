@@ -27,6 +27,10 @@ object admission, native model transfer and independent accuracy remain unresolv
 The [training-region AIS coverage audit and provisional C/D admission/export workflow](docs/TRAINING_AIS_AND_CD_EXPORT.md)
 find almost no received AIS in the four training envelopes and add guarded native
 training exports for future evidence-qualified objects. No real labels are admitted.
+The [NL reception map, training-area shortlist and iceberg source search](docs/NL_RECEPTION_AND_ICEBERG_SEARCH.md)
+identify three eligible HH/HV acquisition groups in new reception areas, but all
+current timing leads fail the motion screen. Six new iceberg source leads have
+no optical products in the bounded searches; no new labels are admitted.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native model transfer remains unvalidated.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

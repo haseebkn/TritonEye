@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "grid_degrees": 0.1,
+  "minimum_days": 2,
+  "minimum_identities": 2,
+  "maximum_shortlist": 8,
+  "half_width_m": 3000,
+  "minimum_speed_knots": 1,
+  "maximum_uncertainty_m": 500,
+  "ranking": "Motion/uncertainty-qualified groups, eligible unexposed HH/HV native groups, days, UTC hours, identities, cell ID; metadata only",
+  "limits": [
+    "Observed reception has no denominator for unreceived vessels; silence is not absence or a diagnosed outage.",
+    "Research grid thresholds are provisional discovery choices, not C-CORE requirements or statistical sufficiency.",
+    "Grid cells have unequal physical area; report density per square kilometre is not inferred.",
+    "Shortlisted cells are proposals, not reservations or training labels. Whole-cell and candidate-envelope roles are checked separately.",
+    "Tracks are aligned before spatial filtering; tight support uses catalogue midpoint and 120-second nearest / 240-second brackets.",
+    "Native target-time brackets, competing identities, physical water, native processing and permitted use remain admission requirements.",
+    "Adjacent slices, repeated identities, many messages and multiple cells do not create independent examples.",
+    "No scientific reviewer, accuracy truth, model scoring, promotion or physical object confirmation is supplied."
+  ]
+}

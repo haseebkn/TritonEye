@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **15 October 2026**, against main baseline
-`9b2430420f47ccb4bfd109f8d197f08edeba9a44` (PR #38), plus the
+`1e1362e58a6109edd8ca376347cdeab6ba112c3a` (PR #39), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -43,6 +43,12 @@ subsequently find zero reports in three training envelopes and one in Cartwright
 offshore, with no tight support around C/D passes. Future qualifying objects can
 be exported for exploratory training after evidence and native-pixel replay;
 this release admits zero real labels and preserves every review/promotion boundary.
+The [NL reception map and iceberg search](NL_RECEPTION_AND_ICEBERG_SEARCH.md)
+subsequently map 374 received-report cells, shortlist eight training-geography
+proposals and identify three distinct eligible HH/HV timing groups. All current
+timing leads fail the motion screen. Six additional iceberg source leads return
+no optical products within the bounded searches. No labels or reservations are
+created; protected data and scientific-review requirements retain their roles.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
