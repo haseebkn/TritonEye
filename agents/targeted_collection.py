@@ -13,7 +13,7 @@ from typing import Any
 
 from shapely.geometry import Polygon, mapping, shape
 
-from agents.artifacts import REPO_ROOT
+from agents.artifacts import REPO_ROOT as REPO_ROOT
 from agents.cd_training_reservations import freeze_priors
 from agents.hh_hv_reservation import save
 from agents.neighbour_vessel_batch import POLICY as NEIGHBOUR_POLICY
