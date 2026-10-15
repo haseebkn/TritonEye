@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0",
+  "purpose": "C retry, D numerical diagnosis and inspection of one existing optical lead",
+  "original_snap": {"path": "data/source_supported/cd_snap_v010_01/report.json", "sha256": "b69ba01394a5b4021af27719ff1f04930183e6e0373b4e4779ebf4bff1989c29"},
+  "optical_search": {"path": "data/source_supported/cd_iceberg_search_v010_01/report.json", "sha256": "d5bef6fbc0a9e7299eb4451f23b8056874015fb687d05dd133aa529d1978b5de"},
+  "target_id": "next_iceberg_support_02",
+  "optical_product_id": "4600e3a9-b973-4204-b60f-9a917bc9fd90",
+  "optical_product_name": "S2A_MSIL1C_20180504T142911_N0500_R096_T22TCT_20230818T152412.SAFE",
+  "optical_bands": ["B02", "B03", "B04", "B08"],
+  "maximum_download_bytes": 268435456,
+  "maximum_asset_bytes": 67108864,
+  "display_reflectance_max": 0.3,
+  "display_gamma": 2.2,
+  "motion_search_speed_m_s": 1.0,
+  "motion_search_base_m": 300.0,
+  "motion_search_interpretation": "Discovery heuristic only; not a bounded physical drift estimate or identity criterion",
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "input_contract_extended": false,
+  "classifier_scored": false,
+  "detector_scored": false
+}

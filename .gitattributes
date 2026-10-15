@@ -115,3 +115,9 @@ agents/cd_evidence.py text eol=lf
 tests/unit/test_cd_reference.py text eol=lf
 docs/evidence/cd_reference_v010.json text eol=lf
 reservations/cd_vessels/** -text
+agents/cd_noise_diagnosis.py text eol=lf
+agents/optical_lead.py text eol=lf
+agents/cd_followup_evidence.py text eol=lf
+tests/unit/test_cd_followup.py text eol=lf
+docs/evidence/cd_followup_v010.json text eol=lf
+docs/CD_RETRY_NOISE_OPTICAL.md text eol=lf

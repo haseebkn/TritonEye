@@ -17,6 +17,10 @@ calibration replays and no admitted training labels or new model scores.
 The [C/D reference-processing pilot and source refresh](docs/CD_REFERENCE_AND_SOURCES.md)
 compares existing training windows with SNAP and records an empty refreshed vessel
 reservation plus optical iceberg leads. No input-contract extension or labels are approved.
+The [C retry, noise diagnosis and optical inspection](docs/CD_RETRY_NOISE_OPTICAL.md)
+complete the pilot's nominal comparisons and explain the noise mismatch;
+cloud and coverage prevent iceberg corroboration. An initial optical scope
+error is disclosed, and protected-geography checks now precede pixel reads.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native transfer compatibility remains open.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

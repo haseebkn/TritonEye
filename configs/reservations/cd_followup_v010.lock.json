@@ -1,0 +1,10 @@
+{
+  "report": {
+    "path": "docs/evidence/cd_followup_v010.json",
+    "sha256": "c174fcecdcede718714d7515c86e2c86bef91264d17173e8ef66897803d30d6c"
+  },
+  "observation": {
+    "path": "configs/reservations/optical_lead_observation_v010.json",
+    "sha256": "41c079643382a26b2532d3e6141b0cd210d9b9bac4eb9b66f444e73f547df12e"
+  }
+}
