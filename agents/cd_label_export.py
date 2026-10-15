@@ -347,6 +347,13 @@ def repeated_consistency(
     """Keep repeated-object groups and source identities in a 1:1 mapping."""
     identity = dossier.get("source_identity")
     group = dossier.get("repeated_object_group")
+    if (
+        not isinstance(identity, str)
+        or not identity.strip()
+        or not isinstance(group, str)
+        or not group.strip()
+    ):
+        return
     if identity in repeated and repeated[identity] != group:
         raise ValueError("Repeated source identity assigned inconsistent object groups")
     repeated[identity] = group

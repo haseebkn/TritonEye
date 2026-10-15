@@ -398,6 +398,19 @@ def test_distinct_identities_cannot_share_one_repeated_group(
     assert not output.exists()
 
 
+def test_incomplete_dossiers_held_by_admission_not_group_bookkeeping(
+    case: dict[str, Any],
+) -> None:
+    first = variant(case, "incomplete-a1", "vessel-A", "")
+    second = variant(case, "incomplete-b1", "vessel-B", "")
+    output = case["tmp"] / "data/native_training_exports/incomplete_group"
+    with pytest.raises(ValueError) as excinfo:
+        workflow.export(batch(case, [first, second]), output)
+    assert "object_and_repeated_identity_required" in str(excinfo.value)
+    assert "inconsistent" not in str(excinfo.value)
+    assert not output.exists()
+
+
 def test_verify_rejects_conflicting_group_smuggled_into_a_manifest(
     case: dict[str, Any],
 ) -> None:

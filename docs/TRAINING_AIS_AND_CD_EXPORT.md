@@ -161,8 +161,14 @@ The delivered workflow is exercised with synthetic evidence for successful
 admission/export, failure and tampering tests, and all four retained real C/D
 acceptance windows for calibration/input replay. Synthetic evidence validates
 software behavior only. A local empty-batch export at
-`data/native_training_exports/cd_rehearsal_v010/` also replays successfully and
-explicitly contains zero chips. This release admits **zero real training labels**, runs
+`data/native_training_exports/cd_rehearsal_v010/` was captured and verified
+against the initial submitted implementation (commit `15264f1`) and explicitly
+contains zero chips. Its manifest pins that commit's `cd_label_export.py`
+hash, so it is historical evidence of that commit only and does not replay
+`--verify` against a later implementation; each subsequent implementation
+change needs its own fresh rehearsal output at a new path, created and
+verified with the matching code, rather than reusing or overwriting this one.
+This release admits **zero real training labels**, runs
 no fitting or classifier scoring, and establishes no detection improvement.
 Independent scientific review remains unavailable. Original A/B policies,
 quarantine, locked test, annotation masks and promotion/review guards retain
