@@ -47,9 +47,9 @@ def find_calibration_xml(measurement_path: str) -> Optional[str]:
     Products lay this out as
         <product>.SAFE/measurement/s1a-iw-grd-vv-....tiff
         <product>.SAFE/annotation/calibration/calibration-s1a-iw-grd-vv-....xml
-    so the polarisation is recovered from the measurement filename and used to
-    pick the right LUT — calibrating VH with the VV table would introduce a
-    silent multi-dB bias.
+    The complete measurement stem must match, not merely its polarization.
+    Missing or ambiguous matches return None; never substitute another band or
+    measurement's LUT, which would introduce a silent radiometric bias.
     """
     measurement_dir = os.path.dirname(os.path.abspath(measurement_path))
     safe_dir = os.path.dirname(measurement_dir)
@@ -57,19 +57,18 @@ def find_calibration_xml(measurement_path: str) -> Optional[str]:
     if not os.path.isdir(cal_dir):
         return None
 
-    name = os.path.basename(measurement_path).lower()
-    pol = None
-    for candidate in ("vv", "vh", "hh", "hv"):
-        if f"-{candidate}-" in name or name.endswith(f"{candidate}.tiff"):
-            pol = candidate
-            break
-
-    files = [f for f in os.listdir(cal_dir) if f.startswith("calibration-")]
-    if pol:
-        for f in files:
-            if f"-{pol}-" in f.lower():
-                return os.path.join(cal_dir, f)
-    return os.path.join(cal_dir, files[0]) if files else None
+    stem, extension = os.path.splitext(os.path.basename(measurement_path).lower())
+    if extension not in {".tif", ".tiff"} or not any(
+        f"-{pol}-" in stem for pol in ("vv", "vh", "hh", "hv")
+    ):
+        return None
+    expected = f"calibration-{stem}.xml"
+    matches = [
+        os.path.join(cal_dir, name)
+        for name in os.listdir(cal_dir)
+        if name.lower() == expected and os.path.isfile(os.path.join(cal_dir, name))
+    ]
+    return matches[0] if len(matches) == 1 else None
 
 
 def read_sigma_nought_lut(

@@ -181,6 +181,17 @@ def test_priority_is_frozen_and_whole_cell_and_envelope_roles_are_separate() -> 
     assert shortlist(report)[0]["id"] == "a"
 
 
-def test_public_release_replays() -> None:
-    result = verify()
-    assert result["verified"] is True and result["labels_admitted"] == 0
+def test_historical_release_refuses_changed_overlap_implementation() -> None:
+    from agents.reception_vessel_batch import LOCK
+
+    manifest = json.loads(checked(json.loads(LOCK.read_text())["manifest"]).read_text())
+    assert manifest["labels_admitted"] == 0
+    for dependency in manifest["implementation_dependencies"]:
+        if dependency["path"] == "agents/overlap_audit.py":
+            with pytest.raises(ValueError, match="Source artifact hash/path mismatch"):
+                checked(dependency)
+        else:
+            checked(dependency)
+    # Do not rewrite historical hashes to certify a different executing version.
+    with pytest.raises(ValueError, match="Source artifact hash/path mismatch"):
+        verify()
