@@ -54,6 +54,12 @@ then refreshes the archive to 224,622 reports and screens 24 aligned supports in
 those eight cells. One passes source requirements but belongs to a previously
 exposed/reserved acquisition. Zero new acquisitions qualify; prospective
 priorities and an explicitly empty annotation handoff are retained before scores.
+The [pass-specific collection audit and neighbouring-area expansion](PASS_COLLECTION_AND_NEIGHBOURS.md)
+subsequently check 109 eligible cells and 84 HH/HV slices in 43 native groups.
+Twenty-six supports produce zero new reservations; the sole source pass belongs
+to validation. Historical transport acknowledgement/compression are unknown.
+Future recorder telemetry and positive publication/replay regressions are added;
+the live recorder, labels and protected assignments are unchanged.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain

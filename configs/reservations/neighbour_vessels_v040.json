@@ -1,0 +1,19 @@
+{
+  "version": "0.4.0",
+  "grid_degrees": 0.1,
+  "neighbour_rings": 2,
+  "pass_context_half_window_seconds": 900,
+  "shortlist": "docs/evidence/nl_reception_v010.json",
+  "ranking": "Original shortlist cells first in frozen order, then neighbour ring, original anchor rank and cell ID; source timing/uncertainty ranking within each cell",
+  "scope": "Whole cells and reserved envelopes must independently meet existing training role and protected separation checks. Do not require prior reception in a neighbouring cell; interpolated supports can cross boundaries.",
+  "limits": [
+    "Two 0.1-degree grid rings are a bounded geographic discovery choice, not a fixed distance or exhaustive NL search.",
+    "Pass context is acquisition start/end plus 15 minutes each side; native target-time source checks remain stricter and unchanged.",
+    "Heartbeat coverage is a connected-state diagnostic. It cannot measure unreceived vessels, upstream loss or complete AIS reception.",
+    "Legacy subscribed events mean a local send, not a server acknowledgement. Missing compression/confirmation telemetry remains unknown.",
+    "Receipt minus observation times use provider/client clocks; negative or missing times are disclosed and do not measure network latency alone.",
+    "No source, motion, shore, split, exposure or identity requirement is relaxed to fill a batch. No pixels or scores are used for reservation.",
+    "Metadata reservations require native input, uncertainty, complete annotation, object association and permitted-use checks before provisional training admission.",
+    "No independent reviewer, accuracy truth, model improvement, operational threshold or promotion is supplied."
+  ]
+}

@@ -379,8 +379,25 @@ async def record(
 
             try:
                 async with websockets.connect(
-                    STREAM_URL, open_timeout=10, close_timeout=0.25
+                    STREAM_URL,
+                    open_timeout=10,
+                    close_timeout=0.25,
+                    compression="deflate",
                 ) as ws:
+                    extensions = getattr(
+                        getattr(ws, "protocol", None), "extensions", None
+                    )
+                    event(
+                        "transport_open",
+                        permessage_deflate=(
+                            any(
+                                getattr(ext, "name", None) == "permessage-deflate"
+                                for ext in extensions
+                            )
+                            if isinstance(extensions, list)
+                            else None
+                        ),
+                    )
                     await asyncio.wait_for(
                         ws.send(json.dumps(subscription)), SUBSCRIBE_TIMEOUT_S
                     )
@@ -398,6 +415,20 @@ async def record(
                         except json.JSONDecodeError:
                             continue
                         if not isinstance(envelope, dict):
+                            continue
+                        if envelope.get("MessageType") == "SubscriptionConfirmation":
+                            message = envelope.get("Message")
+                            if isinstance(message, dict):
+                                compression = message.get("CompressionEnabled")
+                                event(
+                                    "subscription_confirmation",
+                                    accepted=True,
+                                    compression_enabled=(
+                                        compression
+                                        if isinstance(compression, bool)
+                                        else None
+                                    ),
+                                )
                             continue
                         row = parse_position_report(envelope)
                         if row is not None and (

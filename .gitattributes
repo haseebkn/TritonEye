@@ -152,3 +152,8 @@ docs/RECEPTION_VESSEL_BATCH.md text eol=lf
 # New reservation evidence hashes these retained Windows source bytes.
 agents/acquisition.py text eol=crlf
 agents/region.py text eol=crlf
+agents/ais_recorder.py text eol=lf
+agents/ais_pass_audit.py text eol=lf
+agents/neighbour_vessel_batch.py text eol=lf
+tests/unit/test_ais_pass_audit.py text eol=lf
+docs/PASS_COLLECTION_AND_NEIGHBOURS.md text eol=lf
