@@ -14,6 +14,9 @@ no existing labels are admitted, and training-vessel coverage remains missing.
 The [two-window native preparation and annotation report](docs/TRAINING_NATIVE_ANNOTATION.md)
 records one new plausible iceberg hypothesis, one coverage abstention, four exact
 calibration replays and no admitted training labels or new model scores.
+The [C/D reference-processing pilot and source refresh](docs/CD_REFERENCE_AND_SOURCES.md)
+compares existing training windows with SNAP and records an empty refreshed vessel
+reservation plus optical iceberg leads. No input-contract extension or labels are approved.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native transfer compatibility remains open.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

@@ -1,0 +1,10 @@
+{
+  "report": {
+    "path": "docs/evidence/cd_reference_v010.json",
+    "sha256": "2e6a1e7c977f75a6c7d236585852dfaaaa4f8b0b613fe525a69e7d34f2746cf6"
+  },
+  "reservation": {
+    "path": "reservations/cd_vessels/v0.1.0/manifest.json",
+    "sha256": "09ef32d8e5ee1d36886f36000655c6a4161cb05af04dbd15e45e2a703a9b5c97"
+  }
+}

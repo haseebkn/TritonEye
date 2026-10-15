@@ -6,8 +6,8 @@ certified surveillance system or operational dark-vessel detector.** Internal
 C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
-Current summary refreshed **14 October 2026**, against main baseline
-`c2e6699bf437b38de4bd0b210ebe7c4e5e8754d5` (PR #34), plus the
+Current summary refreshed **15 October 2026**, against main baseline
+`8d3f4e63fa4a74da2920e4792983303fce8a90c0` (PR #35), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -21,6 +21,11 @@ The [subsequent two-window preparation](TRAINING_NATIVE_ANNOTATION.md) adds one
 unconfirmed iceberg hypothesis and one unannotated coverage-abstention area;
 all four calibration bands replay exactly, and no new labels are admitted for
 training or accuracy. The original 31-area register retains its historical scope.
+The [C/D reference pilot and source refresh](CD_REFERENCE_AND_SOURCES.md) adds
+mission-specific processing comparisons using four existing training windows.
+Refreshed AIS screening still yields no eligible new training reservation;
+expanded optical searches provide leads but no confirmed iceberg identity.
+The original A/B input contract and all admission/review boundaries remain intact.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
