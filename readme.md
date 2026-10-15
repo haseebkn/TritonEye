@@ -21,8 +21,11 @@ The [C retry, noise diagnosis and optical inspection](docs/CD_RETRY_NOISE_OPTICA
 complete the pilot's nominal comparisons and explain the noise mismatch;
 cloud and coverage prevent iceberg corroboration. An initial optical scope
 error is disclosed, and protected-geography checks now precede pixel reads.
+The [C/D input specification and additional acceptance checks](docs/CD_INPUT_ACCEPTANCE.md)
+add a separate executable research recipe and refresh vessel-training reservations;
+object admission, native model transfer and independent accuracy remain unresolved.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
-admitted for training or accuracy truth. Native transfer compatibility remains open.
+admitted for training or accuracy truth. Native model transfer remains unvalidated.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),
 [walkthrough and lifecycle rehearsal](docs/PORTFOLIO_DEMO.md), and
 [technical explanation and contribution notes](docs/TECHNICAL_EXPLANATION.md).

@@ -1,0 +1,14 @@
+{
+  "report": {
+    "path": "docs/evidence/cd_acceptance_v020.json",
+    "sha256": "27ea91139b17ee2450e802e79e93ec3596bb6d063558c5dc160f7faad62bcf4c"
+  },
+  "policy": {
+    "path": "configs/reservations/cd_acceptance_v020.json",
+    "sha256": "d9c80d0c1b61e5ba3c7c9e0a32cbfc840fcafd7f413f9c85f623c5ceea8a9b3e"
+  },
+  "specification": {
+    "path": "configs/native_nl/input_v020.json",
+    "sha256": "296840436cd533e4fd89c02fd4a32a0c67c6d4ae3c22de68dd92af181fcbec77"
+  }
+}

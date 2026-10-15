@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **15 October 2026**, against main baseline
-`3038bf4ed2d0af199cf1402f9026253176996d0b` (PR #36), plus the
+`9144327bf8cc3e5bdbfc652de7f4448030b2d291` (PR #37), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -33,6 +33,11 @@ on hold. An initial expanded optical preview overlapped quarantined geography;
 that exposure is recorded and excluded from admission, and the final inspection
 enforces protected separation before pixel reads. No original labels or splits
 were changed and no training labels were admitted.
+The subsequent [C/D input specification and additional acceptance checks](CD_INPUT_ACCEPTANCE.md)
+implement an IPF 004.03 research recipe, compare two additional training acquisitions
+and refresh vessel reservations. Numerical processing qualification, physical class
+evidence and learned model transfer have distinct requirements. No label is admitted
+and the original review/promotion guard remains in force.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain

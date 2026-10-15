@@ -1,0 +1,1034 @@
+{
+  "policy": {
+    "path": "configs/reservations/cd_acceptance_v020.json",
+    "sha256": "d9c80d0c1b61e5ba3c7c9e0a32cbfc840fcafd7f413f9c85f623c5ceea8a9b3e"
+  },
+  "specification": {
+    "path": "configs/native_nl/input_v020.json",
+    "sha256": "296840436cd533e4fd89c02fd4a32a0c67c6d4ae3c22de68dd92af181fcbec77"
+  },
+  "prepared": {
+    "path": "data/ca_p2/prepared.json",
+    "sha256": "bf9ad0163834f10733e62e28039698758dca2ddc38e3cab24efa72acd7ad87c1"
+  },
+  "areas": [
+    {
+      "id": "S1C_0",
+      "product_id": "b5905223-8107-4c59-8cbe-3cd792dfc0ba",
+      "mission": "S1C",
+      "regime": "coastal",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 96.85266100001172,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1C_0/raw.log",
+            "sha256": "8625d476edc71f0333d6d46497cd9c57b27dce2d93648a19577b80f2cb5cd03b"
+          },
+          "graph": {
+            "path": "data/ca_r/S1C_0/raw.xml",
+            "sha256": "ed1962694a250b5b76f9a9a884b2062e15f963c87f826866b5f52a56b4e222f1"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1C_0/raw.dim",
+              "sha256": "35e0285dd914c56640a04a743055808ad171617e7005be46b4f54be7eb077ab7"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/Amplitude_HH.img",
+              "sha256": "f05aa6ff27720c586a0cc4b63b8c14061ba4489062229d516888389f92974c4a"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/Amplitude_HV.img",
+              "sha256": "95ae42a79742235add41c02c5427bec005b211df69f0ab1dfcd4a545eac6267e"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "bebccd9b67a16c03521db5e4fc8b68435f7c1a400faa1f63957356924682ea52"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "10d8d169f52e90395b11ab8728868e35f39fd7ee03650ee8b8f44d7b2107bdc3"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/latitude.img",
+              "sha256": "cf42a3ec71845d11e39d0b190facbd3eabef5dc27943fe919a044f54854a2e89"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/longitude.img",
+              "sha256": "a1a4b4abb561fe0c5a6718f3f0d15e96396b5c80ee6b92337e13ac85452b2444"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "c3a8b48f46a27b070948cf99fcc9b3d53de311a240322e03cb53d44068cfaa10"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1C_0/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 66.11615509999683,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1C_0/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/ca_r/S1C_0/calibration.xml",
+            "sha256": "519bc656e80c8f28666c0f0b2026b86655e3461e73d2603fa83efec720ec5bc8"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1C_0/calibration.dim",
+              "sha256": "1855e46bee31e7f47e5a3aa21e2312907b670a9a31f3c6f29b06d08f76d6206e"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "b8ec6e212db209f35cd04770247cebad87b39dac289ef11fd59b8c10de3eaa3e"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "65ed0d3309b8762296abfc6aca48a592a1d37d4976dd88b3bac7b0320c073583"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "bebccd9b67a16c03521db5e4fc8b68435f7c1a400faa1f63957356924682ea52"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "10d8d169f52e90395b11ab8728868e35f39fd7ee03650ee8b8f44d7b2107bdc3"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "cf42a3ec71845d11e39d0b190facbd3eabef5dc27943fe919a044f54854a2e89"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "a1a4b4abb561fe0c5a6718f3f0d15e96396b5c80ee6b92337e13ac85452b2444"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "c3a8b48f46a27b070948cf99fcc9b3d53de311a240322e03cb53d44068cfaa10"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1C_0/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "analysis": {
+        "nominal": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 2.1918016912536586e-06,
+              "mean_signed_db": -2.249477165561667e-09,
+              "rmse_db": 5.297383004319433e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.6027653561300212e-06,
+              "mean_signed_db": -4.111034211183813e-09,
+              "rmse_db": 5.921966328900949e-07,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "geometry": {
+          "sample_positions": 9,
+          "max_separation_m": 7.262056874926599,
+          "hh_hv_metadata_positions_equal": true,
+          "snap_center_incidence_deg": 39.100353527031274,
+          "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+          "absolute_geolocation_validated": false
+        },
+        "metadata": {
+          "name": "S1C_IW_GRDH_1SDH_20260715T094924_20260715T094949_008552_010EE3_C13E.SAFE",
+          "mission": "S1C",
+          "mode": "IW",
+          "product_type": "GRD",
+          "band_order": [
+            "HH",
+            "HV"
+          ],
+          "pixel_spacing_m": [
+            10.0,
+            10.0
+          ],
+          "thermal_noise_corrected": false,
+          "unit": "sigma0_db",
+          "processing_software": "Sentinel-1 IPF",
+          "processing_version": "004.03",
+          "native_start_utc": "2026-07-15T09:49:24.876496+00:00",
+          "native_stop_utc": "2026-07-15T09:49:49.876132+00:00",
+          "native_center_utc": "2026-07-15T09:49:32.559106+00:00",
+          "incidence_center_deg": 39.09965472731619
+        },
+        "tensor_sha256": "3d47a47e34933177a0f28902e3ce4ddb8994e550417dc58cfe001cad2b2322c5",
+        "noise_diagnostics": [
+          {
+            "polarization": "HH",
+            "fraction_at_or_below_estimated_noise": 0.0004543728298611111,
+            "diagnostic_only": true
+          },
+          {
+            "polarization": "HV",
+            "fraction_at_or_below_estimated_noise": 0.07422553168402778,
+            "diagnostic_only": true
+          }
+        ],
+        "tensor_shape": [
+          2,
+          75,
+          75
+        ],
+        "tensor_box_is_class_label": false
+      }
+    },
+    {
+      "id": "S1C_1",
+      "product_id": "b5905223-8107-4c59-8cbe-3cd792dfc0ba",
+      "mission": "S1C",
+      "regime": "offshore",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 50.973310300003504,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1C_1/raw.log",
+            "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+          },
+          "graph": {
+            "path": "data/ca_r/S1C_1/raw.xml",
+            "sha256": "1ca7cf32cf0a5c63cfba1ff93f71dd1912710cedeab3a40fedb62494849cae0f"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1C_1/raw.dim",
+              "sha256": "5d939016b0cd553cdc84d8cbefffbc17561407595dc5bc99e80c094f2bb347fb"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/Amplitude_HH.img",
+              "sha256": "14120daea2874206c68fa26146e33b75520af809e31d8301a76d3bc86061f2b0"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/Amplitude_HV.img",
+              "sha256": "afdbb9dd6628f7dd5fb6db26a2cea5920e1b0121da53d428a9583509d35886da"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "2c4aa0c6e51e2b5c26669a81a70ebebe28d3e72968be9efd73add274b2ec8105"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "0eadbcc5bb4dbdd9b49978d5af9416b15037552a8a5723f3c210fb2d3e8f0f6b"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/latitude.img",
+              "sha256": "e931d0a9d34b02f436a78b19e761c2ef0cc1936f0557806c748031b474c6e5de"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/longitude.img",
+              "sha256": "5d9e1dea16c1394a524587211cf208cd5b54508d63f1e126810166f218df1a3a"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "1fccd20481bcab2114f237d426dac98003995a89da485cc0ed2e699230e300c1"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1C_1/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 48.76402300001064,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1C_1/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/ca_r/S1C_1/calibration.xml",
+            "sha256": "185ea2b75e67647a3b0fdeed6ba47556cfa474fafda4c01adb337422aada4343"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1C_1/calibration.dim",
+              "sha256": "9b22297035c078f49fb43324a4c6262f8221182aa8049b4798ebb8a380b974ce"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "22fc594053dfbe4c26b2b733a8abefa14a45d626e280f6ecbae78184c86497b6"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "d0e36d601c2c5da2a643c72aa5db13326b9400ee2fa5501939e11b832497c0a7"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "2c4aa0c6e51e2b5c26669a81a70ebebe28d3e72968be9efd73add274b2ec8105"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "0eadbcc5bb4dbdd9b49978d5af9416b15037552a8a5723f3c210fb2d3e8f0f6b"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "e931d0a9d34b02f436a78b19e761c2ef0cc1936f0557806c748031b474c6e5de"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "5d9e1dea16c1394a524587211cf208cd5b54508d63f1e126810166f218df1a3a"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "1fccd20481bcab2114f237d426dac98003995a89da485cc0ed2e699230e300c1"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1C_1/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "analysis": {
+        "nominal": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 1.6254480428301576e-06,
+              "mean_signed_db": -4.259616052803624e-09,
+              "rmse_db": 5.235657321468939e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.2913382551337236e-06,
+              "mean_signed_db": 3.400845094541268e-09,
+              "rmse_db": 6.24641677744155e-07,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "geometry": {
+          "sample_positions": 9,
+          "max_separation_m": 7.152949718610418,
+          "hh_hv_metadata_positions_equal": true,
+          "snap_center_incidence_deg": 37.06223390893258,
+          "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+          "absolute_geolocation_validated": false
+        },
+        "metadata": {
+          "name": "S1C_IW_GRDH_1SDH_20260715T094924_20260715T094949_008552_010EE3_C13E.SAFE",
+          "mission": "S1C",
+          "mode": "IW",
+          "product_type": "GRD",
+          "band_order": [
+            "HH",
+            "HV"
+          ],
+          "pixel_spacing_m": [
+            10.0,
+            10.0
+          ],
+          "thermal_noise_corrected": false,
+          "unit": "sigma0_db",
+          "processing_software": "Sentinel-1 IPF",
+          "processing_version": "004.03",
+          "native_start_utc": "2026-07-15T09:49:24.876496+00:00",
+          "native_stop_utc": "2026-07-15T09:49:49.876132+00:00",
+          "native_center_utc": "2026-07-15T09:49:37.193895+00:00",
+          "incidence_center_deg": 37.06221162170762
+        },
+        "tensor_sha256": "e14959c2eba923a65bb4a532600ee69cfdec8ab68c4219c83f1bfa50ae3ec649",
+        "noise_diagnostics": [
+          {
+            "polarization": "HH",
+            "fraction_at_or_below_estimated_noise": 6.781684027777778e-05,
+            "diagnostic_only": true
+          },
+          {
+            "polarization": "HV",
+            "fraction_at_or_below_estimated_noise": 0.18290879991319445,
+            "diagnostic_only": true
+          }
+        ],
+        "tensor_shape": [
+          2,
+          75,
+          75
+        ],
+        "tensor_box_is_class_label": false
+      }
+    },
+    {
+      "id": "S1D_0",
+      "product_id": "e95f499a-a544-4f7c-89aa-ead21af5a266",
+      "mission": "S1D",
+      "regime": "coastal",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 48.80385299999034,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1D_0/raw.log",
+            "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+          },
+          "graph": {
+            "path": "data/ca_r/S1D_0/raw.xml",
+            "sha256": "093fc2726613db17d6c6c21334be0b8eb0a68a6c0e2dbde527a522fef4f60ca9"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1D_0/raw.dim",
+              "sha256": "c309b0b673fcbf929fce921135e2ff2de25b94b1305e6456086492d73cfc74bc"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/Amplitude_HH.img",
+              "sha256": "63b86d5265e979b76be4100a46eafb51e9b729ecb71e990df7f85228dd00dc22"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/Amplitude_HV.img",
+              "sha256": "c25a73e7f84d6ca938489f781b6e2bf3ebe3fca5e6f9c709caa79eeb6ce806ef"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "be64ded265dbbd73ffaca7f59044791aa4327dad3f2aa99f519b9047503c131d"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "4effef475351935317423d33037a1e16ef31fda65c5a9d13c60ac170a15b7563"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/latitude.img",
+              "sha256": "b59008fc57cd5ba0d396666c85f8b428fbd43f98530f377db28c1efe40a672d4"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/longitude.img",
+              "sha256": "2743c14e8a09137bc84323504dbc0cc446572cfcc5dd85b5c9d2f2abbefa2e5d"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "0b645fbb7b96c59d5f782e54a57453c7739e63036954b8665682ffab161e6643"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1D_0/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 41.812034999995376,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1D_0/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/ca_r/S1D_0/calibration.xml",
+            "sha256": "548579d0666a1486a166d710c1d2a9bc4476949497d6b1d05c58dc69ad3b800e"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1D_0/calibration.dim",
+              "sha256": "b60c9addd5dd503ed527f5a0bc148e9bd2e2641428b5902888ca17353148b8d0"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "43cecd8fb399f440fd308a5f1de058f42d3368dbceff94dd46c2763fe9e25544"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "6c1c40d18c911a3280b6ab8b9710cddcb61b7f21dd400dd9009d208edc8d5ce1"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "be64ded265dbbd73ffaca7f59044791aa4327dad3f2aa99f519b9047503c131d"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "4effef475351935317423d33037a1e16ef31fda65c5a9d13c60ac170a15b7563"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "b59008fc57cd5ba0d396666c85f8b428fbd43f98530f377db28c1efe40a672d4"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "2743c14e8a09137bc84323504dbc0cc446572cfcc5dd85b5c9d2f2abbefa2e5d"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "0b645fbb7b96c59d5f782e54a57453c7739e63036954b8665682ffab161e6643"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1D_0/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "analysis": {
+        "nominal": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 2.3625053842124544e-06,
+              "mean_signed_db": -3.194596379136241e-09,
+              "rmse_db": 4.718894599890402e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.501593449721895e-06,
+              "mean_signed_db": -6.178410930534401e-10,
+              "rmse_db": 5.480479962443349e-07,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "geometry": {
+          "sample_positions": 9,
+          "max_separation_m": 5.745089020504348,
+          "hh_hv_metadata_positions_equal": true,
+          "snap_center_incidence_deg": 44.90546252062279,
+          "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+          "absolute_geolocation_validated": false
+        },
+        "metadata": {
+          "name": "S1D_IW_GRDH_1SDH_20260714T095608_20260714T095633_003668_0068D0_870D.SAFE",
+          "mission": "S1D",
+          "mode": "IW",
+          "product_type": "GRD",
+          "band_order": [
+            "HH",
+            "HV"
+          ],
+          "pixel_spacing_m": [
+            10.0,
+            10.0
+          ],
+          "thermal_noise_corrected": false,
+          "unit": "sigma0_db",
+          "processing_software": "Sentinel-1 IPF",
+          "processing_version": "004.03",
+          "native_start_utc": "2026-07-14T09:56:08.267149+00:00",
+          "native_stop_utc": "2026-07-14T09:56:33.265876+00:00",
+          "native_center_utc": "2026-07-14T09:56:10.555321+00:00",
+          "incidence_center_deg": 44.905905058287296
+        },
+        "tensor_sha256": "e3acc76367f46d4cf0dcc475ec803259773333ca3db6f82bebd26c861ac79c9e",
+        "noise_diagnostics": [
+          {
+            "polarization": "HH",
+            "fraction_at_or_below_estimated_noise": 0.017930772569444444,
+            "diagnostic_only": true
+          },
+          {
+            "polarization": "HV",
+            "fraction_at_or_below_estimated_noise": 0.0758938259548611,
+            "diagnostic_only": true
+          }
+        ],
+        "tensor_shape": [
+          2,
+          75,
+          75
+        ],
+        "tensor_box_is_class_label": false
+      }
+    },
+    {
+      "id": "S1D_1",
+      "product_id": "e95f499a-a544-4f7c-89aa-ead21af5a266",
+      "mission": "S1D",
+      "regime": "offshore",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 45.57985880000342,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1D_1/raw.log",
+            "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+          },
+          "graph": {
+            "path": "data/ca_r/S1D_1/raw.xml",
+            "sha256": "9246e301d8168d8afd4ecf885c8d98be1df0eb7012925c50a431b597ab576599"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1D_1/raw.dim",
+              "sha256": "2e874b9834ccbbf0fe60ae48d3d79b5cb72ecf486f62cc3f054908a156317b82"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/Amplitude_HH.img",
+              "sha256": "a3ad6ad69b3b2ce2180be6c364ab54ab2dc0c2480521e20833bdf644ff2312cc"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/Amplitude_HV.img",
+              "sha256": "07392d1c31875b533562d14b40d4d93b7dd2be9ca35a7cd7652f297b13c1baed"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "cdbd70eabda1be8c9e1aa0d6458668ad74b53ea1f6747fd99906267b494f3841"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "9d20c7e581565703d77413445d4eb24fa4e86c69711732982cb24cd28b419f04"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/latitude.img",
+              "sha256": "980d3a71ec1aa6ff55a7a156b373d5e094d1e20df5e2c411eb0ce6e269b42ce9"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/longitude.img",
+              "sha256": "a8f967b5da7ae461950902e6a4410632c4d098c7635583a6888f7cb2437f834b"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "3dabccb9f53a7370ddb48e81a529a47b1c94913c106ca15daf803278907172d4"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1D_1/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 47.116684599997825,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/ca_r/S1D_1/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/ca_r/S1D_1/calibration.xml",
+            "sha256": "5f8cc88961555e81de780bbfdc2b2c615d355a64f40b93a4a319474e60011e17"
+          },
+          "files": [
+            {
+              "path": "data/ca_r/S1D_1/calibration.dim",
+              "sha256": "c343ea5a7551819853c8dfc3cfc694819ce3b5ce4d9abe8f3c628e337c3571a2"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "c05cae917a4f4682eead80ea77bcd955d55e201ee474fc5f97304992aca6bc24"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "eeec1aa15e2a47bd7fff654191f9ab44b99cce046db03b1db78aca2d915775dc"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "cdbd70eabda1be8c9e1aa0d6458668ad74b53ea1f6747fd99906267b494f3841"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "9d20c7e581565703d77413445d4eb24fa4e86c69711732982cb24cd28b419f04"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "980d3a71ec1aa6ff55a7a156b373d5e094d1e20df5e2c411eb0ce6e269b42ce9"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "a8f967b5da7ae461950902e6a4410632c4d098c7635583a6888f7cb2437f834b"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "3dabccb9f53a7370ddb48e81a529a47b1c94913c106ca15daf803278907172d4"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/ca_r/S1D_1/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "analysis": {
+        "nominal": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 1.9520764027447512e-06,
+              "mean_signed_db": 6.967981416832145e-10,
+              "rmse_db": 6.095821061845664e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.411698339699342e-06,
+              "mean_signed_db": -3.731980540066261e-09,
+              "rmse_db": 6.873223448238215e-07,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        "geometry": {
+          "sample_positions": 9,
+          "max_separation_m": 7.3217037507317,
+          "hh_hv_metadata_positions_equal": true,
+          "snap_center_incidence_deg": 39.34176676597236,
+          "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+          "absolute_geolocation_validated": false
+        },
+        "metadata": {
+          "name": "S1D_IW_GRDH_1SDH_20260714T095608_20260714T095633_003668_0068D0_870D.SAFE",
+          "mission": "S1D",
+          "mode": "IW",
+          "product_type": "GRD",
+          "band_order": [
+            "HH",
+            "HV"
+          ],
+          "pixel_spacing_m": [
+            10.0,
+            10.0
+          ],
+          "thermal_noise_corrected": false,
+          "unit": "sigma0_db",
+          "processing_software": "Sentinel-1 IPF",
+          "processing_version": "004.03",
+          "native_start_utc": "2026-07-14T09:56:08.267149+00:00",
+          "native_stop_utc": "2026-07-14T09:56:33.265876+00:00",
+          "native_center_utc": "2026-07-14T09:56:09.782087+00:00",
+          "incidence_center_deg": 39.34178361187164
+        },
+        "tensor_sha256": "4f24cb235f2b34d8d953ef15df78eaf9c77ddc9b83636e2bcf49143a91c3f0a2",
+        "noise_diagnostics": [
+          {
+            "polarization": "HH",
+            "fraction_at_or_below_estimated_noise": 0.003078884548611111,
+            "diagnostic_only": true
+          },
+          {
+            "polarization": "HV",
+            "fraction_at_or_below_estimated_noise": 0.4253336588541667,
+            "diagnostic_only": true
+          }
+        ],
+        "tensor_shape": [
+          2,
+          75,
+          75
+        ],
+        "tensor_box_is_class_label": false
+      }
+    }
+  ],
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "labels_admitted": 0,
+  "classifier_scored": false,
+  "additional_processing_checks_passed": true,
+  "reanalysis_of": {
+    "path": "data/ca_r/report.json",
+    "sha256": "4a321062713ebb7e4252fb4b262a7cd897fbbc51afc889f0f71121996de560dd"
+  },
+  "analysis_repair": "Explicit UTC offsets for native XML UTC fields; no pixel, processor, window or tolerance change",
+  "private_run": {
+    "path": "data/ca_a/report.json",
+    "sha256": "35b8d417fdc2e24e4493cbb911001b217935c7533c992c5210304a0bfd4660af"
+  },
+  "input_contract_implemented": true,
+  "absolute_geolocation_validated": false,
+  "model_transfer_validated": false,
+  "native_cd_consumer": {
+    "path": "agents/native_cd_input.py",
+    "sha256": "6a40984bb84a912523d5f0ad590f75a945ff31bfa7e33811f4c7ca59c9a5a354"
+  }
+}
