@@ -98,6 +98,12 @@ Public verification checks the lock, source/implementation hashes and guards:
 python -m agents.reception_vessel_batch --verify
 ```
 
+As of 15 October 2026 this manifest pins the pre-fix `agents/overlap_audit.py`,
+so `--verify` now intentionally raises a hash/path mismatch instead of silently
+rebinding historical evidence; see
+[ACQUISITION_RELIABILITY.md](ACQUISITION_RELIABILITY.md) for the fail-closed
+provenance rationale and the original-commit replay path.
+
 Full retained-data replay reconstructs the overlaps, physical reference
 classification, priority ranking, split checks and reservation outcome:
 
