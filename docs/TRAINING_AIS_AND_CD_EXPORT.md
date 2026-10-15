@@ -177,7 +177,7 @@ their existing contents and behavior. No organization was contacted.
 Contains modified Copernicus Sentinel metadata/data (2026). AIS observations are
 partial supporting evidence under the project's existing source-use limits.
 
-Implementation validation: **110 focused tests passed**, including the frozen
+Implementation validation: **114 focused tests passed**, including the frozen
 AIS replay, four retained real C/D native contexts, export failure/tampering
 cases and existing provisional admission regressions. Ruff, Black and mypy pass
 for the new modules and tests. The repository delivery gate additionally runs
