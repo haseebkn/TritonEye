@@ -1,0 +1,732 @@
+{
+  "areas": [],
+  "rankings": [
+    {
+      "rank": 1,
+      "stream": "vessel_support",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "name": "S1C_IW_GRDH_1SDH_20260918T095656_20260918T095721_009500_012E71_F89B.SAFE",
+      "absolute_offset_s": 9.400327920913696,
+      "search_uncertainty_m": 239.220646,
+      "bracket_gap_s": 79.0106508731842,
+      "decision": "excluded",
+      "reason": "Previously exposed or reserved native acquisition",
+      "reservation_id": null
+    }
+  ],
+  "source_screens": [
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "e15bd497-5e70-41b3-bbe6-b51e53508290",
+      "midpoint_utc": "2026-10-12T09:57:09.018780+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "uncertainty_over_500m_or_invalid",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-581_489",
+      "product_id": "e15bd497-5e70-41b3-bbe6-b51e53508290",
+      "midpoint_utc": "2026-10-12T09:57:09.018780+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "e15bd497-5e70-41b3-bbe6-b51e53508290",
+      "midpoint_utc": "2026-10-12T09:57:09.018780+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "e15bd497-5e70-41b3-bbe6-b51e53508290",
+      "midpoint_utc": "2026-10-12T09:57:09.018780+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-581_489",
+      "product_id": "0091a45d-08d2-44f4-9bdd-61e01f24f082",
+      "midpoint_utc": "2026-10-11T10:05:48.788993+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "0091a45d-08d2-44f4-9bdd-61e01f24f082",
+      "midpoint_utc": "2026-10-11T10:05:48.788993+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "0091a45d-08d2-44f4-9bdd-61e01f24f082",
+      "midpoint_utc": "2026-10-11T10:05:48.788993+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "b2c7b3b8-4fff-4ddb-ab7a-e6ade6aa6443",
+      "midpoint_utc": "2026-10-05T10:05:37.646324+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "b2c7b3b8-4fff-4ddb-ab7a-e6ade6aa6443",
+      "midpoint_utc": "2026-10-05T10:05:37.646324+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-581_489",
+      "product_id": "b2c7b3b8-4fff-4ddb-ab7a-e6ade6aa6443",
+      "midpoint_utc": "2026-10-05T10:05:37.646324+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "b2c7b3b8-4fff-4ddb-ab7a-e6ade6aa6443",
+      "midpoint_utc": "2026-10-05T10:05:37.646324+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "uncertainty_over_500m_or_invalid",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "b2c7b3b8-4fff-4ddb-ab7a-e6ade6aa6443",
+      "midpoint_utc": "2026-10-05T10:05:37.646324+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-581_489",
+      "product_id": "b2c7b3b8-4fff-4ddb-ab7a-e6ade6aa6443",
+      "midpoint_utc": "2026-10-05T10:05:37.646324+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-556_513",
+      "product_id": "18b64506-e455-4d65-a171-16aadfcdc2d7",
+      "midpoint_utc": "2026-09-19T09:48:36.878500+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-556_513",
+      "product_id": "18b64506-e455-4d65-a171-16aadfcdc2d7",
+      "midpoint_utc": "2026-09-19T09:48:36.878500+00:00",
+      "reasons": [
+        "nearest_report_over_120s_or_missing",
+        "bracket_over_240s_or_missing",
+        "uncertainty_over_500m_or_invalid",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-556_513",
+      "product_id": "18b64506-e455-4d65-a171-16aadfcdc2d7",
+      "midpoint_utc": "2026-09-19T09:48:36.878500+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-581_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [],
+      "source_screen_passed": true
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-580_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    },
+    {
+      "cell_id": "cell_-581_489",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "midpoint_utc": "2026-09-18T09:57:08.677898+00:00",
+      "reasons": [
+        "bracket_over_240s_or_missing",
+        "motion_below_1kt_or_invalid",
+        "reference_water_and_500m_shore_separation_unmet"
+      ],
+      "source_screen_passed": false
+    }
+  ],
+  "source_rejections": {
+    "bracket_over_240s_or_missing": 11,
+    "uncertainty_over_500m_or_invalid": 3,
+    "motion_below_1kt_or_invalid": 22,
+    "reference_water_and_500m_shore_separation_unmet": 22,
+    "nearest_report_over_120s_or_missing": 1
+  },
+  "prospective_priorities": [
+    {
+      "rank": 1,
+      "id": "cell_-580_489",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -57.900000000000006,
+              48.900000000000006
+            ],
+            [
+              -57.900000000000006,
+              49.0
+            ],
+            [
+              -58.0,
+              49.0
+            ],
+            [
+              -58.0,
+              48.900000000000006
+            ],
+            [
+              -57.900000000000006,
+              48.900000000000006
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-58_48",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 2,
+      "id": "cell_-581_489",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.0,
+              48.900000000000006
+            ],
+            [
+              -58.0,
+              49.0
+            ],
+            [
+              -58.1,
+              49.0
+            ],
+            [
+              -58.1,
+              48.900000000000006
+            ],
+            [
+              -58.0,
+              48.900000000000006
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-59_48",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 3,
+      "id": "cell_-556_513",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -55.5,
+              51.300000000000004
+            ],
+            [
+              -55.5,
+              51.400000000000006
+            ],
+            [
+              -55.6,
+              51.400000000000006
+            ],
+            [
+              -55.6,
+              51.300000000000004
+            ],
+            [
+              -55.5,
+              51.300000000000004
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-56_51",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 4,
+      "id": "cell_-582_490",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.1,
+              49.0
+            ],
+            [
+              -58.1,
+              49.1
+            ],
+            [
+              -58.2,
+              49.1
+            ],
+            [
+              -58.2,
+              49.0
+            ],
+            [
+              -58.1,
+              49.0
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-59_49",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 5,
+      "id": "cell_-584_491",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -58.300000000000004,
+              49.1
+            ],
+            [
+              -58.300000000000004,
+              49.2
+            ],
+            [
+              -58.400000000000006,
+              49.2
+            ],
+            [
+              -58.400000000000006,
+              49.1
+            ],
+            [
+              -58.300000000000004,
+              49.1
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-59_49",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 6,
+      "id": "cell_-525_475",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -52.400000000000006,
+              47.5
+            ],
+            [
+              -52.400000000000006,
+              47.6
+            ],
+            [
+              -52.5,
+              47.6
+            ],
+            [
+              -52.5,
+              47.5
+            ],
+            [
+              -52.400000000000006,
+              47.5
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "eastern_avalon",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 7,
+      "id": "cell_-578_509",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -57.7,
+              50.900000000000006
+            ],
+            [
+              -57.7,
+              51.0
+            ],
+            [
+              -57.800000000000004,
+              51.0
+            ],
+            [
+              -57.800000000000004,
+              50.900000000000006
+            ],
+            [
+              -57.7,
+              50.900000000000006
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-58_50",
+      "exclusion": null,
+      "acquisition_reserved": false
+    },
+    {
+      "rank": 8,
+      "id": "cell_-578_508",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -57.7,
+              50.800000000000004
+            ],
+            [
+              -57.7,
+              50.900000000000006
+            ],
+            [
+              -57.800000000000004,
+              50.900000000000006
+            ],
+            [
+              -57.800000000000004,
+              50.800000000000004
+            ],
+            [
+              -57.7,
+              50.800000000000004
+            ]
+          ]
+        ]
+      },
+      "split_safe": true,
+      "geographic_group": "new_cell_-58_50",
+      "exclusion": null,
+      "acquisition_reserved": false
+    }
+  ],
+  "reserved": 0,
+  "status": "blocked_no_qualifying_source_overlap",
+  "labels_admitted": 0,
+  "annotated_objects": 0,
+  "classifier_scored": false,
+  "imagery_inspected": false,
+  "accuracy_truth_admitted": false,
+  "exploratory_training_admitted": false,
+  "provisional": true,
+  "ignore_for_accuracy": true,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false,
+  "version": "0.3.0",
+  "audit_utc": "2026-10-15T13:08:33.697992+00:00",
+  "archive": {
+    "input_rows": 224622,
+    "legacy_naive_utc_reports": 19621,
+    "valid_unique_reports": 224622,
+    "first_utc": "2026-08-18T20:08:37+00:00",
+    "last_utc": "2026-10-15T13:04:07.758005+00:00",
+    "dates_present": [
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-10",
+      "2026-10-11",
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14",
+      "2026-10-15"
+    ]
+  },
+  "private_selection": {
+    "path": "data/research/reception_vessels_v030_01/selection_private.json",
+    "sha256": "c6c558cab6e89fad572749561a5a2536a3c1406782508ade834a4613e146230a"
+  },
+  "annotation_template": {
+    "path": "data/research/reception_vessels_v030_01/annotation_template.json",
+    "sha256": "d6fab97b40539742ec2809c0cd1527776e8ae9611da1a7acaf66b157bbc4a9d7"
+  },
+  "implementation_dependencies": [
+    {
+      "path": "agents/nl_reception.py",
+      "sha256": "cff60ceba899fd2063893c6f3c3d395a5f824cecdfb5b875a1074eed5a9827ed"
+    },
+    {
+      "path": "agents/cd_training_reservations.py",
+      "sha256": "a68b52bcabe3005dfe8cefd052420fd37bdce93bd3262821aa72e396d31ce5b7"
+    },
+    {
+      "path": "agents/provisional_training.py",
+      "sha256": "79fadf66c02a3aec2e6864067ce45caf9f24e4182711749cfbaac0eb10ba4212"
+    },
+    {
+      "path": "agents/source_reservation.py",
+      "sha256": "0958866b79e225c4c086a35dc0c603dd74ecc8fa5a0ff487c4223a14a88d10ef"
+    },
+    {
+      "path": "agents/overlap_audit.py",
+      "sha256": "b36bc30009ae6a8a40581529800bfebf0699175eaf8a0eb51b63d8e661053ea3"
+    },
+    {
+      "path": "agents/association.py",
+      "sha256": "b4962bcc44f51b182f0dcc9b345bb97b8dab8e39fc170075cce9f281d8e66584"
+    },
+    {
+      "path": "agents/landmask.py",
+      "sha256": "80b7fcfe4df0b705c2848282cc0e8369ca4be645272db8c882f8691d0a8ef81a"
+    },
+    {
+      "path": "agents/acquisition.py",
+      "sha256": "c2b5f64d9621d0b73106257b1d615c1b027b962aedc0a6764e811de20d9d9bc1"
+    },
+    {
+      "path": "agents/nl_benchmark.py",
+      "sha256": "692c608ac901046e666665e25438a7c893c80c9f6eafe1cfe6750cf1e03afbbc"
+    },
+    {
+      "path": "agents/region.py",
+      "sha256": "8a0d8bc74802585a53cfc6187c99345a07ab32ff96f4ced60e9c52ee159403de"
+    }
+  ],
+  "inputs": {
+    "policy": {
+      "path": "configs/reservations/reception_vessels_v030.json",
+      "sha256": "527fa501c0234c5411935b0e39b09e922309202392cc37ad89d491ef6559df3f"
+    },
+    "reception": {
+      "path": "docs/evidence/nl_reception_v010.json",
+      "sha256": "f21c4d6cf238acfc113d703ad3d0e8c7fffaad580c2cb198ea616ea111add5e1"
+    },
+    "region": {
+      "path": "configs/aois/newfoundland_labrador.geojson",
+      "sha256": "d2de48d5eb100cf778d6122ad364f03e67bffa96f3b62ad4523a8183c3018dec"
+    },
+    "native_specification": {
+      "path": "configs/native_nl/input_v020.json",
+      "sha256": "296840436cd533e4fd89c02fd4a32a0c67c6d4ae3c22de68dd92af181fcbec77"
+    },
+    "source_policy": {
+      "path": "configs/reservations/source_supported_v010.json",
+      "sha256": "9cbe97c9f4a3ee52017a9d5369e6f1080b691d7a8aa90d046e3f8dfb4f4246da"
+    },
+    "selection_policy": {
+      "path": "configs/reservations/provisional_training_v010.json",
+      "sha256": "a9abbd6b15feacb0aa8031dfb66e50a7d11d4fcd38fec2b70a947d590ef4702c"
+    },
+    "implementation": {
+      "path": "agents/reception_vessel_batch.py",
+      "sha256": "4410bd69ed6255b9348881e663adaef2d368f74602c8223633e0ebdd77d971ea"
+    },
+    "snapshot": {
+      "path": "data/research/reception_vessels_v030_01/snapshot_manifest.json",
+      "sha256": "50e381747ae717da50b9d33a3555eefb69dfdf427fa2b3f0027e4cacd4494977"
+    },
+    "catalogue": {
+      "path": "data/research/reception_vessels_v030_01/catalogue.json",
+      "sha256": "eb726beecf9995b731f84fb63fe2938ba94e66eabce982cb520cec6fa39523ee"
+    },
+    "overlaps": {
+      "path": "data/research/reception_vessels_v030_01/overlaps_private.json",
+      "sha256": "45d555eb5a14b299e068730fc5cb832eeab6cf97b875401d5a4139968f8acb0c"
+    },
+    "shoreline": {
+      "path": "data/research/reception_vessels_v030_01/shoreline_private.json",
+      "sha256": "b809a42dd74f1bafd52fba7deda97c5f42b10c2cee916a82f0719c56746e0087"
+    },
+    "source_inputs": {
+      "path": "data/research/reception_vessels_v030_01/source_inputs.json",
+      "sha256": "70c51f40ee83778e76973afcb77223e81f711ef5adc43e550949e01345ecb577"
+    }
+  },
+  "limits": [
+    "Reservation is metadata/source selection; native pixels, product processor version, object identity and permitted use still need checks before provisional training admission.",
+    "The existing motion screen is a conservative discovery choice, not a definition of vessel or evidence that slow vessels are absent.",
+    "If no qualifying overlap exists, reserve zero acquisitions and retain explicit prospective priorities; never lower source or split requirements to fill a batch.",
+    "Catalogue midpoint support must be checked at native object time; source-relative land/water and shoreline distances are not imagery-verified truth.",
+    "Complete available competing pools are retained privately; the receiver cannot establish complete area-wide AIS coverage.",
+    "Existing protected roles, prior exposure and identities remain excluded. Adjacent cells and slices do not create independent examples.",
+    "No images or model scores are consulted for selection. No independent review, accuracy truth, training approval or promotion is supplied."
+  ]
+}

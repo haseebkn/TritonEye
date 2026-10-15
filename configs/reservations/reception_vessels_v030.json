@@ -1,0 +1,19 @@
+{
+  "version": "0.3.0",
+  "purpose": "Prioritize the frozen eight reception cells for a source-supported C/D vessel training reservation before pixels or scores",
+  "shortlist": "docs/evidence/nl_reception_v010.json",
+  "rank": "Existing shortlist order, nearest AIS time offset, AIS bracket gap, alignment uncertainty, product UUID, private source identity",
+  "source_criteria": "Unchanged source_supported_v010: nearest <=120 s, bracket <=240 s, uncertainty <=500 m, speed >=1 kt, reference water >=500 m from shore",
+  "batch_cap": 4,
+  "maximum_per_native_acquisition": 1,
+  "split": "train",
+  "limits": [
+    "Reservation is metadata/source selection; native pixels, product processor version, object identity and permitted use still need checks before provisional training admission.",
+    "The existing motion screen is a conservative discovery choice, not a definition of vessel or evidence that slow vessels are absent.",
+    "If no qualifying overlap exists, reserve zero acquisitions and retain explicit prospective priorities; never lower source or split requirements to fill a batch.",
+    "Catalogue midpoint support must be checked at native object time; source-relative land/water and shoreline distances are not imagery-verified truth.",
+    "Complete available competing pools are retained privately; the receiver cannot establish complete area-wide AIS coverage.",
+    "Existing protected roles, prior exposure and identities remain excluded. Adjacent cells and slices do not create independent examples.",
+    "No images or model scores are consulted for selection. No independent review, accuracy truth, training approval or promotion is supplied."
+  ]
+}

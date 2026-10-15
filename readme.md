@@ -31,6 +31,10 @@ The [NL reception map, training-area shortlist and iceberg source search](docs/N
 identify three eligible HH/HV acquisition groups in new reception areas, but all
 current timing leads fail the motion screen. Six new iceberg source leads have
 no optical products in the bounded searches; no new labels are admitted.
+The [reception-prioritized vessel batch attempt](docs/RECEPTION_VESSEL_BATCH.md)
+checks 224,622 AIS reports and 24 aligned supports in those eight cells. One
+passes the source screen but is already exposed/reserved; zero new acquisitions
+qualify. Prospective priorities and the empty annotation handoff are preserved.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native model transfer remains unvalidated.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

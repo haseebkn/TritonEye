@@ -49,6 +49,11 @@ proposals and identify three distinct eligible HH/HV timing groups. All current
 timing leads fail the motion screen. Six additional iceberg source leads return
 no optical products within the bounded searches. No labels or reservations are
 created; protected data and scientific-review requirements retain their roles.
+The [reception-prioritized vessel reservation attempt](RECEPTION_VESSEL_BATCH.md)
+then refreshes the archive to 224,622 reports and screens 24 aligned supports in
+those eight cells. One passes source requirements but belongs to a previously
+exposed/reserved acquisition. Zero new acquisitions qualify; prospective
+priorities and an explicitly empty annotation handoff are retained before scores.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
