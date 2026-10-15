@@ -338,6 +338,29 @@ def assess(
     return result, tensor if not reasons else None
 
 
+def repeated_consistency(
+    dossier: dict[str, Any],
+    repeated: dict[Any, Any],
+    repeated_groups: dict[Any, Any],
+    repeated_classes: dict[Any, Any],
+) -> None:
+    """Keep repeated-object groups and source identities in a 1:1 mapping."""
+    identity = dossier.get("source_identity")
+    group = dossier.get("repeated_object_group")
+    if identity in repeated and repeated[identity] != group:
+        raise ValueError("Repeated source identity assigned inconsistent object groups")
+    repeated[identity] = group
+    if group in repeated_groups and repeated_groups[group] != identity:
+        raise ValueError(
+            "Repeated object group assigned to inconsistent source identities"
+        )
+    repeated_groups[group] = identity
+    label = dossier.get("class")
+    if identity in repeated_classes and repeated_classes[identity] != label:
+        raise ValueError("Repeated source identity assigned inconsistent classes")
+    repeated_classes[identity] = label
+
+
 def export(batch_path: Path, output: Path) -> dict[str, Any]:
     """Publish a fresh directory only after every proposed label passes admission."""
     output = output.resolve()
@@ -353,6 +376,7 @@ def export(batch_path: Path, output: Path) -> dict[str, Any]:
     assessed = []
     identities: set[tuple[Any, Any]] = set()
     repeated: dict[Any, Any] = {}
+    repeated_groups: dict[Any, Any] = {}
     repeated_classes: dict[Any, Any] = {}
     for reference in batch["dossiers"]:
         dossier = json.loads(checked(reference).read_text())
@@ -360,18 +384,7 @@ def export(batch_path: Path, output: Path) -> dict[str, Any]:
         if key in identities:
             raise ValueError("Duplicate object in export")
         identities.add(key)
-        identity, group = dossier.get("source_identity"), dossier.get(
-            "repeated_object_group"
-        )
-        if identity in repeated and repeated[identity] != group:
-            raise ValueError(
-                "Repeated source identity assigned inconsistent object groups"
-            )
-        repeated[identity] = group
-        label = dossier.get("class")
-        if identity in repeated_classes and repeated_classes[identity] != label:
-            raise ValueError("Repeated source identity assigned inconsistent classes")
-        repeated_classes[identity] = label
+        repeated_consistency(dossier, repeated, repeated_groups, repeated_classes)
         decision, tensor = assess(dossier, frozen)
         if not decision["exploratory_training_admitted"]:
             raise ValueError("Admission held: " + ", ".join(decision["blockers"]))
@@ -466,12 +479,16 @@ def verify(path: Path) -> dict[str, Any]:
         raise ValueError("Export inventory differs")
     live = inventory()
     identities: set[tuple[Any, Any]] = set()
+    repeated: dict[Any, Any] = {}
+    repeated_groups: dict[Any, Any] = {}
+    repeated_classes: dict[Any, Any] = {}
     for entry in entries:
         dossier = json.loads(checked(entry["dossier"]).read_text())
         identity = (dossier["product_id"], dossier["object_id"])
         if identity in identities:
             raise ValueError("Duplicate object in export")
         identities.add(identity)
+        repeated_consistency(dossier, repeated, repeated_groups, repeated_classes)
         # Recheck present role constraints as well as the frozen decision.
         scope(dossier, live)
         decision, tensor = assess(dossier, frozen)

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
@@ -324,6 +325,121 @@ def test_wrong_evidence_subject_and_tampered_hash_cannot_admit(
     dossier["checks"][name]["evidence"][0]["sha256"] = "0" * 64
     with pytest.raises(ValueError, match="hash/path"):
         workflow.assess(dossier)
+
+
+def variant(
+    case: dict[str, Any], object_id: str, source_identity: str, group: str
+) -> dict[str, Any]:
+    """Build another otherwise-eligible dossier sharing the same native receipt."""
+    dossier = deepcopy(case["dossier"])
+    dossier["object_id"] = object_id
+    dossier["source_identity"] = source_identity
+    dossier["repeated_object_group"] = group
+    root = case["tmp"]
+    annotation_keys = (
+        "product_id",
+        "name",
+        "object_id",
+        "class",
+        "split",
+        "geometry",
+        "geographic_group",
+        "annotation_completed_utc",
+        "bbox_px",
+        "native",
+        "source_identity",
+        "repeated_object_group",
+        "provisional",
+    )
+    annotation_path = root / f"annotation_{object_id}.json"
+    save(annotation_path, {k: dossier[k] for k in annotation_keys})
+    dossier["annotation"] = case["reference"](annotation_path)
+    evidence = {
+        **{
+            k: dossier[k]
+            for k in (
+                "product_id",
+                "object_id",
+                "source_identity",
+                "repeated_object_group",
+                "native",
+                "annotation",
+            )
+        },
+        "checks": {name: True for name in dossier["checks"]},
+    }
+    evidence_path = root / f"evidence_{object_id}.json"
+    save(evidence_path, evidence)
+    dossier["checks"] = {
+        name: {"passed": True, "evidence": [case["reference"](evidence_path)]}
+        for name in dossier["checks"]
+    }
+    return dossier
+
+
+def test_repeated_observations_of_one_identity_share_a_group(
+    case: dict[str, Any],
+) -> None:
+    first = variant(case, "repeated-a1", "vessel-shared", "group-shared")
+    second = variant(case, "repeated-a2", "vessel-shared", "group-shared")
+    output = case["tmp"] / "data/native_training_exports/shared_identity"
+    assert workflow.export(batch(case, [first, second]), output)["exported"] == 2
+    assert workflow.verify(output / "manifest.json")["labels_admitted"] == 2
+
+
+def test_distinct_identities_cannot_share_one_repeated_group(
+    case: dict[str, Any],
+) -> None:
+    first = variant(case, "conflict-a1", "vessel-A", "group-conflict")
+    second = variant(case, "conflict-b1", "vessel-B", "group-conflict")
+    output = case["tmp"] / "data/native_training_exports/conflicting_group"
+    with pytest.raises(ValueError, match="inconsistent source identities"):
+        workflow.export(batch(case, [first, second]), output)
+    assert not output.exists()
+
+
+def test_verify_rejects_conflicting_group_smuggled_into_a_manifest(
+    case: dict[str, Any],
+) -> None:
+    first = variant(case, "smuggle-a1", "vessel-C", "group-smuggle")
+    output = case["tmp"] / "data/native_training_exports/smuggled_group"
+    workflow.export(batch(case, [first]), output)
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    second = variant(case, "smuggle-b1", "vessel-D", "group-smuggle")
+    second_path = case["tmp"] / "smuggled_dossier.json"
+    save(second_path, second)
+    second_ref = case["reference"](second_path)
+    new_batch_path = case["tmp"] / "smuggled_batch.json"
+    save(
+        new_batch_path,
+        {
+            "policy": case["reference"](workflow.POLICY),
+            "dossiers": [manifest["entries"][0]["dossier"], second_ref],
+        },
+    )
+    manifest["batch"] = case["reference"](new_batch_path)
+    manifest["entries"].append(
+        {
+            "dossier": second_ref,
+            "product_id": second["product_id"],
+            "native_acquisition_group": manifest["entries"][0][
+                "native_acquisition_group"
+            ],
+            "object_id": second["object_id"],
+            "class": second["class"],
+            "geographic_group": second["geographic_group"],
+            "repeated_object_group": second["repeated_object_group"],
+            "tensor": manifest["entries"][0]["tensor"],
+            "decision": manifest["entries"][0]["decision"],
+        }
+    )
+    manifest["labels_admitted"] = len(manifest["entries"])
+    manifest["class_counts"] = dict(Counter(e["class"] for e in manifest["entries"]))
+    tampered_path = output / "tampered_manifest.json"
+    save(tampered_path, manifest)
+    with pytest.raises(ValueError, match="inconsistent source identities"):
+        workflow.verify(tampered_path)
 
 
 def test_duplicate_export_and_failure_publish_nothing(case: dict[str, Any]) -> None:

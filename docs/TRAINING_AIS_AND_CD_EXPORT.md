@@ -95,11 +95,17 @@ objects; `training_approved`, `independent_review`, `accuracy_truth_admitted` an
 
 Exports require a fresh directory under `data/native_training_exports/`.
 All proposed dossiers must pass before any export is published. Duplicate
-objects and inconsistent repeated-identity assignments are rejected. Writes
-occur in a temporary directory and the final directory appears only after all
-writes succeed. An interrupted write may leave a `.partial-*` directory, which
-is not a published export. Verification replays the admission and pixels and
-checks present split constraints as well as the frozen decision.
+objects are rejected, and within a batch each source identity and each
+repeated-object group bind to exactly one counterpart on the other side: one
+source identity cannot carry two different repeated-object groups, and one
+repeated-object group cannot be shared by two different source identities or
+classes. The same source identity may repeat its own group and class across
+multiple observations. Writes occur in a temporary directory and the final
+directory appears only after all writes succeed. An interrupted write may
+leave a `.partial-*` directory, which is not a published export. Verification
+replays the admission and pixels, re-applies the same one-to-one identity/group
+consistency check across the manifest's entries, and checks present split
+constraints as well as the frozen decision.
 
 ## Use and replay
 
