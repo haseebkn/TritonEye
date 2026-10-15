@@ -25230,7 +25230,7 @@
     },
     "region": {
       "path": "configs/aois/newfoundland_labrador.geojson",
-      "sha256": "2137c35c509588a4ee58d8b4196ec3127d9ebbd79c0131ea002096d60e4692fa"
+      "sha256": "d2de48d5eb100cf778d6122ad364f03e67bffa96f3b62ad4523a8183c3018dec"
     },
     "snapshot": {
       "path": "data/research/nl_reception_v010_01/snapshot_manifest.json",

@@ -145,3 +145,4 @@ configs/reservations/nl_iceberg_search_v010*.json text eol=lf
 docs/evidence/nl_reception_v010.* text eol=lf
 docs/evidence/nl_iceberg_search_v010.json text eol=lf
 docs/NL_RECEPTION_AND_ICEBERG_SEARCH.md text eol=lf
+configs/aois/newfoundland_labrador.geojson text eol=lf
