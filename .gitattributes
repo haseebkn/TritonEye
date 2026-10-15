@@ -109,3 +109,9 @@ agents/training_windows.py text eol=lf
 agents/training_annotation.py text eol=lf
 tests/unit/test_training_annotation.py text eol=lf
 datasets/native_training/** -text
+agents/cd_reference.py text eol=lf
+agents/cd_source_refresh.py text eol=lf
+agents/cd_evidence.py text eol=lf
+tests/unit/test_cd_reference.py text eol=lf
+docs/evidence/cd_reference_v010.json text eol=lf
+reservations/cd_vessels/** -text

@@ -1,0 +1,1806 @@
+{
+  "version": "0.1.0",
+  "policy": {
+    "path": "configs/reservations/cd_reference_v010.json",
+    "sha256": "01c318ca60b56ad23449799ad5023ecc0798e8de1af3f49b16202fb8eec37fbd"
+  },
+  "search_policy": {
+    "path": "configs/reservations/cd_evidence_search_v010.json",
+    "sha256": "5f3673fa859000c69171d69ecc2a25a722ff929d2b79cac2a505ec233c9a25cd"
+  },
+  "areas": [
+    {
+      "id": "burin_shelf_summer_coastal",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "mission": "S1C",
+      "regime": "coastal",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 205.17295919999015,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.log",
+            "sha256": "8625d476edc71f0333d6d46497cd9c57b27dce2d93648a19577b80f2cb5cd03b"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.xml",
+            "sha256": "642583ba4248ea5edacc99f22a939b42f9b2d8cb14ff6248b155106ea22b8cc6"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.dim",
+              "sha256": "007e39223c3a65374f4295ecc1d9817e485be46d8267e86d3b540d03058c06c8"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/Amplitude_HH.img",
+              "sha256": "be10c6348e34f65451bbe7882c61b557aefe773a9b5bf98bfdb93f516d5fd2fe"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/Amplitude_HV.img",
+              "sha256": "d762eb11fe159d7f4004a97d235d63e9244c9f6c7957aab6a2944cdf57b4d24e"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "cca6ac517753aeb9f3462041207af979c1472e956a1a7363f77a2dbaff11ab5a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "2e8e80a0681047e3c412408d1ff5e975e4ed0780fb8e37e44367ee878152624c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/latitude.img",
+              "sha256": "8496df70d7b387a8c5b3b6b548ee278bc78f1ed73a0998c36579d6f614a46116"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/longitude.img",
+              "sha256": "dd703635e48cec2d8ecbacf9b846abf590512951a0adc5ecadee95b845c536f0"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "c0e6bb9e958920c21d59590ae6e31708654440915cac8ab17878ff1a459be226"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 83.35736230001203,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.xml",
+            "sha256": "fe032305d692fefbda348d08f5b557ae149096aaca47633a545ca7cc86738050"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.dim",
+              "sha256": "6f8ec510d9eb13f7429cbed5ce77154c8c1c851af7441e09718308f9d54a314d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "7697519d911ffaee26aaadcc42bbcea83bd457ce65adaa83d62015d9fa3863c7"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "4f2cca5086e5ee786ffe6177b588e504c788df2918d2aea43d76895fe3ccff88"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "cca6ac517753aeb9f3462041207af979c1472e956a1a7363f77a2dbaff11ab5a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "2e8e80a0681047e3c412408d1ff5e975e4ed0780fb8e37e44367ee878152624c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "8496df70d7b387a8c5b3b6b548ee278bc78f1ed73a0998c36579d6f614a46116"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "dd703635e48cec2d8ecbacf9b846abf590512951a0adc5ecadee95b845c536f0"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "c0e6bb9e958920c21d59590ae6e31708654440915cac8ab17878ff1a459be226"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "noise": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 160.95630469999742,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.log",
+            "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.xml",
+            "sha256": "35506a6107863bf7b64c9780cd630dd6db1479d1caa39c386f7300864ff67d56"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.dim",
+              "sha256": "df7803d57959f7bbacc59eb38500ea0fc3f55abb3e731d88c808c470ba19e5e8"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/Sigma0_HH_dB.img",
+              "sha256": "fe12f7c2caf9546061e23471722d6c5d1f93ffdc6d7aa144a5bae26f74c0590e"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/Sigma0_HV_dB.img",
+              "sha256": "33ff69f6c9c633172ce688f252d7e65ef73a2021e279671175fd16d93337ee0b"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/elevation_angle.img",
+              "sha256": "cca6ac517753aeb9f3462041207af979c1472e956a1a7363f77a2dbaff11ab5a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/incident_angle.img",
+              "sha256": "2e8e80a0681047e3c412408d1ff5e975e4ed0780fb8e37e44367ee878152624c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/latitude.img",
+              "sha256": "8496df70d7b387a8c5b3b6b548ee278bc78f1ed73a0998c36579d6f614a46116"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/longitude.img",
+              "sha256": "dd703635e48cec2d8ecbacf9b846abf590512951a0adc5ecadee95b845c536f0"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/tie_point_grids/slant_range_time.img",
+              "sha256": "c0e6bb9e958920c21d59590ae6e31708654440915cac8ab17878ff1a459be226"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "raw_pixels_equal": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "pixels": 147456,
+            "max_absolute_db": 2.3677136553601486e-06,
+            "mean_signed_db": 1.665771530135722e-09,
+            "rmse_db": 5.407062613321189e-07,
+            "passed": true
+          },
+          {
+            "polarization": "HV",
+            "pixels": 147456,
+            "max_absolute_db": 2.4549586541411372e-06,
+            "mean_signed_db": 4.675440245081725e-09,
+            "rmse_db": 6.114589614903322e-07,
+            "passed": true
+          }
+        ],
+        "passed": true,
+        "noise": [
+          {
+            "polarization": "HH",
+            "finite_pixels": 147456,
+            "total_pixels": 147456,
+            "max_absolute_db": 8.040022692057391e-07,
+            "within_tolerance_pixels": 147456,
+            "passed": true,
+            "below_estimated_noise_pixels": 3291,
+            "median_change_db": -0.8912556639880851
+          },
+          {
+            "polarization": "HV",
+            "finite_pixels": 147456,
+            "total_pixels": 147456,
+            "max_absolute_db": 1.5581881527282349e-06,
+            "within_tolerance_pixels": 147456,
+            "passed": true,
+            "below_estimated_noise_pixels": 21127,
+            "median_change_db": -2.492051558461684
+          }
+        ]
+      }
+    },
+    {
+      "id": "burin_shelf_summer_offshore",
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "mission": "S1C",
+      "regime": "offshore",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 158.1685856999975,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.log",
+            "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.xml",
+            "sha256": "09813babf48b4a5699d15a510606fce9e1c9021d668eeed2068820c092dbb378"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.dim",
+              "sha256": "731b6d3fca4ae1429ce20fb8252fb3a9cf36c05cfdb77a74f07176896965e160"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/Amplitude_HH.img",
+              "sha256": "4e436c430c8f42bfde731e8754b992a449a24c5b0fe4f25a7b7e513fc765ccbe"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/Amplitude_HV.img",
+              "sha256": "02c82abaf8b611992b19007689df18501b670998f2c42479c1f35e3e45e3a0fe"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "4bdcf1b14cda58d8a3fb981efa16381a00afb33f5d9624796ca2a23da7924f40"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "29e7ae208fb3b1fe37876b9101e8b08b6b64d7636119716bd9eb0cd8a2bcb954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/latitude.img",
+              "sha256": "b56a9dd80e4719da4eda3b8d0eaa1bf6d4b15c48cfdeb41c2f0d45d395f3d832"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/longitude.img",
+              "sha256": "d757b710b183f2736221a75b146427e6fcf5cef349ab69f8bd24aa2a858f28e9"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "aaa8f0f60d244386e6425a791d651e279f9496849f407171921221e0bc75f18b"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": null,
+          "timed_out": true,
+          "elapsed_s": 1308.087111300003,
+          "elapsed_limit_exceeded": true,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.log",
+            "sha256": "d7b508a8a55a09fba2e2ebf638c3e69af4cbc2555a0f09b0bd643419f23f3ca5"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.xml",
+            "sha256": "ecea5df48949b89d68e11af467e4d23c4c997dd79ce2a329ed22d64476ed8580"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.dim",
+              "sha256": "44f8362b3492979244352be247f3a9e8f6e28f61a4104f2bf387f7b07a52e410"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "4bdcf1b14cda58d8a3fb981efa16381a00afb33f5d9624796ca2a23da7924f40"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "29e7ae208fb3b1fe37876b9101e8b08b6b64d7636119716bd9eb0cd8a2bcb954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "b56a9dd80e4719da4eda3b8d0eaa1bf6d4b15c48cfdeb41c2f0d45d395f3d832"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "d757b710b183f2736221a75b146427e6fcf5cef349ab69f8bd24aa2a858f28e9"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "aaa8f0f60d244386e6425a791d651e279f9496849f407171921221e0bc75f18b"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "noise": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 103.47586740000406,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.log",
+            "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.xml",
+            "sha256": "bd5dccdeb432080e87861cd6e59e5082f441238fc960101384a9a2a212eeb7d8"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.dim",
+              "sha256": "ffbad26baf3c25147ee912621833b4122901729968e2a2ee91a72c0b1457e3ac"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/Sigma0_HH_dB.img",
+              "sha256": "bc8346fda1f578c743ad0673039f70bf2f0b04abc4693be3e80a08f2b509aaa3"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/Sigma0_HV_dB.img",
+              "sha256": "545e4e76d18b240ff0c5cc3c59d132117ed31de18d50102f5b6e9e2c7d754157"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/elevation_angle.img",
+              "sha256": "4bdcf1b14cda58d8a3fb981efa16381a00afb33f5d9624796ca2a23da7924f40"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/incident_angle.img",
+              "sha256": "29e7ae208fb3b1fe37876b9101e8b08b6b64d7636119716bd9eb0cd8a2bcb954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/latitude.img",
+              "sha256": "b56a9dd80e4719da4eda3b8d0eaa1bf6d4b15c48cfdeb41c2f0d45d395f3d832"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/longitude.img",
+              "sha256": "d757b710b183f2736221a75b146427e6fcf5cef349ab69f8bd24aa2a858f28e9"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/tie_point_grids/slant_range_time.img",
+              "sha256": "aaa8f0f60d244386e6425a791d651e279f9496849f407171921221e0bc75f18b"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "failure": "SNAP band output missing/ambiguous: Sigma0_HH_db"
+    },
+    {
+      "id": "cartwright_shelf_summer_coastal",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "mission": "S1D",
+      "regime": "coastal",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 69.67755169999145,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.log",
+            "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.xml",
+            "sha256": "c0b671c09509ac2036829251e6dda54b569242fb812ab363dd0a264fb4ee756b"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.dim",
+              "sha256": "193bb7307d2ffbc6f2da9375fb5643fdae887fcb07e32f7aabf6822b76469c71"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/Amplitude_HH.img",
+              "sha256": "41d432c2425adf626f990b9a4ab10e4a66946de9e168e3b6895c970a3355d423"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/Amplitude_HV.img",
+              "sha256": "ed636b3e5f039f3a489ef3bc57c9d3c4958dd2b79e844a741360f93ca1b40c1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "98d8fd83efce868d914a1bd148a4aaf72991072dfa2e68ab489e463472655e8a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "557eb8fa7129e0338beecef12de90c445ba3dd29365147773f261046684cfbe8"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/latitude.img",
+              "sha256": "47215881a51fd28de73c6c4bb289953846eda74dfe1ae874a29e95f5e14acfc3"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/longitude.img",
+              "sha256": "65698ac608c7a54e8b08a6af320413db2b11de8f7a53f3162eb453ecbcec5efb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "33a6777f7e65ce22f89aed61aef0ba668f136135dede78c1374a9ed01a5614cd"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 73.95750399999088,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.xml",
+            "sha256": "87ceb8b6e6776c62b16d23831ab918ebf52dec5b20a1fcfbe411fc097cc8665f"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.dim",
+              "sha256": "08d449480cb9377150b6ddac8fe8fafa5a8e1b170cfb048c2b9162dbec4453d8"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "2bcbce92d9a805f3b8842c88aaa0d6e1a8a2e901c8179983d2b134f2ea05aff1"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "7780a4ee177a6fb82871fc0f48f15c4996890396d51b5309c1d38a75d297a56a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "98d8fd83efce868d914a1bd148a4aaf72991072dfa2e68ab489e463472655e8a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "557eb8fa7129e0338beecef12de90c445ba3dd29365147773f261046684cfbe8"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "47215881a51fd28de73c6c4bb289953846eda74dfe1ae874a29e95f5e14acfc3"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "65698ac608c7a54e8b08a6af320413db2b11de8f7a53f3162eb453ecbcec5efb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "33a6777f7e65ce22f89aed61aef0ba668f136135dede78c1374a9ed01a5614cd"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "noise": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 69.18225280000479,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.log",
+            "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.xml",
+            "sha256": "24eb9518f2821225f7833c306303be7a39accf5f2a763e2ec68995a45b2c057a"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.dim",
+              "sha256": "a19a370f1228c6d9b93d2438ada22afaa35c3e274ae9d85d4379bd8be9a3d09f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/Sigma0_HH_dB.img",
+              "sha256": "9e502d1a5b6fe9bdaba7e4bcf304010f3bbf1b60b2d538df8cf6928a41897bca"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/Sigma0_HV_dB.img",
+              "sha256": "f64eef794a1d33b4a9dabe064b6c238f3435b75eed043ad55b0961e94d983eae"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/elevation_angle.img",
+              "sha256": "98d8fd83efce868d914a1bd148a4aaf72991072dfa2e68ab489e463472655e8a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/incident_angle.img",
+              "sha256": "557eb8fa7129e0338beecef12de90c445ba3dd29365147773f261046684cfbe8"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/latitude.img",
+              "sha256": "47215881a51fd28de73c6c4bb289953846eda74dfe1ae874a29e95f5e14acfc3"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/longitude.img",
+              "sha256": "65698ac608c7a54e8b08a6af320413db2b11de8f7a53f3162eb453ecbcec5efb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/tie_point_grids/slant_range_time.img",
+              "sha256": "33a6777f7e65ce22f89aed61aef0ba668f136135dede78c1374a9ed01a5614cd"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "raw_pixels_equal": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "pixels": 147456,
+            "max_absolute_db": 2.5190129306906783e-06,
+            "mean_signed_db": 1.0066102463060245e-08,
+            "rmse_db": 4.785927928698974e-07,
+            "passed": true
+          },
+          {
+            "polarization": "HV",
+            "pixels": 147456,
+            "max_absolute_db": 2.5190129306906783e-06,
+            "mean_signed_db": 8.777461097104156e-09,
+            "rmse_db": 5.770231381082786e-07,
+            "passed": true
+          }
+        ],
+        "passed": true,
+        "noise": [
+          {
+            "polarization": "HH",
+            "finite_pixels": 147456,
+            "total_pixels": 147456,
+            "max_absolute_db": 0.012618552959835938,
+            "within_tolerance_pixels": 147455,
+            "passed": false,
+            "below_estimated_noise_pixels": 3858,
+            "median_change_db": -0.10132771817747344
+          },
+          {
+            "polarization": "HV",
+            "finite_pixels": 147456,
+            "total_pixels": 147456,
+            "max_absolute_db": 0.000784402558664965,
+            "within_tolerance_pixels": 147456,
+            "passed": true,
+            "below_estimated_noise_pixels": 13339,
+            "median_change_db": -0.5091120835373086
+          }
+        ]
+      }
+    },
+    {
+      "id": "cartwright_shelf_summer_offshore",
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "mission": "S1D",
+      "regime": "offshore",
+      "variants": {
+        "raw": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 68.64760899999237,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.log",
+            "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.xml",
+            "sha256": "4689d4b4dd48a9d046d9fd5553b13cb321a376b9c2e7c16068fc467ac5c128d3"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.dim",
+              "sha256": "9e2f01c3674e0b7ec42c007bf31d6138b7dc2556badee55c003051c8762dc9ca"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/Amplitude_HH.hdr",
+              "sha256": "fefb11038bb5926e3ca92da854708ff42b8c7b8076711719d0189c5cc1e35cdb"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/Amplitude_HH.img",
+              "sha256": "6bd7273391271a21e54e9d32a40f90003557db5dec52db50aca5a6807f042e08"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/Amplitude_HV.hdr",
+              "sha256": "46e6dc647eec7cebe0afbf6060b02723b2cccdd7cf0a5eda72b0208b77599954"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/Amplitude_HV.img",
+              "sha256": "f7588d7e4e8f3f6c8a1e228f513ac06dfe4736a8f4c171acdd80f9c93a3bac1a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/elevation_angle.img",
+              "sha256": "1cd70a673b7f270aa61009ae2e6a30a36edd115ce9d01d423a84cb3349986c2f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/incident_angle.img",
+              "sha256": "43171cfc58e6fdbd2e3e5d087cebe7aec51c75afedf329be31f69a5d536fc3bf"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/latitude.img",
+              "sha256": "17ea2ad25cfad8fed496703f0618bf43e75f3a2adaec99be066e8ca9a0d3056f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/longitude.img",
+              "sha256": "d1d1a1be923d822beb13a67a0b4a08b30fcd35e1dac8ebb30e0b357cdec14eb1"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/tie_point_grids/slant_range_time.img",
+              "sha256": "37b73032a43c8feced7eeb1b2c8937ec1eb57821a0802790fe55c7b99230da2c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "calibration": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 71.09969570000248,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.log",
+            "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.xml",
+            "sha256": "d0e205b75c374e3d83ae9a98721f6d90c7ef9be1e6f9a475bdae34073edbdc71"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.dim",
+              "sha256": "677c349a932ae2746768024d056b0ddb07b63c0b2f7f3b5daa90dfad7dead1a4"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/Sigma0_HH_dB.img",
+              "sha256": "24e457346487087c6b4d2fe5d91ee7584cdf263d26d0e4ac01e692b9acf1a05c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/Sigma0_HV_dB.img",
+              "sha256": "f1ad0749432b0222f9d512656749ba3e05ed9f608d7d153a8335252fd561c00d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/elevation_angle.img",
+              "sha256": "1cd70a673b7f270aa61009ae2e6a30a36edd115ce9d01d423a84cb3349986c2f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/incident_angle.img",
+              "sha256": "43171cfc58e6fdbd2e3e5d087cebe7aec51c75afedf329be31f69a5d536fc3bf"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/latitude.img",
+              "sha256": "17ea2ad25cfad8fed496703f0618bf43e75f3a2adaec99be066e8ca9a0d3056f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/longitude.img",
+              "sha256": "d1d1a1be923d822beb13a67a0b4a08b30fcd35e1dac8ebb30e0b357cdec14eb1"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/tie_point_grids/slant_range_time.img",
+              "sha256": "37b73032a43c8feced7eeb1b2c8937ec1eb57821a0802790fe55c7b99230da2c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        },
+        "noise": {
+          "exit_code": 0,
+          "timed_out": false,
+          "elapsed_s": 74.37890529999277,
+          "elapsed_limit_exceeded": false,
+          "log": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.log",
+            "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+          },
+          "graph": {
+            "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.xml",
+            "sha256": "e32885ef364d6080fe570be60a42bf1ad1351d9a76f1dbed473b8c165fbcce66"
+          },
+          "files": [
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.dim",
+              "sha256": "79194a452947872bafe44c67c4fdb824f07991ecff408f9272cec05d82320cf0"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/Sigma0_HH_dB.hdr",
+              "sha256": "0fea9f2dca2204635deef6a524facc6af290cec6eaed78a35412a08103395342"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/Sigma0_HH_dB.img",
+              "sha256": "011e1bf2a6ab65ca28255ac5d119e8b4b4fc31f9307ed8e1ac392d95cef8e20c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/Sigma0_HV_dB.hdr",
+              "sha256": "0ea30a7b70b30d7e77cf96675b7fa43e69cd651849d28983534db05ff7754719"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/Sigma0_HV_dB.img",
+              "sha256": "3a665eb86c11bf1de2dbe4c3a44b5cb7118403bac980571730d4d0ee202e08f5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/elevation_angle.hdr",
+              "sha256": "ca5095495735b9982e0cc26352fa2daa78ae0083bc49188984afff7697430256"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/elevation_angle.img",
+              "sha256": "1cd70a673b7f270aa61009ae2e6a30a36edd115ce9d01d423a84cb3349986c2f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/incident_angle.hdr",
+              "sha256": "06d46f6a097789300684027fde549e7b5713b3dbceba4b33acc38e5a4ddebc1d"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/incident_angle.img",
+              "sha256": "43171cfc58e6fdbd2e3e5d087cebe7aec51c75afedf329be31f69a5d536fc3bf"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/latitude.hdr",
+              "sha256": "b438db874bfed408ce7b59dba269865031e96e397fe1d8f4657944741340906a"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/latitude.img",
+              "sha256": "17ea2ad25cfad8fed496703f0618bf43e75f3a2adaec99be066e8ca9a0d3056f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/longitude.hdr",
+              "sha256": "8dd54c371ecdb17dc7f15294dde6019fb2e44f12ad2e8dbb2d97c90c0bef271f"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/longitude.img",
+              "sha256": "d1d1a1be923d822beb13a67a0b4a08b30fcd35e1dac8ebb30e0b357cdec14eb1"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/slant_range_time.hdr",
+              "sha256": "daaac53090fa2230d51243e6fd6945f615354a1c7cc053c96e58434614d4db78"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/tie_point_grids/slant_range_time.img",
+              "sha256": "37b73032a43c8feced7eeb1b2c8937ec1eb57821a0802790fe55c7b99230da2c"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/vector_data/ground_control_points.csv",
+              "sha256": "9dc61053b7ad494fe269e1704a1820a5255639fab4670d1694b7a9a9c854a8e5"
+            },
+            {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.data/vector_data/pins.csv",
+              "sha256": "6792d3166487f08ab4f89b616fae40bcaef99f0e852e95b898460e9ff2d68aac"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "raw_pixels_equal": true,
+        "bands": [
+          {
+            "polarization": "HH",
+            "pixels": 147456,
+            "max_absolute_db": 2.4397839624157314e-06,
+            "mean_signed_db": -2.6057439085991187e-09,
+            "rmse_db": 6.562034480915847e-07,
+            "passed": true
+          },
+          {
+            "polarization": "HV",
+            "pixels": 147456,
+            "max_absolute_db": 2.4862435736849875e-06,
+            "mean_signed_db": -3.832092574132104e-09,
+            "rmse_db": 7.198346036201513e-07,
+            "passed": true
+          }
+        ],
+        "passed": true,
+        "noise": [
+          {
+            "polarization": "HH",
+            "finite_pixels": 147456,
+            "total_pixels": 147456,
+            "max_absolute_db": 7.864927233924845e-07,
+            "within_tolerance_pixels": 147456,
+            "passed": true,
+            "below_estimated_noise_pixels": 37350,
+            "median_change_db": -4.6619650946619835
+          },
+          {
+            "polarization": "HV",
+            "finite_pixels": 147456,
+            "total_pixels": 147456,
+            "max_absolute_db": 8.41417481467488e-07,
+            "within_tolerance_pixels": 147456,
+            "passed": true,
+            "below_estimated_noise_pixels": 78362,
+            "median_change_db": -72.27886696186076
+          }
+        ]
+      }
+    }
+  ],
+  "missions": [
+    {
+      "mission": "S1C",
+      "areas": 2,
+      "nominal_reference_passed": false,
+      "noise_reference_passed": false,
+      "bounded_execution_passed": false,
+      "absolute_geolocation_validated": false,
+      "model_transfer_validated": false,
+      "input_contract_extended": false,
+      "training_admitted": false
+    },
+    {
+      "mission": "S1D",
+      "areas": 2,
+      "nominal_reference_passed": true,
+      "noise_reference_passed": false,
+      "bounded_execution_passed": true,
+      "absolute_geolocation_validated": false,
+      "model_transfer_validated": false,
+      "input_contract_extended": false,
+      "training_admitted": false
+    }
+  ],
+  "vessel_reservation": {
+    "private_selection": {
+      "path": "data/source_supported/cd_reservation_v010_01/selection_private.json",
+      "sha256": "1d59d3c409c85d50961514ba2fc0d2912e05a33c7330e07598d304a0cd8f5a8d"
+    },
+    "areas": [],
+    "rankings": [
+      {
+        "rank": 1,
+        "stream": "vessel_support",
+        "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+        "name": "S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE",
+        "absolute_offset_s": 6.510861873626709,
+        "search_uncertainty_m": 292.215968,
+        "bracket_gap_s": 102.61884593963623,
+        "decision": "excluded",
+        "reason": "Previously exposed or reserved native acquisition",
+        "reservation_id": null
+      },
+      {
+        "rank": 2,
+        "stream": "vessel_support",
+        "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+        "name": "S1C_IW_GRDH_1SDH_20260918T095656_20260918T095721_009500_012E71_F89B.SAFE",
+        "absolute_offset_s": 9.400327920913696,
+        "search_uncertainty_m": 239.220646,
+        "bracket_gap_s": 79.0106508731842,
+        "decision": "excluded",
+        "reason": "Previously exposed or reserved native acquisition",
+        "reservation_id": null
+      },
+      {
+        "rank": 3,
+        "stream": "vessel_support",
+        "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+        "name": "S1C_IW_GRDH_1SDH_20261005T100435_20261005T100500_009748_0136A3_91B4.SAFE",
+        "absolute_offset_s": 11.105732917785645,
+        "search_uncertainty_m": 185.30495000000002,
+        "bracket_gap_s": 53.75820803642273,
+        "decision": "excluded",
+        "reason": "Previously exposed or reserved native acquisition",
+        "reservation_id": null
+      },
+      {
+        "rank": 4,
+        "stream": "vessel_support",
+        "product_id": "5415d10e-02f2-464f-ab79-deb9f5911514",
+        "name": "S1D_IW_GRDH_1SDH_20261008T094101_20261008T094126_004922_00945E_CDBA.SAFE",
+        "absolute_offset_s": 42.70903301239014,
+        "search_uncertainty_m": 415.13016,
+        "bracket_gap_s": 200.2741129398346,
+        "decision": "excluded",
+        "reason": "Locked/quarantine geographic separation",
+        "reservation_id": null
+      },
+      {
+        "rank": 5,
+        "stream": "vessel_support",
+        "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+        "name": "S1C_IW_GRDH_1SDH_20261005T100435_20261005T100500_009748_0136A3_91B4.SAFE",
+        "absolute_offset_s": 88.7915689945221,
+        "search_uncertainty_m": 320.710338,
+        "bracket_gap_s": 199.14673805236816,
+        "decision": "excluded",
+        "reason": "Previously exposed or reserved native acquisition",
+        "reservation_id": null
+      }
+    ],
+    "archive": {
+      "input_rows": 221955,
+      "legacy_naive_utc_reports": 19621,
+      "valid_unique_reports": 221955,
+      "first_utc": "2026-08-18T20:08:37+00:00",
+      "last_utc": "2026-10-15T05:46:34.955133+00:00",
+      "dates_present": [
+        "2026-08-18",
+        "2026-08-19",
+        "2026-08-22",
+        "2026-08-23",
+        "2026-08-24",
+        "2026-08-25",
+        "2026-08-26",
+        "2026-08-27",
+        "2026-09-03",
+        "2026-09-04",
+        "2026-09-15",
+        "2026-09-16",
+        "2026-09-17",
+        "2026-09-18",
+        "2026-09-19",
+        "2026-09-20",
+        "2026-09-21",
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-09-27",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15"
+      ]
+    },
+    "annotated_objects": 0,
+    "labels_admitted": 0,
+    "scope": "C/D compatibility-conditional training reservations; no input-contract extension",
+    "training_approved": false,
+    "independent_review": false,
+    "promotion_eligible": false,
+    "input_contract_extended": false,
+    "classifier_scored": false,
+    "detector_scored": false
+  },
+  "iceberg_search": [
+    {
+      "id": "next_iceberg_support_01",
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [
+        {
+          "id": "8f6d2ecf-fa76-44bb-96b5-79cd85c59123",
+          "name": "S2A_MSIL1C_20200523T142921_N0500_R096_T22UDU_20230416T080622.SAFE",
+          "acquisition": "2020-05-23T14:29:21.024000Z",
+          "offset_s": 17300.582873,
+          "cloud_cover_scene": 68.3735774148961,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        }
+      ],
+      "landsat_products": [],
+      "physical_corroboration": false
+    },
+    {
+      "id": "next_iceberg_support_02",
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [
+        {
+          "id": "13cbc2ce-ca09-4c6a-8859-d62f985affa6",
+          "name": "S2A_MSIL1C_20180504T142911_N0500_R096_T22UDU_20230818T152412.SAFE",
+          "acquisition": "2018-05-04T14:29:11.024000Z",
+          "offset_s": 17243.815614,
+          "cloud_cover_scene": 0.640377257184076,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        },
+        {
+          "id": "4600e3a9-b973-4204-b60f-9a917bc9fd90",
+          "name": "S2A_MSIL1C_20180504T142911_N0500_R096_T22TCT_20230818T152412.SAFE",
+          "acquisition": "2018-05-04T14:29:11.024000Z",
+          "offset_s": 17243.815614,
+          "cloud_cover_scene": 11.3963487356878,
+          "covers_original_position": true,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        },
+        {
+          "id": "79678cc1-87c6-4938-b28a-fb60c50e9af5",
+          "name": "S2A_MSIL1C_20180504T142911_N0500_R096_T22TDT_20230818T152412.SAFE",
+          "acquisition": "2018-05-04T14:29:11.024000Z",
+          "offset_s": 17243.815614,
+          "cloud_cover_scene": 7.60554225274699,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        }
+      ],
+      "landsat_products": [],
+      "physical_corroboration": false
+    },
+    {
+      "id": "next_iceberg_support_03",
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false
+    },
+    {
+      "id": "next_iceberg_support_04",
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [
+        {
+          "id": "004e0087-9e38-4dec-b05a-c309c2259580",
+          "name": "S2A_MSIL1C_20180410T144801_N0500_R039_T22UCU_20230811T014921.SAFE",
+          "acquisition": "2018-04-10T14:48:01.026000Z",
+          "offset_s": 18387.527898,
+          "cloud_cover_scene": 32.8563002827877,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        },
+        {
+          "id": "0eee17c6-68e8-4633-ac8d-266e839edc51",
+          "name": "S2A_MSIL1C_20180410T144801_N0500_R039_T21UYP_20230811T014921.SAFE",
+          "acquisition": "2018-04-10T14:48:01.026000Z",
+          "offset_s": 18387.527898,
+          "cloud_cover_scene": 45.7238198257783,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        },
+        {
+          "id": "d837b9b4-af72-432a-9bb2-1c21898c7464",
+          "name": "S2A_MSIL1C_20180410T144801_N0500_R039_T22UCV_20230811T014921.SAFE",
+          "acquisition": "2018-04-10T14:48:01.026000Z",
+          "offset_s": 18387.527898,
+          "cloud_cover_scene": 6.31814854748596,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        },
+        {
+          "id": "dcea0482-7aa0-43c1-a665-5d39650320ea",
+          "name": "S2A_MSIL1C_20180410T144801_N0500_R039_T21UYQ_20230811T014921.SAFE",
+          "acquisition": "2018-04-10T14:48:01.026000Z",
+          "offset_s": 18387.527898,
+          "cloud_cover_scene": 7.660816643507989,
+          "covers_original_position": false,
+          "pixels_inspected": false,
+          "same_object_confirmed": false
+        }
+      ],
+      "landsat_products": [],
+      "physical_corroboration": false
+    },
+    {
+      "id": "training_iceberg_support_01",
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false
+    }
+  ],
+  "labels_admitted": 0,
+  "accuracy_truth_admitted": false,
+  "prior_development_exposure": true,
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "input_contract_extended": false,
+  "classifier_scored": false,
+  "detector_scored": false,
+  "metadata": [
+    {
+      "product_id": "7e9631d8-2ac4-4718-9d67-f7b0f65f7039",
+      "name": "S1C_IW_GRDH_1SDH_20260703T094924_20260703T094949_008377_010936_58E2.SAFE",
+      "headers": [
+        {
+          "mission": "S1C",
+          "polarization": "HH",
+          "range_spacing_m": 10.0,
+          "azimuth_spacing_m": 10.0,
+          "thermal_noise_corrected": "false",
+          "start": "2026-07-03T09:49:24.115752",
+          "stop": "2026-07-03T09:49:49.113937"
+        },
+        {
+          "mission": "S1C",
+          "polarization": "HV",
+          "range_spacing_m": 10.0,
+          "azimuth_spacing_m": 10.0,
+          "thermal_noise_corrected": "false",
+          "start": "2026-07-03T09:49:24.115752",
+          "stop": "2026-07-03T09:49:49.113937"
+        }
+      ],
+      "software": [
+        {
+          "name": "Sentinel-1 IPF",
+          "version": "004.03"
+        },
+        {
+          "name": "Sentinel-1 IPF",
+          "version": "004.03"
+        },
+        {
+          "name": "",
+          "version": ""
+        }
+      ],
+      "auxiliary": [
+        {
+          "role": "Level-1 Intermediate SLC Product",
+          "name": "S1C_IW_SL1__1_DH_20260703T094922_20260703T094954_008377_010936_6072.SAFE"
+        },
+        {
+          "role": "AUX_PP1",
+          "name": "S1C_AUX_PP1_V20250427T000000_G20260203T152141.SAFE"
+        },
+        {
+          "role": "AUX_CAL",
+          "name": "S1C_AUX_CAL_V20250427T000000_G20260604T133157.SAFE"
+        },
+        {
+          "role": "AUX_INS",
+          "name": "S1C_AUX_INS_V20250224T000000_G20260604T134021.SAFE"
+        },
+        {
+          "role": "AUX_RES",
+          "name": "S1C_OPER_AUX_RESORB_OPOD_20260703T112927_V20260703T073409_20260703T105139.EOF"
+        },
+        {
+          "role": "Level-0 Annotation Product",
+          "name": "S1C_IW_RAW__0ADH_20260703T093920_20260703T095028_008377_010936_B4D3.SAFE"
+        },
+        {
+          "role": "Level-0 Calibration Product",
+          "name": "S1C_IW_RAW__0CDH_20260703T093920_20260703T095028_008377_010936_76C8.SAFE"
+        },
+        {
+          "role": "Level-0 Noise Product",
+          "name": "S1C_IW_RAW__0NDH_20260703T093920_20260703T095028_008377_010936_4186.SAFE"
+        },
+        {
+          "role": "Level-0 Product",
+          "name": "S1C_IW_RAW__0SDH_20260703T094920_20260703T094952_008377_010936_47DB.SAFE"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "S-1 Core PDGS S-1 Level-0 Product Format Specifications S1PD.SP.00110.ASTR"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "Sentinel-1 SAR Space Packet Protocol Data Unit S1-IF-ASD-PL-0007"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Unknown"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "S-1 Core PDGS S-1 Level-0 Product Format Specifications S1PD.SP.00110.ASTR"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "Sentinel-1 SAR Space Packet Protocol Data Unit S1-IF-ASD-PL-0007"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Downlinked Stream"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Unknown"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "S-1 Core PDGS S-1 Level-0 Product Format Specifications S1PD.SP.00110.ASTR"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "Sentinel-1 SAR Space Packet Protocol Data Unit S1-IF-ASD-PL-0007"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Downlinked Stream"
+        },
+        {
+          "role": "product definition",
+          "name": "7"
+        },
+        {
+          "role": "product specification",
+          "name": "14"
+        }
+      ],
+      "native_contexts": [
+        {
+          "id": "burin_shelf_summer_coastal",
+          "center_incidence_deg": 39.10208231789986,
+          "incidence_method": "linear interpolation of native geolocation incidence grid",
+          "center_native_time_utc": "2026-07-03T09:49:31.799879+00:00",
+          "first_row_native_time_utc": "2026-07-03T09:49:31.511611+00:00",
+          "last_row_native_time_utc": "2026-07-03T09:49:32.086645+00:00",
+          "azimuth_interval_s": 0.001501392496465515
+        },
+        {
+          "id": "burin_shelf_summer_offshore",
+          "center_incidence_deg": 37.06355163781852,
+          "incidence_method": "linear interpolation of native geolocation incidence grid",
+          "center_native_time_utc": "2026-07-03T09:49:36.433176+00:00",
+          "first_row_native_time_utc": "2026-07-03T09:49:36.144909+00:00",
+          "last_row_native_time_utc": "2026-07-03T09:49:36.719942+00:00",
+          "azimuth_interval_s": 0.001501392496465515
+        }
+      ]
+    },
+    {
+      "product_id": "4689632a-a8a0-42a1-b6e2-476663671005",
+      "name": "S1D_IW_GRDH_1SDH_20260702T095607_20260702T095632_003493_0062D9_B1F9.SAFE",
+      "headers": [
+        {
+          "mission": "S1D",
+          "polarization": "HH",
+          "range_spacing_m": 10.0,
+          "azimuth_spacing_m": 10.0,
+          "thermal_noise_corrected": "false",
+          "start": "2026-07-02T09:56:07.478336",
+          "stop": "2026-07-02T09:56:32.477094"
+        },
+        {
+          "mission": "S1D",
+          "polarization": "HV",
+          "range_spacing_m": 10.0,
+          "azimuth_spacing_m": 10.0,
+          "thermal_noise_corrected": "false",
+          "start": "2026-07-02T09:56:07.478336",
+          "stop": "2026-07-02T09:56:32.477094"
+        }
+      ],
+      "software": [
+        {
+          "name": "Sentinel-1 IPF",
+          "version": "004.03"
+        },
+        {
+          "name": "Sentinel-1 IPF",
+          "version": "004.03"
+        },
+        {
+          "name": "",
+          "version": ""
+        }
+      ],
+      "auxiliary": [
+        {
+          "role": "Level-1 Intermediate SLC Product",
+          "name": "S1D_IW_SL1__1_DH_20260702T095604_20260702T095637_003493_0062D9_4681.SAFE"
+        },
+        {
+          "role": "AUX_PP1",
+          "name": "S1D_AUX_PP1_V20260319T000000_G20260603T073733.SAFE"
+        },
+        {
+          "role": "AUX_CAL",
+          "name": "S1D_AUX_CAL_V20260319T000000_G20260603T113322.SAFE"
+        },
+        {
+          "role": "AUX_INS",
+          "name": "S1D_AUX_INS_V20260319T000000_G20260603T113743.SAFE"
+        },
+        {
+          "role": "AUX_PRE",
+          "name": "S1D_OPER_AUX_PREORB_OPOD_20260702T100132_V20260702T092125_20260702T155625.EOF"
+        },
+        {
+          "role": "Level-0 Annotation Product",
+          "name": "S1D_IW_RAW__0ADH_20260702T095103_20260702T095646_003493_0062D9_4F1B.SAFE"
+        },
+        {
+          "role": "Level-0 Calibration Product",
+          "name": "S1D_IW_RAW__0CDH_20260702T095103_20260702T095646_003493_0062D9_C448.SAFE"
+        },
+        {
+          "role": "Level-0 Noise Product",
+          "name": "S1D_IW_RAW__0NDH_20260702T095103_20260702T095646_003493_0062D9_3274.SAFE"
+        },
+        {
+          "role": "Level-0 Product",
+          "name": "S1D_IW_RAW__0SDH_20260702T095603_20260702T095636_003493_0062D9_FC81.SAFE"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "S-1 Core PDGS S-1 Level-0 Product Format Specifications S1PD.SP.00110.ASTR"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "Sentinel-1 SAR Space Packet Protocol Data Unit S1-IF-ASD-PL-0007"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Unknown"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "S-1 Core PDGS S-1 Level-0 Product Format Specifications S1PD.SP.00110.ASTR"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "Sentinel-1 SAR Space Packet Protocol Data Unit S1-IF-ASD-PL-0007"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Downlinked Stream"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Unknown"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "S-1 Core PDGS S-1 Level-0 Product Format Specifications S1PD.SP.00110.ASTR"
+        },
+        {
+          "role": "Applicable Document",
+          "name": "Sentinel-1 SAR Space Packet Protocol Data Unit S1-IF-ASD-PL-0007"
+        },
+        {
+          "role": "Raw Data",
+          "name": "Downlinked Stream"
+        },
+        {
+          "role": "product definition",
+          "name": "7"
+        },
+        {
+          "role": "product specification",
+          "name": "14"
+        }
+      ],
+      "native_contexts": [
+        {
+          "id": "cartwright_shelf_summer_coastal",
+          "center_incidence_deg": 44.903638533155416,
+          "incidence_method": "linear interpolation of native geolocation incidence grid",
+          "center_native_time_utc": "2026-07-02T09:56:09.768012+00:00",
+          "first_row_native_time_utc": "2026-07-02T09:56:09.479738+00:00",
+          "last_row_native_time_utc": "2026-07-02T09:56:10.054785+00:00",
+          "azimuth_interval_s": 0.001501426931060695
+        },
+        {
+          "id": "cartwright_shelf_summer_offshore",
+          "center_incidence_deg": 39.33920837403525,
+          "incidence_method": "linear interpolation of native geolocation incidence grid",
+          "center_native_time_utc": "2026-07-02T09:56:08.994777+00:00",
+          "first_row_native_time_utc": "2026-07-02T09:56:08.706503+00:00",
+          "last_row_native_time_utc": "2026-07-02T09:56:09.281550+00:00",
+          "azimuth_interval_s": 0.001501426931060695
+        }
+      ]
+    }
+  ],
+  "geometry_diagnostics": [
+    {
+      "id": "burin_shelf_summer_coastal",
+      "sample_positions": 9,
+      "max_separation_m": 7.16799611037853,
+      "hh_hv_metadata_positions_equal": true,
+      "snap_center_incidence_deg": 39.1016196179454,
+      "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+      "absolute_geolocation_validated": false
+    },
+    {
+      "id": "burin_shelf_summer_offshore",
+      "sample_positions": 9,
+      "max_separation_m": 7.126916882133925,
+      "hh_hv_metadata_positions_equal": true,
+      "snap_center_incidence_deg": 37.06357527580875,
+      "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+      "absolute_geolocation_validated": false
+    },
+    {
+      "id": "cartwright_shelf_summer_coastal",
+      "sample_positions": 9,
+      "max_separation_m": 5.711597903763787,
+      "hh_hv_metadata_positions_equal": true,
+      "snap_center_incidence_deg": 44.903192975907174,
+      "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+      "absolute_geolocation_validated": false
+    },
+    {
+      "id": "cartwright_shelf_summer_offshore",
+      "sample_positions": 9,
+      "max_separation_m": 7.308828917956606,
+      "hh_hv_metadata_positions_equal": true,
+      "snap_center_incidence_deg": 39.33919101751168,
+      "method": "SNAP bilinear tie-point interpolation versus existing TPS at pixel centres; different interpolators; no absolute location reference",
+      "absolute_geolocation_validated": false
+    }
+  ],
+  "local_inputs": {
+    "snap": {
+      "path": "data/source_supported/cd_snap_v010_01/report.json",
+      "sha256": "b69ba01394a5b4021af27719ff1f04930183e6e0373b4e4779ebf4bff1989c29"
+    },
+    "reservation": {
+      "path": "data/source_supported/cd_reservation_v010_01/reservation.json",
+      "sha256": "09ef32d8e5ee1d36886f36000655c6a4161cb05af04dbd15e45e2a703a9b5c97"
+    },
+    "search": {
+      "path": "data/source_supported/cd_iceberg_search_v010_01/report.json",
+      "sha256": "d5bef6fbc0a9e7299eb4451f23b8056874015fb687d05dd133aa529d1978b5de"
+    }
+  },
+  "limitations": [
+    "Two acquisitions, four previously inspected training contexts; not mission-wide validation",
+    "Sparse wrappers support pointwise calibration/noise only; absent pixels never evaluated",
+    "Reference agreement is not absolute geolocation or learned model compatibility",
+    "C/D screening is conditional; original A/B input contract and label admission remain unchanged",
+    "Optical footprints/cloud estimates and motion search envelopes do not confirm same-object identity",
+    "No independent review, verified negatives, classifier scores or model promotion"
+  ]
+}

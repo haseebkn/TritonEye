@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "scope": "Five existing provisional iceberg hypotheses; public metadata search only",
+  "hours_each_side": 12,
+  "envelope_half_width_m": 43500,
+  "envelope_basis": "300 m + 1 m/s x 12 hours; an exploratory discovery allowance, not a calibrated drift model or widened association gate",
+  "sources": ["Copernicus Sentinel-2 L1C", "Microsoft Planetary Computer Landsat Collection 2 Level 2"],
+  "maximum_results_per_request": 100,
+  "pagination": "Mark truncated, never interpret a partial or failed request as zero coverage",
+  "metadata_interpretation": "Coverage, scene cloud estimates and drift envelopes do not identify a physical iceberg. No optical pixels are class evidence without local visibility and same-object association.",
+  "labels_provisional": true,
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false
+}

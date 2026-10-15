@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "mission": ["S1C", "S1D"],
+  "purpose": "Reference-processing pilot and conditional reservation screening only; not an admitted native input contract",
+  "prepared": {"path": "data/hh_hv_transfer/v010_native_01/manifest.json", "sha256": "d1079c0afe1270a15620fbd29ff6d2ede6ec128aecb3c71d34c1c1b0de00abbf"},
+  "product_ids": ["7e9631d8-2ac4-4718-9d67-f7b0f65f7039", "4689632a-a8a0-42a1-b6e2-476663671005"],
+  "selection": "Both existing training-only coastal/offshore windows for each product. Fixed central [64:448,64:448] of the original 512 pixel contexts, before comparison. Previously inspected development data; no class or score selection.",
+  "native_window_pixels": 384,
+  "variants": ["raw", "calibration", "noise"],
+  "calibration_tolerance_db": 0.001,
+  "image_id": "sha256:ac08abe1c070613c2336d9cfa06746ef9eb7d12b99373f28fe878f27a2a70fa7",
+  "installer_sha256": "786ce26a464ce32aef133af25b81281ad1b0af320e3614c0b465939fffbb4ee6",
+  "runtime_receipt": "data/tools/snap14_verified_oci_02/receipt.json",
+  "process_timeout_s": 600,
+  "input_contract_extended": false,
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false
+}
