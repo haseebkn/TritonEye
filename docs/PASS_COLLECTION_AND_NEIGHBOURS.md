@@ -126,6 +126,12 @@ python -m agents.neighbour_vessel_batch --verify --local
 python -m pytest tests/unit/test_ais_pass_audit.py tests/unit/test_ais_recorder.py -q
 ```
 
+As of 15 October 2026 this manifest pins the pre-fix `agents/overlap_audit.py`,
+so `--verify` now intentionally raises a hash/path mismatch instead of silently
+rebinding historical evidence; see
+[ACQUISITION_RELIABILITY.md](ACQUISITION_RELIABILITY.md) for the fail-closed
+provenance rationale and the original-commit replay path.
+
 Retained-data replay reconstructs neighbours, overlaps, shoreline classifications,
 pass collection diagnostics and reservation decisions. The positive synthetic
 publication regression also checks a nonempty reservation round trip and

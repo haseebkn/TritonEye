@@ -152,6 +152,45 @@ def test_missing_calibration_returns_none(tmp_path: Path) -> None:
     assert Calibrator.for_measurement(str(fake)) is None
 
 
+@pytest.mark.parametrize("pol", ["vv", "vh", "hh", "hv"])
+@pytest.mark.parametrize("extension", ["tif", "tiff"])
+def test_lookup_requires_exact_measurement_identity(
+    tmp_path: Path, pol: str, extension: str
+) -> None:
+    measurement = tmp_path / "measurement" / f"s1c-iw-grd-{pol}-target.{extension}"
+    calibration_dir = tmp_path / "annotation/calibration"
+    calibration_dir.mkdir(parents=True)
+    # Same polarization is insufficient: another measurement must not be used.
+    wrong = calibration_dir / f"calibration-s1c-iw-grd-{pol}-other.xml"
+    write_cal_xml(wrong, [0, 100], [0, 100], 10.0)
+    assert find_calibration_xml(str(measurement)) is None
+    assert Calibrator.for_measurement(str(measurement)) is None
+    correct = calibration_dir / f"calibration-{measurement.stem}.xml"
+    write_cal_xml(correct, [0, 100], [0, 100], 100.0)
+    assert find_calibration_xml(str(measurement)) == str(correct)
+    cal = Calibrator.for_measurement(str(measurement))
+    assert cal is not None
+    assert cal.to_sigma0_db(np.array([[100.0]]))[0, 0] == pytest.approx(0.0)
+
+
+@pytest.mark.parametrize("pol", ["vv", "vh", "hh", "hv", "unknown"])
+def test_lookup_never_substitutes_another_polarization(
+    tmp_path: Path, pol: str
+) -> None:
+    measurement = tmp_path / "measurement" / f"s1c-iw-grd-{pol}-target.tiff"
+    directory = tmp_path / "annotation/calibration"
+    directory.mkdir(parents=True)
+    other = "vh" if pol == "vv" else "vv"
+    write_cal_xml(
+        directory / f"calibration-s1c-iw-grd-{other}-target.xml",
+        [0, 100],
+        [0, 100],
+        10.0,
+    )
+    assert find_calibration_xml(str(measurement)) is None
+    assert Calibrator.for_measurement(str(measurement)) is None
+
+
 # --------------------------------------- real products, when the archive exists
 
 

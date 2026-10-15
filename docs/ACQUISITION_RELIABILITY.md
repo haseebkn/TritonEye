@@ -148,3 +148,29 @@ complete, and evaluation was explicitly unmeasured. The repository retains a
 [compact evidence record](evidence/acquisition_replay_20261005.json) with model,
 configuration and input hashes. Full scene artifacts remain locally under data,
 missions and reports; they are not committed.
+
+## Calibration identity and historical connectivity correction (15 October 2026)
+
+Calibration lookup now requires the exact measurement stem (including polarization)
+with the `calibration-` prefix and `.xml` suffix. Both `.tif` and `.tiff` measurements
+are supported. Missing, ambiguous or unrelated files return no calibrator; another
+polarization or same-polarization acquisition is never a fallback. Numerical
+calibration is unchanged for correctly matched inputs.
+
+The older overlap audit now rejects heartbeat spans containing `disconnected`,
+`transport_open` or `session_stop` events, including equal-time endpoints. A later
+uninterrupted bracket can recover; events cannot bridge separate session files.
+Malformed/non-object journal lines are ignored, not evidence of connectivity.
+Connected bracketing still does not establish complete reception or packet loss.
+
+The v0.3.0 and v0.4.0 vessel-reservation manifests pin the previous overlap source
+hash. Their original bytes and locks are preserved: their strict verifiers now
+refuse the changed checkout rather than silently rebinding historical evidence.
+For exact historical replay use original main commit
+`fb8ac0a71efd09462d94575d978aefa964f19068` in a separate authorized checkout with
+the retained local inputs. Such a replay retains the historical diagnostic bug;
+it is not a corrected connectivity assessment. A corrected historical report
+must be a new version, never an overwrite. Current-code synthetic publication
+and replay are tested separately, as is refusal of the old implementation pins.
+The October 17/18/20 collection manifest is unchanged and remains independently
+verifiable; no labels, review guard, quarantine or locked test assignment changed.

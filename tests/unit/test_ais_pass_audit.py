@@ -264,8 +264,21 @@ def test_recorder_records_actual_binary_confirmation_and_compression(
     assert not list(tmp_path.glob("ais_stream_*.csv"))
 
 
-def test_public_neighbour_release_replays() -> None:
-    assert verify()["labels_admitted"] == 0
+def test_historical_neighbour_release_refuses_changed_overlap_implementation() -> None:
+    from agents.neighbour_vessel_batch import LOCK
+
+    manifest = json.loads(checked(json.loads(LOCK.read_text())["manifest"]).read_text())
+    assert manifest["labels_admitted"] == 0
+    for reference in (
+        list(manifest["inputs"].values()) + manifest["implementation_dependencies"]
+    ):
+        if reference["path"] == "agents/overlap_audit.py":
+            with pytest.raises(ValueError, match="Source artifact hash/path mismatch"):
+                checked(reference)
+        else:
+            checked(reference)
+    with pytest.raises(ValueError, match="Source artifact hash/path mismatch"):
+        verify()
 
 
 def test_nonempty_reservation_publishes_and_replays_without_pixels(

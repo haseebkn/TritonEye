@@ -184,6 +184,66 @@ def test_journal_gap_disconnected_and_missing_are_not_healthy(tmp_path: Path) ->
     assert not result["area_wide_reception_proven"]
 
 
+@pytest.mark.parametrize("kind", ["disconnected", "transport_open", "session_stop"])
+@pytest.mark.parametrize("offset", [0, 20, 30, 60])
+def test_explicit_connection_break_invalidates_heartbeat_bracket(
+    tmp_path: Path, kind: str, offset: int
+) -> None:
+    from datetime import timedelta
+
+    start = datetime(2026, 10, 2, 21, 39, tzinfo=timezone.utc)
+    events = [
+        {"event": "heartbeat", "time": start.isoformat(), "connected": True},
+        {"event": kind, "time": (start + timedelta(seconds=offset)).isoformat()},
+        {
+            "event": "heartbeat",
+            "time": (start + timedelta(seconds=60)).isoformat(),
+            "connected": True,
+        },
+        {
+            "event": "heartbeat",
+            "time": (start + timedelta(seconds=120)).isoformat(),
+            "connected": True,
+        },
+        {
+            "event": "heartbeat",
+            "time": (start + timedelta(seconds=180)).isoformat(),
+            "connected": True,
+        },
+    ]
+    path = tmp_path / "coverage_break.jsonl"
+    # Event timestamps, not file order, define the bracket.
+    path.write_text("\n".join(json.dumps(e) for e in reversed(events)))
+    result = audit.journal_support(
+        tmp_path, (start + timedelta(seconds=30)).timestamp()
+    )
+    assert result["status"] == "gap_or_unknown"
+    assert not result["sessions"][0]["connected_bracket_within_180s"]
+    path.write_text(path.read_text() + "\nnull\nbroken\n")
+    assert (
+        audit.journal_support(tmp_path, (start + timedelta(seconds=30)).timestamp())
+        == result
+    )
+    # A later uninterrupted pair recovers; a break does not poison the session forever.
+    recovered = audit.journal_support(
+        tmp_path, (start + timedelta(seconds=150)).timestamp()
+    )
+    assert recovered["status"] == "connected_bracket"
+    assert not recovered["area_wide_reception_proven"]
+
+
+def test_heartbeat_brackets_never_bridge_session_files(tmp_path: Path) -> None:
+    for name, timestamp in [
+        ("a", "2026-10-02T21:38:30Z"),
+        ("b", "2026-10-02T21:39:30Z"),
+    ]:
+        (tmp_path / f"coverage_{name}.jsonl").write_text(
+            json.dumps({"event": "heartbeat", "time": timestamp, "connected": True})
+        )
+    centre = datetime(2026, 10, 2, 21, 39, tzinfo=timezone.utc).timestamp()
+    assert audit.journal_support(tmp_path, centre)["status"] == "gap_or_unknown"
+
+
 def test_public_aggregate_and_blind_output_never_contain_telemetry(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

@@ -217,12 +217,24 @@ def journal_support(directory: Path, centre: float) -> dict[str, Any]:
     sessions = []
     for path in sorted(directory.glob("coverage_*.jsonl")):
         beats = []
+        breaks = []
         for line in path.read_text(encoding="utf-8").splitlines():
             try:
                 event = json.loads(line)
             except ValueError:
                 continue
+            if not isinstance(event, dict):
+                continue
             instant = parse_utc(event.get("time"))
+            # Like the pass-specific transport audit, explicit connection
+            # transitions invalidate a heartbeat span. Include both endpoints:
+            # equal timestamps cannot establish event ordering safely.
+            if instant and event.get("event") in {
+                "disconnected",
+                "session_stop",
+                "transport_open",
+            }:
+                breaks.append(instant.timestamp())
             if event.get("event") == "heartbeat" and instant:
                 beats.append((instant.timestamp(), event.get("connected") is True))
         beats.sort()
@@ -241,6 +253,7 @@ def journal_support(directory: Path, centre: float) -> dict[str, Any]:
                         and gap <= 180
                         and centre - a[0] <= 180
                         and b[0] - centre <= 180
+                        and not any(a[0] <= t <= b[0] for t in breaks)
                     ),
                 }
             )
