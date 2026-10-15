@@ -37,6 +37,26 @@ SOURCES = {
 }
 
 
+def policy() -> dict[str, Any]:
+    """Load the frozen numeric collection limits; reject anything out of range."""
+    value: dict[str, Any] = json.loads(POLICY.read_text())
+    checks = (
+        ("maximum_passes", int, 1),
+        ("context_minutes", (int, float), 0),
+        ("reception_lookback_days", (int, float), 0),
+        ("minimum_speed_knots", (int, float), 0),
+    )
+    for key, kinds, minimum in checks:
+        number = value.get(key)
+        if (
+            not isinstance(number, kinds)
+            or isinstance(number, bool)
+            or number < minimum
+        ):
+            raise ValueError(f"Invalid collection policy limit: {key}")
+    return value
+
+
 def instant(value: str) -> datetime:
     """ESA plan times without offsets are UTC; never apply the host timezone."""
     result = datetime.fromisoformat(value.replace("Z", "+00:00"))
@@ -94,20 +114,25 @@ def plans(path: Path) -> list[dict[str, Any]]:
 
 
 def reception(
-    rows: list[dict[str, Any]], cells: list[dict[str, Any]], now: datetime
+    rows: list[dict[str, Any]],
+    cells: list[dict[str, Any]],
+    now: datetime,
+    limits: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """Recent moving reports guide collection only, not vessel classification."""
     by_grid = {tuple(c["grid"]): c for c in cells}
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    lookback_s = limits["reception_lookback_days"] * 86400
+    minimum_speed = limits["minimum_speed_knots"]
     for row in rows:
         cell = by_grid.get(grid_key(row["lon"], row["lat"], 0.1))
-        if cell is None or not 0 <= now.timestamp() - row["time"] <= 7 * 86400:
+        if cell is None or not 0 <= now.timestamp() - row["time"] <= lookback_s:
             continue
         try:
             speed = float(row["values"]["speed_knots"])
         except (KeyError, TypeError, ValueError):
             continue
-        if math.isfinite(speed) and 1 <= speed < 102.3:
+        if math.isfinite(speed) and minimum_speed <= speed < 102.3:
             grouped[cell["id"]].append(row)
     return [
         c
@@ -127,6 +152,7 @@ def select(
     cells: list[dict[str, Any]],
     frozen: dict[str, Any],
     now: datetime,
+    limits: dict[str, Any],
 ) -> dict[str, Any]:
     unique: dict[str, dict[str, Any]] = {}
     for segment in segments:
@@ -136,12 +162,14 @@ def select(
         unique[group] = segment
     rankings: list[dict[str, Any]] = []
     selected: list[dict[str, Any]] = []
+    context = timedelta(minutes=limits["context_minutes"])
+    maximum_passes = limits["maximum_passes"]
     working = dict(frozen) | {"priors": list(frozen["priors"])}
     for s in sorted(
         unique.values(), key=lambda p: (p["start_utc"], p["planned_native_group"])
     ):
         start, stop = instant(s["start_utc"]), instant(s["end_utc"])
-        if start - timedelta(minutes=30) <= now:
+        if start - context <= now:
             continue
         footprint = shape(s["planned_footprint"])
         eligible = []
@@ -154,9 +182,12 @@ def select(
         if not eligible:
             continue
         eligible.sort(key=lambda c: (c["rank"], c["id"]))
-        row = s | {"eligible_cells": eligible, "selected": len(selected) < 3}
+        row = s | {
+            "eligible_cells": eligible,
+            "selected": len(selected) < maximum_passes,
+        }
         rankings.append(row)
-        if len(selected) >= 3:
+        if len(selected) >= maximum_passes:
             continue
         chosen = eligible[0]
         selected.append(
@@ -167,8 +198,8 @@ def select(
                 "status": "planned_collection_pending_actual_product_and_AIS",
                 "split": "train",
                 "target_cell": chosen,
-                "collection_start_utc": (start - timedelta(minutes=30)).isoformat(),
-                "collection_end_utc": (stop + timedelta(minutes=30)).isoformat(),
+                "collection_start_utc": (start - context).isoformat(),
+                "collection_end_utc": (stop + context).isoformat(),
                 "actual_product_id": None,
                 "actual_product_name": None,
                 "label": None,
@@ -193,6 +224,7 @@ def select(
 def publish(directory: Path) -> None:
     if REPORT.exists() or LOCK.exists() or (directory / "priors.json").exists():
         raise ValueError("Fresh version required")
+    limits = policy()
     now = datetime.now(timezone.utc)
     frozen = freeze_priors(SELECTION)
     save(directory / "priors.json", frozen)
@@ -210,9 +242,10 @@ def publish(directory: Path) -> None:
             json.loads(NEIGHBOUR_POLICY.read_text()),
         ),
         now,
+        limits,
     )
     segments = [s for filename in SOURCES for s in plans(directory / filename)]
-    result = select(segments, cells, frozen, now)
+    result = select(segments, cells, frozen, now, limits)
     manifest = (
         result
         | GUARDS
@@ -265,9 +298,13 @@ def verify(local: bool = False) -> dict[str, Any]:
             or item["split"] != "train"
             or item["actual_product_id"] is not None
             or item["classifier_scored"] is not False
+            or item["exploratory_training_admitted"] is not False
+            or item["native_input_verified"] is not False
+            or item["source_support_verified"] is not False
         ):
             raise ValueError("Unlabelled training collection required")
     if local:
+        limits = policy()
         frozen = json.loads(checked(manifest["private_priors"]).read_text())
         for path, sha in frozen["prior_metadata_hashes"].items():
             checked({"path": path, "sha256": sha})
@@ -291,12 +328,14 @@ def verify(local: bool = False) -> dict[str, Any]:
                 json.loads(NEIGHBOUR_POLICY.read_text()),
             ),
             now,
+            limits,
         )
         replay = select(
             [s for source in manifest["plans"] for s in plans(checked(source))],
             cells,
             frozen,
             now,
+            limits,
         )
         if stats != manifest["archive"] or any(
             manifest[k] != v for k, v in json.loads(json.dumps(replay)).items()
