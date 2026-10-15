@@ -1,0 +1,1294 @@
+{
+  "audited_at": "2026-10-15T09:50:41.114542+00:00",
+  "archive_start_utc": "2026-08-18T20:08:37+00:00",
+  "archive_end_utc": "2026-10-15T09:50:12.615035+00:00",
+  "observation_span_s": 4974095.615035057,
+  "regions": [
+    {
+      "regime": "coastal",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -55.059999999999995,
+              46.965
+            ],
+            [
+              -55.059999999999995,
+              47.095
+            ],
+            [
+              -55.26,
+              47.095
+            ],
+            [
+              -55.26,
+              46.965
+            ],
+            [
+              -55.059999999999995,
+              46.965
+            ]
+          ]
+        ]
+      },
+      "id": "burin_shelf_coastal",
+      "group": "burin_shelf",
+      "reception": {
+        "reports": 0,
+        "unique_identities": 0,
+        "hours_with_reports": 0,
+        "hourly_reports_utc": {},
+        "first_utc": null,
+        "last_utc": null,
+        "last_report_age_s": null,
+        "longest_silent_interval_s_including_edges": 4974095.615035057,
+        "coverage_complete": false
+      },
+      "cd_hh_hv_physical_slices": 10,
+      "cd_hh_hv_native_acquisition_groups": 10,
+      "slices_with_tight_track_support": 0,
+      "new_eligible_slices_with_tight_support": 0,
+      "invalid_catalogue_records_skipped": 0,
+      "passes": [
+        {
+          "product_id": "58a71120-c785-484a-87fd-bad62cf8d851",
+          "name": "S1C_IW_GRDH_1SDH_20260820T094926_20260820T094951_009077_012049_8C34.SAFE",
+          "native_acquisition_group": "S1C_009077_012049",
+          "midpoint_utc": "2026-08-20T09:49:39.405081+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "previously_exposed_or_reserved_acquisition",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "d7a7ba49-a5a6-4cad-95b8-810b10c041ce",
+          "name": "S1D_IW_GRDH_1SDH_20260826T094924_20260826T094949_004295_007E8C_8540.SAFE",
+          "native_acquisition_group": "S1D_004295_007E8C",
+          "midpoint_utc": "2026-08-26T09:49:36.651544+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "2b94ee27-d81e-4ae6-806f-d1206765a7d3",
+          "name": "S1C_IW_GRDH_1SDH_20260901T094927_20260901T094952_009252_01262A_20F7.SAFE",
+          "native_acquisition_group": "S1C_009252_01262A",
+          "midpoint_utc": "2026-09-01T09:49:39.821734+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "20250eeb-7864-4422-bb88-1c3fede1fa01",
+          "name": "S1D_IW_GRDH_1SDH_20260907T094924_20260907T094949_004470_0084A6_2299.SAFE",
+          "native_acquisition_group": "S1D_004470_0084A6",
+          "midpoint_utc": "2026-09-07T09:49:36.863502+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "cd425e4d-7a21-4955-8538-a335825d40b6",
+          "name": "S1C_IW_GRDH_1SDH_20260913T094927_20260913T094952_009427_012C01_A87A.SAFE",
+          "native_acquisition_group": "S1C_009427_012C01",
+          "midpoint_utc": "2026-09-13T09:49:40.217599+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "7a9f4585-eda1-40d6-ac2a-2d9ae83e7634",
+          "name": "S1D_IW_GRDH_1SDH_20260919T094939_20260919T095004_004645_008AB2_40B8.SAFE",
+          "native_acquisition_group": "S1D_004645_008AB2",
+          "midpoint_utc": "2026-09-19T09:49:51.878662+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "294818cb-2c0d-4b4d-bf8f-dbede7ffa063",
+          "name": "S1C_IW_GRDH_1SDH_20260925T094928_20260925T094953_009602_0131C1_DCD0.SAFE",
+          "native_acquisition_group": "S1C_009602_0131C1",
+          "midpoint_utc": "2026-09-25T09:49:40.557338+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "24c27c0d-3ee0-475f-9a4a-e2406427ed56",
+          "name": "S1D_IW_GRDH_1SDH_20261001T094939_20261001T095004_004820_0090C8_6147.SAFE",
+          "native_acquisition_group": "S1D_004820_0090C8",
+          "midpoint_utc": "2026-10-01T09:49:51.994197+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "184d1f5f-1c3b-419f-a48d-24dc94956593",
+          "name": "S1C_IW_GRDH_1SDH_20261007T094928_20261007T094953_009777_013796_57D1.SAFE",
+          "native_acquisition_group": "S1C_009777_013796",
+          "midpoint_utc": "2026-10-07T09:49:40.647278+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "ae107b9d-c5f6-4e2f-b235-ec4ed68b8eb4",
+          "name": "S1D_IW_GRDH_1SDH_20261013T094939_20261013T095004_004995_0096EC_EDE4.SAFE",
+          "native_acquisition_group": "S1D_004995_0096EC",
+          "midpoint_utc": "2026-10-13T09:49:52.034149+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        }
+      ]
+    },
+    {
+      "regime": "offshore",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -54.699999999999996,
+              46.635000000000005
+            ],
+            [
+              -54.699999999999996,
+              46.765
+            ],
+            [
+              -54.9,
+              46.765
+            ],
+            [
+              -54.9,
+              46.635000000000005
+            ],
+            [
+              -54.699999999999996,
+              46.635000000000005
+            ]
+          ]
+        ]
+      },
+      "id": "burin_shelf_offshore",
+      "group": "burin_shelf",
+      "reception": {
+        "reports": 0,
+        "unique_identities": 0,
+        "hours_with_reports": 0,
+        "hourly_reports_utc": {},
+        "first_utc": null,
+        "last_utc": null,
+        "last_report_age_s": null,
+        "longest_silent_interval_s_including_edges": 4974095.615035057,
+        "coverage_complete": false
+      },
+      "cd_hh_hv_physical_slices": 21,
+      "cd_hh_hv_native_acquisition_groups": 16,
+      "slices_with_tight_track_support": 0,
+      "new_eligible_slices_with_tight_support": 0,
+      "invalid_catalogue_records_skipped": 0,
+      "passes": [
+        {
+          "product_id": "58a71120-c785-484a-87fd-bad62cf8d851",
+          "name": "S1C_IW_GRDH_1SDH_20260820T094926_20260820T094951_009077_012049_8C34.SAFE",
+          "native_acquisition_group": "S1C_009077_012049",
+          "midpoint_utc": "2026-08-20T09:49:39.405081+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "previously_exposed_or_reserved_acquisition",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "422e71e8-14ac-4005-9f4d-ad92e203e07a",
+          "name": "S1D_IW_GRDH_1SDH_20260826T094949_20260826T095014_004295_007E8C_FD7A.SAFE",
+          "native_acquisition_group": "S1D_004295_007E8C",
+          "midpoint_utc": "2026-08-26T09:50:01.651467+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "cd432df0-bd60-42e4-a73d-499c6e96cde0",
+          "name": "S1C_IW_GRDH_1SDH_20260827T094104_20260827T094129_009179_0123C7_EF6B.SAFE",
+          "native_acquisition_group": "S1C_009179_0123C7",
+          "midpoint_utc": "2026-08-27T09:41:16.839870+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "0f26477d-7343-4ac9-b58f-28319d8ebe5c",
+          "name": "S1C_IW_GRDH_1SDH_20260827T094129_20260827T094154_009179_0123C7_C94B.SAFE",
+          "native_acquisition_group": "S1C_009179_0123C7",
+          "midpoint_utc": "2026-08-27T09:41:41.839825+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "2b94ee27-d81e-4ae6-806f-d1206765a7d3",
+          "name": "S1C_IW_GRDH_1SDH_20260901T094927_20260901T094952_009252_01262A_20F7.SAFE",
+          "native_acquisition_group": "S1C_009252_01262A",
+          "midpoint_utc": "2026-09-01T09:49:39.821734+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "da8b32e3-8b7c-473a-9a93-7661273fef0d",
+          "name": "S1D_IW_GRDH_1SDH_20260907T094949_20260907T095014_004470_0084A6_B826.SAFE",
+          "native_acquisition_group": "S1D_004470_0084A6",
+          "midpoint_utc": "2026-09-07T09:50:01.863459+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "deff0a34-fa93-4bb6-b52e-bf3d6c940780",
+          "name": "S1C_IW_GRDH_1SDH_20260908T094104_20260908T094129_009354_0129AF_2712.SAFE",
+          "native_acquisition_group": "S1C_009354_0129AF",
+          "midpoint_utc": "2026-09-08T09:41:17.244814+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "5a778f77-81e2-4d26-bed0-c93725bb6b0b",
+          "name": "S1C_IW_GRDH_1SDH_20260908T094129_20260908T094154_009354_0129AF_E436.SAFE",
+          "native_acquisition_group": "S1C_009354_0129AF",
+          "midpoint_utc": "2026-09-08T09:41:42.244840+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "cd425e4d-7a21-4955-8538-a335825d40b6",
+          "name": "S1C_IW_GRDH_1SDH_20260913T094927_20260913T094952_009427_012C01_A87A.SAFE",
+          "native_acquisition_group": "S1C_009427_012C01",
+          "midpoint_utc": "2026-09-13T09:49:40.217599+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "7a9f4585-eda1-40d6-ac2a-2d9ae83e7634",
+          "name": "S1D_IW_GRDH_1SDH_20260919T094939_20260919T095004_004645_008AB2_40B8.SAFE",
+          "native_acquisition_group": "S1D_004645_008AB2",
+          "midpoint_utc": "2026-09-19T09:49:51.878662+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "ff81ce95-f782-4c72-b13d-adbc3abaceee",
+          "name": "S1C_IW_GRDH_1SDH_20260920T094104_20260920T094129_009529_012F67_B107.SAFE",
+          "native_acquisition_group": "S1C_009529_012F67",
+          "midpoint_utc": "2026-09-20T09:41:17.320581+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "ba9f7541-ff58-4489-8709-d4872a71f808",
+          "name": "S1C_IW_GRDH_1SDH_20260920T094129_20260920T094154_009529_012F67_A535.SAFE",
+          "native_acquisition_group": "S1C_009529_012F67",
+          "midpoint_utc": "2026-09-20T09:41:42.320638+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "294818cb-2c0d-4b4d-bf8f-dbede7ffa063",
+          "name": "S1C_IW_GRDH_1SDH_20260925T094928_20260925T094953_009602_0131C1_DCD0.SAFE",
+          "native_acquisition_group": "S1C_009602_0131C1",
+          "midpoint_utc": "2026-09-25T09:49:40.557338+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "24c27c0d-3ee0-475f-9a4a-e2406427ed56",
+          "name": "S1D_IW_GRDH_1SDH_20261001T094939_20261001T095004_004820_0090C8_6147.SAFE",
+          "native_acquisition_group": "S1D_004820_0090C8",
+          "midpoint_utc": "2026-10-01T09:49:51.994197+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "19416098-12f4-468f-831d-94188dab7c71",
+          "name": "S1C_IW_GRDH_1SDH_20261002T094105_20261002T094130_009704_013539_B837.SAFE",
+          "native_acquisition_group": "S1C_009704_013539",
+          "midpoint_utc": "2026-10-02T09:41:17.519744+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "previously_exposed_or_reserved_acquisition",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "5ab5d988-aabc-473a-bec2-72156cb6efbb",
+          "name": "S1C_IW_GRDH_1SDH_20261002T094130_20261002T094155_009704_013539_B25B.SAFE",
+          "native_acquisition_group": "S1C_009704_013539",
+          "midpoint_utc": "2026-10-02T09:41:42.519814+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "previously_exposed_or_reserved_acquisition",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "184d1f5f-1c3b-419f-a48d-24dc94956593",
+          "name": "S1C_IW_GRDH_1SDH_20261007T094928_20261007T094953_009777_013796_57D1.SAFE",
+          "native_acquisition_group": "S1C_009777_013796",
+          "midpoint_utc": "2026-10-07T09:49:40.647278+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "e183ad07-bc46-4ba9-83b0-9e161e65041b",
+          "name": "S1D_IW_GRDH_1SDH_20261008T094126_20261008T094151_004922_00945E_0DAD.SAFE",
+          "native_acquisition_group": "S1D_004922_00945E",
+          "midpoint_utc": "2026-10-08T09:41:39.476536+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "ae107b9d-c5f6-4e2f-b235-ec4ed68b8eb4",
+          "name": "S1D_IW_GRDH_1SDH_20261013T094939_20261013T095004_004995_0096EC_EDE4.SAFE",
+          "native_acquisition_group": "S1D_004995_0096EC",
+          "midpoint_utc": "2026-10-13T09:49:52.034149+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "041254ae-df7c-41a0-89fe-ebfc2147c4c1",
+          "name": "S1C_IW_GRDH_1SDH_20261014T094104_20261014T094129_009879_013B26_1975.SAFE",
+          "native_acquisition_group": "S1C_009879_013B26",
+          "midpoint_utc": "2026-10-14T09:41:17.387823+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "f52bfce4-c7b6-4d47-bdab-0e06a6f71911",
+          "name": "S1C_IW_GRDH_1SDH_20261014T094129_20261014T094154_009879_013B26_F6EC.SAFE",
+          "native_acquisition_group": "S1C_009879_013B26",
+          "midpoint_utc": "2026-10-14T09:41:42.387944+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        }
+      ]
+    },
+    {
+      "regime": "coastal",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -56.91,
+              53.635000000000005
+            ],
+            [
+              -56.91,
+              53.765
+            ],
+            [
+              -57.11,
+              53.765
+            ],
+            [
+              -57.11,
+              53.635000000000005
+            ],
+            [
+              -56.91,
+              53.635000000000005
+            ]
+          ]
+        ]
+      },
+      "id": "cartwright_shelf_coastal",
+      "group": "cartwright_shelf",
+      "reception": {
+        "reports": 0,
+        "unique_identities": 0,
+        "hours_with_reports": 0,
+        "hourly_reports_utc": {},
+        "first_utc": null,
+        "last_utc": null,
+        "last_report_age_s": null,
+        "longest_silent_interval_s_including_edges": 4974095.615035057,
+        "coverage_complete": false
+      },
+      "cd_hh_hv_physical_slices": 23,
+      "cd_hh_hv_native_acquisition_groups": 19,
+      "slices_with_tight_track_support": 0,
+      "new_eligible_slices_with_tight_support": 0,
+      "invalid_catalogue_records_skipped": 0,
+      "passes": [
+        {
+          "product_id": "c2af3bf1-d1fa-402c-923c-99a5edfa69e1",
+          "name": "S1D_IW_GRDH_1SDH_20260819T095609_20260819T095634_004193_007AEA_8895.SAFE",
+          "native_acquisition_group": "S1D_004193_007AEA",
+          "midpoint_utc": "2026-08-19T09:56:22.390397+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "67b0b7fa-0e2b-4c29-a5b7-db0fe0ae7096",
+          "name": "S1D_IW_GRDH_1SDH_20260824T100411_20260824T100440_004266_007D88_8C43.SAFE",
+          "native_acquisition_group": "S1D_004266_007D88",
+          "midpoint_utc": "2026-08-24T10:04:25.789019+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "f26061ca-1fe3-4862-8a21-50b85eb28963",
+          "name": "S1C_IW_GRDH_1SDH_20260825T095540_20260825T095605_009150_0122C6_75FF.SAFE",
+          "native_acquisition_group": "S1C_009150_0122C6",
+          "midpoint_utc": "2026-08-25T09:55:53.206779+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "241fc2a9-bf3a-4d25-98ea-1fe7d591acb6",
+          "name": "S1C_IW_GRDH_1SDH_20260830T100344_20260830T100409_009223_012533_BC9E.SAFE",
+          "native_acquisition_group": "S1C_009223_012533",
+          "midpoint_utc": "2026-08-30T10:03:56.506384+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "327c9e74-e8e5-4a85-89de-1b1e1bbe316c",
+          "name": "S1C_IW_GRDH_1SDH_20260830T100409_20260830T100434_009223_012533_871A.SAFE",
+          "native_acquisition_group": "S1C_009223_012533",
+          "midpoint_utc": "2026-08-30T10:04:21.506714+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "65cc1f9a-27f7-42b1-9547-83adf3fc380b",
+          "name": "S1D_IW_GRDH_1SDH_20260831T095610_20260831T095635_004368_008119_21AD.SAFE",
+          "native_acquisition_group": "S1D_004368_008119",
+          "midpoint_utc": "2026-08-31T09:56:23.103997+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "e8dff623-572e-4114-ab0b-44950e7e1e04",
+          "name": "S1D_IW_GRDH_1SDH_20260905T100411_20260905T100440_004441_0083A6_C894.SAFE",
+          "native_acquisition_group": "S1D_004441_0083A6",
+          "midpoint_utc": "2026-09-05T10:04:26.068098+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "7cfe2bd1-feb6-4fe2-9aba-b5d8a62449f5",
+          "name": "S1C_IW_GRDH_1SDH_20260906T095541_20260906T095606_009325_0128AE_D79F.SAFE",
+          "native_acquisition_group": "S1C_009325_0128AE",
+          "midpoint_utc": "2026-09-06T09:55:53.620017+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "5d45dcc5-17c4-4d87-9f2c-81d7f007c984",
+          "name": "S1C_IW_GRDH_1SDH_20260911T100344_20260911T100409_009398_012B10_D6FD.SAFE",
+          "native_acquisition_group": "S1C_009398_012B10",
+          "midpoint_utc": "2026-09-11T10:03:56.834117+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "a6df2340-171b-4484-b796-0f3952914173",
+          "name": "S1C_IW_GRDH_1SDH_20260911T100409_20260911T100434_009398_012B10_DD66.SAFE",
+          "native_acquisition_group": "S1C_009398_012B10",
+          "midpoint_utc": "2026-09-11T10:04:21.834512+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "9ff1e34f-1b0c-4c5e-b093-64cff2589265",
+          "name": "S1D_IW_GRDH_1SDH_20260912T095611_20260912T095636_004543_008731_87AE.SAFE",
+          "native_acquisition_group": "S1D_004543_008731",
+          "midpoint_utc": "2026-09-12T09:56:23.573767+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "89c9a000-c20d-4ee3-a95c-5bcc86b8dc44",
+          "name": "S1D_IW_GRDH_1SDH_20260917T100421_20260917T100446_004616_0089B0_FF04.SAFE",
+          "native_acquisition_group": "S1D_004616_0089B0",
+          "midpoint_utc": "2026-09-17T10:04:33.614882+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "d1d8d86d-7d7a-4d49-993b-19fd64ddad10",
+          "name": "S1C_IW_GRDH_1SDH_20260918T095541_20260918T095606_009500_012E71_85FB.SAFE",
+          "native_acquisition_group": "S1C_009500_012E71",
+          "midpoint_utc": "2026-09-18T09:55:53.677035+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "Conflicting acquisition/geography assignments",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "f8c1622e-4d3c-4a3d-93ba-af91f4ba7b50",
+          "name": "S1C_IW_GRDH_1SDH_20260923T100344_20260923T100409_009573_0130CC_396C.SAFE",
+          "native_acquisition_group": "S1C_009573_0130CC",
+          "midpoint_utc": "2026-09-23T10:03:57.134361+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "98bda138-9e6e-4d77-a87f-273534802f87",
+          "name": "S1C_IW_GRDH_1SDH_20260923T100409_20260923T100434_009573_0130CC_0E6E.SAFE",
+          "native_acquisition_group": "S1C_009573_0130CC",
+          "midpoint_utc": "2026-09-23T10:04:22.134804+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "fe0a2858-f9fa-418e-9e8e-c9c50f8dfdc4",
+          "name": "S1D_IW_GRDH_1SDH_20260924T095608_20260924T095633_004718_008D37_3A28.SAFE",
+          "native_acquisition_group": "S1D_004718_008D37",
+          "midpoint_utc": "2026-09-24T09:56:21.045394+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "90fcf35b-992c-4939-a861-4b6ea1986591",
+          "name": "S1D_IW_GRDH_1SDH_20260929T100421_20260929T100446_004791_008FBA_34DB.SAFE",
+          "native_acquisition_group": "S1D_004791_008FBA",
+          "midpoint_utc": "2026-09-29T10:04:33.629845+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "6855a01c-a80c-4cdd-a540-a59bf603c699",
+          "name": "S1C_IW_GRDH_1SDH_20260930T095541_20260930T095606_009675_013436_EAE5.SAFE",
+          "native_acquisition_group": "S1C_009675_013436",
+          "midpoint_utc": "2026-09-30T09:55:53.995164+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "05ebb2b7-1bbd-4da5-8d09-128de0259539",
+          "name": "S1C_IW_GRDH_1SDH_20261005T100345_20261005T100410_009748_0136A3_4C86.SAFE",
+          "native_acquisition_group": "S1C_009748_0136A3",
+          "midpoint_utc": "2026-10-05T10:03:57.646682+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "Conflicting acquisition/geography assignments",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "0082cadb-9a88-499c-8e98-8aa9017f6402",
+          "name": "S1C_IW_GRDH_1SDH_20261005T100410_20261005T100435_009748_0136A3_495A.SAFE",
+          "native_acquisition_group": "S1C_009748_0136A3",
+          "midpoint_utc": "2026-10-05T10:04:22.646402+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "Conflicting acquisition/geography assignments",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "204a5846-64a3-457e-9330-c0a41d11b4e6",
+          "name": "S1D_IW_GRDH_1SDH_20261006T095608_20261006T095633_004893_009350_5ADD.SAFE",
+          "native_acquisition_group": "S1D_004893_009350",
+          "midpoint_utc": "2026-10-06T09:56:21.116827+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "588c6969-6f8c-44ea-ab5b-80a400f818bf",
+          "name": "S1D_IW_GRDH_1SDH_20261011T100421_20261011T100446_004966_0095E7_0894.SAFE",
+          "native_acquisition_group": "S1D_004966_0095E7",
+          "midpoint_utc": "2026-10-11T10:04:33.788478+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "9ba2ab3c-a1e4-4f32-8988-c95d9ea9d8e5",
+          "name": "S1C_IW_GRDH_1SDH_20261012T095541_20261012T095606_009850_013A1C_D12B.SAFE",
+          "native_acquisition_group": "S1C_009850_013A1C",
+          "midpoint_utc": "2026-10-12T09:55:54.018342+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        }
+      ]
+    },
+    {
+      "regime": "offshore",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -55.4,
+              53.535000000000004
+            ],
+            [
+              -55.4,
+              53.665
+            ],
+            [
+              -55.6,
+              53.665
+            ],
+            [
+              -55.6,
+              53.535000000000004
+            ],
+            [
+              -55.4,
+              53.535000000000004
+            ]
+          ]
+        ]
+      },
+      "id": "cartwright_shelf_offshore",
+      "group": "cartwright_shelf",
+      "reception": {
+        "reports": 1,
+        "unique_identities": 1,
+        "hours_with_reports": 1,
+        "hourly_reports_utc": {
+          "2026-10-10T05": 1
+        },
+        "first_utc": "2026-10-10T05:19:14.665601+00:00",
+        "last_utc": "2026-10-10T05:19:14.665601+00:00",
+        "last_report_age_s": 448286.44894099236,
+        "longest_silent_interval_s_including_edges": 4525837.665601015,
+        "coverage_complete": false
+      },
+      "cd_hh_hv_physical_slices": 23,
+      "cd_hh_hv_native_acquisition_groups": 19,
+      "slices_with_tight_track_support": 0,
+      "new_eligible_slices_with_tight_support": 0,
+      "invalid_catalogue_records_skipped": 0,
+      "passes": [
+        {
+          "product_id": "c2af3bf1-d1fa-402c-923c-99a5edfa69e1",
+          "name": "S1D_IW_GRDH_1SDH_20260819T095609_20260819T095634_004193_007AEA_8895.SAFE",
+          "native_acquisition_group": "S1D_004193_007AEA",
+          "midpoint_utc": "2026-08-19T09:56:22.390397+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "67b0b7fa-0e2b-4c29-a5b7-db0fe0ae7096",
+          "name": "S1D_IW_GRDH_1SDH_20260824T100411_20260824T100440_004266_007D88_8C43.SAFE",
+          "native_acquisition_group": "S1D_004266_007D88",
+          "midpoint_utc": "2026-08-24T10:04:25.789019+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "f26061ca-1fe3-4862-8a21-50b85eb28963",
+          "name": "S1C_IW_GRDH_1SDH_20260825T095540_20260825T095605_009150_0122C6_75FF.SAFE",
+          "native_acquisition_group": "S1C_009150_0122C6",
+          "midpoint_utc": "2026-08-25T09:55:53.206779+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "241fc2a9-bf3a-4d25-98ea-1fe7d591acb6",
+          "name": "S1C_IW_GRDH_1SDH_20260830T100344_20260830T100409_009223_012533_BC9E.SAFE",
+          "native_acquisition_group": "S1C_009223_012533",
+          "midpoint_utc": "2026-08-30T10:03:56.506384+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "327c9e74-e8e5-4a85-89de-1b1e1bbe316c",
+          "name": "S1C_IW_GRDH_1SDH_20260830T100409_20260830T100434_009223_012533_871A.SAFE",
+          "native_acquisition_group": "S1C_009223_012533",
+          "midpoint_utc": "2026-08-30T10:04:21.506714+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "65cc1f9a-27f7-42b1-9547-83adf3fc380b",
+          "name": "S1D_IW_GRDH_1SDH_20260831T095610_20260831T095635_004368_008119_21AD.SAFE",
+          "native_acquisition_group": "S1D_004368_008119",
+          "midpoint_utc": "2026-08-31T09:56:23.103997+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "e8dff623-572e-4114-ab0b-44950e7e1e04",
+          "name": "S1D_IW_GRDH_1SDH_20260905T100411_20260905T100440_004441_0083A6_C894.SAFE",
+          "native_acquisition_group": "S1D_004441_0083A6",
+          "midpoint_utc": "2026-09-05T10:04:26.068098+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "7cfe2bd1-feb6-4fe2-9aba-b5d8a62449f5",
+          "name": "S1C_IW_GRDH_1SDH_20260906T095541_20260906T095606_009325_0128AE_D79F.SAFE",
+          "native_acquisition_group": "S1C_009325_0128AE",
+          "midpoint_utc": "2026-09-06T09:55:53.620017+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "5d45dcc5-17c4-4d87-9f2c-81d7f007c984",
+          "name": "S1C_IW_GRDH_1SDH_20260911T100344_20260911T100409_009398_012B10_D6FD.SAFE",
+          "native_acquisition_group": "S1C_009398_012B10",
+          "midpoint_utc": "2026-09-11T10:03:56.834117+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "a6df2340-171b-4484-b796-0f3952914173",
+          "name": "S1C_IW_GRDH_1SDH_20260911T100409_20260911T100434_009398_012B10_DD66.SAFE",
+          "native_acquisition_group": "S1C_009398_012B10",
+          "midpoint_utc": "2026-09-11T10:04:21.834512+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "9ff1e34f-1b0c-4c5e-b093-64cff2589265",
+          "name": "S1D_IW_GRDH_1SDH_20260912T095611_20260912T095636_004543_008731_87AE.SAFE",
+          "native_acquisition_group": "S1D_004543_008731",
+          "midpoint_utc": "2026-09-12T09:56:23.573767+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "89c9a000-c20d-4ee3-a95c-5bcc86b8dc44",
+          "name": "S1D_IW_GRDH_1SDH_20260917T100421_20260917T100446_004616_0089B0_FF04.SAFE",
+          "native_acquisition_group": "S1D_004616_0089B0",
+          "midpoint_utc": "2026-09-17T10:04:33.614882+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "d1d8d86d-7d7a-4d49-993b-19fd64ddad10",
+          "name": "S1C_IW_GRDH_1SDH_20260918T095541_20260918T095606_009500_012E71_85FB.SAFE",
+          "native_acquisition_group": "S1C_009500_012E71",
+          "midpoint_utc": "2026-09-18T09:55:53.677035+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "Conflicting acquisition/geography assignments",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "f8c1622e-4d3c-4a3d-93ba-af91f4ba7b50",
+          "name": "S1C_IW_GRDH_1SDH_20260923T100344_20260923T100409_009573_0130CC_396C.SAFE",
+          "native_acquisition_group": "S1C_009573_0130CC",
+          "midpoint_utc": "2026-09-23T10:03:57.134361+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "98bda138-9e6e-4d77-a87f-273534802f87",
+          "name": "S1C_IW_GRDH_1SDH_20260923T100409_20260923T100434_009573_0130CC_0E6E.SAFE",
+          "native_acquisition_group": "S1C_009573_0130CC",
+          "midpoint_utc": "2026-09-23T10:04:22.134804+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "fe0a2858-f9fa-418e-9e8e-c9c50f8dfdc4",
+          "name": "S1D_IW_GRDH_1SDH_20260924T095608_20260924T095633_004718_008D37_3A28.SAFE",
+          "native_acquisition_group": "S1D_004718_008D37",
+          "midpoint_utc": "2026-09-24T09:56:21.045394+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "90fcf35b-992c-4939-a861-4b6ea1986591",
+          "name": "S1D_IW_GRDH_1SDH_20260929T100421_20260929T100446_004791_008FBA_34DB.SAFE",
+          "native_acquisition_group": "S1D_004791_008FBA",
+          "midpoint_utc": "2026-09-29T10:04:33.629845+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "6855a01c-a80c-4cdd-a540-a59bf603c699",
+          "name": "S1C_IW_GRDH_1SDH_20260930T095541_20260930T095606_009675_013436_EAE5.SAFE",
+          "native_acquisition_group": "S1C_009675_013436",
+          "midpoint_utc": "2026-09-30T09:55:53.995164+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "05ebb2b7-1bbd-4da5-8d09-128de0259539",
+          "name": "S1C_IW_GRDH_1SDH_20261005T100345_20261005T100410_009748_0136A3_4C86.SAFE",
+          "native_acquisition_group": "S1C_009748_0136A3",
+          "midpoint_utc": "2026-10-05T10:03:57.646682+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "Conflicting acquisition/geography assignments",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "0082cadb-9a88-499c-8e98-8aa9017f6402",
+          "name": "S1C_IW_GRDH_1SDH_20261005T100410_20261005T100435_009748_0136A3_495A.SAFE",
+          "native_acquisition_group": "S1C_009748_0136A3",
+          "midpoint_utc": "2026-10-05T10:04:22.646402+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": false,
+          "exclusion_reason": "Conflicting acquisition/geography assignments",
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "204a5846-64a3-457e-9330-c0a41d11b4e6",
+          "name": "S1D_IW_GRDH_1SDH_20261006T095608_20261006T095633_004893_009350_5ADD.SAFE",
+          "native_acquisition_group": "S1D_004893_009350",
+          "midpoint_utc": "2026-10-06T09:56:21.116827+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "588c6969-6f8c-44ea-ab5b-80a400f818bf",
+          "name": "S1D_IW_GRDH_1SDH_20261011T100421_20261011T100446_004966_0095E7_0894.SAFE",
+          "native_acquisition_group": "S1D_004966_0095E7",
+          "midpoint_utc": "2026-10-11T10:04:33.788478+00:00",
+          "whole_envelope_in_swath": false,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        },
+        {
+          "product_id": "9ba2ab3c-a1e4-4f32-8988-c95d9ea9d8e5",
+          "name": "S1C_IW_GRDH_1SDH_20261012T095541_20261012T095606_009850_013A1C_D12B.SAFE",
+          "native_acquisition_group": "S1C_009850_013A1C",
+          "midpoint_utc": "2026-10-12T09:55:54.018342+00:00",
+          "whole_envelope_in_swath": true,
+          "aligned_tracks_in_envelope_and_swath": 0,
+          "tracks_with_120s_report_and_240s_bracket": 0,
+          "new_training_acquisition_eligible": true,
+          "exclusion_reason": null,
+          "native_input_verified": false,
+          "label_admitted": false
+        }
+      ]
+    }
+  ],
+  "coverage_complete": false,
+  "labels_admitted": 0,
+  "limits": [
+    "Observed reception only; no denominator for vessels not received.",
+    "Silent intervals include vessel absence, feed limits and recorder outages; these causes cannot be distinguished here.",
+    "SAR support uses catalogue midpoint, not native target time; no label admission.",
+    "Training envelopes are sparse sampling areas, not province-wide coverage.",
+    "Adjacent slices, repeated identities and report counts are not independent trials.",
+    "No model scores, protected SAR pixels or quarantined annotations are read."
+  ],
+  "archive": {
+    "input_rows": 223468,
+    "legacy_naive_utc_reports": 19621,
+    "valid_unique_reports": 223468,
+    "first_utc": "2026-08-18T20:08:37+00:00",
+    "last_utc": "2026-10-15T09:50:12.615035+00:00",
+    "dates_present": [
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-10",
+      "2026-10-11",
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14",
+      "2026-10-15"
+    ]
+  },
+  "catalogue_records": 1932,
+  "inputs": {
+    "snapshot": {
+      "path": "data/research/training_ais_coverage_v010_01/snapshot_manifest.json",
+      "sha256": "315667a45df3b7bea2e9b7d676485b592c7edfab69b666a314933ec9a753e1d2"
+    },
+    "catalogue": {
+      "path": "data/research/training_ais_coverage_v010_01/catalogue.json",
+      "sha256": "59d44ddc2ebd74248615d64fec54cb598b2e4341bd35e2e06f0f2155ca7d8e09"
+    },
+    "priors": {
+      "path": "data/research/training_ais_coverage_v010_01/priors.json",
+      "sha256": "dfa1bea97c31703436c30013a13c44133637ade4de70df537dc08bd253ce3cb8"
+    },
+    "regions": {
+      "path": "configs/reservations/hh_hv_development_v010.json",
+      "sha256": "58aed12504f080d2c68b9c1a184eef8f354a6a5fdc71ceb6ac872057a8f31b72"
+    },
+    "implementation": {
+      "path": "agents/training_ais_coverage.py",
+      "sha256": "a93fff6e31d9f9ec47d816840600a9265f236f6187be7bc6d37344947b332767"
+    }
+  }
+}
