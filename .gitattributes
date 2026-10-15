@@ -160,3 +160,5 @@ docs/PASS_COLLECTION_AND_NEIGHBOURS.md text eol=lf
 agents/targeted_collection.py text eol=lf
 tests/unit/test_targeted_collection.py text eol=lf
 docs/TARGETED_AIS_COLLECTION.md text eol=lf
+reservations/targeted_collection/v0.1.0/manifest.json text eol=lf
+docs/evidence/targeted_recorder_deployment_v010.json text eol=lf
