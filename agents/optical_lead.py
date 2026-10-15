@@ -44,9 +44,39 @@ def require_permitted_geometry(
     return float(min(distances))
 
 
+def window_geometry(window: Window, transform: Any, crs: str) -> dict[str, Any]:
+    inverse = Transformer.from_crs(crs, 4326, always_xy=True)
+    geometry: dict[str, Any] = mapping(
+        geometry_transform(
+            inverse.transform, box(*rasterio.windows.bounds(window, transform))
+        )
+    )
+    return geometry
+
+
+def window_contains(outer: Window, inner: Window) -> bool:
+    return bool(
+        inner.col_off >= outer.col_off
+        and inner.row_off >= outer.row_off
+        and inner.col_off + inner.width <= outer.col_off + outer.width
+        and inner.row_off + inner.height <= outer.row_off + outer.height
+    )
+
+
+def classification_patch(
+    classification_path: Path, mask_window: Window, centre: tuple[float, float]
+) -> np.ndarray[Any, Any]:
+    central_window = Window(int(centre[0]) - 2, int(centre[1]) - 2, 5, 5)
+    if not window_contains(mask_window, central_window):
+        raise ValueError("Classification target patch outside permitted window")
+    with rasterio.open(classification_path) as ds:
+        patch: np.ndarray[Any, Any] = ds.read(window=central_window)
+        return patch
+
+
 def inspection_window(
     transform: Any, crs: str, shape: tuple[int, int]
-) -> tuple[Any, float]:
+) -> tuple[Any, float, list[dict[str, Any]], float]:
     rules = json.loads(SCOPE.read_text())
     prepared = json.loads(checked(rules["prepared"]).read_text())
     product, area = next(
@@ -58,7 +88,6 @@ def inspection_window(
     if area["split"] != "train":
         raise ValueError("Original training assignment required")
     project = Transformer.from_crs(4326, crs, always_xy=True)
-    inverse = Transformer.from_crs(crs, 4326, always_xy=True)
     extent = geometry_transform(project.transform, geometry_shape(area["geometry"]))
     requested = from_bounds(*extent.bounds, transform)
     col, row = int(np.floor(requested.col_off)), int(np.floor(requested.row_off))
@@ -68,20 +97,15 @@ def inspection_window(
         int(np.ceil(requested.col_off + requested.width)) - col,
         int(np.ceil(requested.row_off + requested.height)) - row,
     ).intersection(Window(0, 0, shape[1], shape[0]))
-    read_geometry = mapping(
-        geometry_transform(
-            inverse.transform, box(*rasterio.windows.bounds(window, transform))
-        )
-    )
+    read_geometry = window_geometry(window, transform, crs)
     require_development_scene(
         product["product_id"],
         {"name": product["name"], "split": "train", "study_roi": read_geometry},
     )
     priors, _, _ = prior_assignments()
-    distance = require_permitted_geometry(
-        read_geometry, priors, rules["minimum_protected_separation_m"]
-    )
-    return window, distance
+    minimum_separation = rules["minimum_protected_separation_m"]
+    distance = require_permitted_geometry(read_geometry, priors, minimum_separation)
+    return window, distance, priors, minimum_separation
 
 
 def source() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
@@ -249,7 +273,9 @@ def render_data(path: Path, output: Path) -> dict[str, Any]:
         np.ceil(requested.row_off + requested.height)
     )
     requested = Window(col, row, endcol - col, endrow - row)
-    window, protected_distance = inspection_window(transform, crs, shape)
+    window, protected_distance, priors, minimum_separation = inspection_window(
+        transform, crs, shape
+    )
     arrays = {}
     for band in rules["optical_bands"]:
         with rasterio.open(checked(download["assets"][band])) as ds:
@@ -305,21 +331,27 @@ def render_data(path: Path, output: Path) -> dict[str, Any]:
             tile = output / f"review_{yy}_{xx}.png"
             Image.fromarray(rgb[yy : yy + 1024, xx : xx + 1024]).save(tile)
             tiles.append({"offset": [xx, yy], "image": ref(tile)})
-    mask_transform, _, mask_shape = geocoding(checked(download["tile_metadata"]), 60)
+    mask_transform, mask_crs, mask_shape = geocoding(
+        checked(download["tile_metadata"]), 60
+    )
     mask_window = (
         from_bounds(*rasterio.windows.bounds(window, transform), mask_transform)
         .round_offsets()
         .round_lengths()
+    )
+    require_permitted_geometry(
+        window_geometry(mask_window, mask_transform, mask_crs),
+        priors,
+        minimum_separation,
     )
     with rasterio.open(checked(download["assets"]["classification"])) as ds:
         if ds.count != 3 or (ds.height, ds.width) != mask_shape:
             raise ValueError("Three native classification planes required")
         masks = ds.read(window=mask_window)
     mask_centre = (~mask_transform) * (x, y)
-    with rasterio.open(checked(download["assets"]["classification"])) as ds:
-        central = ds.read(
-            window=Window(int(mask_centre[0]) - 2, int(mask_centre[1]) - 2, 5, 5)
-        )
+    central = classification_patch(
+        checked(download["assets"]["classification"]), mask_window, mask_centre
+    )
     tile_root = ET.parse(checked(download["tile_metadata"]))
     return {
         "policy": ref(POLICY),

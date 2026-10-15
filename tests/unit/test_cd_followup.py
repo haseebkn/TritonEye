@@ -10,13 +10,21 @@ from pathlib import Path
 import numpy as np
 import psutil
 import pytest
+import rasterio
+from rasterio.windows import Window
 from shapely.geometry import box, mapping
 
 from agents.artifacts import REPO_ROOT
 from agents.cd_followup_evidence import LOCK, validate, verify
 from agents.cd_noise_diagnosis import corrected_power, linear, mjd2000, timed_noise
 from agents.cd_reference import retry, retry_directory
-from agents.optical_lead import geocoding, radiometry, require_permitted_geometry
+from agents.optical_lead import (
+    classification_patch,
+    geocoding,
+    radiometry,
+    require_permitted_geometry,
+    window_contains,
+)
 from agents.snap_reference import execute
 from agents.source_reservation import checked
 from agents.target_noise_audit import noise_power
@@ -103,6 +111,44 @@ def test_optical_protected_geometry_is_rejected() -> None:
     assert distance > 10000
     with pytest.raises(ValueError, match="protected"):
         require_permitted_geometry(mapping(box(-55, 46, -54.9, 46.1)), [], 10000)
+
+
+def test_classification_patch_refuses_mismatched_target_without_reading_pixels(
+    tmp_path: Path,
+) -> None:
+    mask_window = Window(100, 100, 20, 20)
+    missing_asset = tmp_path / "classification.jp2"
+    # A mismatched target/area would compute a centre outside the permitted
+    # window; the patch must be refused before any file is opened, so a
+    # nonexistent asset path proves no pixel read is attempted.
+    with pytest.raises(ValueError, match="outside permitted window"):
+        classification_patch(missing_asset, mask_window, (5.0, 5.0))
+    assert not missing_asset.exists()
+
+
+def test_classification_patch_reads_when_contained(tmp_path: Path) -> None:
+    asset = tmp_path / "classification.jp2"
+    with rasterio.open(
+        asset,
+        "w",
+        driver="GTiff",
+        height=140,
+        width=140,
+        count=3,
+        dtype="uint8",
+    ) as ds:
+        ds.write(np.ones((3, 140, 140), dtype="uint8"))
+    mask_window = Window(100, 100, 20, 20)
+    patch = classification_patch(asset, mask_window, (108.0, 109.0))
+    assert patch.shape == (3, 5, 5)
+
+
+def test_window_contains_boundaries() -> None:
+    outer = Window(100, 100, 20, 20)
+    assert window_contains(outer, Window(105, 105, 5, 5))
+    assert window_contains(outer, Window(100, 100, 20, 20))
+    assert not window_contains(outer, Window(95, 105, 5, 5))
+    assert not window_contains(outer, Window(115, 115, 10, 10))
 
 
 def test_collection1_offsets_and_native_tile_geocoding(tmp_path: Path) -> None:
