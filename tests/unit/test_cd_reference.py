@@ -51,7 +51,7 @@ def test_metadata_subject_mismatch_is_refused(part: int, change: str) -> None:
     else:
         values[part] = xml().replace(b"09:49:24", b"09:48:24")
     with pytest.raises(ValueError, match="identity"):
-        header(*values, "S1C", "HH")
+        header(values[0], values[1], values[2], "S1C", "HH")
 
 
 @pytest.mark.parametrize("corrected", ["true", "", "unknown"])
