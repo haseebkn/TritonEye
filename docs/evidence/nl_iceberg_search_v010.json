@@ -1,0 +1,204 @@
+{
+  "version": "0.1.0",
+  "inputs": {
+    "policy": {
+      "path": "configs/reservations/nl_iceberg_search_v010.json",
+      "sha256": "b2f3d849425bf9874100245fb8f9a4e6bad0adfceb59bb54e6dc14dd0f9e1415"
+    },
+    "ranking": {
+      "path": "data/source_supported/v010_01/corrected_audit/iip_ranked.json",
+      "sha256": "b82b394d878a5595ba56d9fdb5a02ef87862f8e38e68c65cbdaaaafdbfab9db7"
+    },
+    "normalized": {
+      "path": "data/source_supported/v010_01/corrected_audit/iip_normalized.json",
+      "sha256": "addf79a634aa18de958a797ffc4189907b1ba99cbb51d84f4593add36a24d10f"
+    },
+    "priors": {
+      "path": "data/source_supported/nl_iceberg_search_v010_03/priors.json",
+      "sha256": "dfa1bea97c31703436c30013a13c44133637ade4de70df537dc08bd253ce3cb8"
+    },
+    "selection": {
+      "path": "data/source_supported/nl_iceberg_search_v010_03/selection.json",
+      "sha256": "b6620ec60c6b112143dd7ab3130535aab60f163cf63c56d4e967f1c12b3de7c3"
+    },
+    "search": {
+      "path": "data/source_supported/nl_iceberg_search_v010_03/search.json",
+      "sha256": "d1e0ca36ecc10626d30d16899dd66ba281753345a1ec4cf97ab496c71d02f633"
+    },
+    "implementation": {
+      "path": "agents/nl_iceberg_search.py",
+      "sha256": "8cbc7f63654310e9b4fb8a8ed300bef0467d036b828dde6f91174e9b4cac3d06"
+    }
+  },
+  "screen_counts": {
+    "outside_source_screen": 1627,
+    "Existing validation or protected role cannot become training": 1,
+    "source_first_without_established_sar_overlap": 6
+  },
+  "anchors": [
+    {
+      "id": "iceberg_source_anchor_01",
+      "product_id": null,
+      "name": null,
+      "geographic_group": "new_cell_-55_53",
+      "source_utc": "2020-09-27T19:08:00+00:00",
+      "method": "R/V",
+      "source_sar_offset_s": null,
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false,
+      "label": null,
+      "reserved": false
+    },
+    {
+      "id": "iceberg_source_anchor_02",
+      "product_id": null,
+      "name": null,
+      "geographic_group": "new_cell_-57_54",
+      "source_utc": "2020-09-20T17:15:00+00:00",
+      "method": "R/V",
+      "source_sar_offset_s": null,
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false,
+      "label": null,
+      "reserved": false
+    },
+    {
+      "id": "iceberg_source_anchor_03",
+      "product_id": null,
+      "name": null,
+      "geographic_group": "new_cell_-60_55",
+      "source_utc": "2020-09-09T23:45:00+00:00",
+      "method": "R/V",
+      "source_sar_offset_s": null,
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false,
+      "label": null,
+      "reserved": false
+    },
+    {
+      "id": "iceberg_source_anchor_04",
+      "product_id": null,
+      "name": null,
+      "geographic_group": "new_cell_-53_52",
+      "source_utc": "2020-08-23T13:16:00+00:00",
+      "method": "R/V",
+      "source_sar_offset_s": null,
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false,
+      "label": null,
+      "reserved": false
+    },
+    {
+      "id": "iceberg_source_anchor_05",
+      "product_id": null,
+      "name": null,
+      "geographic_group": "new_cell_-53_52",
+      "source_utc": "2020-08-23T13:15:00+00:00",
+      "method": "R/V",
+      "source_sar_offset_s": null,
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false,
+      "label": null,
+      "reserved": false
+    },
+    {
+      "id": "iceberg_source_anchor_06",
+      "product_id": null,
+      "name": null,
+      "geographic_group": "new_cell_-53_53",
+      "source_utc": "2020-08-17T17:13:00+00:00",
+      "method": "R/V",
+      "source_sar_offset_s": null,
+      "sentinel2_status": "complete",
+      "landsat_status": "complete",
+      "sentinel2_products": [],
+      "landsat_products": [],
+      "physical_corroboration": false,
+      "label": null,
+      "reserved": false
+    }
+  ],
+  "public_sources": [
+    {
+      "url": "https://nsidc.org/data/g00807/versions/1",
+      "purpose": "Published temporal range, source description and citation requirements",
+      "same_reflector_confirmed": false,
+      "status": "retrieved",
+      "response": {
+        "path": "data/source_supported/nl_iceberg_search_v010_03/public_source_00.html",
+        "sha256": "6e2f86e8b3962722d5939d900bf8704118696ad48507825c0783889d7d3d35e0"
+      },
+      "final_url": "https://nsidc.org/data/g00807/versions/1",
+      "retrieved_at": "2026-10-15T12:00:36.402405+00:00"
+    },
+    {
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G00807/",
+      "purpose": "Public archive listing; inspect availability of newer observation years",
+      "same_reflector_confirmed": false,
+      "status": "retrieved",
+      "response": {
+        "path": "data/source_supported/nl_iceberg_search_v010_03/public_source_01.html",
+        "sha256": "1a4e4ad0ccf58a188ff3ac863cf54769316b66e824f8b8feaa4c4e782a037382"
+      },
+      "final_url": "https://noaadata.apps.nsidc.org/NOAA/G00807/",
+      "retrieved_at": "2026-10-15T12:00:37.070989+00:00"
+    },
+    {
+      "url": "https://www.navcen.uscg.gov/international-ice-patrol-photos",
+      "purpose": "Check whether the public gallery exposes object-level date/position evidence",
+      "same_reflector_confirmed": false,
+      "status": "retrieved",
+      "response": {
+        "path": "data/source_supported/nl_iceberg_search_v010_03/public_source_02.html",
+        "sha256": "734c69655b7436c8bba9dc2a503fc655b9b35fbd1724ea9ace5466ba3cdbd8f2"
+      },
+      "final_url": "https://www.navcen.uscg.gov/international-ice-patrol-photos",
+      "retrieved_at": "2026-10-15T12:00:38.216334+00:00"
+    },
+    {
+      "url": "https://www.navcen.uscg.gov/international-ice-patrol-annual-reports",
+      "purpose": "Locate primary reconnaissance documentation; report existence alone is not object corroboration",
+      "same_reflector_confirmed": false,
+      "status": "retrieved",
+      "response": {
+        "path": "data/source_supported/nl_iceberg_search_v010_03/public_source_03.html",
+        "sha256": "0b6534b9c74f3e94c31e24136cceeb4e268fab84cd4c929039061d4ab32e6d14"
+      },
+      "final_url": "https://www.navcen.uscg.gov/international-ice-patrol-annual-reports",
+      "retrieved_at": "2026-10-15T12:00:38.821279+00:00"
+    }
+  ],
+  "labels_admitted": 0,
+  "accuracy_truth_admitted": false,
+  "prior_project_exposure_disclosed": true,
+  "limits": [
+    "Bounded discovery using existing source observations and cached SAR catalogue overlaps, not an exhaustive search of NL icebergs.",
+    "Visual/RV methods with satellite source prefixes are excluded; the CSV alone lacks observer logs, photographs and calibrated position error.",
+    "Source/SAR timing is catalogue midpoint screening, not native reflector identity or annotation.",
+    "Optical requests cover plus/minus one hour around source time and a 3900 m discovery envelope; this heuristic is not a calibrated drift confidence interval.",
+    "Footprints, scene cloud percentages, repeated publisher reports and public photo galleries do not establish visibility or same-object identity.",
+    "Failed and truncated requests cannot establish zero coverage. No new optical or SAR pixels are interpreted.",
+    "Historical A/B leads cannot establish C/D class performance or Kaggle preprocessing equivalence.",
+    "Existing labels remain provisional and ignored for accuracy; no label, reservation, training export or promotion is created."
+  ],
+  "provisional": true,
+  "ignore_for_accuracy": true,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false
+}

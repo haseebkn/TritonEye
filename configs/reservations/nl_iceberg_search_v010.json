@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "minimum_year": 2018,
+  "sizes": ["MED", "LG", "VLG"],
+  "maximum_sar_offset_s": 900,
+  "half_width_m": 3000,
+  "maximum_anchors": 6,
+  "maximum_per_geographic_group": 2,
+  "fallback": "If eligible known SAR overlaps are exhausted, select previously unreserved visual/RV sources by descending UTC then identity in eligible training geography; no SAR overlap is inferred.",
+  "optical_half_window_s": 3600,
+  "position_allowance_m": 300,
+  "drift_discovery_m_per_s": 1,
+  "landsat_endpoint": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "public_sources": [
+    {"url": "https://nsidc.org/data/g00807/versions/1", "purpose": "Published temporal range, source description and citation requirements"},
+    {"url": "https://noaadata.apps.nsidc.org/NOAA/G00807/", "purpose": "Public archive listing; inspect availability of newer observation years"},
+    {"url": "https://www.navcen.uscg.gov/international-ice-patrol-photos", "purpose": "Check whether the public gallery exposes object-level date/position evidence"},
+    {"url": "https://www.navcen.uscg.gov/international-ice-patrol-annual-reports", "purpose": "Locate primary reconnaissance documentation; report existence alone is not object corroboration"}
+  ],
+  "limits": [
+    "Bounded discovery using existing source observations and cached SAR catalogue overlaps, not an exhaustive search of NL icebergs.",
+    "Visual/RV methods with satellite source prefixes are excluded; the CSV alone lacks observer logs, photographs and calibrated position error.",
+    "Source/SAR timing is catalogue midpoint screening, not native reflector identity or annotation.",
+    "Optical requests cover plus/minus one hour around source time and a 3900 m discovery envelope; this heuristic is not a calibrated drift confidence interval.",
+    "Footprints, scene cloud percentages, repeated publisher reports and public photo galleries do not establish visibility or same-object identity.",
+    "Failed and truncated requests cannot establish zero coverage. No new optical or SAR pixels are interpreted.",
+    "Historical A/B leads cannot establish C/D class performance or Kaggle preprocessing equivalence.",
+    "Existing labels remain provisional and ignored for accuracy; no label, reservation, training export or promotion is created."
+  ]
+}
