@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "maximum_passes": 3,
+  "context_minutes": 30,
+  "reception_lookback_days": 7,
+  "minimum_speed_knots": 1,
+  "ranking": "Earliest future IW HH/HV native group with a whole eligible neighbour cell and recent moving AIS reports; frozen cell rank then ID breaks target ties",
+  "limits": [
+    "Official KML segments are plans, not delivered products. Recheck plan changes and exact catalogue product, datatake, footprint and native object time after acquisition.",
+    "Plan timestamps without timezone suffix are interpreted as UTC. Collection covers the entire planned segment plus 30 minutes each side; local target time is not estimated from a long segment midpoint.",
+    "Reception in the seven days before reservation guides collection only. It does not establish offshore coverage, future reception, water classification or source-supported vessel identity.",
+    "Three distinct acquisition groups are a bounded collection trial, not three labelled vessels or a sufficient training set. Shared geography and repeated vessels remain dependent.",
+    "Only target cells are assigned training intent. Protected portions elsewhere in a wide swath are not authorized for imagery inspection. The recorder continues its existing NL envelope to retain available competing vessels.",
+    "Before image access reconcile actual products against this reservation and all current split, exposure, quarantine and native input guards. Then apply unchanged source timing, motion, shore and identity admission checks.",
+    "No pixels, annotations, model scores, accuracy truth, threshold, training admission or promotion is supplied. Independent review remains unavailable."
+  ]
+}
