@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **15 October 2026**, against main baseline
-`8d3f4e63fa4a74da2920e4792983303fce8a90c0` (PR #35), plus the
+`3038bf4ed2d0af199cf1402f9026253176996d0b` (PR #36), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -26,6 +26,13 @@ mission-specific processing comparisons using four existing training windows.
 Refreshed AIS screening still yields no eligible new training reservation;
 expanded optical searches provide leads but no confirmed iceberg identity.
 The original A/B input contract and all admission/review boundaries remain intact.
+The [C retry and D noise diagnosis](CD_RETRY_NOISE_OPTICAL.md) subsequently
+complete eight nominal reference bands and reproduce all eight noise bands
+with timestamp interpolation. The optical lead is cloud-obscured and remains
+on hold. An initial expanded optical preview overlapped quarantined geography;
+that exposure is recorded and excluded from admission, and the final inspection
+enforces protected separation before pixel reads. No original labels or splits
+were changed and no training labels were admitted.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain

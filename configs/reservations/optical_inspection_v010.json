@@ -1,0 +1,9 @@
+{
+  "version": "0.1.0",
+  "purpose": "Restrict optical pixel inspection to the original permitted SAR window",
+  "prepared": {"path": "data/source_supported/followup_native_v010_01/manifest.json", "sha256": "c45f167faf4ae64ec819bd22eb93760b3baa802103eebc281c527a8ca46b8cda"},
+  "area_id": "next_iceberg_support_02",
+  "minimum_protected_separation_m": 10000,
+  "motion_search": "Record requested heuristic extent, inspect only original permitted window; incomplete motion coverage cannot support identity admission",
+  "earlier_unscoped_previews": "data/optical_review_01 and data/optical_review_02 are retained exposure records only, excluded from label admission"
+}

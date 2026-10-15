@@ -10,6 +10,7 @@ import argparse
 import json
 import shutil
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
@@ -580,6 +581,29 @@ def verify(path: Path) -> dict[str, Any]:
     return report
 
 
+def retry_directory(output: Path, payload: dict[str, Any]) -> Path:
+    """Reject Windows path overflow before creating a partial SAFE wrapper."""
+    output = output.resolve()
+    if sys.platform == "win32":
+        for product in payload["products"]:
+            for area in product["areas"]:
+                for band in product["bands"]:
+                    name = band["measurement_url"].split("/Nodes(")[-1].split(")")[0]
+                    destination = (
+                        output
+                        / area["id"]
+                        / product["name"]
+                        / "annotation/calibration"
+                        / ("calibration-" + name[:-5] + ".xml")
+                    )
+                    if len(str(destination)) >= 260:
+                        raise ValueError(
+                            "Windows SAFE path exceeds 259 characters; "
+                            "choose a shorter fresh project data directory"
+                        )
+    return output
+
+
 def retry(path: Path, output: Path) -> None:
     """One exact-settings retry; retain the first attempt and copied good outputs."""
     original = verify(path)
@@ -587,6 +611,7 @@ def retry(path: Path, output: Path) -> None:
         raise ValueError("Only one automatic retry permitted")
     policy = json.loads(POLICY.read_text())
     payload = json.loads(checked(original["prepared"]).read_text())
+    output = retry_directory(output, payload)
     if (
         available_commit() < 3 * 1024**3
         or psutil.virtual_memory().available < 3 * 1024**3

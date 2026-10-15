@@ -1,0 +1,804 @@
+{
+  "version": "0.1.0",
+  "policy": {
+    "path": "configs/reservations/cd_followup_v010.json",
+    "sha256": "f2facb4d09a062526938e4c5be3cc018019d14e3ef9f51f7dc781d70988b3420"
+  },
+  "inspection_policy": {
+    "path": "configs/reservations/optical_inspection_v010.json",
+    "sha256": "781c5310081e91d889300328c0582ff487b268f4ae9d93928ea8b2a39c12f1df"
+  },
+  "local_inputs": {
+    "snap": {
+      "path": "data/cd_r1/report.json",
+      "sha256": "148815976f20b5169066bd328da61b8cd8a34e83f3933d91bf5f0dc1602ce3fe"
+    },
+    "noise": {
+      "path": "data/cd_noise_02/report.json",
+      "sha256": "0ad3879335443b271d95e5563f1c2c22db09ee8733337270848bafc7a607d005"
+    },
+    "optical": {
+      "path": "data/optical_permitted_01/render.json",
+      "sha256": "95661ffb968eff26742729d200c66fee97819e3e60474afffa2a1de193c3a29c"
+    }
+  },
+  "original_attempt": {
+    "path": "data/source_supported/cd_snap_v010_01/report.json",
+    "sha256": "b69ba01394a5b4021af27719ff1f04930183e6e0373b4e4779ebf4bff1989c29"
+  },
+  "retry": {
+    "nominal_mission_decisions": [
+      {
+        "mission": "S1C",
+        "areas": 2,
+        "nominal_reference_passed": true,
+        "noise_reference_passed": true,
+        "bounded_execution_passed": true,
+        "absolute_geolocation_validated": false,
+        "model_transfer_validated": false,
+        "input_contract_extended": false,
+        "training_admitted": false
+      },
+      {
+        "mission": "S1D",
+        "areas": 2,
+        "nominal_reference_passed": true,
+        "noise_reference_passed": false,
+        "bounded_execution_passed": true,
+        "absolute_geolocation_validated": false,
+        "model_transfer_validated": false,
+        "input_contract_extended": false,
+        "training_admitted": false
+      }
+    ],
+    "areas": [
+      {
+        "id": "burin_shelf_summer_coastal",
+        "mission": "S1C",
+        "regime": "coastal",
+        "comparison": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 2.3677136553601486e-06,
+              "mean_signed_db": 1.665771530135722e-09,
+              "rmse_db": 5.407062613321189e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.4549586541411372e-06,
+              "mean_signed_db": 4.675440245081725e-09,
+              "rmse_db": 6.114589614903322e-07,
+              "passed": true
+            }
+          ],
+          "passed": true,
+          "noise": [
+            {
+              "polarization": "HH",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 8.040022692057391e-07,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 3291,
+              "median_change_db": -0.8912556639880851
+            },
+            {
+              "polarization": "HV",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 1.5581881527282349e-06,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 21127,
+              "median_change_db": -2.492051558461684
+            }
+          ]
+        },
+        "executions": {
+          "raw": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 205.17295919999015,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.log",
+              "sha256": "8625d476edc71f0333d6d46497cd9c57b27dce2d93648a19577b80f2cb5cd03b"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/raw.xml",
+              "sha256": "642583ba4248ea5edacc99f22a939b42f9b2d8cb14ff6248b155106ea22b8cc6"
+            }
+          },
+          "calibration": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 83.35736230001203,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.log",
+              "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/calibration.xml",
+              "sha256": "fe032305d692fefbda348d08f5b557ae149096aaca47633a545ca7cc86738050"
+            }
+          },
+          "noise": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 160.95630469999742,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.log",
+              "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_coastal/noise.xml",
+              "sha256": "35506a6107863bf7b64c9780cd630dd6db1479d1caa39c386f7300864ff67d56"
+            }
+          }
+        }
+      },
+      {
+        "id": "burin_shelf_summer_offshore",
+        "mission": "S1C",
+        "regime": "offshore",
+        "comparison": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 2.1778586187792826e-06,
+              "mean_signed_db": 2.8128975259082353e-09,
+              "rmse_db": 6.175751845967267e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.4401605358548295e-06,
+              "mean_signed_db": 3.3184619651671555e-09,
+              "rmse_db": 6.530003570267397e-07,
+              "passed": true
+            }
+          ],
+          "passed": true,
+          "noise": [
+            {
+              "polarization": "HH",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 1.8589123740753166e-05,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 1572,
+              "median_change_db": -1.2456458330096325
+            },
+            {
+              "polarization": "HV",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 0.0006557905702067046,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 77999,
+              "median_change_db": -72.92256057153887
+            }
+          ]
+        },
+        "executions": {
+          "raw": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 158.1685856999975,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/raw.log",
+              "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+            },
+            "graph": {
+              "path": "data/cd_r1/burin_shelf_summer_offshore/raw.xml",
+              "sha256": "09813babf48b4a5699d15a510606fce9e1c9021d668eeed2068820c092dbb378"
+            }
+          },
+          "calibration": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 132.32637989999785,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/cd_r1/burin_shelf_summer_offshore/calibration.log",
+              "sha256": "6472733263020699d53392972563b1719b1c808c7895cf48d270a82a2c84b966"
+            },
+            "graph": {
+              "path": "data/cd_r1/burin_shelf_summer_offshore/calibration.xml",
+              "sha256": "ecea5df48949b89d68e11af467e4d23c4c997dd79ce2a329ed22d64476ed8580"
+            }
+          },
+          "noise": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 103.47586740000406,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/burin_shelf_summer_offshore/noise.log",
+              "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+            },
+            "graph": {
+              "path": "data/cd_r1/burin_shelf_summer_offshore/noise.xml",
+              "sha256": "bd5dccdeb432080e87861cd6e59e5082f441238fc960101384a9a2a212eeb7d8"
+            }
+          }
+        }
+      },
+      {
+        "id": "cartwright_shelf_summer_coastal",
+        "mission": "S1D",
+        "regime": "coastal",
+        "comparison": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 2.5190129306906783e-06,
+              "mean_signed_db": 1.0066102463060245e-08,
+              "rmse_db": 4.785927928698974e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.5190129306906783e-06,
+              "mean_signed_db": 8.777461097104156e-09,
+              "rmse_db": 5.770231381082786e-07,
+              "passed": true
+            }
+          ],
+          "passed": true,
+          "noise": [
+            {
+              "polarization": "HH",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 0.012618552959835938,
+              "within_tolerance_pixels": 147455,
+              "passed": false,
+              "below_estimated_noise_pixels": 3858,
+              "median_change_db": -0.10132771817747344
+            },
+            {
+              "polarization": "HV",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 0.000784402558664965,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 13339,
+              "median_change_db": -0.5091120835373086
+            }
+          ]
+        },
+        "executions": {
+          "raw": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 69.67755169999145,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.log",
+              "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/raw.xml",
+              "sha256": "c0b671c09509ac2036829251e6dda54b569242fb812ab363dd0a264fb4ee756b"
+            }
+          },
+          "calibration": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 73.95750399999088,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.log",
+              "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/calibration.xml",
+              "sha256": "87ceb8b6e6776c62b16d23831ab918ebf52dec5b20a1fcfbe411fc097cc8665f"
+            }
+          },
+          "noise": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 69.18225280000479,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.log",
+              "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_coastal/noise.xml",
+              "sha256": "24eb9518f2821225f7833c306303be7a39accf5f2a763e2ec68995a45b2c057a"
+            }
+          }
+        }
+      },
+      {
+        "id": "cartwright_shelf_summer_offshore",
+        "mission": "S1D",
+        "regime": "offshore",
+        "comparison": {
+          "raw_pixels_equal": true,
+          "bands": [
+            {
+              "polarization": "HH",
+              "pixels": 147456,
+              "max_absolute_db": 2.4397839624157314e-06,
+              "mean_signed_db": -2.6057439085991187e-09,
+              "rmse_db": 6.562034480915847e-07,
+              "passed": true
+            },
+            {
+              "polarization": "HV",
+              "pixels": 147456,
+              "max_absolute_db": 2.4862435736849875e-06,
+              "mean_signed_db": -3.832092574132104e-09,
+              "rmse_db": 7.198346036201513e-07,
+              "passed": true
+            }
+          ],
+          "passed": true,
+          "noise": [
+            {
+              "polarization": "HH",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 7.864927233924845e-07,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 37350,
+              "median_change_db": -4.6619650946619835
+            },
+            {
+              "polarization": "HV",
+              "finite_pixels": 147456,
+              "total_pixels": 147456,
+              "max_absolute_db": 8.41417481467488e-07,
+              "within_tolerance_pixels": 147456,
+              "passed": true,
+              "below_estimated_noise_pixels": 78362,
+              "median_change_db": -72.27886696186076
+            }
+          ]
+        },
+        "executions": {
+          "raw": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 68.64760899999237,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.log",
+              "sha256": "79a472131166313eff28ec7506a8a95c94eb6f3c2e8bc07f19712f1e3db409b7"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/raw.xml",
+              "sha256": "4689d4b4dd48a9d046d9fd5553b13cb321a376b9c2e7c16068fc467ac5c128d3"
+            }
+          },
+          "calibration": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 71.09969570000248,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.log",
+              "sha256": "a7025907480ceadac103e35fe39b71a6e56bebf77e23e670cae10c6292e93119"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/calibration.xml",
+              "sha256": "d0e205b75c374e3d83ae9a98721f6d90c7ef9be1e6f9a475bdae34073edbdc71"
+            }
+          },
+          "noise": {
+            "exit_code": 0,
+            "timed_out": false,
+            "elapsed_s": 74.37890529999277,
+            "elapsed_limit_exceeded": false,
+            "log": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.log",
+              "sha256": "54f06c5d6ce2680ef926d0f577b938e2be15caa8f9a9cbde7df41ab7cc958c88"
+            },
+            "graph": {
+              "path": "data/source_supported/cd_snap_v010_01/cartwright_shelf_summer_offshore/noise.xml",
+              "sha256": "e32885ef364d6080fe570be60a42bf1ad1351d9a76f1dbed473b8c165fbcce66"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "noise_diagnosis": {
+    "policy": {
+      "path": "configs/reservations/cd_followup_v010.json",
+      "sha256": "f2facb4d09a062526938e4c5be3cc018019d14e3ef9f51f7dc781d70988b3420"
+    },
+    "snap": {
+      "path": "data/cd_r1/report.json",
+      "sha256": "148815976f20b5169066bd328da61b8cd8a34e83f3933d91bf5f0dc1602ce3fe"
+    },
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/senbox-org/microwave-toolbox/38998c9baecfc1d568647abbd6424b054f423fdb/sar-op-calibration/src/main/java/eu/esa/sar/calibration/gpf/Sentinel1RemoveThermalNoiseOp.java",
+        "artifact": {
+          "path": "data/cd_noise_02/Sentinel1RemoveThermalNoiseOp.java",
+          "sha256": "2db4e90c38aa7ad5409cea1b6a24e1940637c908e8a1cc717fcc23399baf0e2b"
+        }
+      },
+      {
+        "url": "https://raw.githubusercontent.com/senbox-org/snap-engine/14.0.0/snap-core/src/main/java/org/esa/snap/core/datamodel/ProductData.java",
+        "artifact": {
+          "path": "data/cd_noise_02/ProductData.java",
+          "sha256": "8115cc2d59b05722ce5c2650c656514582dc54278a3dd9fabffb3377b37c8c14"
+        }
+      }
+    ],
+    "runtime_calibration_jar": {
+      "path": "data/cd_calibration.jar",
+      "sha256": "cc030848ffbceaac823bb399f67dae3505e56c4feb492bca58f91363b842c36e"
+    },
+    "algorithm": "SNAP14 time interpolation in MJD2000, float32 LUT values and residual storage, negative-only clipping",
+    "bands": [
+      {
+        "id": "burin_shelf_summer_coastal",
+        "mission": "S1C",
+        "polarization": "HH",
+        "pixels": 147456,
+        "old_max_absolute_db": 8.040022692057391e-07,
+        "time_replay_max_absolute_db": 6.295885732754414e-07,
+        "line_with_snap_storage_max_absolute_db": 9.977628359081336e-07,
+        "time_without_snap_storage_max_absolute_db": 7.665322563354948e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 8.524019676769967e-07,
+        "old_worst_pixel": {
+          "row": 43,
+          "col": 61,
+          "dn_power": 400.0,
+          "line_noise_power": 381.11521008072356,
+          "time_noise_power": 381.1152107740256,
+          "time_residual_power_float32": 18.884788513183594,
+          "snap_corrected_db": -42.301311760651245,
+          "line_replay_db": -42.301310956648976,
+          "time_replay_db": -42.30131128000888
+        }
+      },
+      {
+        "id": "burin_shelf_summer_coastal",
+        "mission": "S1C",
+        "polarization": "HV",
+        "pixels": 147456,
+        "old_max_absolute_db": 1.5581881527282349e-06,
+        "time_replay_max_absolute_db": 6.156955691949406e-07,
+        "line_with_snap_storage_max_absolute_db": 1.7046988602942292e-06,
+        "time_without_snap_storage_max_absolute_db": 7.591710726728707e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 7.511556532335817e-07,
+        "old_worst_pixel": {
+          "row": 9,
+          "col": 8,
+          "dn_power": 400.0,
+          "line_noise_power": 397.4410153298585,
+          "time_noise_power": 397.4410160809221,
+          "time_residual_power_float32": 2.55898380279541,
+          "snap_corrected_db": -50.984719874722785,
+          "line_replay_db": -50.98471831653463,
+          "time_replay_db": -50.98471978853912
+        }
+      },
+      {
+        "id": "burin_shelf_summer_offshore",
+        "mission": "S1C",
+        "polarization": "HH",
+        "pixels": 147456,
+        "old_max_absolute_db": 1.8589123740753166e-05,
+        "time_replay_max_absolute_db": 6.927580677995593e-07,
+        "line_with_snap_storage_max_absolute_db": 1.8766099884715004e-05,
+        "time_without_snap_storage_max_absolute_db": 8.727963667354288e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 1.0877363365580095e-06,
+        "old_worst_pixel": {
+          "row": 1,
+          "col": 299,
+          "dn_power": 529.0,
+          "line_noise_power": 528.8685202801162,
+          "time_noise_power": 528.8685208537173,
+          "time_residual_power_float32": 0.1314791440963745,
+          "snap_corrected_db": -64.05715168681925,
+          "line_replay_db": -64.05713309769551,
+          "time_replay_db": -64.05715211673979
+        }
+      },
+      {
+        "id": "burin_shelf_summer_offshore",
+        "mission": "S1C",
+        "polarization": "HV",
+        "pixels": 147456,
+        "old_max_absolute_db": 0.0006557905702067046,
+        "time_replay_max_absolute_db": 6.953019209277045e-07,
+        "line_with_snap_storage_max_absolute_db": 0.0006558820886368721,
+        "time_without_snap_storage_max_absolute_db": 8.450886213040576e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 7.635912879777607e-07,
+        "old_worst_pixel": {
+          "row": 71,
+          "col": 83,
+          "dn_power": 576.0,
+          "line_noise_power": 575.9972917445109,
+          "time_noise_power": 575.9972921529888,
+          "time_residual_power_float32": 0.0027078469283878803,
+          "snap_corrected_db": -80.93298058559915,
+          "line_replay_db": -80.93232479502895,
+          "time_replay_db": -80.9329800103407
+        }
+      },
+      {
+        "id": "cartwright_shelf_summer_coastal",
+        "mission": "S1D",
+        "polarization": "HH",
+        "pixels": 147456,
+        "old_max_absolute_db": 0.012618552959835938,
+        "time_replay_max_absolute_db": 6.73351685520629e-07,
+        "line_with_snap_storage_max_absolute_db": 0.01261867064948774,
+        "time_without_snap_storage_max_absolute_db": 8.432064753094437e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 6.470530138358299e-06,
+        "old_worst_pixel": {
+          "row": 263,
+          "col": 315,
+          "dn_power": 529.0,
+          "line_noise_power": 528.9990267055427,
+          "time_noise_power": 528.9990238735444,
+          "time_residual_power_float32": 0.0009761264664120972,
+          "snap_corrected_db": -85.72225791053182,
+          "line_replay_db": -85.73487646349166,
+          "time_replay_db": -85.7222580823032
+        }
+      },
+      {
+        "id": "cartwright_shelf_summer_coastal",
+        "mission": "S1D",
+        "polarization": "HV",
+        "pixels": 147456,
+        "old_max_absolute_db": 0.000784402558664965,
+        "time_replay_max_absolute_db": 6.678347528321638e-07,
+        "line_with_snap_storage_max_absolute_db": 0.0007844036302628865,
+        "time_without_snap_storage_max_absolute_db": 8.166564100520191e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 5.466955599331413e-06,
+        "old_worst_pixel": {
+          "row": 6,
+          "col": 266,
+          "dn_power": 576.0,
+          "line_noise_power": 575.9751197639791,
+          "time_noise_power": 575.9751152720054,
+          "time_residual_power_float32": 0.024884728714823723,
+          "snap_corrected_db": -71.65990837692978,
+          "line_replay_db": -71.66069277948844,
+          "time_replay_db": -71.6599086325643
+        }
+      },
+      {
+        "id": "cartwright_shelf_summer_offshore",
+        "mission": "S1D",
+        "polarization": "HH",
+        "pixels": 147456,
+        "old_max_absolute_db": 7.864927233924845e-07,
+        "time_replay_max_absolute_db": 6.070263367519146e-07,
+        "line_with_snap_storage_max_absolute_db": 1.0236858898338141e-06,
+        "time_without_snap_storage_max_absolute_db": 8.047298436508754e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 1.04245884813281e-06,
+        "old_worst_pixel": {
+          "row": 303,
+          "col": 12,
+          "dn_power": 961.0,
+          "line_noise_power": 444.68453919721327,
+          "time_noise_power": 444.68453900066675,
+          "time_residual_power_float32": 516.3154907226562,
+          "snap_corrected_db": -28.968835799205944,
+          "line_replay_db": -28.968836585698668,
+          "time_replay_db": -28.968836334030165
+        }
+      },
+      {
+        "id": "cartwright_shelf_summer_offshore",
+        "mission": "S1D",
+        "polarization": "HV",
+        "pixels": 147456,
+        "old_max_absolute_db": 8.41417481467488e-07,
+        "time_replay_max_absolute_db": 6.165327377516405e-07,
+        "line_with_snap_storage_max_absolute_db": 1.037875819065448e-06,
+        "time_without_snap_storage_max_absolute_db": 8.048503019608688e-07,
+        "time_replay_within_tolerance": 147456,
+        "time_replay_passed": true,
+        "maximum_noise_power_change": 9.26198026718339e-07,
+        "old_worst_pixel": {
+          "row": 377,
+          "col": 334,
+          "dn_power": 484.0,
+          "line_noise_power": 465.43767120325015,
+          "time_noise_power": 465.4376706019559,
+          "time_residual_power_float32": 18.56233024597168,
+          "snap_corrected_db": -43.39403857897595,
+          "line_replay_db": -43.39403942039343,
+          "time_replay_db": -43.394039081325516
+        }
+      }
+    ],
+    "labels_admitted": 0,
+    "training_approved": false,
+    "independent_review": false,
+    "promotion_eligible": false,
+    "input_contract_extended": false,
+    "classifier_scored": false,
+    "detector_scored": false
+  },
+  "optical": {
+    "policy": {
+      "path": "configs/reservations/cd_followup_v010.json",
+      "sha256": "f2facb4d09a062526938e4c5be3cc018019d14e3ef9f51f7dc781d70988b3420"
+    },
+    "download": {
+      "path": "data/optical_lead_01/download.json",
+      "sha256": "f28197e137674221c722da4be999c62d7921e3c6fcd19556f0e4a9e0eccb1c6c"
+    },
+    "target_id": "next_iceberg_support_02",
+    "inspection_policy": {
+      "path": "configs/reservations/optical_inspection_v010.json",
+      "sha256": "781c5310081e91d889300328c0582ff487b268f4ae9d93928ea8b2a39c12f1df"
+    },
+    "minimum_protected_distance_m": 11410.949653776266,
+    "tile_sensing_time": "2018-05-04T14:29:35.174344Z",
+    "catalogue_offset_s": 17243.815614,
+    "radius_m": 17543.815614,
+    "requested_window": [
+      7838,
+      449,
+      3510,
+      3510
+    ],
+    "read_window": [
+      9370,
+      2019,
+      455,
+      458
+    ],
+    "search_square_inspected_fraction": 0.01691463543315395,
+    "valid_fraction_of_read_window": 0.6309803733384519,
+    "quantification": 10000.0,
+    "offsets": {
+      "B02": -1000.0,
+      "B03": -1000.0,
+      "B04": -1000.0,
+      "B08": -1000.0
+    },
+    "mask_planes": [
+      "opaque_cloud",
+      "cirrus",
+      "snow_ice"
+    ],
+    "mask_nonzero_fraction_of_read_window": [
+      0.26021468144044324,
+      0.0,
+      0.0
+    ],
+    "central_5x5_mask_counts": [
+      25,
+      0,
+      0
+    ],
+    "mask_zero_interpretation": "Unflagged is not verified clear sky; fractions include unavailable areas",
+    "rgb_native": {
+      "path": "data/optical_permitted_01/rgb_native.png",
+      "sha256": "c6d3024c30d5102dee6667a75307155b75fc29b8db27dff27f04e187d2f37936"
+    },
+    "overview": {
+      "path": "data/optical_permitted_01/overview.png",
+      "sha256": "14a163bb5b6b25726f1ed63f4b3de878b59404e5d569126ce36d34a2422e8bf5"
+    },
+    "review_tiles": [
+      {
+        "offset": [
+          0,
+          0
+        ],
+        "image": {
+          "path": "data/optical_permitted_01/review_0_0.png",
+          "sha256": "c6d3024c30d5102dee6667a75307155b75fc29b8db27dff27f04e187d2f37936"
+        }
+      }
+    ],
+    "pixels_inspected": false,
+    "same_object_confirmed": false,
+    "labels_admitted": 0,
+    "training_approved": false,
+    "independent_review": false,
+    "promotion_eligible": false,
+    "input_contract_extended": false,
+    "classifier_scored": false,
+    "detector_scored": false
+  },
+  "observation": {
+    "version": "0.1.0",
+    "target_id": "next_iceberg_support_02",
+    "render": {
+      "path": "data/optical_permitted_01/render.json",
+      "sha256": "95661ffb968eff26742729d200c66fee97819e3e60474afffa2a1de193c3a29c"
+    },
+    "inspector": "AI-assisted visual inspection; no independent reviewer",
+    "prior_sar_label_exposure": true,
+    "classifier_scores_viewed": false,
+    "images_inspected": [
+      "overview",
+      "rgb_native",
+      "review_tiles"
+    ],
+    "observation": "Cloud texture covers the SAR position and the available eastern portion of the native context. The western portion has no optical image data. The central 5x5 classification samples all flag opaque cloud. No surface object can be identified reliably at the SAR position.",
+    "local_clear_sky_verified": false,
+    "same_reflector_identified": false,
+    "physical_corroboration": false,
+    "candidate_label_status": "provisional",
+    "admission_decision": "hold",
+    "blockers": [
+      "cloud_at_original_position",
+      "missing_optical_data",
+      "incomplete_motion_search_coverage",
+      "same_reflector_identity_unresolved",
+      "prior_unscoped_optical_exposure"
+    ],
+    "exposure_record": {
+      "scope": "Two initial optical previews covered the larger heuristic search window and overlapped quarantined geographic footprints. No AllenAI SAR imagery or labels were opened. These previews are excluded from label admission and retained only as exposure records. No class or split was changed.",
+      "renders": [
+        {
+          "path": "data/optical_review_01/render.json",
+          "sha256": "311e242b1d776db3c4ae9111e6667939a4a2e842d96ac994ed61e525931f40b6"
+        },
+        {
+          "path": "data/optical_review_02/render.json",
+          "sha256": "a89a5af23284c12509576620588d3253c7fc1b9a4f6139a3f0031667611d88a0"
+        }
+      ]
+    },
+    "labels_admitted": 0,
+    "training_approved": false,
+    "independent_review": false,
+    "promotion_eligible": false,
+    "input_contract_extended": false,
+    "classifier_scored": false,
+    "detector_scored": false
+  },
+  "noise_replay_adopted_as_model_input": false,
+  "labels_admitted": 0,
+  "accuracy_truth_admitted": false,
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "input_contract_extended": false,
+  "classifier_scored": false,
+  "detector_scored": false
+}

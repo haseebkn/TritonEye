@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "target_id": "next_iceberg_support_02",
+  "render": {"path": "data/optical_permitted_01/render.json", "sha256": "95661ffb968eff26742729d200c66fee97819e3e60474afffa2a1de193c3a29c"},
+  "inspector": "AI-assisted visual inspection; no independent reviewer",
+  "prior_sar_label_exposure": true,
+  "classifier_scores_viewed": false,
+  "images_inspected": ["overview", "rgb_native", "review_tiles"],
+  "observation": "Cloud texture covers the SAR position and the available eastern portion of the native context. The western portion has no optical image data. The central 5x5 classification samples all flag opaque cloud. No surface object can be identified reliably at the SAR position.",
+  "local_clear_sky_verified": false,
+  "same_reflector_identified": false,
+  "physical_corroboration": false,
+  "candidate_label_status": "provisional",
+  "admission_decision": "hold",
+  "blockers": ["cloud_at_original_position", "missing_optical_data", "incomplete_motion_search_coverage", "same_reflector_identity_unresolved", "prior_unscoped_optical_exposure"],
+  "exposure_record": {
+    "scope": "Two initial optical previews covered the larger heuristic search window and overlapped quarantined geographic footprints. No AllenAI SAR imagery or labels were opened. These previews are excluded from label admission and retained only as exposure records. No class or split was changed.",
+    "renders": [
+      {"path": "data/optical_review_01/render.json", "sha256": "311e242b1d776db3c4ae9111e6667939a4a2e842d96ac994ed61e525931f40b6"},
+      {"path": "data/optical_review_02/render.json", "sha256": "a89a5af23284c12509576620588d3253c7fc1b9a4f6139a3f0031667611d88a0"}
+    ]
+  },
+  "labels_admitted": 0,
+  "training_approved": false,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "input_contract_extended": false,
+  "classifier_scored": false,
+  "detector_scored": false
+}
