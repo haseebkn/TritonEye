@@ -80,9 +80,9 @@ def test_protected_geography_cannot_be_selected(split: str, quarantine: bool) ->
         "quarantine": quarantine,
     }
     assert (
-        select(
-            [segment()], [CELL], {"priors": [prior], "exposed": []}, NOW, LIMITS
-        )["reserved"]
+        select([segment()], [CELL], {"priors": [prior], "exposed": []}, NOW, LIMITS)[
+            "reserved"
+        ]
         == 0
     )
 
@@ -117,9 +117,9 @@ def test_acquisition_role_exposure_and_partial_footprint_are_rejected() -> None:
 def test_past_pass_silent_cell_and_conflicting_plans_do_not_fill_quota() -> None:
     assert select([segment(14)], [CELL], FROZEN, NOW, LIMITS)["reserved"] == 0
     assert (
-        select(
-            [segment()], [CELL | {"recent_moving_reports": 0}], FROZEN, NOW, LIMITS
-        )["reserved"]
+        select([segment()], [CELL | {"recent_moving_reports": 0}], FROZEN, NOW, LIMITS)[
+            "reserved"
+        ]
         == 0
     )
     conflict = segment() | {"relative_orbit": 99}
@@ -129,9 +129,7 @@ def test_past_pass_silent_cell_and_conflicting_plans_do_not_fill_quota() -> None
 
 def test_policy_limits_drive_quota_and_context_window_through_select() -> None:
     tight = LIMITS | {"maximum_passes": 1, "context_minutes": 5}
-    result = select(
-        [segment(20), segment(18), segment(17)], [CELL], FROZEN, NOW, tight
-    )
+    result = select([segment(20), segment(18), segment(17)], [CELL], FROZEN, NOW, tight)
     assert result["reserved"] == 1
     pass_ = result["passes"][0]
     assert pass_["collection_start_utc"][11:16] == "08:55"
@@ -273,9 +271,7 @@ def test_plain_verify_rejects_tampered_admission_flags(flag: str) -> None:
         json.dumps(
             {
                 "manifest": {
-                    "path": tampered_manifest.relative_to(
-                        module.REPO_ROOT
-                    ).as_posix(),
+                    "path": tampered_manifest.relative_to(module.REPO_ROOT).as_posix(),
                     "sha256": hashlib.sha256(
                         tampered_manifest.read_bytes()
                     ).hexdigest(),
@@ -286,9 +282,7 @@ def test_plain_verify_rejects_tampered_admission_flags(flag: str) -> None:
     original_lock = module.LOCK
     try:
         module.LOCK = tampered_lock
-        with pytest.raises(
-            ValueError, match="Unlabelled training collection required"
-        ):
+        with pytest.raises(ValueError, match="Unlabelled training collection required"):
             verify()
     finally:
         module.LOCK = original_lock

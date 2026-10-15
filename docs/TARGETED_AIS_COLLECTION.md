@@ -111,11 +111,12 @@ The public lock binds the manifest, inputs and implementation. Local replay
 checks the retained archive hashes, recomputes moving reception, split decisions
 and chronological selection, and compares the complete serialized result.
 
-Local validation passed **114 focused tests**, including ten new collection
-cases, plus the separate 47-test pre-deployment image check. Ruff and mypy
-passed across 179 Python files; the new files pass Black. Retained-data local
-replay selected the same three groups. Automated review and CI are additional
-delivery gates.
+Local validation passed **124 focused tests**, including twenty collection
+cases (ten covering selection/reception, ten covering policy-limit validation
+and tampered-admission-flag rejection), plus the separate 47-test
+pre-deployment image check. Ruff and mypy passed across 179 Python files; the
+new files pass Black. Retained-data local replay selected the same three
+groups. Automated review and CI are additional delivery gates.
 
 ```sh
 python -m agents.targeted_collection --verify
