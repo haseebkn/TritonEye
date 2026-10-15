@@ -331,7 +331,7 @@ def variant(
     case: dict[str, Any], object_id: str, source_identity: str, group: str
 ) -> dict[str, Any]:
     """Build another otherwise-eligible dossier sharing the same native receipt."""
-    dossier = deepcopy(case["dossier"])
+    dossier: dict[str, Any] = deepcopy(case["dossier"])
     dossier["object_id"] = object_id
     dossier["source_identity"] = source_identity
     dossier["repeated_object_group"] = group
