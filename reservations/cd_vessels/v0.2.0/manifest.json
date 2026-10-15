@@ -1,0 +1,166 @@
+{
+  "version": "0.2.0",
+  "status": "metadata_only_training_reservation",
+  "native_specification": {
+    "path": "configs/native_nl/input_v020.json",
+    "sha256": "296840436cd533e4fd89c02fd4a32a0c67c6d4ae3c22de68dd92af181fcbec77"
+  },
+  "acceptance_lock": {
+    "path": "configs/reservations/cd_acceptance_v020.lock.json",
+    "sha256": "af6d2e6eb2525f3d24819ede0dcf0a054a8ab6e352511466bb1e57fd00748289"
+  },
+  "admission_policy": {
+    "path": "configs/reservations/provisional_training_v010.json",
+    "sha256": "a9abbd6b15feacb0aa8031dfb66e50a7d11d4fcd38fec2b70a947d590ef4702c"
+  },
+  "admission_policy_supports_cd": false,
+  "private_selection": {
+    "path": "data/source_supported/cd_vessels_v020_01/selection_private.json",
+    "sha256": "2a759bc963bb04a5fdbed614baa6c6b2a97f3bfe8eacbe796c657a1cac7cf563"
+  },
+  "annotation_template": {
+    "path": "data/source_supported/cd_vessels_v020_01/annotation_template.json",
+    "sha256": "c55ba4ffb0d1778e89833bcc820f2280b5db51c74783cc70721f3ea802017c2e"
+  },
+  "source_audit": {
+    "path": "data/research/cd_input_ais_01/audit_private.json",
+    "sha256": "597d6999824312943342d5873bd61e17eb60b852e5ebdcc4499107a705cd6327"
+  },
+  "archive": {
+    "input_rows": 223047,
+    "legacy_naive_utc_reports": 19621,
+    "valid_unique_reports": 223047,
+    "first_utc": "2026-08-18T20:08:37+00:00",
+    "last_utc": "2026-10-15T08:52:36.096744+00:00",
+    "dates_present": [
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-10",
+      "2026-10-11",
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14",
+      "2026-10-15"
+    ]
+  },
+  "audit_utc": "2026-10-15T08:54:24.179404+00:00",
+  "areas": [],
+  "rankings": [
+    {
+      "rank": 1,
+      "stream": "vessel_support",
+      "product_id": "4b6f0ce7-b0bd-45e5-9674-5ac46c0a3fe4",
+      "name": "S1C_IW_GRDH_1SDH_20260918T095631_20260918T095656_009500_012E71_17EC.SAFE",
+      "absolute_offset_s": 6.510861873626709,
+      "search_uncertainty_m": 292.215968,
+      "bracket_gap_s": 102.61884593963623,
+      "decision": "excluded",
+      "reason": "Previously exposed or reserved native acquisition",
+      "reservation_id": null
+    },
+    {
+      "rank": 2,
+      "stream": "vessel_support",
+      "product_id": "01876305-6ca7-4a24-9004-b9bf7a2d9848",
+      "name": "S1C_IW_GRDH_1SDH_20260918T095656_20260918T095721_009500_012E71_F89B.SAFE",
+      "absolute_offset_s": 9.400327920913696,
+      "search_uncertainty_m": 239.220646,
+      "bracket_gap_s": 79.0106508731842,
+      "decision": "excluded",
+      "reason": "Previously exposed or reserved native acquisition",
+      "reservation_id": null
+    },
+    {
+      "rank": 3,
+      "stream": "vessel_support",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "name": "S1C_IW_GRDH_1SDH_20261005T100435_20261005T100500_009748_0136A3_91B4.SAFE",
+      "absolute_offset_s": 11.105732917785645,
+      "search_uncertainty_m": 185.30495000000002,
+      "bracket_gap_s": 53.75820803642273,
+      "decision": "excluded",
+      "reason": "Previously exposed or reserved native acquisition",
+      "reservation_id": null
+    },
+    {
+      "rank": 4,
+      "stream": "vessel_support",
+      "product_id": "5415d10e-02f2-464f-ab79-deb9f5911514",
+      "name": "S1D_IW_GRDH_1SDH_20261008T094101_20261008T094126_004922_00945E_CDBA.SAFE",
+      "absolute_offset_s": 42.70903301239014,
+      "search_uncertainty_m": 415.13016,
+      "bracket_gap_s": 200.2741129398346,
+      "decision": "excluded",
+      "reason": "Locked/quarantine geographic separation",
+      "reservation_id": null
+    },
+    {
+      "rank": 5,
+      "stream": "vessel_support",
+      "product_id": "dd031ca1-0652-4e08-97ce-42347aae32f0",
+      "name": "S1C_IW_GRDH_1SDH_20261005T100435_20261005T100500_009748_0136A3_91B4.SAFE",
+      "absolute_offset_s": 88.7915689945221,
+      "search_uncertainty_m": 320.710338,
+      "bracket_gap_s": 199.14673805236816,
+      "decision": "excluded",
+      "reason": "Previously exposed or reserved native acquisition",
+      "reservation_id": null
+    }
+  ],
+  "opportunities": 5,
+  "reserved": 0,
+  "exclusion_counts": {
+    "Previously exposed or reserved native acquisition": 4,
+    "Locked/quarantine geographic separation": 1
+  },
+  "annotated_objects": 0,
+  "labels_admitted": 0,
+  "accuracy_truth_admitted": false,
+  "exploratory_training_admitted": false,
+  "provisional": true,
+  "ignore_for_accuracy": true,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false,
+  "limits": [
+    "AIS reception is incomplete; this audit cannot establish absence of vessels",
+    "C/D processing scope is IPF 004.03; each reserved product still needs native metadata/pixel checks",
+    "Source timing is screened at scene midpoint; verify bracketing at native target time before admission",
+    "Full competing AIS pools retained privately; missing competitors remain possible",
+    "Reservation creates no training labels or export; C/D admission policy extension still required",
+    "Independent review, accuracy truth, Kaggle transfer and model promotion remain unavailable"
+  ]
+}

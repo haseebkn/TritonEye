@@ -1,5 +1,8 @@
 # Frozen native NL HH/HV experimental input v0.1.0
 
+Subsequent [C/D v0.2.0 processing specification and acceptance checks](CD_INPUT_ACCEPTANCE.md)
+use a separate consumer. The historical A/B specification below remains unchanged.
+
 The [machine-readable specification](../configs/native_nl/input_v010.json) and
 [executable consumer](../agents/native_nl_input.py) define a reproducible native
 research input. The consumer pins the specification hash and refuses silent edits.

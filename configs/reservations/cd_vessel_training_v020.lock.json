@@ -1,0 +1,14 @@
+{
+  "manifest": {
+    "path": "reservations/cd_vessels/v0.2.0/manifest.json",
+    "sha256": "94446fd4ed7bc0971811f5113f3e35d343498f56df7fff3151641af9a4873e43"
+  },
+  "specification": {
+    "path": "configs/native_nl/input_v020.json",
+    "sha256": "296840436cd533e4fd89c02fd4a32a0c67c6d4ae3c22de68dd92af181fcbec77"
+  },
+  "implementation": {
+    "path": "agents/cd_training_reservations.py",
+    "sha256": "a68b52bcabe3005dfe8cefd052420fd37bdce93bd3262821aa72e396d31ce5b7"
+  }
+}
