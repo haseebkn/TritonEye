@@ -24,6 +24,9 @@ error is disclosed, and protected-geography checks now precede pixel reads.
 The [C/D input specification and additional acceptance checks](docs/CD_INPUT_ACCEPTANCE.md)
 add a separate executable research recipe and refresh vessel-training reservations;
 object admission, native model transfer and independent accuracy remain unresolved.
+The [training-region AIS coverage audit and provisional C/D admission/export workflow](docs/TRAINING_AIS_AND_CD_EXPORT.md)
+find almost no received AIS in the four training envelopes and add guarded native
+training exports for future evidence-qualified objects. No real labels are admitted.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native model transfer remains unvalidated.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

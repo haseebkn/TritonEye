@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "purpose": "Provisional C/D native NL object admission and training-only export",
+  "native_specification": {"path": "configs/native_nl/input_v020.json", "sha256": "296840436cd533e4fd89c02fd4a32a0c67c6d4ae3c22de68dd92af181fcbec77"},
+  "base_policy": {"path": "configs/reservations/provisional_training_v010.json", "sha256": "a9abbd6b15feacb0aa8031dfb66e50a7d11d4fcd38fec2b70a947d590ef4702c"},
+  "split": "train",
+  "label_status": "provisional",
+  "maximum_native_window_pixels": 512,
+  "classes": ["vessel", "iceberg"],
+  "normalization": "identity",
+  "export": "Classified object contexts only; no background or verified-negative inference; no fit, threshold selection or promotion",
+  "independent_review": false,
+  "accuracy_truth_admitted": false,
+  "promotion_eligible": false,
+  "training_approved": false
+}

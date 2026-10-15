@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **15 October 2026**, against main baseline
-`9144327bf8cc3e5bdbfc652de7f4448030b2d291` (PR #37), plus the
+`9b2430420f47ccb4bfd109f8d197f08edeba9a44` (PR #38), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -38,6 +38,11 @@ implement an IPF 004.03 research recipe, compare two additional training acquisi
 and refresh vessel reservations. Numerical processing qualification, physical class
 evidence and learned model transfer have distinct requirements. No label is admitted
 and the original review/promotion guard remains in force.
+The [training-region AIS audit and provisional C/D admission/export workflow](TRAINING_AIS_AND_CD_EXPORT.md)
+subsequently find zero reports in three training envelopes and one in Cartwright
+offshore, with no tight support around C/D passes. Future qualifying objects can
+be exported for exploratory training after evidence and native-pixel replay;
+this release admits zero real labels and preserves every review/promotion boundary.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain
