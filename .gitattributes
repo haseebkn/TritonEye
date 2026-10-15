@@ -157,3 +157,6 @@ agents/ais_pass_audit.py text eol=lf
 agents/neighbour_vessel_batch.py text eol=lf
 tests/unit/test_ais_pass_audit.py text eol=lf
 docs/PASS_COLLECTION_AND_NEIGHBOURS.md text eol=lf
+agents/targeted_collection.py text eol=lf
+tests/unit/test_targeted_collection.py text eol=lf
+docs/TARGETED_AIS_COLLECTION.md text eol=lf

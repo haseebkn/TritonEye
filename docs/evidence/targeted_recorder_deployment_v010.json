@@ -1,0 +1,64 @@
+{
+  "verified_at_utc": "2026-10-15T14:36:41.341033+00:00",
+  "source_commit": "b81d91b579b122ce812ebcdc2550ab335851e02b",
+  "image_id": "sha256:b1a7da049a5fde12f819d7a1e70732bc9e7f1cf4936cf4f05d3d14f5baf297ae",
+  "container": "tritoneye-ais-recorder-1",
+  "running_compose_recorders": 1,
+  "recorder_source": {
+    "path": "agents/ais_recorder.py",
+    "sha256": "3acfbf9dba28028f8140d094f108ab49e561524dd33fc6c5aacc319190386f7e"
+  },
+  "deployed_source_sha256": "3acfbf9dba28028f8140d094f108ab49e561524dd33fc6c5aacc319190386f7e",
+  "server_acknowledged": true,
+  "compression_negotiated": true,
+  "connected": true,
+  "heartbeat_at": "2026-10-15T14:36:37.370995Z",
+  "session_start_utc": "2026-10-15T14:32:37.216066Z",
+  "previous_session_stop_utc": "2026-10-15T14:32:35.274670Z",
+  "session_transition_seconds": 1.941396,
+  "first_observation": {
+    "event": "first_observation",
+    "time": "2026-10-15T14:33:00.727390Z",
+    "timestamp": "2026-10-15T14:32:58.449439Z"
+  },
+  "last_received_at": "2026-10-15T14:36:31.889794Z",
+  "last_observed_at": "2026-10-15T14:36:29.633504Z",
+  "status_observations": 27,
+  "new_session_rows_persisted_in_csv_prefix": 27,
+  "coverage_complete": false,
+  "packet_loss_measured": false,
+  "subscription_bbox": [
+    -61.5,
+    45.0,
+    -45.0,
+    61.5
+  ],
+  "message_types": [
+    "PositionReport",
+    "StandardClassBPositionReport",
+    "ExtendedClassBPositionReport"
+  ],
+  "private_evidence": {
+    "recorder_before.json": {
+      "path": "data/research/targeted_passes_v010_01/recorder_before.json",
+      "sha256": "c939163bbf03727123e139d65cde7a01cad4403ef47170bbf894b5c03068fa2c"
+    },
+    "recorder_after.json": {
+      "path": "data/research/targeted_passes_v010_01/recorder_after.json",
+      "sha256": "31ff653ce0562777282be1f20ef5e7547dfb5a1aa92612b7a5df9a92629ec234"
+    },
+    "deployment_journal.jsonl": {
+      "path": "data/research/targeted_passes_v010_01/deployment_journal.jsonl",
+      "sha256": "5995604712daeb31cdbf3a83419525a380fb8d89359feb362585e55cf707c769"
+    },
+    "previous_session_journal.jsonl": {
+      "path": "data/research/targeted_passes_v010_01/previous_session_journal.jsonl",
+      "sha256": "24e0eb817c40ff063f5d7ffd2e0c0d7c79f30cf828470076068b69945950f4b0"
+    },
+    "deployment_csv_prefix.csv": {
+      "path": "data/research/targeted_passes_v010_01/deployment_csv_prefix.csv",
+      "sha256": "7ba42af36d0cd24998f51cb0fc0ba2bcdbdf8108b5ea67a56f2e8d63840893a1"
+    }
+  },
+  "limitation": "Point-in-time live verification, not future uptime or complete geographic reception. Session transition is not an estimate of missing AIS reports."
+}

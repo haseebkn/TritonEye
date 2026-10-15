@@ -40,6 +40,10 @@ expand to 109 eligible cells and audit 84 HH/HV slices in 43 native groups.
 Twenty-six supports still yield no new training reservation; the sole source pass
 belongs to validation. Historical acknowledgement/compression remain unknown;
 future recorder sessions gain explicit telemetry.
+The [deployed recorder and three targeted collection reservations](docs/TARGETED_AIS_COLLECTION.md)
+verify live acknowledgement, compression and persisted AIS reports, then reserve
+October 17, 18 and 20 HH/HV opportunities before scores. These are planned
+collection windows, with zero new labels and actual products still pending.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native model transfer remains unvalidated.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),

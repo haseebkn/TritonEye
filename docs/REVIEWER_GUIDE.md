@@ -7,7 +7,7 @@ C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 Current summary refreshed **15 October 2026**, against main baseline
-`1e1362e58a6109edd8ca376347cdeab6ba112c3a` (PR #39), plus the
+`b81d91b579b122ce812ebcdc2550ab335851e02b` (PR #42), plus the
 [label-admission register](LABEL_ADMISSION.md) and
 [input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
 for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
@@ -60,6 +60,11 @@ Twenty-six supports produce zero new reservations; the sole source pass belongs
 to validation. Historical transport acknowledgement/compression are unknown.
 Future recorder telemetry and positive publication/replay regressions are added;
 the live recorder, labels and protected assignments are unchanged.
+The subsequent [targeted collection deployment](TARGETED_AIS_COLLECTION.md)
+updates the existing live recorder and verifies acknowledgement, compression
+and 27 persisted new-session reports. Three official planned HH/HV groups on
+October 17, 18 and 20 are reserved for collection before scores. Actual products,
+usable AIS support and vessel labels remain pending; no label is admitted.
 The current benchmark is
 v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
 AllenAI adoption checks. Independent accuracy and model improvement remain

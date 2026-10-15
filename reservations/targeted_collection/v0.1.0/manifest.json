@@ -1,0 +1,7694 @@
+{
+  "passes": [
+    {
+      "planned_native_group": "S1C_009923_013C84",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-17T09:55:43+00:00",
+      "end_utc": "2026-10-17T10:06:50+00:00",
+      "relative_orbit": 25,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -19.4108,
+              82.3818
+            ],
+            [
+              -24.97844,
+              81.3679
+            ],
+            [
+              -50.71697,
+              64.40515
+            ],
+            [
+              -57.64657,
+              46.54228
+            ],
+            [
+              -58.41403,
+              43.76461
+            ],
+            [
+              -61.50875,
+              44.15431
+            ],
+            [
+              -60.89716,
+              46.93194
+            ],
+            [
+              -55.89319,
+              64.85333
+            ],
+            [
+              -39.1801,
+              82.44414
+            ],
+            [
+              -35.08056,
+              83.61509
+            ],
+            [
+              -19.4108,
+              82.3818
+            ]
+          ]
+        ]
+      },
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "training_approved": false,
+      "id": "targeted_v010_01",
+      "status": "planned_collection_pending_actual_product_and_AIS",
+      "split": "train",
+      "target_cell": {
+        "id": "cell_-580_489",
+        "grid": [
+          -580,
+          489
+        ],
+        "ring": 0,
+        "anchor_rank": 1,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -57.900000000000006,
+                48.900000000000006
+              ],
+              [
+                -57.900000000000006,
+                49.0
+              ],
+              [
+                -58.0,
+                49.0
+              ],
+              [
+                -58.0,
+                48.900000000000006
+              ],
+              [
+                -57.900000000000006,
+                48.900000000000006
+              ]
+            ]
+          ]
+        },
+        "rank": 1,
+        "split_safe": true,
+        "geographic_group": "new_cell_-58_48",
+        "exclusion": null,
+        "recent_moving_reports": 33,
+        "recent_moving_identities": 4,
+        "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+      },
+      "collection_start_utc": "2026-10-17T09:25:43+00:00",
+      "collection_end_utc": "2026-10-17T10:36:50+00:00",
+      "actual_product_id": null,
+      "actual_product_name": null,
+      "label": null,
+      "native_input_verified": false,
+      "source_support_verified": false,
+      "classifier_scored": false,
+      "exploratory_training_admitted": false
+    },
+    {
+      "planned_native_group": "S1D_005068_009965",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-18T09:50:59+00:00",
+      "end_utc": "2026-10-18T09:58:48+00:00",
+      "relative_orbit": 127,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -43.39603,
+              71.52105
+            ],
+            [
+              -52.82986,
+              55.14957
+            ],
+            [
+              -56.37279,
+              43.70538
+            ],
+            [
+              -59.46443,
+              44.09509
+            ],
+            [
+              -56.7454,
+              55.5503
+            ],
+            [
+              -50.42756,
+              72.06706
+            ],
+            [
+              -43.39603,
+              71.52105
+            ]
+          ]
+        ]
+      },
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "training_approved": false,
+      "id": "targeted_v010_02",
+      "status": "planned_collection_pending_actual_product_and_AIS",
+      "split": "train",
+      "target_cell": {
+        "id": "cell_-580_489",
+        "grid": [
+          -580,
+          489
+        ],
+        "ring": 0,
+        "anchor_rank": 1,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -57.900000000000006,
+                48.900000000000006
+              ],
+              [
+                -57.900000000000006,
+                49.0
+              ],
+              [
+                -58.0,
+                49.0
+              ],
+              [
+                -58.0,
+                48.900000000000006
+              ],
+              [
+                -57.900000000000006,
+                48.900000000000006
+              ]
+            ]
+          ]
+        },
+        "rank": 1,
+        "split_safe": true,
+        "geographic_group": "new_cell_-58_48",
+        "exclusion": null,
+        "recent_moving_reports": 33,
+        "recent_moving_identities": 4,
+        "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+      },
+      "collection_start_utc": "2026-10-18T09:20:59+00:00",
+      "collection_end_utc": "2026-10-18T10:28:48+00:00",
+      "actual_product_id": null,
+      "actual_product_name": null,
+      "label": null,
+      "native_input_verified": false,
+      "source_support_verified": false,
+      "classifier_scored": false,
+      "exploratory_training_admitted": false
+    },
+    {
+      "planned_native_group": "S1D_005097_009A65",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-20T09:34:37+00:00",
+      "end_utc": "2026-10-20T09:42:32+00:00",
+      "relative_orbit": 156,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -39.60482,
+              71.18676
+            ],
+            [
+              -42.43827,
+              67.73168
+            ],
+            [
+              -50.46953,
+              49.9291
+            ],
+            [
+              -52.43886,
+              43.02804
+            ],
+            [
+              -55.49587,
+              43.41796
+            ],
+            [
+              -53.94404,
+              50.32076
+            ],
+            [
+              -48.33335,
+              68.21504
+            ],
+            [
+              -46.51777,
+              71.7259
+            ],
+            [
+              -39.60482,
+              71.18676
+            ]
+          ]
+        ]
+      },
+      "provisional": true,
+      "ignore_for_accuracy": true,
+      "independent_review": false,
+      "promotion_eligible": false,
+      "training_approved": false,
+      "id": "targeted_v010_03",
+      "status": "planned_collection_pending_actual_product_and_AIS",
+      "split": "train",
+      "target_cell": {
+        "id": "cell_-525_475",
+        "grid": [
+          -525,
+          475
+        ],
+        "ring": 0,
+        "anchor_rank": 6,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -52.400000000000006,
+                47.5
+              ],
+              [
+                -52.400000000000006,
+                47.6
+              ],
+              [
+                -52.5,
+                47.6
+              ],
+              [
+                -52.5,
+                47.5
+              ],
+              [
+                -52.400000000000006,
+                47.5
+              ]
+            ]
+          ]
+        },
+        "rank": 6,
+        "split_safe": true,
+        "geographic_group": "eastern_avalon",
+        "exclusion": null,
+        "recent_moving_reports": 34,
+        "recent_moving_identities": 6,
+        "last_moving_report_utc": "2026-10-15T13:43:54.979977+00:00"
+      },
+      "collection_start_utc": "2026-10-20T09:04:37+00:00",
+      "collection_end_utc": "2026-10-20T10:12:32+00:00",
+      "actual_product_id": null,
+      "actual_product_name": null,
+      "label": null,
+      "native_input_verified": false,
+      "source_support_verified": false,
+      "classifier_scored": false,
+      "exploratory_training_admitted": false
+    }
+  ],
+  "rankings": [
+    {
+      "planned_native_group": "S1C_009923_013C84",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-17T09:55:43+00:00",
+      "end_utc": "2026-10-17T10:06:50+00:00",
+      "relative_orbit": 25,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -19.4108,
+              82.3818
+            ],
+            [
+              -24.97844,
+              81.3679
+            ],
+            [
+              -50.71697,
+              64.40515
+            ],
+            [
+              -57.64657,
+              46.54228
+            ],
+            [
+              -58.41403,
+              43.76461
+            ],
+            [
+              -61.50875,
+              44.15431
+            ],
+            [
+              -60.89716,
+              46.93194
+            ],
+            [
+              -55.89319,
+              64.85333
+            ],
+            [
+              -39.1801,
+              82.44414
+            ],
+            [
+              -35.08056,
+              83.61509
+            ],
+            [
+              -19.4108,
+              82.3818
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-584_491",
+          "grid": [
+            -584,
+            491
+          ],
+          "ring": 0,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 5,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 90,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T07:41:36.079396+00:00"
+        },
+        {
+          "id": "cell_-578_509",
+          "grid": [
+            -578,
+            509
+          ],
+          "ring": 0,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 7,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T00:40:33.801917+00:00"
+        },
+        {
+          "id": "cell_-578_508",
+          "grid": [
+            -578,
+            508
+          ],
+          "ring": 0,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 8,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 6,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-11T09:57:06.458085+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-583_490",
+          "grid": [
+            -583,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 29,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 32,
+          "recent_moving_identities": 7,
+          "last_moving_report_utc": "2026-10-15T08:16:36.902007+00:00"
+        },
+        {
+          "id": "cell_-583_491",
+          "grid": [
+            -583,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 30,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 29,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T08:03:36.771151+00:00"
+        },
+        {
+          "id": "cell_-583_492",
+          "grid": [
+            -583,
+            492
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.300000000000004
+                ],
+                [
+                  -58.300000000000004,
+                  49.300000000000004
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ]
+              ]
+            ]
+          },
+          "rank": 31,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T03:59:06.218709+00:00"
+        },
+        {
+          "id": "cell_-584_490",
+          "grid": [
+            -584,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.0
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 32,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 9,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-13T07:47:52.820401+00:00"
+        },
+        {
+          "id": "cell_-585_491",
+          "grid": [
+            -585,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.5,
+                  49.2
+                ],
+                [
+                  -58.5,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 35,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 14,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T06:34:04.775003+00:00"
+        },
+        {
+          "id": "cell_-585_492",
+          "grid": [
+            -585,
+            492
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ],
+                [
+                  -58.5,
+                  49.300000000000004
+                ],
+                [
+                  -58.5,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ]
+              ]
+            ]
+          },
+          "rank": 36,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 13,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T05:50:04.958577+00:00"
+        },
+        {
+          "id": "cell_-578_510",
+          "grid": [
+            -578,
+            510
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.0
+                ]
+              ]
+            ]
+          },
+          "rank": 48,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_51",
+          "exclusion": null,
+          "recent_moving_reports": 5,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-10T04:59:22.481777+00:00"
+        },
+        {
+          "id": "cell_-579_509",
+          "grid": [
+            -579,
+            509
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.900000000000006,
+                  51.0
+                ],
+                [
+                  -57.900000000000006,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 50,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T05:22:10.031110+00:00"
+        },
+        {
+          "id": "cell_-585_493",
+          "grid": [
+            -585,
+            493
+          ],
+          "ring": 2,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ],
+                [
+                  -58.400000000000006,
+                  49.400000000000006
+                ],
+                [
+                  -58.5,
+                  49.400000000000006
+                ],
+                [
+                  -58.5,
+                  49.300000000000004
+                ],
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 93,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T03:33:17.038134+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        },
+        {
+          "id": "cell_-578_506",
+          "grid": [
+            -578,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 130,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 41,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-13T09:12:07.522576+00:00"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "planned_native_group": "S1D_005068_009965",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-18T09:50:59+00:00",
+      "end_utc": "2026-10-18T09:58:48+00:00",
+      "relative_orbit": 127,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -43.39603,
+              71.52105
+            ],
+            [
+              -52.82986,
+              55.14957
+            ],
+            [
+              -56.37279,
+              43.70538
+            ],
+            [
+              -59.46443,
+              44.09509
+            ],
+            [
+              -56.7454,
+              55.5503
+            ],
+            [
+              -50.42756,
+              72.06706
+            ],
+            [
+              -43.39603,
+              71.52105
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-578_509",
+          "grid": [
+            -578,
+            509
+          ],
+          "ring": 0,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 7,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T00:40:33.801917+00:00"
+        },
+        {
+          "id": "cell_-578_508",
+          "grid": [
+            -578,
+            508
+          ],
+          "ring": 0,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 8,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 6,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-11T09:57:06.458085+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-578_510",
+          "grid": [
+            -578,
+            510
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.0
+                ]
+              ]
+            ]
+          },
+          "rank": 48,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_51",
+          "exclusion": null,
+          "recent_moving_reports": 5,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-10T04:59:22.481777+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        },
+        {
+          "id": "cell_-578_506",
+          "grid": [
+            -578,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 130,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 41,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-13T09:12:07.522576+00:00"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "planned_native_group": "S1D_005097_009A65",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-20T09:34:37+00:00",
+      "end_utc": "2026-10-20T09:42:32+00:00",
+      "relative_orbit": 156,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -39.60482,
+              71.18676
+            ],
+            [
+              -42.43827,
+              67.73168
+            ],
+            [
+              -50.46953,
+              49.9291
+            ],
+            [
+              -52.43886,
+              43.02804
+            ],
+            [
+              -55.49587,
+              43.41796
+            ],
+            [
+              -53.94404,
+              50.32076
+            ],
+            [
+              -48.33335,
+              68.21504
+            ],
+            [
+              -46.51777,
+              71.7259
+            ],
+            [
+              -39.60482,
+              71.18676
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-525_475",
+          "grid": [
+            -525,
+            475
+          ],
+          "ring": 0,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 6,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T13:43:54.979977+00:00"
+        },
+        {
+          "id": "cell_-524_474",
+          "grid": [
+            -524,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 37,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T13:17:04.742982+00:00"
+        },
+        {
+          "id": "cell_-524_475",
+          "grid": [
+            -524,
+            475
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 38,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-12T08:10:48.423032+00:00"
+        },
+        {
+          "id": "cell_-524_476",
+          "grid": [
+            -524,
+            476
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 39,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T03:44:01.466583+00:00"
+        },
+        {
+          "id": "cell_-525_474",
+          "grid": [
+            -525,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 40,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-09T21:06:09.963650+00:00"
+        },
+        {
+          "id": "cell_-523_474",
+          "grid": [
+            -523,
+            474
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 100,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T07:24:44.718790+00:00"
+        },
+        {
+          "id": "cell_-523_475",
+          "grid": [
+            -523,
+            475
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 101,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 10,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T07:40:00.823047+00:00"
+        },
+        {
+          "id": "cell_-523_476",
+          "grid": [
+            -523,
+            476
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 102,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T04:13:41.275964+00:00"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "planned_native_group": "S1C_009981_013E7C",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-21T09:23:02+00:00",
+      "end_utc": "2026-10-21T09:34:21+00:00",
+      "relative_orbit": 83,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -15.08621,
+              81.70505
+            ],
+            [
+              -37.02106,
+              71.72619
+            ],
+            [
+              -47.06172,
+              54.02519
+            ],
+            [
+              -50.58757,
+              42.24411
+            ],
+            [
+              -53.60595,
+              42.63436
+            ],
+            [
+              -50.87046,
+              54.42322
+            ],
+            [
+              -44.12747,
+              72.27657
+            ],
+            [
+              -29.76027,
+              82.82806
+            ],
+            [
+              -15.08621,
+              81.70505
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-524_474",
+          "grid": [
+            -524,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 37,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T13:17:04.742982+00:00"
+        },
+        {
+          "id": "cell_-524_475",
+          "grid": [
+            -524,
+            475
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 38,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-12T08:10:48.423032+00:00"
+        },
+        {
+          "id": "cell_-524_476",
+          "grid": [
+            -524,
+            476
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 39,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T03:44:01.466583+00:00"
+        },
+        {
+          "id": "cell_-523_474",
+          "grid": [
+            -523,
+            474
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 100,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T07:24:44.718790+00:00"
+        },
+        {
+          "id": "cell_-523_475",
+          "grid": [
+            -523,
+            475
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 101,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 10,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T07:40:00.823047+00:00"
+        },
+        {
+          "id": "cell_-523_476",
+          "grid": [
+            -523,
+            476
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 102,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T04:13:41.275964+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1D_005141_009BE9",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-23T09:59:12+00:00",
+      "end_utc": "2026-10-23T10:07:00+00:00",
+      "relative_orbit": 25,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -45.39686,
+              71.5782
+            ],
+            [
+              -49.36448,
+              66.62533
+            ],
+            [
+              -56.9856,
+              48.80086
+            ],
+            [
+              -58.41402,
+              43.76462
+            ],
+            [
+              -61.50875,
+              44.15432
+            ],
+            [
+              -60.38089,
+              49.19157
+            ],
+            [
+              -54.99743,
+              67.09538
+            ],
+            [
+              -52.44908,
+              72.12542
+            ],
+            [
+              -45.39686,
+              71.5782
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-584_491",
+          "grid": [
+            -584,
+            491
+          ],
+          "ring": 0,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 5,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 90,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T07:41:36.079396+00:00"
+        },
+        {
+          "id": "cell_-578_509",
+          "grid": [
+            -578,
+            509
+          ],
+          "ring": 0,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 7,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T00:40:33.801917+00:00"
+        },
+        {
+          "id": "cell_-578_508",
+          "grid": [
+            -578,
+            508
+          ],
+          "ring": 0,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 8,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 6,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-11T09:57:06.458085+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-583_490",
+          "grid": [
+            -583,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 29,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 32,
+          "recent_moving_identities": 7,
+          "last_moving_report_utc": "2026-10-15T08:16:36.902007+00:00"
+        },
+        {
+          "id": "cell_-583_491",
+          "grid": [
+            -583,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 30,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 29,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T08:03:36.771151+00:00"
+        },
+        {
+          "id": "cell_-583_492",
+          "grid": [
+            -583,
+            492
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.300000000000004
+                ],
+                [
+                  -58.300000000000004,
+                  49.300000000000004
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ]
+              ]
+            ]
+          },
+          "rank": 31,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T03:59:06.218709+00:00"
+        },
+        {
+          "id": "cell_-584_490",
+          "grid": [
+            -584,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.0
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 32,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 9,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-13T07:47:52.820401+00:00"
+        },
+        {
+          "id": "cell_-585_491",
+          "grid": [
+            -585,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.5,
+                  49.2
+                ],
+                [
+                  -58.5,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 35,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 14,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T06:34:04.775003+00:00"
+        },
+        {
+          "id": "cell_-585_492",
+          "grid": [
+            -585,
+            492
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ],
+                [
+                  -58.5,
+                  49.300000000000004
+                ],
+                [
+                  -58.5,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ]
+              ]
+            ]
+          },
+          "rank": 36,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 13,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T05:50:04.958577+00:00"
+        },
+        {
+          "id": "cell_-578_510",
+          "grid": [
+            -578,
+            510
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.0
+                ]
+              ]
+            ]
+          },
+          "rank": 48,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_51",
+          "exclusion": null,
+          "recent_moving_reports": 5,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-10T04:59:22.481777+00:00"
+        },
+        {
+          "id": "cell_-579_509",
+          "grid": [
+            -579,
+            509
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.900000000000006,
+                  51.0
+                ],
+                [
+                  -57.900000000000006,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 50,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T05:22:10.031110+00:00"
+        },
+        {
+          "id": "cell_-585_493",
+          "grid": [
+            -585,
+            493
+          ],
+          "ring": 2,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ],
+                [
+                  -58.400000000000006,
+                  49.400000000000006
+                ],
+                [
+                  -58.5,
+                  49.400000000000006
+                ],
+                [
+                  -58.5,
+                  49.300000000000004
+                ],
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 93,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T03:33:17.038134+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        },
+        {
+          "id": "cell_-578_506",
+          "grid": [
+            -578,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 130,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 41,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-13T09:12:07.522576+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1C_010025_014011",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-24T09:51:00+00:00",
+      "end_utc": "2026-10-24T09:58:38+00:00",
+      "relative_orbit": 127,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -44.00531,
+              70.88145
+            ],
+            [
+              -44.23227,
+              70.63304
+            ],
+            [
+              -53.62155,
+              52.89988
+            ],
+            [
+              -56.37279,
+              43.70538
+            ],
+            [
+              -59.46443,
+              44.09509
+            ],
+            [
+              -57.3304,
+              53.29565
+            ],
+            [
+              -50.95774,
+              71.16148
+            ],
+            [
+              -50.81356,
+              71.41459
+            ],
+            [
+              -44.00531,
+              70.88145
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-578_509",
+          "grid": [
+            -578,
+            509
+          ],
+          "ring": 0,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 7,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T00:40:33.801917+00:00"
+        },
+        {
+          "id": "cell_-578_508",
+          "grid": [
+            -578,
+            508
+          ],
+          "ring": 0,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 8,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 6,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-11T09:57:06.458085+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-583_490",
+          "grid": [
+            -583,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 29,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 32,
+          "recent_moving_identities": 7,
+          "last_moving_report_utc": "2026-10-15T08:16:36.902007+00:00"
+        },
+        {
+          "id": "cell_-578_510",
+          "grid": [
+            -578,
+            510
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.0
+                ]
+              ]
+            ]
+          },
+          "rank": 48,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_51",
+          "exclusion": null,
+          "recent_moving_reports": 5,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-10T04:59:22.481777+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        },
+        {
+          "id": "cell_-578_506",
+          "grid": [
+            -578,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 130,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 41,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-13T09:12:07.522576+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1C_010054_014114",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-26T09:35:33+00:00",
+      "end_utc": "2026-10-26T09:42:22+00:00",
+      "relative_orbit": 156,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -42.72291,
+              67.32471
+            ],
+            [
+              -43.89312,
+              65.51639
+            ],
+            [
+              -51.1491,
+              47.67191
+            ],
+            [
+              -52.43885,
+              43.0281
+            ],
+            [
+              -55.49586,
+              43.41802
+            ],
+            [
+              -54.46986,
+              48.06196
+            ],
+            [
+              -49.2874,
+              65.97479
+            ],
+            [
+              -48.51854,
+              67.80296
+            ],
+            [
+              -42.72291,
+              67.32471
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-525_475",
+          "grid": [
+            -525,
+            475
+          ],
+          "ring": 0,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 6,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T13:43:54.979977+00:00"
+        },
+        {
+          "id": "cell_-524_474",
+          "grid": [
+            -524,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 37,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T13:17:04.742982+00:00"
+        },
+        {
+          "id": "cell_-524_475",
+          "grid": [
+            -524,
+            475
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 38,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-12T08:10:48.423032+00:00"
+        },
+        {
+          "id": "cell_-524_476",
+          "grid": [
+            -524,
+            476
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 39,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T03:44:01.466583+00:00"
+        },
+        {
+          "id": "cell_-525_474",
+          "grid": [
+            -525,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 40,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-09T21:06:09.963650+00:00"
+        },
+        {
+          "id": "cell_-523_474",
+          "grid": [
+            -523,
+            474
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 100,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T07:24:44.718790+00:00"
+        },
+        {
+          "id": "cell_-523_475",
+          "grid": [
+            -523,
+            475
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 101,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 10,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T07:40:00.823047+00:00"
+        },
+        {
+          "id": "cell_-523_476",
+          "grid": [
+            -523,
+            476
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 102,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T04:13:41.275964+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1D_005199_009DEE",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-27T09:27:26+00:00",
+      "end_utc": "2026-10-27T09:34:31+00:00",
+      "relative_orbit": 83,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -40.52367,
+              67.52947
+            ],
+            [
+              -46.23871,
+              56.27297
+            ],
+            [
+              -50.58755,
+              42.24418
+            ],
+            [
+              -53.60593,
+              42.63443
+            ],
+            [
+              -50.2686,
+              56.6769
+            ],
+            [
+              -46.36888,
+              68.01025
+            ],
+            [
+              -40.52367,
+              67.52947
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-524_474",
+          "grid": [
+            -524,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 37,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T13:17:04.742982+00:00"
+        },
+        {
+          "id": "cell_-524_475",
+          "grid": [
+            -524,
+            475
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 38,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-12T08:10:48.423032+00:00"
+        },
+        {
+          "id": "cell_-524_476",
+          "grid": [
+            -524,
+            476
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 39,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T03:44:01.466583+00:00"
+        },
+        {
+          "id": "cell_-523_474",
+          "grid": [
+            -523,
+            474
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 100,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T07:24:44.718790+00:00"
+        },
+        {
+          "id": "cell_-523_475",
+          "grid": [
+            -523,
+            475
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 101,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 10,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T07:40:00.823047+00:00"
+        },
+        {
+          "id": "cell_-523_476",
+          "grid": [
+            -523,
+            476
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 102,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T04:13:41.275964+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1C_010098_014279",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-29T09:55:43+00:00",
+      "end_utc": "2026-10-29T10:06:50+00:00",
+      "relative_orbit": 25,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -19.4108,
+              82.38181
+            ],
+            [
+              -24.97844,
+              81.3679
+            ],
+            [
+              -50.71697,
+              64.40515
+            ],
+            [
+              -57.64657,
+              46.54228
+            ],
+            [
+              -58.41403,
+              43.76462
+            ],
+            [
+              -61.50875,
+              44.15432
+            ],
+            [
+              -60.89716,
+              46.93194
+            ],
+            [
+              -55.89319,
+              64.85333
+            ],
+            [
+              -39.1801,
+              82.44414
+            ],
+            [
+              -35.08056,
+              83.61509
+            ],
+            [
+              -19.4108,
+              82.38181
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-584_491",
+          "grid": [
+            -584,
+            491
+          ],
+          "ring": 0,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 5,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 90,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T07:41:36.079396+00:00"
+        },
+        {
+          "id": "cell_-578_509",
+          "grid": [
+            -578,
+            509
+          ],
+          "ring": 0,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 7,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T00:40:33.801917+00:00"
+        },
+        {
+          "id": "cell_-578_508",
+          "grid": [
+            -578,
+            508
+          ],
+          "ring": 0,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 8,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 6,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-11T09:57:06.458085+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-583_490",
+          "grid": [
+            -583,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.2,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 29,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 32,
+          "recent_moving_identities": 7,
+          "last_moving_report_utc": "2026-10-15T08:16:36.902007+00:00"
+        },
+        {
+          "id": "cell_-583_491",
+          "grid": [
+            -583,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 30,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 29,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T08:03:36.771151+00:00"
+        },
+        {
+          "id": "cell_-583_492",
+          "grid": [
+            -583,
+            492
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.300000000000004
+                ],
+                [
+                  -58.300000000000004,
+                  49.300000000000004
+                ],
+                [
+                  -58.300000000000004,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ]
+              ]
+            ]
+          },
+          "rank": 31,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T03:59:06.218709+00:00"
+        },
+        {
+          "id": "cell_-584_490",
+          "grid": [
+            -584,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.300000000000004,
+                  49.0
+                ],
+                [
+                  -58.300000000000004,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.0
+                ],
+                [
+                  -58.300000000000004,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 32,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 9,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-13T07:47:52.820401+00:00"
+        },
+        {
+          "id": "cell_-585_491",
+          "grid": [
+            -585,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.5,
+                  49.2
+                ],
+                [
+                  -58.5,
+                  49.1
+                ],
+                [
+                  -58.400000000000006,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 35,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 14,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T06:34:04.775003+00:00"
+        },
+        {
+          "id": "cell_-585_492",
+          "grid": [
+            -585,
+            492
+          ],
+          "ring": 1,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ],
+                [
+                  -58.5,
+                  49.300000000000004
+                ],
+                [
+                  -58.5,
+                  49.2
+                ],
+                [
+                  -58.400000000000006,
+                  49.2
+                ]
+              ]
+            ]
+          },
+          "rank": 36,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 13,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T05:50:04.958577+00:00"
+        },
+        {
+          "id": "cell_-578_510",
+          "grid": [
+            -578,
+            510
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.0
+                ]
+              ]
+            ]
+          },
+          "rank": 48,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_51",
+          "exclusion": null,
+          "recent_moving_reports": 5,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-10T04:59:22.481777+00:00"
+        },
+        {
+          "id": "cell_-579_509",
+          "grid": [
+            -579,
+            509
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.900000000000006,
+                  51.0
+                ],
+                [
+                  -57.900000000000006,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 50,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T05:22:10.031110+00:00"
+        },
+        {
+          "id": "cell_-585_493",
+          "grid": [
+            -585,
+            493
+          ],
+          "ring": 2,
+          "anchor_rank": 5,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ],
+                [
+                  -58.400000000000006,
+                  49.400000000000006
+                ],
+                [
+                  -58.5,
+                  49.400000000000006
+                ],
+                [
+                  -58.5,
+                  49.300000000000004
+                ],
+                [
+                  -58.400000000000006,
+                  49.300000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 93,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T03:33:17.038134+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        },
+        {
+          "id": "cell_-578_506",
+          "grid": [
+            -578,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 130,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 41,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-13T09:12:07.522576+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1D_005243_009F6A",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-10-30T09:50:59+00:00",
+      "end_utc": "2026-10-30T09:58:48+00:00",
+      "relative_orbit": 127,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -43.39603,
+              71.52106
+            ],
+            [
+              -52.82986,
+              55.14957
+            ],
+            [
+              -56.37279,
+              43.70538
+            ],
+            [
+              -59.46443,
+              44.0951
+            ],
+            [
+              -56.7454,
+              55.5503
+            ],
+            [
+              -50.42756,
+              72.06707
+            ],
+            [
+              -43.39603,
+              71.52106
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-578_509",
+          "grid": [
+            -578,
+            509
+          ],
+          "ring": 0,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 7,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-10T00:40:33.801917+00:00"
+        },
+        {
+          "id": "cell_-578_508",
+          "grid": [
+            -578,
+            508
+          ],
+          "ring": 0,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.900000000000006
+                ],
+                [
+                  -57.800000000000004,
+                  50.800000000000004
+                ],
+                [
+                  -57.7,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 8,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 6,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-11T09:57:06.458085+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-578_510",
+          "grid": [
+            -578,
+            510
+          ],
+          "ring": 1,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.1
+                ],
+                [
+                  -57.800000000000004,
+                  51.0
+                ],
+                [
+                  -57.7,
+                  51.0
+                ]
+              ]
+            ]
+          },
+          "rank": 48,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_51",
+          "exclusion": null,
+          "recent_moving_reports": 5,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-10T04:59:22.481777+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        },
+        {
+          "id": "cell_-578_506",
+          "grid": [
+            -578,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.7
+                ],
+                [
+                  -57.800000000000004,
+                  50.6
+                ],
+                [
+                  -57.7,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 130,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 41,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-13T09:12:07.522576+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1D_005272_00A075",
+      "mission": "S1D",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-11-01T09:34:37+00:00",
+      "end_utc": "2026-11-01T09:42:32+00:00",
+      "relative_orbit": 156,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -39.60482,
+              71.18676
+            ],
+            [
+              -42.43827,
+              67.73168
+            ],
+            [
+              -50.46953,
+              49.9291
+            ],
+            [
+              -52.43886,
+              43.02804
+            ],
+            [
+              -55.49587,
+              43.41796
+            ],
+            [
+              -53.94404,
+              50.32076
+            ],
+            [
+              -48.33335,
+              68.21504
+            ],
+            [
+              -46.51778,
+              71.7259
+            ],
+            [
+              -39.60482,
+              71.18676
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-525_475",
+          "grid": [
+            -525,
+            475
+          ],
+          "ring": 0,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 6,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T13:43:54.979977+00:00"
+        },
+        {
+          "id": "cell_-524_474",
+          "grid": [
+            -524,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 37,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T13:17:04.742982+00:00"
+        },
+        {
+          "id": "cell_-524_475",
+          "grid": [
+            -524,
+            475
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 38,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-12T08:10:48.423032+00:00"
+        },
+        {
+          "id": "cell_-524_476",
+          "grid": [
+            -524,
+            476
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 39,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T03:44:01.466583+00:00"
+        },
+        {
+          "id": "cell_-525_474",
+          "grid": [
+            -525,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 40,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-09T21:06:09.963650+00:00"
+        },
+        {
+          "id": "cell_-523_474",
+          "grid": [
+            -523,
+            474
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 100,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T07:24:44.718790+00:00"
+        },
+        {
+          "id": "cell_-523_475",
+          "grid": [
+            -523,
+            475
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 101,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 10,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T07:40:00.823047+00:00"
+        },
+        {
+          "id": "cell_-523_476",
+          "grid": [
+            -523,
+            476
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 102,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T04:13:41.275964+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1C_010156_01445D",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-11-02T09:23:02+00:00",
+      "end_utc": "2026-11-02T09:34:21+00:00",
+      "relative_orbit": 83,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -15.08621,
+              81.70505
+            ],
+            [
+              -41.83599,
+              65.51638
+            ],
+            [
+              -49.09196,
+              47.6719
+            ],
+            [
+              -50.58757,
+              42.24412
+            ],
+            [
+              -53.60595,
+              42.63437
+            ],
+            [
+              -52.41272,
+              48.06195
+            ],
+            [
+              -47.23027,
+              65.97477
+            ],
+            [
+              -29.76027,
+              82.82806
+            ],
+            [
+              -15.08621,
+              81.70505
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-525_475",
+          "grid": [
+            -525,
+            475
+          ],
+          "ring": 0,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.6
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 6,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T13:43:54.979977+00:00"
+        },
+        {
+          "id": "cell_-524_474",
+          "grid": [
+            -524,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 37,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-15T13:17:04.742982+00:00"
+        },
+        {
+          "id": "cell_-524_475",
+          "grid": [
+            -524,
+            475
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 38,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-12T08:10:48.423032+00:00"
+        },
+        {
+          "id": "cell_-524_476",
+          "grid": [
+            -524,
+            476
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.7
+                ],
+                [
+                  -52.400000000000006,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 39,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 1,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T03:44:01.466583+00:00"
+        },
+        {
+          "id": "cell_-525_474",
+          "grid": [
+            -525,
+            474
+          ],
+          "ring": 1,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.5
+                ],
+                [
+                  -52.5,
+                  47.400000000000006
+                ],
+                [
+                  -52.400000000000006,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 40,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-09T21:06:09.963650+00:00"
+        },
+        {
+          "id": "cell_-523_474",
+          "grid": [
+            -523,
+            474
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.300000000000004,
+                  47.400000000000006
+                ],
+                [
+                  -52.2,
+                  47.400000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 100,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 4,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-12T07:24:44.718790+00:00"
+        },
+        {
+          "id": "cell_-523_475",
+          "grid": [
+            -523,
+            475
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.300000000000004,
+                  47.5
+                ],
+                [
+                  -52.2,
+                  47.5
+                ]
+              ]
+            ]
+          },
+          "rank": 101,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 10,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T07:40:00.823047+00:00"
+        },
+        {
+          "id": "cell_-523_476",
+          "grid": [
+            -523,
+            476
+          ],
+          "ring": 2,
+          "anchor_rank": 6,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -52.2,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.7
+                ],
+                [
+                  -52.300000000000004,
+                  47.6
+                ],
+                [
+                  -52.2,
+                  47.6
+                ]
+              ]
+            ]
+          },
+          "rank": 102,
+          "split_safe": true,
+          "geographic_group": "eastern_avalon",
+          "exclusion": null,
+          "recent_moving_reports": 20,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-12T04:13:41.275964+00:00"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "planned_native_group": "S1C_010200_0145D7",
+      "mission": "S1C",
+      "mode": "IW",
+      "polarization": "HH/HV",
+      "start_utc": "2026-11-05T09:51:00+00:00",
+      "end_utc": "2026-11-05T09:58:38+00:00",
+      "relative_orbit": 127,
+      "planned_footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -44.00532,
+              70.88145
+            ],
+            [
+              -48.65984,
+              64.40514
+            ],
+            [
+              -55.58944,
+              46.54227
+            ],
+            [
+              -56.37279,
+              43.70538
+            ],
+            [
+              -59.46443,
+              44.09509
+            ],
+            [
+              -58.84002,
+              46.93192
+            ],
+            [
+              -53.83606,
+              64.85332
+            ],
+            [
+              -50.81356,
+              71.41459
+            ],
+            [
+              -44.00532,
+              70.88145
+            ]
+          ]
+        ]
+      },
+      "eligible_cells": [
+        {
+          "id": "cell_-580_489",
+          "grid": [
+            -580,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -57.900000000000006,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 1,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 33,
+          "recent_moving_identities": 4,
+          "last_moving_report_utc": "2026-10-15T11:27:58.509066+00:00"
+        },
+        {
+          "id": "cell_-581_489",
+          "grid": [
+            -581,
+            489
+          ],
+          "ring": 0,
+          "anchor_rank": 2,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  48.900000000000006
+                ],
+                [
+                  -58.0,
+                  48.900000000000006
+                ]
+              ]
+            ]
+          },
+          "rank": 2,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 148,
+          "recent_moving_identities": 8,
+          "last_moving_report_utc": "2026-10-15T10:10:35.462386+00:00"
+        },
+        {
+          "id": "cell_-582_490",
+          "grid": [
+            -582,
+            490
+          ],
+          "ring": 0,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.2,
+                  49.0
+                ],
+                [
+                  -58.1,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 4,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 286,
+          "recent_moving_identities": 13,
+          "last_moving_report_utc": "2026-10-15T09:31:36.224313+00:00"
+        },
+        {
+          "id": "cell_-581_490",
+          "grid": [
+            -581,
+            490
+          ],
+          "ring": 1,
+          "anchor_rank": 1,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.0
+                ],
+                [
+                  -58.0,
+                  49.0
+                ]
+              ]
+            ]
+          },
+          "rank": 15,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_48",
+          "exclusion": null,
+          "recent_moving_reports": 34,
+          "recent_moving_identities": 6,
+          "last_moving_report_utc": "2026-10-15T09:40:36.196723+00:00"
+        },
+        {
+          "id": "cell_-581_491",
+          "grid": [
+            -581,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.0,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.0,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 26,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 3,
+          "recent_moving_identities": 2,
+          "last_moving_report_utc": "2026-10-14T21:58:03.040344+00:00"
+        },
+        {
+          "id": "cell_-582_491",
+          "grid": [
+            -582,
+            491
+          ],
+          "ring": 1,
+          "anchor_rank": 4,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -58.1,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.2
+                ],
+                [
+                  -58.2,
+                  49.1
+                ],
+                [
+                  -58.1,
+                  49.1
+                ]
+              ]
+            ]
+          },
+          "rank": 27,
+          "split_safe": true,
+          "geographic_group": "new_cell_-59_49",
+          "exclusion": null,
+          "recent_moving_reports": 11,
+          "recent_moving_identities": 5,
+          "last_moving_report_utc": "2026-10-14T22:47:28.503744+00:00"
+        },
+        {
+          "id": "cell_-576_508",
+          "grid": [
+            -576,
+            508
+          ],
+          "ring": 2,
+          "anchor_rank": 7,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.5,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.900000000000006
+                ],
+                [
+                  -57.6,
+                  50.800000000000004
+                ],
+                [
+                  -57.5,
+                  50.800000000000004
+                ]
+              ]
+            ]
+          },
+          "rank": 116,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 2,
+          "recent_moving_identities": 1,
+          "last_moving_report_utc": "2026-10-15T11:43:50.671836+00:00"
+        },
+        {
+          "id": "cell_-577_506",
+          "grid": [
+            -577,
+            506
+          ],
+          "ring": 2,
+          "anchor_rank": 8,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -57.6,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.7
+                ],
+                [
+                  -57.7,
+                  50.6
+                ],
+                [
+                  -57.6,
+                  50.6
+                ]
+              ]
+            ]
+          },
+          "rank": 129,
+          "split_safe": true,
+          "geographic_group": "new_cell_-58_50",
+          "exclusion": null,
+          "recent_moving_reports": 351,
+          "recent_moving_identities": 3,
+          "last_moving_report_utc": "2026-10-15T12:27:25.872903+00:00"
+        }
+      ],
+      "selected": false
+    }
+  ],
+  "reserved": 3,
+  "provisional": true,
+  "ignore_for_accuracy": true,
+  "independent_review": false,
+  "promotion_eligible": false,
+  "training_approved": false,
+  "version": "0.1.0",
+  "reserved_at_utc": "2026-10-15T14:34:42.434151+00:00",
+  "labels_admitted": 0,
+  "imagery_inspected": false,
+  "classifier_scored": false,
+  "archive": {
+    "input_rows": 224917,
+    "legacy_naive_utc_reports": 19621,
+    "valid_unique_reports": 224917,
+    "first_utc": "2026-08-18T20:08:37+00:00",
+    "last_utc": "2026-10-15T13:45:40.247619+00:00",
+    "dates_present": [
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-22",
+      "2026-08-23",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-15",
+      "2026-09-16",
+      "2026-09-17",
+      "2026-09-18",
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-09-28",
+      "2026-09-29",
+      "2026-09-30",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-10",
+      "2026-10-11",
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14",
+      "2026-10-15"
+    ]
+  },
+  "inputs": {
+    "policy": {
+      "path": "configs/reservations/targeted_collection_v010.json",
+      "sha256": "13fe409c136ce982b8fb479ff706feefd9d79e299f603254f2250cac07647120"
+    },
+    "neighbour_policy": {
+      "path": "configs/reservations/neighbour_vessels_v040.json",
+      "sha256": "37086a3e5b595f0f63ffb28a4bbff4d5460656474afb9da7e6a82c3c52807b2b"
+    },
+    "reception": {
+      "path": "docs/evidence/nl_reception_v010.json",
+      "sha256": "f21c4d6cf238acfc113d703ad3d0e8c7fffaad580c2cb198ea616ea111add5e1"
+    },
+    "previous_audit": {
+      "path": "reservations/cd_vessels/v0.4.0/manifest.json",
+      "sha256": "8414f3d1e11ea934087b96e3fb71d09a70ae3378ae983db09504f2a764fc2d5b"
+    }
+  },
+  "implementation": {
+    "path": "agents/targeted_collection.py",
+    "sha256": "5783d4fc47200c78abba8c1a6cabd12d54039b51d97885bf0c4ff1a5314ea24b"
+  },
+  "private_priors": {
+    "path": "data/research/targeted_passes_v010_01/priors.json",
+    "sha256": "0a2e19d07803d98a1f6e63838991454ffa4edcfabf288e99a4de00c9671242b1"
+  },
+  "plans": [
+    {
+      "url": "https://sentinels.copernicus.eu/documents/d/sentinel/s1c_mp_user_20261014t183647_20261105t201100",
+      "path": "data/research/targeted_passes_v010_01/s1c.kml",
+      "sha256": "58ac4564057f7b7c478648959b6eb489aa0bd34d5b88d1564b1e7a294a08e1a1"
+    },
+    {
+      "url": "https://sentinels.copernicus.eu/documents/d/sentinel/s1d_mp_user_20261013t173113_20261102t193900",
+      "path": "data/research/targeted_passes_v010_01/s1d.kml",
+      "sha256": "b0c5e10523c80bc0c676bacc92e9ae574873c2688d6df2b215207c21131f531b"
+    }
+  ],
+  "collection_scope": "Existing continuous NL envelope; no MMSI filter or extra recorder",
+  "limits": [
+    "Official KML segments are plans, not delivered products. Recheck plan changes and exact catalogue product, datatake, footprint and native object time after acquisition.",
+    "Plan timestamps without timezone suffix are interpreted as UTC. Collection covers the entire planned segment plus 30 minutes each side; local target time is not estimated from a long segment midpoint.",
+    "Reception in the seven days before reservation guides collection only. It does not establish offshore coverage, future reception, water classification or source-supported vessel identity.",
+    "Three distinct acquisition groups are a bounded collection trial, not three labelled vessels or a sufficient training set. Shared geography and repeated vessels remain dependent.",
+    "Only target cells are assigned training intent. Protected portions elsewhere in a wide swath are not authorized for imagery inspection. The recorder continues its existing NL envelope to retain available competing vessels.",
+    "Before image access reconcile actual products against this reservation and all current split, exposure, quarantine and native input guards. Then apply unchanged source timing, motion, shore and identity admission checks.",
+    "No pixels, annotations, model scores, accuracy truth, threshold, training admission or promotion is supplied. Independent review remains unavailable."
+  ]
+}
