@@ -6,166 +6,49 @@ certified surveillance system or operational dark-vessel detector.** Internal
 C-CORE acceptance criteria were not available; no endorsement or compliance is
 claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
-Current summary refreshed **15 October 2026**, against main baseline
-`b81d91b579b122ce812ebcdc2550ab335851e02b` (PR #42), plus the
-[label-admission register](LABEL_ADMISSION.md) and
-[input-compatibility decisions](INPUT_COMPATIBILITY.md). The register accounts
-for 31 reserved HH/HV areas and 58 provisional annotations/contexts, with zero
-training or accuracy-truth admissions. The subsequent
-[provisional training policy and training-only reservation](PROVISIONAL_NATIVE_TRAINING.md)
-define future exploratory admission requirements and reserve two fresh IIP-supported
-acquisitions; no training-vessel opportunities pass the current checks and no
-labels are admitted. The [frozen native recipe](NATIVE_NL_INPUT.md) is executable;
-Kaggle equivalence and independently validated native accuracy remain unresolved.
-The [subsequent two-window preparation](TRAINING_NATIVE_ANNOTATION.md) adds one
-unconfirmed iceberg hypothesis and one unannotated coverage-abstention area;
-all four calibration bands replay exactly, and no new labels are admitted for
-training or accuracy. The original 31-area register retains its historical scope.
-The [C/D reference pilot and source refresh](CD_REFERENCE_AND_SOURCES.md) adds
-mission-specific processing comparisons using four existing training windows.
-Refreshed AIS screening still yields no eligible new training reservation;
-expanded optical searches provide leads but no confirmed iceberg identity.
-The original A/B input contract and all admission/review boundaries remain intact.
-The [C retry and D noise diagnosis](CD_RETRY_NOISE_OPTICAL.md) subsequently
-complete eight nominal reference bands and reproduce all eight noise bands
-with timestamp interpolation. The optical lead is cloud-obscured and remains
-on hold. An initial expanded optical preview overlapped quarantined geography;
-that exposure is recorded and excluded from admission, and the final inspection
-enforces protected separation before pixel reads. No original labels or splits
-were changed and no training labels were admitted.
-The subsequent [C/D input specification and additional acceptance checks](CD_INPUT_ACCEPTANCE.md)
-implement an IPF 004.03 research recipe, compare two additional training acquisitions
-and refresh vessel reservations. Numerical processing qualification, physical class
-evidence and learned model transfer have distinct requirements. No label is admitted
-and the original review/promotion guard remains in force.
-The [training-region AIS audit and provisional C/D admission/export workflow](TRAINING_AIS_AND_CD_EXPORT.md)
-subsequently find zero reports in three training envelopes and one in Cartwright
-offshore, with no tight support around C/D passes. Future qualifying objects can
-be exported for exploratory training after evidence and native-pixel replay;
-this release admits zero real labels and preserves every review/promotion boundary.
-The [NL reception map and iceberg search](NL_RECEPTION_AND_ICEBERG_SEARCH.md)
-subsequently map 374 received-report cells, shortlist eight training-geography
-proposals and identify three distinct eligible HH/HV timing groups. All current
-timing leads fail the motion screen. Six additional iceberg source leads return
-no optical products within the bounded searches. No labels or reservations are
-created; protected data and scientific-review requirements retain their roles.
-The [reception-prioritized vessel reservation attempt](RECEPTION_VESSEL_BATCH.md)
-then refreshes the archive to 224,622 reports and screens 24 aligned supports in
-those eight cells. One passes source requirements but belongs to a previously
-exposed/reserved acquisition. Zero new acquisitions qualify; prospective
-priorities and an explicitly empty annotation handoff are retained before scores.
-The [pass-specific collection audit and neighbouring-area expansion](PASS_COLLECTION_AND_NEIGHBOURS.md)
-subsequently check 109 eligible cells and 84 HH/HV slices in 43 native groups.
-Twenty-six supports produce zero new reservations; the sole source pass belongs
-to validation. Historical transport acknowledgement/compression are unknown.
-Future recorder telemetry and positive publication/replay regressions are added;
-the live recorder, labels and protected assignments are unchanged.
-The subsequent [targeted collection deployment](TARGETED_AIS_COLLECTION.md)
-updates the existing live recorder and verifies acknowledgement, compression
-and 27 persisted new-session reports. Three official planned HH/HV groups on
-October 17, 18 and 20 are reserved for collection before scores. Actual products,
-usable AIS support and vessel labels remain pending; no label is admitted.
-The current benchmark is
-v0.2.0: 21 areas, six exploratory fits, local lifecycle rehearsals and quarantined
-AllenAI adoption checks. Independent accuracy and model improvement remain
-unmeasured for vessel detection. A separate supervised
-[Statoil HH/HV ship versus iceberg baseline](STATOIL_BASELINE.md) now reports
-87.97% exploratory chip classification accuracy against publisher labels; this
-does not validate full-scene detection, geographic independence or promotion.
-The subsequent [real HH/HV transfer audit](STATOIL_TRANSFER.md) scores fifteen
-existing development objects across eight NL areas using that frozen classifier.
-Input calibration replays match, but missing reviewed truth and iceberg labels
-keep native accuracy, false-alarm reduction and detection improvement unmeasured.
-See the [experimental HH/HV candidate generator](HH_HV_CANDIDATES.md) for the
-subsequent frozen population, replay evidence and future filter-comparison limits.
-The [additional HH/HV development reservation](HH_HV_DEVELOPMENT.md) fixes eight
-new acquisitions and four geographic groups before scoring. The subsequent
-[transfer collection](RESERVED_HH_HV_TRANSFER.md) contains sixteen inspected
-native windows, 25 unresolved returns and sixteen context samples. All 32 native
-band calibrations replay exactly. No vessel or plausible iceberg label could be
-supported; no classifier scores were generated. This separate provisional
-collection does not replace the benchmark or locked test.
-The subsequent [source-supported native batch](NATIVE_SOURCE_ANNOTATION.md) adds nine
-inspected windows across five acquisitions: two provisional vessels, seven unresolved
-compact returns and two background contexts. Eighteen calibration bands replay exactly;
-no iceberg label was defensible and no scores were generated. All remain ignored
-for accuracy and training approval, with no independent reviewer.
-The [association-error and preprocessing cross-check](SOURCE_ERROR_PREPROCESSING.md)
-adds explicit source-precision sensitivity and 18 passing numerical calibration
-comparisons. GDAL reproduces raw pixels but its calibrated view fails here;
-full preprocessing equivalence remains unresolved. Six fresh iceberg-source
-opportunities across five acquisitions are reserved, with zero new annotations.
-That reservation's subsequent [six-window preparation and annotation](FOLLOWUP_SOURCE_ANNOTATION.md)
-is now complete: four plausible iceberg interpretations and two unresolved returns,
-with two pre-pixel coverage abstentions. All remain provisional, ignored for
-accuracy and unapproved for training/promotion. These are source-supported
-hypotheses, not independently reviewed iceberg identities or measured accuracy.
-The [SNAP reference and corroboration audit](SNAP_CORROBORATION.md) subsequently
-checks these four development candidates with the cached official processor and
-additional source searches. It does not approve their labels or establish Kaggle
-input equivalence; numerical agreement and runtime-limit compliance are separate.
-Historical results below retain their acquisition dates, execution
-versions and source hashes; this documentation refresh does not rerun inference.
+## Current summary — 15 October 2026
 
-The subsequent [target noise audit](TARGET_NOISE_AUDIT.md) reconstructs noise
-power at the four existing iceberg candidate boxes. Their HV box pixels have
-10–32% nonpositive residuals; six of eight corrected bands meet the fixed
-0.001 dB maximum-error tolerance, with two small failures retained. The
-[frozen native input specification](NATIVE_NL_INPUT.md) preserves nominal
-sigma0 and yields complete 75x75 research tensors for all four. No new scoring,
-label admission or model improvement is claimed.
+Engineering baseline: `259d5923ba233e3ba79fb8942e006d6937669ca2`
+([PR #44](https://github.com/haseebkn/TritonEye/pull/44)).
+[That main commit passed CI](https://github.com/haseebkn/TritonEye/actions/runs/38810857035).
+The project can process real supported SAR scenes, retain uncertainty and
+provenance, run exploratory model experiments and demonstrate guarded local
+model operations. **It has not demonstrated low-false-positive native-NL vessel
+detection or controlled detector/correlation improvement.**
 
-For a five-minute presentation, open the [real Newfoundland case](../examples/nl-real-case.html)
-and follow the [demonstration walkthrough](PORTFOLIO_DEMO.md). The separate
-[technical explanation and contribution notes](TECHNICAL_EXPLANATION.md) prepare
-the evidence questions and distinguish recorded AI assistance from the owner's
-personal implementation and understanding, which must be demonstrated by the owner.
+- **Built:** sequential SAR/AIS pipeline, coastal policy separation, provisional
+  benchmark, six exploratory fits, HH/HV candidate and preprocessing experiments,
+  local promotion/shadow/rollback tooling, tests and an analyst demonstration.
+- **Measured:** a tiny 3/3 AIS proximity sample across two scenes (conditional
+  exact 95% interval 29.2%–100%), processing/resource observations, and a separate
+  Kaggle chip-classification comparison. These are not interchangeable metrics.
+- **Blocked:** insufficient eligible co-temporal AIS, unresolved source-label
+  permission/completeness, uncertain iceberg identities, no independent reviewer,
+  and unvalidated model transfer. Public imagery exists; access alone is not the
+  whole problem.
+- **Preserved:** review/promotion guard, AllenAI quarantine, original hashes and
+  locked test assignments. No approved native-NL model or operational alerts.
 
-For the subsequent archive refresh and local image-only handoff, see the
-[ranked SAR–AIS overlap audit and review bundle](OVERLAP_REVIEW.md). Its preparation
-counts are separate from the measured results below; independent labels and
-correlation improvement are still blocked.
+The current v0.2.0 benchmark has 21 selected areas and five provisional vessel
+interpretations. Six VV/VH exploratory fits used only one provisional training
+vessel. Separately, the [31-area native HH/HV register](LABEL_ADMISSION.md) records
+58 provisional annotations/contexts and zero training/accuracy admissions; the
+[later two-window preparation](TRAINING_NATIVE_ANNOTATION.md) adds one unconfirmed
+iceberg hypothesis and one coverage abstention, not approved training labels.
+Do not combine these different releases into a claimed independently labelled dataset.
 
-The subsequent [AIS-supported coastal-buffer analysis](AIS_COASTAL_ANALYSIS.md)
-measures exclusions within two observed coastal AIS samples and replays policy
-effects on cached detector proximity matches. It provides supporting sensitivity
-evidence; complete-area false alarms and missed vessels remain unavailable.
+The [recorder deployment and collection reservations](TARGETED_AIS_COLLECTION.md)
+document a point-in-time working subscription and three planned passes on
+October 17, 18 and 20, **after the October 16 application deadline**. Actual
+products and usable labels remain pending; no future reception is guaranteed.
 
-The subsequent [Step 3 benchmark expansion](NL_BENCHMARK_V020.md) freezes 21
-selected areas, including nine new complete image-first passes and five
-provisional vessel interpretations with supporting AIS proximity. Independent
-review is still unavailable; validation truth export and accuracy remain blocked.
-The frozen v0.1.0 statements below retain their historical scope.
-
-The [provisional v0.2.0 detector baseline](NL_BASELINE_V020.md) subsequently
-runs the expanded development set and records processing, resources, policy
-exclusions and AIS supporting proximity. Its accuracy metrics remain null and
-threshold selection remains blocked by review and coverage requirements.
-
-The [exploratory development experiment protocol](DEVELOPMENT_EXPERIMENTS.md)
-records three limited xView3 fits and three frozen-CROMA token-head fits. Provisional
-positive-only fits cannot establish false-alarm reduction or measured improvement.
-The independent-review guard and locked test assignments still apply.
-
-The subsequent [AllenAI NL source audit](ALLENAI_NL_AUDIT.md) prepares 31
-alignment-review windows and 23 point patches from three exact 2022 acquisitions.
-It verifies the separate CC BY archive's licence declaration but finds no NL
-source-window overlap there. Older NL annotation permission and completeness
-remain unresolved; this quarantined package is not adopted training data or
-independent benchmark truth.
-
-The [AllenAI image-first curation workflow](ALLENAI_CURATION.md) subsequently
-prepares those 31 whole areas without publisher points or detector/AIS overlays.
-All pixels initially remain ignored. The subsequent
-[AI-only first pass](ALLENAI_FIRST_PASS.md) inspects all 31 areas, discloses prior
-label exposure and freezes five provisional vessel-like interpretations with
-explicit uncertain/nodata ignores. It is not independent truth or usable training
-data. See the subsequent [adoption checks](ALLENAI_ADOPTION.md) for AI-only
-publisher-point decisions, native calibration replay and remaining adoption blockers.
-Hash-bound sequential review, provisional class/ignore masks and an
-[unsent licence/completeness clarification request](ALLENAI_CLARIFICATION_REQUEST.md)
-are implemented. The original quarantine, independent-review guard and locked
-test set remain unchanged; training and accuracy exports stay blocked.
+For a five-minute presentation, open the [saved real Newfoundland case](../examples/nl-real-case.html)
+and follow [the demonstration walkthrough](PORTFOLIO_DEMO.md), including blocked
+promotion and successful rollback. Keep the [synthetic example](../examples/nl-synthetic-report.html)
+separate. [Technical explanation and contribution notes](TECHNICAL_EXPLANATION.md)
+disclose AI assistance; the owner must personally demonstrate their understanding.
+Historical evidence below keeps its acquisition dates, execution versions and
+source hashes. This documentation refresh does not rerun inference or admit labels.
 
 ## 1. Built and verified — engineering evidence
 
@@ -181,12 +64,23 @@ replays and provenance checks establish behavior, **not maritime accuracy**.
 | SAR–AIS correlation | Bounded UTC/motion alignment, one-to-one geometric assignment and ambiguity handling. A separate uncertainty-aware research comparison and detector-blind identity review workflow exist; production matching is unchanged. | [Correlation study and review contract](TARGET_CORRELATION.md), [comparison regressions](../tests/unit/test_association_study.py) |
 | Benchmark and experiments | Frozen v0.2.0 pilot with 21 selected areas, source licences/hashes and acquisition/geographic split locks; expanded detector baseline; three limited xView3 bias fits and three frozen-CROMA token-head fits. Training used one provisional VV/VH vessel. Independent accuracy and useful model improvement remain unmeasured. | [Current dataset card](../datasets/nl_benchmark/v0.2.0/DATASET_CARD.md), [executed baseline](NL_BASELINE_V020.md), [six exploratory fits](DEVELOPMENT_EXPERIMENTS.md) |
 | Local model lifecycle | Paired validation shadow inference, reviewed promotion gates and transactional model/threshold rollback with operator history. Successful promotion is verified with synthetic fixtures; actual NL promotion remains blocked. | [Lifecycle commands and limits](MODEL_LIFECYCLE.md), [behavioral regressions](../tests/unit/test_model_lifecycle.py) |
-| Reproducibility and analyst handoff | Mission provenance, optional MLflow tracking, retained failure evidence, HTML reports, unit tests, lint/type checks and Docker/CI. This is not a complete production MLOps service. | [Real case presentation](../examples/nl-real-case.html), [synthetic report](../examples/nl-synthetic-report.html), [CI configuration](../.github/workflows/ci.yml), [PR #20 main CI](https://github.com/haseebkn/TritonEye/actions/runs/38227936504) |
+| Reproducibility and analyst handoff | Mission provenance, optional MLflow tracking, retained failure evidence, HTML reports, unit tests, lint/type checks and Docker/CI. This is not a complete production MLOps service. | [Real case presentation](../examples/nl-real-case.html), [synthetic report](../examples/nl-synthetic-report.html), [CI configuration](../.github/workflows/ci.yml), [PR #44 main CI](https://github.com/haseebkn/TritonEye/actions/runs/38810857035) |
 
-The linked PR #20 main CI completed successfully for unit tests, lint/types and
-Docker. It verifies that commit's software, not an independently labelled model
-benchmark. Use the commands below to check another checkout; do not assume an
-older green run certifies newer code.
+The main CI run linked in the current summary passed unit tests, lint/types and
+Docker for `259d592`. Local validation passed 1,113 tests (two slow tests excluded);
+a subsequent focused regression/guard run passed 260. This verifies software,
+not an independently labelled model benchmark. Use the commands below to check
+another checkout; an older green run does not certify newer code.
+
+PR #44 requires an exact calibration measurement/polarization match and rejects
+overlap heartbeat spans containing disconnect, reconnect or session-stop events,
+including equal-time boundaries. All 20 permitted development measurements still
+resolve to exact calibration files. The original numerical calibration is unchanged.
+See [regressions and historical replay limits](ACQUISITION_RELIABILITY.md):
+historical v0.3.0/v0.4.0 reservation manifests retain the pre-fix source hash and
+therefore refuse verification with changed code. Exact historical replay needs
+the documented original commit, not rewritten hashes. The three-pass targeted
+collection replay still verifies with zero labels admitted.
 
 ## 2. Measured — small and explicitly scoped
 
@@ -232,12 +126,34 @@ production model configuration is unchanged.
 
 | Missing outcome | Current reason | Required next evidence or implementation |
 | --- | --- | --- |
-| Vessel precision, overall recall and false alarms per water km² | No independently reviewed, complete-area vessel/non-vessel truth. Frozen v0.1.0 has zero confirmed training vessel labels; later AIS proximity matches do not change that release. | A new versioned, reviewed NL dataset including detector misses, clutter/ice uncertainty and acquisition/geographic holdouts. [Annotation boundary](NL_BENCHMARK.md) |
+| Vessel precision, overall recall and false alarms per water km² | No independently reviewed, complete-area vessel/non-vessel truth. Current v0.2.0 has five provisional vessel interpretations, not accepted accuracy truth. Historical v0.1.0 retains its zero-confirmed-label scope. | A new versioned, reviewed NL dataset including detector misses, clutter/ice uncertainty and acquisition/geographic holdouts. [Annotation boundary](NL_BENCHMARK.md) |
 | Correct SAR–AIS identities and measured correlation improvement | No independently reviewed association cases; sparse local AIS lacks sufficient competition/track context. A proximity match is not a correct-identity label. | Area-wide co-temporal tracks, supported identity decisions and a paired geometric/uncertainty comparison on held-out cases, including wrong identities, ambiguity, misses and coverage. [Association protocol](TARGET_CORRELATION.md) |
 | Supervised detector or foundation-model improvement | Exploratory bias/token-head fits now use one provisional VV/VH training vessel. They demonstrate gradient updates, but lack legitimate negative supervision, independently reviewed accuracy and a useful operating-point comparison. | Reviewed, diverse development data, meaningful detector fine-tuning and reproducible comparisons under the same splits and operating constraints. [Executed development study](DEVELOPMENT_EXPERIMENTS.md) |
 | Low-false-positive threshold and coastal buffer selection | Missing reviewed labels and sufficient independent validation blocks; partial/unsupported sensor coverage. No operating point has been selected from detector counts. | Validation under documented false-alarm **and minimum recall/coverage** constraints, then a separately frozen final-test protocol. These are provisional research targets, not C-CORE requirements. [Operating objective](NL_BASELINE.md#provisional-operating-objective) |
-| General NL offshore/HH/HV capability and shoreline correctness | The current detector and feature model have no validated HH/HV compatibility; sparse shoreline controls, now including Makkovik, leave large regions unchecked. Historical annotation coverage is not detector support. | Separate labelled HH/HV model/input experiments and broader regional imagery checks beyond these sparse points. [Polarization limits](DATA_SOURCES.md#polarization-availability-constrains-what-can-be-processed) |
+| General NL offshore/HH/HV capability and shoreline correctness | The xView3/CROMA VV/VH study does not support HH/HV. A separate frozen HH/HV contrast candidate generator and native input recipes exist, but native classification/filter improvement is unvalidated. Thirty-three shoreline controls across six locations leave large regions unchecked. | Labelled native HH/HV comparisons with shared candidates, vessel-loss accounting and broader imagery checks. [Candidate generator](HH_HV_CANDIDATES.md), [shoreline scope](COASTAL_POLICY.md) |
 | Optical/RF fusion, retraining and operational MLOps | Local research promotion, shadow evaluation and rollback are implemented; no real candidate is approved. Optical/RF fusion, automated retraining/production promotion, continuous production monitoring, AWS training, DVC data versioning, the SQLite task bus and cloud commissioning remain unimplemented. | Reviewed validation evidence for local promotion; implemented and commissioned infrastructure for operational deployment. The [agent-engine document](../agents.md) is explicitly a future blueprint, not delivery evidence. |
+
+### Data access is only one blocker
+
+Public-source searches and downloaded imagery have enabled substantial work.
+The repository does **not** establish that suitable public NL data is universally
+unavailable. Its recorded searches have not yielded enough eligible evidence for
+the selected acquisitions, regions and split constraints.
+
+| Source or constraint | What is available in this project | What is still missing |
+| --- | --- | --- |
+| Sentinel-1 imagery | Real products, native calibration and A/B plus separate C/D research recipes; [C/D acceptance checks](CD_INPUT_ACCEPTANCE.md) | Numerical agreement is not absolute geolocation, all-condition qualification, label correctness or learned model transfer. HH/HV cannot simply replace VV/VH. |
+| AIS access and reception | Live keyed recorder and retained local reports; [training-region coverage audit](TRAINING_AIS_AND_CD_EXPORT.md), [reception map](NL_RECEPTION_AND_ICEBERG_SEARCH.md) and [neighbour search](PASS_COLLECTION_AND_NEIGHBOURS.md) | Dense, co-temporal, split-safe tracks including competitors. Subscription bounds and total report counts are not area-wide reception. The live feed cannot backfill laptop-off or historical gaps. Authorized historical data or targeted collection may help, without guaranteeing usable labels. |
+| AllenAI NL annotations | 31 curated review areas and 23 publisher-point checks: five provisional consistencies, four unresolved alignments and fourteen unresolved classes | Annotation-specific permission and completeness, defensible alignment/classes and full native contexts. Twelve unmarked windows are not confirmed negatives; clipped PNGs are not direct xView3 inputs. [Adoption audit](ALLENAI_ADOPTION.md). The [clarification request](ALLENAI_CLARIFICATION_REQUEST.md) remains unsent; quarantine remains intact. |
+| Iceberg corroboration | Public IIP sightings, native candidate windows and bounded optical searches | Same-object evidence after source uncertainty/drift and cloud/coverage checks. Four plausible iceberg interpretations are not confirmed labels; AIS absence is not iceberg evidence. [Corroboration audit](SNAP_CORROBORATION.md), [optical/noise follow-up](CD_RETRY_NOISE_OPTICAL.md) |
+| Kaggle-to-native compatibility | Separate publisher-labelled chip baseline, frozen shadow scores and native processing comparisons | Native preprocessing/domain equivalence and a labelled paired filtering experiment. Matching dimensions or passing calibration does not prove that an iceberg filter preserves vessels. [Transfer audit](STATOIL_TRANSFER.md), [input decisions](INPUT_COMPATIBILITY.md) |
+| Scientific review and engineering | Provisional admission/export checks and local lifecycle are implemented | No independent reviewer is available. More downloaded data does not satisfy the review guard. Optical/RF fusion, automated retraining and commissioned cloud operations are unimplemented work, not merely inaccessible datasets. |
+
+No new native HH/HV labels have passed the provisional training admission/export
+workflow. That is distinct from the one provisional VV/VH positive already used
+in the six exploratory fits. A future evidence-qualified training-only release
+may support exploratory work without claiming independent accuracy or promotion;
+the benchmark review requirement must not be bypassed.
 
 Upstream detector-pretraining overlap must also be audited before claiming an
 independent validation set; split locks alone do not prove absence of pretraining
@@ -254,6 +170,25 @@ Automatic operational alerts remain disabled. Unmatched returns are
 **unassociated candidates**, not confirmed dark vessels or evidence of intent.
 Fewer displayed candidates, withheld coastal vessels, an empty output or a
 running AIS container do not establish low false positives or complete coverage.
+
+## Supporting evidence by topic
+
+- Benchmark and coast: [v0.2.0 expansion](NL_BENCHMARK_V020.md),
+  [AIS buffer sensitivity](AIS_COASTAL_ANALYSIS.md), [blind overlap bundle](OVERLAP_REVIEW.md).
+- Native HH/HV collection: [development reservations](HH_HV_DEVELOPMENT.md),
+  [16-window transfer collection](RESERVED_HH_HV_TRANSFER.md),
+  [nine source-supported windows](NATIVE_SOURCE_ANNOTATION.md),
+  [six follow-up windows](FOLLOWUP_SOURCE_ANNOTATION.md).
+- Preprocessing: [source-error cross-check](SOURCE_ERROR_PREPROCESSING.md),
+  [target noise audit](TARGET_NOISE_AUDIT.md), [A/B native recipe](NATIVE_NL_INPUT.md),
+  [C/D pilot](CD_REFERENCE_AND_SOURCES.md). The noise audit's two small tolerance
+  failures and the optical scope/exposure incident in the follow-up report remain
+  disclosed; no independent identity or Kaggle equivalence follows from these checks.
+- Admission and access: [provisional policy](PROVISIONAL_NATIVE_TRAINING.md),
+  [label register](LABEL_ADMISSION.md), [AllenAI source audit](ALLENAI_NL_AUDIT.md),
+  [curation workflow](ALLENAI_CURATION.md), [AI first pass and exposure](ALLENAI_FIRST_PASS.md),
+  [historical vessel reservation attempt](RECEPTION_VESSEL_BATCH.md),
+  [source-supported reservation](SOURCE_SUPPORTED_ANNOTATION.md).
 
 ## Reviewer walkthrough and access limits
 
