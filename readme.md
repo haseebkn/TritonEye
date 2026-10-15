@@ -35,6 +35,11 @@ The [reception-prioritized vessel batch attempt](docs/RECEPTION_VESSEL_BATCH.md)
 checks 224,622 AIS reports and 24 aligned supports in those eight cells. One
 passes the source screen but is already exposed/reserved; zero new acquisitions
 qualify. Prospective priorities and the empty annotation handoff are preserved.
+The [pass-specific collection audit and neighbouring-area search](docs/PASS_COLLECTION_AND_NEIGHBOURS.md)
+expand to 109 eligible cells and audit 84 HH/HV slices in 43 native groups.
+Twenty-six supports still yield no new training reservation; the sole source pass
+belongs to validation. Historical acknowledgement/compression remain unknown;
+future recorder sessions gain explicit telemetry.
 The 31 reserved areas contain 58 provisional annotations/contexts; none is
 admitted for training or accuracy truth. Native model transfer remains unvalidated.
 Five-minute presentation: [real Newfoundland case](examples/nl-real-case.html),
