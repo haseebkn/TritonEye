@@ -110,7 +110,7 @@ Training, evaluation, threshold selection and promotion exports remain blocked.
 The independent-review guard, locked test pixels/geography, existing frozen
 dataset bytes/hashes and production detector/configuration are unchanged. No
 detector run, model fit, AIS association or measured-improvement experiment
-occurred. For the C-CORE portfolio, this is reproducible, uncertainty-aware
+occurred. For this independent project, this is reproducible, uncertainty-aware
 curation work—not operational accuracy or compliance with internal protocols.
 
 The separately recorded second-pass alignment review is now available in the

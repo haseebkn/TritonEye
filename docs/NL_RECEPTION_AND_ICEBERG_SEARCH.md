@@ -32,7 +32,7 @@ The [frozen discovery rules](../configs/reservations/nl_reception_v010.json)
 require at least two reporting days and two identities per whole cell before
 shortlisting. They rank motion/uncertainty-qualified native groups, eligible
 HH/HV timing groups, days, reporting hours and identities. These are provisional
-research screening choices, not C-CORE criteria. Eight cells are shortlisted;
+research screening choices, not operational criteria. Eight cells are shortlisted;
 the three with eligible SAR timing are:
 
 | Cell bounds, longitude / latitude | Received reports | Reporting days | Identities | Eligible HH/HV native groups | Motion-qualified groups |

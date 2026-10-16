@@ -34,7 +34,7 @@ from agents.run_versions import hash_paths
 from agents.xview3_detector import XView3Detector
 
 SCORE_FLOOR = 0.05
-MAX_RESOURCE_RATIO = 2.0  # provisional engineering budget, not C-CORE requirements
+MAX_RESOURCE_RATIO = 2.0  # provisional engineering budget, not operational requirements
 
 
 def code_identity() -> dict[str, str]:

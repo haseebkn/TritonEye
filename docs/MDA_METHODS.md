@@ -1,21 +1,17 @@
 # MDA methods and limits
 
 TritonEye is an independent portfolio research prototype focused on the
-Newfoundland and Labrador maritime study area. It is not C-CORE software, an
-operational navigation service, or a certified MDA system. No C-CORE internal
-protocol, acceptance criterion, customer data or endorsement was available for
-this work. Public standards inform the interfaces and evidence handling below;
+Newfoundland and Labrador maritime study area. It is not an operational
+navigation service or a certified MDA system. Public standards inform the
+interfaces and evidence handling below;
 they do not establish operational or NATO compliance.
 
-## Why these choices matter for C-CORE
+## Research design
 
-C-CORE's public description of Coresight emphasizes satellite analysis, human
-quality control, reports, and ship/iceberg discrimination. Those needs motivate
-TritonEye's explicit uncertainty states, reproducible processing metadata, and
-analyst review workflow. This is our interpretation of public material, not an
-implementation of C-CORE's internal procedures.
-Source: [C-CORE maritime surveillance](https://c-core.ca/solutions/maritime-surveillance/),
-accessed 2026-09-04.
+TritonEye combines satellite analysis, explicit uncertainty states, reproducible
+processing metadata and analyst review. Ship/iceberg discrimination remains an
+experimental supporting task. These are independent research design choices,
+not an implementation of an organization's internal procedures.
 
 ## Geographic and temporal contract
 

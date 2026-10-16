@@ -11,10 +11,10 @@ second pass over the 23 points and replay their native calibration. The initial
 audit findings below retain their historical scope; permission, independent
 review, exhaustive annotation and full model contexts remain unresolved.
 
-For C-CORE portfolio review, this demonstrates source auditing, geospatial
+For independent project review, this demonstrates source auditing, geospatial
 interoperability, pixel replay and fail-closed dataset handling. It does not
 demonstrate vessel precision, false-alarm reduction or model improvement, and
-is not compliance with unavailable internal C-CORE protocols.
+is not compliance with unavailable internal organizational protocols.
 
 ## Findings
 
@@ -194,8 +194,8 @@ the original 23 point annotations. Their subsequent
 provisional decisions; independent alignment/class review remains
 pending.
 
-Request clarification from AllenAI, without representing this portfolio as
-C-CORE or claiming organizational affiliation:
+Request clarification from AllenAI in an independent capacity, without claiming
+organizational affiliation:
 
 1. Does the Apache-2.0 grant explicitly cover the 2022 vessel point annotations
    in the pinned `data/metadata.sqlite3`, or does another data licence apply?

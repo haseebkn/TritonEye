@@ -4,8 +4,8 @@ Step 6 is **partially implemented, not complete**. TritonEye can compare its
 geometric matching algorithm with an experimental uncertainty-aware algorithm
 and record independent identity decisions. It has **no independently reviewed
 SAR–AIS matching examples and no measured improvement**. A learned ranker is not
-implemented or trained. These are prerequisites for a defensible C-CORE portfolio
-claim, not C-CORE operational requirements or certification.
+implemented or trained. Reviewed associations are prerequisites for a defensible
+improvement claim, not an operational certification.
 
 The separate [saved full-scene AIS-subset result](AIS_SUBSET_RESULT.md) does not
 establish adjudicated identity correctness or improvement over the geometric

@@ -800,7 +800,7 @@ def run(
             "close_report_s": 120,
             "bracket_s": 240,
             "nearby_pair_m": 5000,
-            "role": "provisional research screening; not C-CORE requirements",
+            "role": "provisional research screening; not operational requirements",
         },
         "snapshot_manifest_sha256": sha256_file(output / "snapshot_manifest.json"),
         "catalogue_sha256": sha256_file(output / "catalogue_products.json"),

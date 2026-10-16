@@ -2,8 +2,8 @@
 
 Newfoundland and Labrador SAR/AIS maritime target research pipeline.
 
-Independent portfolio project relevant to C-CORE's COREsight AI Engineer role.
-**Research prototype, not a C-CORE product or validated operational surveillance
+Independent maritime AI research project.
+**Research prototype, not a validated operational surveillance
 system. Native-NL vessel precision, overall recall and false-alarm rate remain
 unmeasured.** Unmatched returns are unassociated candidates, not confirmed dark vessels.
 
@@ -261,9 +261,9 @@ Large SAR rasters, model weights, coastline databases, and credentials are exclu
 from Git and the Docker build context. Persistent SQLite state uses a directory
 mount, not a nonexistent database-file mount.
 
-## C-CORE relevance and honest gaps
+## Research scope and honest gaps
 
-This project emphasizes the role's ML/data-fusion core rather than a frontend:
+This project emphasizes ML and data fusion:
 SAR preprocessing, target association, operationally meaningful uncertainty,
 reproducible experiments and analyst handoff. The xView3 detector is a supervised
 SAR model, **not a geospatial foundation model**. MLflow records provenance. A
@@ -280,5 +280,5 @@ not features hidden behind an attractive dashboard.
 Read [methods and public standards](docs/MDA_METHODS.md),
 [evidence and validation plan](EVALUATION.md), and
 [portfolio audit](docs/AUDIT.md) before presenting results.
-C-CORE's internal acceptance criteria were not available; public references guide
-the design but do not confer compliance or endorsement.
+Public references guide the design but do not confer operational compliance or
+organizational endorsement.

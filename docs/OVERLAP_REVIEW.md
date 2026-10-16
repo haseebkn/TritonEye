@@ -1,7 +1,7 @@
 # NL SAR–AIS overlap refresh and detector-blind review
 
-Prepared 11 October 2026 for the independent TritonEye portfolio. Relevant to
-C-CORE target-correlation work, **not C-CORE acceptance criteria, reviewed vessel
+Prepared 11 October 2026 for independent TritonEye target-correlation research.
+This is **not operational acceptance evidence, reviewed vessel
 truth, an operational surveillance capability or measured model improvement**.
 The existing [3-of-3 proximity result](AIS_SUBSET_RESULT.md) remains unchanged.
 

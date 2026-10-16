@@ -106,7 +106,7 @@ python -m pytest tests/unit/test_allenai_adoption.py tests/unit/test_allenai_cur
 Real pixel checks use authorized local inputs in the project checkout. Isolated
 software validation uses synthetic imagery and public metadata. The existing
 review guard, quarantine, locked test set and production configuration remain
-unchanged. For the C-CORE portfolio, these are data-adoption and preprocessing
+unchanged. For this independent project, these are data-adoption and preprocessing
 checks; no detector improvement or operational qualification is claimed.
 
 Before the source-verification optimization, local validation passed 637 tests
