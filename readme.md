@@ -15,9 +15,10 @@ The [synthetic demonstration](#offline-synthetic-demonstration) is separate.
 
 ### Watch the 2½-minute walkthrough
 
-[![Watch the 2½-minute TritonEye walkthrough: vessel detection, AIS association and research limitations](docs/media/tritoneye-walkthrough-thumbnail.png)](docs/media/tritoneye-walkthrough.mp4)
+[![Watch the 2½-minute TritonEye walkthrough: vessel detection, AIS association and research limitations](docs/media/tritoneye-walkthrough-thumbnail.png)](https://github.com/haseebkn/TritonEye/releases/download/walkthrough-v1/TritonEye-walkthrough.mp4)
 
-[Open the video](docs/media/tritoneye-walkthrough.mp4) · 2:30 · narrated, 1080p.
+[Open the video](https://github.com/haseebkn/TritonEye/releases/download/walkthrough-v1/TritonEye-walkthrough.mp4) · 2:30 · narrated, 1080p.
+([Release page](https://github.com/haseebkn/TritonEye/releases/tag/walkthrough-v1) if the direct link doesn't play in your browser.)
 The walkthrough explains the project purpose, a **saved real Newfoundland SAR
 case**, coastal exclusions and association uncertainty, separately identified
 **synthetic lifecycle tests**, and the **Statoil/Kaggle ship-versus-iceberg
