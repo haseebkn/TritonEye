@@ -35,7 +35,7 @@ uncertainty at most 500 m, speed at least 1 knot, and reference water at least
 candidate-envelope roles are checked separately; existing acquisition roles,
 source identities, exposure and protected geographic separation remain binding.
 The batch cap is four, with one window per native acquisition and no repeated
-source identities. These are research discovery criteria, not C-CORE standards.
+source identities. These are research discovery criteria, not operational standards.
 
 **24 aligned supports** fall in the eight priority cells. Reasons overlap:
 

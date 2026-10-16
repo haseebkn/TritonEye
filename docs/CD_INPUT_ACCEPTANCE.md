@@ -90,7 +90,7 @@ checks; the prior noise diagnostic is not a corrected-input qualification.
 
 Absolute geolocation, all-condition C/D qualification, class identities, Kaggle
 transfer and learned detection improvement remain unestablished. These are
-provisional portfolio research criteria, not C-CORE requirements or endorsement.
+provisional portfolio research criteria, not operational requirements or endorsement.
 
 ## Vessel reservation refresh
 

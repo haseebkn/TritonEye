@@ -207,6 +207,6 @@ accuracy comparison and broader training infrastructure still require:
    compatibility decision and labelled HH/HV train/validation scenes. Do not pool
    it with VV/VH to conceal unsupported coverage.
 
-For a C-CORE portfolio presentation, the defensible claim is **SAR foundation
+For a research presentation, the defensible claim is **SAR foundation
 encoder integration with reproducible experiments and explicit evidence limits**.
 The genuine supervised model-development gap remains open.

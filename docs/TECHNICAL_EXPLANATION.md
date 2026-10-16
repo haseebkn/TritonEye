@@ -16,8 +16,7 @@ provides guarded local model promotion, paired shadow inference and rollback.
 
 Its strongest evidence is reproducible SAR/geospatial engineering. Regional
 precision, recall, false-alarm density and useful model improvement remain
-unmeasured. The work is relevant to the supplied C-CORE COREsight role; C-CORE
-has not endorsed it or supplied operational acceptance criteria.
+unmeasured. This is independent research, not an endorsed operational system.
 
 ## Why the harbour diagnosis changed
 
@@ -102,7 +101,7 @@ See [the adoption report](ALLENAI_ADOPTION.md).
 
 ## Contributions and AI assistance
 
-The conversation records the owner's project objective, C-CORE role focus,
+The conversation records the owner's project objective,
 Newfoundland/Labrador scope, low-false-positive priority, staged roadmap requests,
 approval decisions and insistence on honest limitations. Those are supported
 project-direction contributions.

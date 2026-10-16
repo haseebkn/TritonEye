@@ -2,9 +2,9 @@
 
 ## Scope and claim boundary
 
-Independent portfolio engineering review oriented to C-CORE COREsight's ML role.
-No access to C-CORE internal protocols, customers, protected data or acceptance
-tests was available. This is not a compliance certification or product endorsement.
+Independent engineering review of a maritime AI research prototype.
+This is not an operational acceptance test, compliance certification or
+organizational product endorsement.
 
 ## Addressed issues
 

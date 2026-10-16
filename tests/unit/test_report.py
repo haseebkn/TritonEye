@@ -53,6 +53,11 @@ def test_mock_report_is_prominently_marked_synthetic() -> None:
     rendered = build_html_report({"mode": "mock"}, collection())
     assert "<strong>SYNTHETIC DEMONSTRATION</strong>" in rendered
     assert "Not real surveillance or accuracy evidence" in rendered
+    assert (
+        "This independent research prototype is not certified for operational use."
+        in rendered
+    )
+    assert "Operational alerts\nare not enabled." in rendered
 
 
 def test_land_exclusions_are_not_counted_as_ais_associations() -> None:

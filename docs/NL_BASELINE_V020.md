@@ -198,7 +198,7 @@ The [provisional research objective](NL_BASELINE.md#provisional-operating-object
 requires a false-alarm upper bound at most 0.1/km², recall lower bound at least
 70%, at least 90% processing and measured coverage in each required stratum,
 30 independently labelled vessels and five independent connected blocks.
-These are portfolio research choices, not C-CORE acceptance requirements.
+These are portfolio research choices, not operational acceptance requirements.
 Threshold search stays blocked; the independent-review export guard remains in
 force. HH/HV compatibility, sufficient reviewed complete-area validation and
 vessel identity adjudication are required before completing Step 4's accuracy

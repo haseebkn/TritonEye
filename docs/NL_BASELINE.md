@@ -22,8 +22,8 @@ exclusions and cached 500 m proximity matches separately. It supplies no
 independent vessel labels, false-alarm density or selected operating point for
 this benchmark.
 
-This is relevant engineering evidence for C-CORE's maritime AI role, not a claim
-of operational readiness, C-CORE approval or compliance with an unnamed maritime
+This is maritime AI engineering evidence, not a claim
+of operational readiness, organizational approval or compliance with an unnamed maritime
 standard. The benchmark remains confined to Newfoundland and Labrador.
 
 ## Evaluation scope
@@ -74,7 +74,7 @@ conditions remain unverified. The retained coastal buffer comparison evaluates
 
 ## Provisional operating objective
 
-These are research design choices, **not C-CORE requirements**:
+These are research design choices, **not operational requirements**:
 
 - False-alarm upper confidence bound no greater than 0.1 per evaluated water km².
 - Recall lower confidence bound at least 70%, including coastal vessels withheld

@@ -327,7 +327,8 @@ Iceberg discrimination is unresolved.</strong>
 not establish that a vessel switched off its transponder, is non-compliant,
 or poses a threat.
 Detector scores are not calibrated probabilities of vessel identity. Operational alerts
-are not enabled. This portfolio prototype is not certified or endorsed by C-CORE.</div>
+are not enabled.
+This independent research prototype is not certified for operational use.</div>
 <div class="cards">
 <div class="card"><div class="value">{len(features)}</div>In-area SAR targets</div>
 <div class="card"><div class="value">{states.get("ais_associated", 0)}</div>

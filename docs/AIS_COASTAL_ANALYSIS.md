@@ -147,6 +147,6 @@ native measurement hashes.
   buffer remain unavailable. Lower eligible-return counts do not measure fewer
   false alarms. Complete-area independent SAR labels remain necessary.
 
-For the C-CORE portfolio, this demonstrates reproducible policy sensitivity and
-honest handling of unavailable measurements. It does not claim C-CORE approval,
+For this independent project, this demonstrates reproducible policy sensitivity and
+honest handling of unavailable measurements. It does not claim organizational approval,
 operational performance or compliance with unpublished acceptance criteria.

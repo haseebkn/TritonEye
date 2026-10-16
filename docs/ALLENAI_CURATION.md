@@ -13,9 +13,9 @@ evaluation or threshold-selection data are exported.
 
 See the [unsent clarification request](ALLENAI_CLARIFICATION_REQUEST.md) and
 [source audit](ALLENAI_NL_AUDIT.md). Licence scope, annotation completeness and
-independent local review remain unresolved. This work supports the C-CORE
-portfolio's reproducible geospatial ML engineering; it is not operational
-validation or a claim of compliance with C-CORE's internal protocols.
+independent local review remain unresolved. This work demonstrates reproducible
+geospatial ML engineering; it is not operational validation or a claim of
+compliance with internal organizational protocols.
 
 ## First pass without publisher points
 

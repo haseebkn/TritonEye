@@ -6,7 +6,7 @@ and searches for physical corroboration of five existing iceberg hypotheses.
 It produces no detector/classifier scores, fitted model, new class annotation,
 training admission or promotion. The original A/B input contract, review guard,
 AllenAI quarantine, original locked test, historical reservations and masks remain
-unchanged. C-CORE has not supplied or endorsed these acceptance criteria.
+unchanged. These acceptance criteria are provisional research choices, not externally endorsed requirements.
 
 ## Reference-processing design
 

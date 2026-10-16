@@ -1,10 +1,9 @@
 # TritonEye reviewer guide
 
-Independent Newfoundland and Labrador maritime AI portfolio, relevant to the
-C-CORE COREsight AI Engineer role. **Research prototype, not a C-CORE product,
-certified surveillance system or operational dark-vessel detector.** Internal
-C-CORE acceptance criteria were not available; no endorsement or compliance is
-claimed. The NL study polygon is not an authoritative jurisdiction boundary.
+Independent Newfoundland and Labrador maritime AI research project.
+**Research prototype, not a certified surveillance system or operational
+dark-vessel detector.** No organizational endorsement or operational compliance
+is claimed. The NL study polygon is not an authoritative jurisdiction boundary.
 
 ## Current summary — 15 October 2026
 
@@ -49,6 +48,12 @@ separate. [Technical explanation and contribution notes](TECHNICAL_EXPLANATION.m
 disclose AI assistance; the owner must personally demonstrate their understanding.
 Historical evidence below keeps its acquisition dates, execution versions and
 source hashes. This documentation refresh does not rerun inference or admit labels.
+
+Current presentation describes an independent project. Source attribution and
+frozen historical dataset cards, reservation policies/manifests and evidence
+ledgers retain their original wording and hashes; they are historical provenance,
+not statements of current affiliation. Earlier Git commits and PR discussions
+are not rewritten. New generated reports use independent research wording.
 
 ## 1. Built and verified — engineering evidence
 
@@ -129,7 +134,7 @@ production model configuration is unchanged.
 | Vessel precision, overall recall and false alarms per water km² | No independently reviewed, complete-area vessel/non-vessel truth. Current v0.2.0 has five provisional vessel interpretations, not accepted accuracy truth. Historical v0.1.0 retains its zero-confirmed-label scope. | A new versioned, reviewed NL dataset including detector misses, clutter/ice uncertainty and acquisition/geographic holdouts. [Annotation boundary](NL_BENCHMARK.md) |
 | Correct SAR–AIS identities and measured correlation improvement | No independently reviewed association cases; sparse local AIS lacks sufficient competition/track context. A proximity match is not a correct-identity label. | Area-wide co-temporal tracks, supported identity decisions and a paired geometric/uncertainty comparison on held-out cases, including wrong identities, ambiguity, misses and coverage. [Association protocol](TARGET_CORRELATION.md) |
 | Supervised detector or foundation-model improvement | Exploratory bias/token-head fits now use one provisional VV/VH training vessel. They demonstrate gradient updates, but lack legitimate negative supervision, independently reviewed accuracy and a useful operating-point comparison. | Reviewed, diverse development data, meaningful detector fine-tuning and reproducible comparisons under the same splits and operating constraints. [Executed development study](DEVELOPMENT_EXPERIMENTS.md) |
-| Low-false-positive threshold and coastal buffer selection | Missing reviewed labels and sufficient independent validation blocks; partial/unsupported sensor coverage. No operating point has been selected from detector counts. | Validation under documented false-alarm **and minimum recall/coverage** constraints, then a separately frozen final-test protocol. These are provisional research targets, not C-CORE requirements. [Operating objective](NL_BASELINE.md#provisional-operating-objective) |
+| Low-false-positive threshold and coastal buffer selection | Missing reviewed labels and sufficient independent validation blocks; partial/unsupported sensor coverage. No operating point has been selected from detector counts. | Validation under documented false-alarm **and minimum recall/coverage** constraints, then a separately frozen final-test protocol. These are provisional research targets, not operational requirements. [Operating objective](NL_BASELINE.md#provisional-operating-objective) |
 | General NL offshore/HH/HV capability and shoreline correctness | The xView3/CROMA VV/VH study does not support HH/HV. A separate frozen HH/HV contrast candidate generator and native input recipes exist, but native classification/filter improvement is unvalidated. Thirty-three shoreline controls across six locations leave large regions unchecked. | Labelled native HH/HV comparisons with shared candidates, vessel-loss accounting and broader imagery checks. [Candidate generator](HH_HV_CANDIDATES.md), [shoreline scope](COASTAL_POLICY.md) |
 | Optical/RF fusion, retraining and operational MLOps | Local research promotion, shadow evaluation and rollback are implemented; no real candidate is approved. Optical/RF fusion, automated retraining/production promotion, continuous production monitoring, AWS training, DVC data versioning, the SQLite task bus and cloud commissioning remain unimplemented. | Reviewed validation evidence for local promotion; implemented and commissioned infrastructure for operational deployment. The [agent-engine document](../agents.md) is explicitly a future blueprint, not delivery evidence. |
 
@@ -219,6 +224,6 @@ and hash summaries are not full raw inputs. Keep credentials, private identities
 AIS positions and restricted imagery out of Git; do not redistribute data just
 to make a reviewer bundle portable. See [verification and limits](../EVALUATION.md).
 
-For C-CORE, this demonstrates relevant SAR/geospatial engineering, auditable
-target association and reproducible ML experiments. It does **not yet demonstrate
-the role's complete supervised model-development or production MLOps scope**.
+This demonstrates SAR/geospatial engineering, auditable target association and
+reproducible ML experiments. It does **not yet demonstrate validated native-NL
+detector improvement or a deployed production MLOps service**.

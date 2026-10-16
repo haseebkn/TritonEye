@@ -146,4 +146,4 @@ the same reflector. This cloudy tile supplies none. Independent review and
 measured native vessel-detection improvement remain outstanding.
 
 Contains modified Copernicus Sentinel data (2018, 2026). The results and acceptance
-criteria are provisional portfolio research and have not been endorsed by C-CORE.
+criteria are provisional portfolio research and are not externally endorsed operational requirements.

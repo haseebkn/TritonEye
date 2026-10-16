@@ -11,8 +11,8 @@ Subject: Clarification on 2022 Sentinel-1 vessel annotation licence and imagery 
 Hello AllenAI/Skylight team,
 
 I am an independent portfolio researcher developing TritonEye, a Newfoundland
-and Labrador maritime remote-sensing research prototype. It is not a C-CORE
-product, and I am not contacting you on C-CORE's behalf.
+and Labrador maritime remote-sensing research prototype. I am contacting you
+in an independent capacity, not on behalf of an organization.
 
 I am auditing the point annotations in `data/metadata.sqlite3` from
 [vessel-detection-sentinels at revision 60b003d](https://github.com/allenai/vessel-detection-sentinels/tree/60b003d059937a9fcddbf6e1c9b64c00c33c0279).

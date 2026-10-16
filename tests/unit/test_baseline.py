@@ -29,6 +29,22 @@ from agents.coastal_policy import annotations
 from agents.landmask import LandMask, local_aeqd_crs
 
 
+def test_generated_baseline_retains_independent_research_boundary() -> None:
+    report = make_report([], [0.15])
+    assert report["purpose"] == (
+        "NL research baseline, not operational certification "
+        "or operational requirements"
+    )
+    selection = report["threshold_selection"]
+    assert selection["targets"]["status"] == (
+        "provisional research targets, not operational requirements"
+    )
+    assert selection["status"] == "blocked"
+    assert selection["selected_threshold"] is None
+    assert not selection["configuration_changed"]
+    assert not selection["operational_alerts_enabled"]
+
+
 def fixture() -> tuple[dict[str, Any], dict[str, Any]]:
     product = "66d3167d-240a-459a-8066-75b9d2a458f2"
     roi = mapping(box(-55.1, 49.2, -55.0, 49.3))

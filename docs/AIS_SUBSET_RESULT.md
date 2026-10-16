@@ -57,9 +57,9 @@ classification is source-relative, not locally verified shoreline truth.
   satisfy the minimum reviewed-label/coverage requirements, demonstrate model
   improvement, or justify enabling operational alerts.
 
-For a C-CORE portfolio, the defensible claim is a small, auditable real-scene
+For this independent project, the defensible claim is a small, auditable real-scene
 SAR–AIS comparison with explicit uncertainty, **not 100% vessel accuracy**,
-C-CORE validation, operational readiness or compliance with maritime protocols.
+independent operational validation, operational readiness or compliance with maritime protocols.
 
 ## Evidence and verification
 

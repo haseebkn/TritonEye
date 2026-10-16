@@ -106,7 +106,7 @@ apply: false-alarm upper bound at most 0.1 per water km², recall lower bound at
 least 70%, processing and measured water coverage at least 90% in each required
 region, coastal setting and polarization stratum, at least 30 reviewed vessels
 and at least five independent acquisition/geography blocks. These are research
-targets, not C-CORE requirements.
+targets, not operational requirements.
 
 At the selected candidate threshold, precision and recall must not decrease and
 false-alarm density must not increase relative to the current reference's recorded

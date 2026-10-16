@@ -88,7 +88,7 @@ Independent complete-area review and adjudication remain necessary before
 exporting validation truth, selecting thresholds/buffers, fitting an accepted
 detector or claiming improvement. The existing evaluator rejects all current
 provisional metric exports. This work advances data preparation and annotation
-for the C-CORE portfolio while preserving that evidence boundary.
+for this independent project while preserving that evidence boundary.
 
 Initial verification: 535 local tests passed (two slow tests deselected), lint,
 formatting and strict types passed. The project checkout rehashed 62 unique

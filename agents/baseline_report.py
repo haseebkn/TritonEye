@@ -13,7 +13,7 @@ from agents.baseline_statistics import (
 )
 
 DEFAULT_TARGETS: dict[str, Any] = {
-    "status": "provisional research targets, not C-CORE requirements",
+    "status": "provisional research targets, not operational requirements",
     "max_false_alarms_per_km2": 0.1,
     "min_recall": 0.7,
     "min_coverage": 0.9,
@@ -286,7 +286,7 @@ def make_report(
     return {
         "purpose": (
             "NL research baseline, not operational certification "
-            "or C-CORE requirements"
+            "or operational requirements"
         ),
         "baseline_threshold": 0.15,
         "validation_baseline": summarize(validation, 0.15),
