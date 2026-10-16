@@ -13,6 +13,23 @@ For a five-minute review: [saved real Newfoundland case](examples/nl-real-case.h
 [technical explanation / AI-assistance disclosure](docs/TECHNICAL_EXPLANATION.md).
 The [synthetic demonstration](#offline-synthetic-demonstration) is separate.
 
+### Watch the 2½-minute walkthrough
+
+[![Watch the 2½-minute TritonEye walkthrough: vessel detection, AIS association and research limitations](docs/media/tritoneye-walkthrough-thumbnail.png)](https://github.com/haseebkn/TritonEye/releases/download/walkthrough-v1/TritonEye-walkthrough.mp4)
+
+[Open the video](https://github.com/haseebkn/TritonEye/releases/download/walkthrough-v1/TritonEye-walkthrough.mp4) · 2:30 · narrated, 1080p.
+([Release page](https://github.com/haseebkn/TritonEye/releases/tag/walkthrough-v1) if the direct link doesn't play in your browser.)
+The walkthrough explains the project purpose, a **saved real Newfoundland SAR
+case**, coastal exclusions and association uncertainty, separately identified
+**synthetic lifecycle tests**, and the **Statoil/Kaggle ship-versus-iceberg
+experiment**. Limited matched AIS and trustworthy NL labels constrain training
+and evaluation; the competition-chip result is not real-NL detection accuracy.
+This is a presentation of recorded evidence, not a new live pipeline run or
+independent validation. Includes synthetic narration. Imagery attribution:
+modified Copernicus Sentinel data (2026); saved shoreline policy derives from
+© OpenStreetMap contributors, ODbL. No AIS tracks or restricted Kaggle chips
+are included.
+
 ## Current status — 15 October 2026
 
 Engineering baseline: `259d592` ([PR #44](https://github.com/haseebkn/TritonEye/pull/44)).
